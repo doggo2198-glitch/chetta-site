@@ -2393,5 +2393,61 @@ window.closeQBank=function(){_origCQB();showDesmosBtn(false);};
   </div>
   <div id="desmos-sci" style="display:none;flex:1;min-height:0;overflow:hidden;"></div>
 </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
+  authDomain: "chetta-81630.firebaseapp.com",
+  projectId: "chetta-81630",
+  storageBucket: "chetta-81630.firebasestorage.app",
+  messagingSenderId: "504724785390",
+  appId: "1:504724785390:web:3e0abeaec0cd16a2ea8bff",
+  measurementId: "G-VGWQW8QNMD"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const userInfo = document.getElementById("userInfo");
+
+loginBtn.addEventListener("click", async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+logoutBtn.addEventListener("click", async () => {
+  await signOut(auth);
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    userInfo.innerHTML = `
+      <h3>Welcome ${user.displayName}</h3>
+      <img src="${user.photoURL}" width="80">
+      <p>${user.email}</p>
+    `;
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+  } else {
+    userInfo.innerHTML = "";
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+  }
+});
+</script>
 </body></html>
