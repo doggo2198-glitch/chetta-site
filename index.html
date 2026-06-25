@@ -2253,7 +2253,23 @@ window.openQBank = function(mode) {
         showDesmosBtn(['math', 'test', 'diagnostic'].includes(mode));
     } else {
         // If it's not defined, log it quietly instead of crashing the whole page!
-        console.warn("showDesmosBtn is not defined, but navigating safely anyway.");
+       window.openQBank = function(mode) {
+    // 1. Run the original function if it exists
+    if (typeof _origOQB === 'function') {
+        _origOQB(mode);
+    }
+    
+    // 2. Silently try to call showDesmosBtn. 
+    // If it fails or doesn't exist, the catch block swallows the error 
+    // completely invisibly, letting your navigation continue.
+    try {
+        if (typeof showDesmosBtn === 'function') {
+            showDesmosBtn(['math', 'test', 'diagnostic'].includes(mode));
+        }
+    } catch (e) {
+        // Do nothing. No console.log, no warnings. Pure silence so it can't crash.
+    }
+};
     }
 };
 const _origCQB=closeQBank;
