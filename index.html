@@ -2242,8 +2242,19 @@ function sciKey(k){
 // Wrap openQBank and closeQBank to show/hide calculator
 const _origOQB=openQBank;
 window.openQBank = function(mode) {
-    _origOQB(mode);
-    showDesmosBtn(['math', 'test', 'diagnostic'].includes(mode));
+    // 1. Run the original function if it exists safely
+    if (typeof _origOQB === 'function') {
+        _origOQB(mode);
+    }
+    
+    // 2. Wrap the failing line in a safety check
+    // This checks if the function actually exists BEFORE trying to call it
+    if (typeof showDesmosBtn === 'function') {
+        showDesmosBtn(['math', 'test', 'diagnostic'].includes(mode));
+    } else {
+        // If it's not defined, log it quietly instead of crashing the whole page!
+        console.warn("showDesmosBtn is not defined, but navigating safely anyway.");
+    }
 };
 const _origCQB=closeQBank;
 window.closeQBank=function(){_origCQB();showDesmosBtn(false);};
