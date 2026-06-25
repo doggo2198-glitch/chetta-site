@@ -2376,6 +2376,9 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
@@ -2394,35 +2397,84 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-const userInfo = document.getElementById("userInfo");
-
-loginBtn.addEventListener("click", async () => {
+/* GOOGLE LOGIN */
+window.doGoogle = async function () {
   try {
     await signInWithPopup(auth, provider);
-  } catch (err) {
-    console.error(err);
+    if (typeof closeAuth === "function") closeAuth();
+  } catch (e) {
+    alert(e.message);
   }
-});
+};
 
-logoutBtn.addEventListener("click", async () => {
+/* EMAIL LOGIN */
+window.doLogin = async function () {
+  try {
+    const email = document.getElementById("lEmail").value;
+    const password = document.getElementById("lPass").value;
+
+    await signInWithEmailAndPassword(auth, email, password);
+
+    if (typeof closeAuth === "function") closeAuth();
+  } catch (e) {
+    const err = document.getElementById("loginErr");
+    if (err) err.textContent = e.message;
+  }
+};
+
+/* REGISTER */
+window.doRegister = async function () {
+  try {
+    const email = document.getElementById("rEmail").value;
+    const password = document.getElementById("rPass").value;
+
+    await createUserWithEmailAndPassword(auth, email, password);
+
+    if (typeof closeAuth === "function") closeAuth();
+  } catch (e) {
+    const err = document.getElementById("regErr");
+    if (err) err.textContent = e.message;
+  }
+};
+
+/* RESET PASSWORD */
+window.doForgot = async function () {
+  try {
+    const email = document.getElementById("fEmail").value;
+
+    await sendPasswordResetEmail(auth, email);
+
+    alert("Password reset email sent.");
+  } catch (e) {
+    alert(e.message);
+  }
+};
+
+/* SIGN OUT */
+window.signOut = async function () {
   await signOut(auth);
-});
+};
 
+/* USER STATE */
 onAuthStateChanged(auth, (user) => {
+  console.log("Auth state:", user);
+
   if (user) {
-    userInfo.innerHTML = `
-      <h3>Welcome ${user.displayName}</h3>
-      <img src="${user.photoURL}" width="80">
-      <p>${user.email}</p>
-    `;
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
-  } else {
-    userInfo.innerHTML = "";
-    loginBtn.style.display = "inline-block";
-    logoutBtn.style.display = "none";
+    const authBtns = document.getElementById("authBtns");
+    const navUser = document.getElementById("navUser");
+
+    if (authBtns) authBtns.style.display = "none";
+    if (navUser) navUser.style.display = "flex";
+
+    const navUName = document.getElementById("navUName");
+    const ddName = document.getElementById("ddName");
+    const ddEmail = document.getElementById("ddEmail");
+    const navAv = document.getElementById("navAv");
+
+    if (navUName) navUName.textContent = user.displayName || user.email;
+    if (ddName) ddName.textContent = user.displayName || user.email;
+    if (ddEmail) ddEmail.textContent = user.email;
+    if (navAv && user.photoURL) navAv.src = user.photoURL;
   }
 });
 </script>
