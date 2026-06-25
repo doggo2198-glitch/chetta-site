@@ -2239,17 +2239,13 @@ function sciKey(k){
   if(exprEl)exprEl.textContent=sciDisplay;
   if(prevEl&&k!=='=')prevEl.textContent=sciPrev;
 }
-
 // Wrap openQBank and closeQBank to show/hide calculator
 const _origOQB=openQBank;
 window.openQBank=function(mode){_origOQB(mode);showDesmosBtn(mode==='math'||mode==='test'||mode==='diagnostic');};
 const _origCQB=closeQBank;
 window.closeQBank=function(){_origCQB();showDesmosBtn(false);};
 ;
-
 </script>
-
-
 <!-- DESMOS CALCULATOR -->
 <button class="desmos-toggle" id="desmos-toggle" onclick="toggleDesmos()" title="Calculator">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
