@@ -2241,7 +2241,7 @@ function sciKey(k){
 }
 // Wrap openQBank and closeQBank to show/hide calculator
 const _origOQB=openQBank;
-window.openQBank=function(mode){_origOQB(mode);showDesmosBtn(mode==='math'||mode==='test'||mode==='diagnostic');};
+window.openQBank=function(mode){_origOQB(mode);showDesmosBtn('math','test','diagnostic').includes(mode));
 const _origCQB=closeQBank;
 window.closeQBank=function(){_origCQB();showDesmosBtn(false);};
 ;
