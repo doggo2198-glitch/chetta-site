@@ -1159,31 +1159,7 @@ function switchTab(tab){['login','register','forgot'].forEach(t=>{document.getEl
 function clearErrs(){document.querySelectorAll('.auth-err').forEach(e=>{e.classList.remove('show');e.textContent='';});}
 function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.classList.add('show');}
 
-function doLogin(){
-  clearErrs();
-  const em=document.getElementById('lEmail').value.trim(),pw=document.getElementById('lPass').value;
-  if(!em||!pw){showErr('loginErr','Please fill in all fields.');return;}
-  const db=getDB(),u=db[em];
-  if(!u){showErr('loginErr','No account with this email.');return;}
-  if(u.pw!==btoa(pw)){showErr('loginErr','Incorrect password.');return;}
-  loginOK(u);
-}
-function doRegister(){
-  clearErrs();
-  const fn=document.getElementById('rFirst').value.trim(),ln=document.getElementById('rLast').value.trim(),em=document.getElementById('rEmail').value.trim(),pw=document.getElementById('rPass').value;
-  if(!fn||!ln||!em||!pw){showErr('regErr','Please fill in all fields.');return;}
-  if(pw.length<6){showErr('regErr','Password must be 6+ characters.');return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){showErr('regErr','Invalid email address.');return;}
-  const db=getDB();if(db[em]){showErr('regErr','Account already exists.');return;}
-  const u={fn,ln,em,pw:btoa(pw)};db[em]=u;saveDB(db);loginOK(u);
-}
-function doForgot(){
-  const em=document.getElementById('fEmail').value.trim();if(!em)return;
-  document.getElementById('panel-forgot').innerHTML=`<div class="auth-ok">✅ Reset link sent to <strong>${em}</strong>.</div><p class="auth-note" style="margin-top:1rem"><a onclick="switchTab('login')">← Back to sign in</a></p>`;
-}
-function doGoogle(){const u={fn:'Google',ln:'User',em:'google@chetta.app',pw:''};const db=getDB();db[u.em]=u;saveDB(db);loginOK(u);}
-function loginOK(u){currentUser=u;localStorage.setItem('cu',JSON.stringify(u));closeAuth();updateNav();}
-function signOut(){currentUser=null;localStorage.removeItem('cu');document.getElementById('navUser').classList.remove('open');updateNav();}
+
 function updateNav(){
   if(currentUser){
     document.getElementById('authBtns').style.display='none';
