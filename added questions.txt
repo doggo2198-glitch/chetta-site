@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chetta — Get Into Your Dream University</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#09090b;--navy:#0f1729;--blue:#2563eb;--blue2:#3b82f6;--bluepale:#eff6ff;
+  --white:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
+  --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
+  --green:#16a34a;--gpale:#f0fdf4;--amber:#d97706;--apale:#fffbeb;--red:#dc2626;
+  --shadow:0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.04);
+  --shadowlg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
+  --r:10px;--rl:16px;--rxl:22px
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--g900);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--g200);height:58px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--black);cursor:pointer;flex-shrink:0;letter-spacing:-.3px}
+.nav-logo em{color:var(--blue);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:.15rem;flex:1}
+.nl-btn{background:none;border:none;color:var(--g500);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;padding:.38rem .8rem;border-radius:8px;cursor:pointer;transition:all .15s}
+.nl-btn:hover{color:var(--g900);background:var(--g100)}
+.nl-btn.active{color:var(--g900);font-weight:600}
+.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
+
+/* LANG */
+.lang-sw{position:relative}
+.lang-btn{display:flex;align-items:center;gap:.3rem;background:var(--g100);border:1px solid var(--g200);color:var(--g600);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;padding:.35rem .7rem;border-radius:8px;cursor:pointer;transition:all .15s}
+.lang-btn:hover{background:var(--g200)}
+.lang-dd{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--g200);border-radius:var(--rl);min-width:155px;box-shadow:var(--shadowlg);z-index:1000;overflow:hidden}
+.lang-sw.open .lang-dd{display:block}
+.lang-opt{display:flex;align-items:center;gap:.5rem;padding:.6rem .9rem;cursor:pointer;color:var(--g700);font-size:.83rem;font-weight:500;transition:background .1s;border-bottom:1px solid var(--g100)}
+.lang-opt:last-child{border-bottom:none}
+.lang-opt:hover{background:var(--g50)}
+.lang-opt.sel{color:var(--blue);background:var(--bluepale);font-weight:600}
+.lang-native{margin-left:auto;font-size:.7rem;color:var(--g400)}
+
+/* BTNS */
+.btn-ghost{background:none;border:1px solid var(--g200);color:var(--g700);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;padding:.4rem .95rem;border-radius:8px;cursor:pointer;transition:all .15s}
+.btn-ghost:hover{border-color:var(--g300);background:var(--g50)}
+.btn-blue{background:var(--blue);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;padding:.42rem 1.05rem;border-radius:8px;cursor:pointer;transition:all .15s}
+.btn-blue:hover{background:#1d4ed8}
+
+/* USER MENU */
+.nav-user{display:flex;align-items:center;gap:.45rem;cursor:pointer;position:relative}
+.nav-av{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;border:2px solid var(--g200)}
+.nav-uname{font-size:.82rem;font-weight:600;color:var(--g700)}
+.u-dd{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--g200);border-radius:var(--rl);min-width:195px;box-shadow:var(--shadowlg);z-index:1000;overflow:hidden}
+.nav-user.open .u-dd{display:block}
+.u-dd-head{padding:.8rem 1rem;border-bottom:1px solid var(--g100)}
+.u-dd-name{font-weight:700;font-size:.87rem;color:var(--g900)}
+.u-dd-email{font-size:.73rem;color:var(--g400);margin-top:.1rem}
+.u-dd-item{display:flex;align-items:center;gap:.55rem;padding:.62rem 1rem;cursor:pointer;color:var(--g600);font-size:.82rem;transition:background .1s;border-bottom:1px solid var(--g100)}
+.u-dd-item:last-child{border-bottom:none}
+.u-dd-item:hover{background:var(--g50)}
+.u-dd-item.danger{color:var(--red)}
+.u-dd-item.danger:hover{background:#fef2f2}
+
+/* AUTH MODAL */
+.auth-ov{display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,15,.65);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:1rem}
+.auth-ov.open{display:flex}
+.auth-box{background:#fff;border-radius:var(--rxl);width:100%;max-width:415px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.2);animation:fadeUp .22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.auth-head{padding:1.75rem 2rem 1.25rem;text-align:center;border-bottom:1px solid var(--g100);position:relative}
+.auth-close{position:absolute;top:.9rem;right:.9rem;width:28px;height:28px;border-radius:50%;background:var(--g100);border:none;color:var(--g500);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:background .15s}
+.auth-close:hover{background:var(--g200)}
+.auth-logo{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--black)}
+.auth-logo em{color:var(--blue);font-style:normal}
+.auth-tag{font-size:.78rem;color:var(--g400);margin-top:.15rem}
+.auth-tabs{display:flex;border-bottom:1px solid var(--g100)}
+.auth-tab{flex:1;padding:.72rem;text-align:center;cursor:pointer;font-size:.875rem;font-weight:600;color:var(--g400);border-bottom:2px solid transparent;transition:all .15s}
+.auth-tab.active{color:var(--g900);border-bottom-color:var(--blue)}
+.auth-body{padding:1.4rem}
+.auth-panel{display:none;flex-direction:column;gap:.8rem}
+.auth-panel.active{display:flex}
+.field-lbl{font-size:.77rem;font-weight:600;color:var(--g700);display:block;margin-bottom:.3rem}
+.field-in{width:100%;padding:.62rem .88rem;border:1.5px solid var(--g200);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--g900);outline:none;transition:border-color .15s}
+.field-in:focus{border-color:var(--blue)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.auth-btn{background:var(--blue);color:#fff;border:none;width:100%;padding:.72rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s}
+.auth-btn:hover{background:#1d4ed8}
+.auth-div{display:flex;align-items:center;gap:.65rem;color:var(--g300);font-size:.73rem}
+.auth-div::before,.auth-div::after{content:'';flex:1;height:1px;background:var(--g200)}
+.social-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;border:1.5px solid var(--g200);background:#fff;width:100%;padding:.62rem;border-radius:9px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;color:var(--g700);transition:all .15s}
+.social-btn:hover{border-color:var(--g300);background:var(--g50)}
+.auth-note{text-align:center;font-size:.76rem;color:var(--g400)}
+.auth-note a{color:var(--blue);cursor:pointer}
+.auth-err{background:#fef2f2;border:1px solid #fecaca;color:var(--red);border-radius:8px;padding:.55rem .8rem;font-size:.79rem;display:none}
+.auth-err.show{display:block}
+.auth-ok{background:var(--gpale);border:1px solid rgba(22,163,74,.2);color:var(--green);border-radius:8px;padding:.55rem .8rem;font-size:.81rem}
+.forgot-lnk{font-size:.76rem;color:var(--blue);cursor:pointer;text-align:right;margin-top:-.3rem}
+
+/* PAGE SYSTEM */
+.page{display:none}.page.active{display:block}
+
+/* HERO */
+.hero{padding:5rem 2rem 3.5rem;text-align:center;background:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 45% at 50% 0%,rgba(37,99,235,.055) 0%,transparent 70%);pointer-events:none}
+.hero-eye{display:inline-flex;align-items:center;gap:.45rem;background:var(--bluepale);color:var(--blue);border:1px solid rgba(37,99,235,.18);font-size:.76rem;font-weight:600;padding:.28rem .8rem;border-radius:100px;margin-bottom:1.4rem;letter-spacing:.3px}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(2.6rem,5.5vw,4.2rem);line-height:1.09;color:var(--black);letter-spacing:-1.5px;margin-bottom:1.1rem;max-width:780px;margin-left:auto;margin-right:auto}
+.hero h1 em{color:var(--blue);font-style:italic}
+.hero-sub{color:var(--g500);font-size:1rem;line-height:1.72;max-width:500px;margin:0 auto 2rem;font-weight:400}
+.hero-acts{display:flex;align-items:center;justify-content:center;gap:.7rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.h-btn-main{background:var(--blue);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:.93rem;font-weight:600;padding:.72rem 1.65rem;border-radius:10px;cursor:pointer;transition:all .2s}
+.h-btn-main:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,99,235,.28)}
+.h-btn-sec{background:#fff;color:var(--g700);border:1.5px solid var(--g200);font-family:'DM Sans',sans-serif;font-size:.93rem;font-weight:500;padding:.72rem 1.4rem;border-radius:10px;cursor:pointer;transition:all .2s}
+.h-btn-sec:hover{border-color:var(--g300);background:var(--g50)}
+
+/* UNI STRIP */
+.uni-strip{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid var(--g100)}
+.strip-lbl{font-size:.74rem;color:var(--g400);font-weight:500;width:100%;text-align:center;margin-bottom:-.75rem;letter-spacing:.5px;text-transform:uppercase}
+.uni-pill{background:var(--g100);border:1px solid var(--g200);border-radius:100px;padding:.38rem 1rem;font-size:.8rem;font-weight:600;color:var(--g600)}
+
+/* PRODUCT PREVIEW */
+.hero-product{max-width:860px;margin:0 auto;background:#fff;border:1px solid var(--g200);border-radius:var(--rxl);box-shadow:0 24px 70px rgba(0,0,0,.09),0 1px 0 rgba(255,255,255,.8) inset;overflow:hidden}
+.prod-bar{background:var(--g50);border-bottom:1px solid var(--g200);padding:.65rem 1.2rem;display:flex;align-items:center;gap:.45rem}
+.p-dot{width:10px;height:10px;border-radius:50%}
+.prod-url{font-size:.7rem;color:var(--g400);margin-left:.4rem}
+.prod-stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--g100)}
+.p-stat{padding:1.1rem 1.4rem;border-right:1px solid var(--g100)}
+.p-stat:last-child{border-right:none}
+.p-stat-num{font-family:'Instrument Serif',serif;font-size:1.7rem;color:var(--g900);letter-spacing:-.5px}
+.p-stat-lbl{font-size:.73rem;color:var(--g400);margin-top:.12rem;font-weight:500}
+.prod-body{padding:1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.prod-card{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:1rem}
+.prod-card-lbl{font-size:.7rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.55rem}
+.sk-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.42rem;gap:.6rem}
+.sk-name{font-size:.8rem;color:var(--g700);font-weight:500;min-width:80px}
+.sk-bar{flex:1;height:5px;background:var(--g200);border-radius:100px;overflow:hidden}
+.sk-fill{height:100%;border-radius:100px;background:var(--blue)}
+.sk-pct{font-size:.73rem;font-weight:600;color:var(--g600);min-width:30px;text-align:right}
+.prod-uni-list{display:flex;flex-direction:column;gap:.4rem}
+.p-uni{display:flex;align-items:center;justify-content:space-between;padding:.55rem .7rem;background:#fff;border:1px solid var(--g200);border-radius:8px}
+.p-uni-name{font-size:.8rem;font-weight:600;color:var(--g800)}
+.p-uni-acc{font-size:.73rem;font-weight:600}
+
+/* STEPS */
+.steps-sec{padding:5rem 2rem;background:#fff}
+.steps-inner{max-width:1080px;margin:0 auto}
+.sec-eye{font-size:.75rem;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.55rem}
+.sec-title{font-family:'Instrument Serif',serif;font-size:clamp(1.9rem,3.5vw,2.6rem);color:var(--black);letter-spacing:-.8px;line-height:1.15;margin-bottom:.65rem}
+.sec-sub{color:var(--g500);font-size:.93rem;line-height:1.72;max-width:490px}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.75rem}
+.step-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.6rem;transition:all .2s;position:relative;overflow:hidden}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);opacity:0;transition:opacity .2s}
+.step-card:hover{border-color:rgba(37,99,235,.4);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+.step-card:hover::before{opacity:1}
+.step-num{width:34px;height:34px;border-radius:9px;background:var(--bluepale);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;margin-bottom:.9rem}
+.step-card h3{font-size:.95rem;font-weight:700;color:var(--g900);margin-bottom:.4rem}
+.step-card p{font-size:.845rem;color:var(--g500);line-height:1.65}
+
+/* FEATURES */
+.feat-sec{padding:5rem 2rem;background:var(--g50)}
+.feat-inner{max-width:1080px;margin:0 auto}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--g200);border:1px solid var(--g200);border-radius:var(--rxl);overflow:hidden;margin-top:2.75rem}
+.feat-cell{background:#fff;padding:1.75rem;transition:background .2s}
+.feat-cell:hover{background:var(--g50)}
+.feat-icon{width:38px;height:38px;border-radius:9px;background:var(--bluepale);display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin-bottom:1rem}
+.feat-cell h3{font-size:.93rem;font-weight:700;color:var(--g900);margin-bottom:.38rem}
+.feat-cell p{font-size:.83rem;color:var(--g500);line-height:1.65}
+
+/* PAGE HEADER */
+.page-hd{background:var(--g900);padding:2.75rem 2rem 2.25rem}
+.page-hd-inner{max-width:1080px;margin:0 auto}
+.page-hd-eye{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.4rem}
+.page-hd h2{font-family:'Instrument Serif',serif;font-size:2rem;color:#fff;letter-spacing:-.4px;margin-bottom:.4rem}
+.page-hd p{color:rgba(255,255,255,.45);font-size:.88rem}
+.search-row{display:flex;gap:.55rem;margin-top:1.4rem;max-width:580px}
+.s-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:9px;padding:.65rem .95rem;color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;transition:border-color .15s}
+.s-input::placeholder{color:rgba(255,255,255,.28)}
+.s-input:focus{border-color:rgba(255,255,255,.38)}
+.s-btn{background:var(--blue);color:#fff;border:none;padding:.65rem 1.2rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
+.s-btn:hover{background:#1d4ed8}
+.filter-row{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.9rem}
+.f-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.55);padding:.28rem .8rem;border-radius:100px;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.f-chip:hover,.f-chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* CARDS */
+.cards-sec{padding:2.25rem 2rem 4rem;background:#fff}
+.cards-inner{max-width:1080px;margin:0 auto}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.15rem}
+.u-card,.s-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:all .2s}
+.u-card:hover,.s-card:hover{border-color:rgba(37,99,235,.45);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+.card-top{height:70px;display:flex;align-items:center;padding:0 1.2rem;background:var(--g900);gap:.9rem}
+.card-emoji{font-size:1.65rem}
+.card-top-name{color:#fff;font-weight:700;font-size:.88rem}
+.card-top-loc{color:rgba(255,255,255,.42);font-size:.73rem;margin-top:.1rem}
+.card-bd{padding:1rem 1.15rem}
+.card-pills{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.8rem}
+.pill{padding:.18rem .6rem;border-radius:100px;font-size:.7rem;font-weight:600}
+.p-blue{background:var(--bluepale);color:var(--blue)}
+.p-green{background:var(--gpale);color:var(--green)}
+.p-amber{background:var(--apale);color:var(--amber)}
+.p-red{background:#fef2f2;color:var(--red)}
+.card-meta{display:flex;gap:1.1rem;margin-bottom:.8rem}
+.c-meta{font-size:.77rem;color:var(--g400)}
+.c-meta strong{color:var(--g700);font-weight:600}
+.card-ft{display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid var(--g100)}
+.card-lnk{font-size:.78rem;font-weight:600;color:var(--blue)}
+
+/* MODAL */
+.m-ov{display:none;position:fixed;inset:0;z-index:9000;background:rgba(10,10,10,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem}
+.m-ov.open{display:flex}
+.m-box{background:#fff;border-radius:var(--rxl);width:100%;max-width:700px;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.18)}
+.m-head{background:var(--g900);padding:1.85rem;border-radius:var(--rxl) var(--rxl) 0 0;position:relative}
+.m-close{position:absolute;top:1rem;right:1rem;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.95rem;transition:background .15s}
+.m-close:hover{background:rgba(255,255,255,.2)}
+.m-title{font-family:'Instrument Serif',serif;font-size:1.6rem;color:#fff;letter-spacing:-.3px}
+.m-loc{color:rgba(255,255,255,.42);font-size:.83rem;margin-top:.2rem}
+.m-badges{display:flex;gap:.45rem;margin-top:.9rem;flex-wrap:wrap}
+.m-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.72);padding:.22rem .7rem;border-radius:100px;font-size:.73rem;font-weight:500}
+.m-content{padding:1.6rem}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.35rem}
+.s-box{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:.9rem;text-align:center}
+.s-box-val{font-family:'Instrument Serif',serif;font-size:1.5rem;color:var(--g900);letter-spacing:-.3px}
+.s-box-key{font-size:.7rem;color:var(--g400);margin-top:.15rem;font-weight:500}
+.diff-wrap{margin-bottom:1.35rem}
+.diff-lbls{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.38rem;color:var(--g700)}
+.diff-track{background:var(--g200);border-radius:100px;height:5px;overflow:hidden}
+.diff-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#16a34a,#d97706,#dc2626)}
+.m-sec{font-size:.78rem;font-weight:700;color:var(--g900);margin:1.3rem 0 .65rem;text-transform:uppercase;letter-spacing:.5px}
+.m-desc{font-size:.855rem;color:var(--g500);line-height:1.75;margin-bottom:1.1rem}
+.chips-row{display:flex;gap:.38rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.chip{background:var(--bluepale);color:var(--blue);padding:.28rem .75rem;border-radius:8px;font-size:.78rem;font-weight:500}
+.roadmap{display:flex;flex-direction:column;gap:0;margin-bottom:1.35rem}
+.rm-item{display:flex;gap:.8rem;padding-bottom:1.1rem}
+.rm-item:last-child{padding-bottom:0}
+.rm-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.rm-circle{width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.69rem;font-weight:700}
+.rm-line{width:1.5px;flex:1;background:var(--g200);margin-top:3px}
+.rm-text{font-size:.84rem;color:var(--g600);line-height:1.6;padding-top:.28rem}
+.sch-list{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.35rem}
+.sch-row{display:flex;align-items:center;justify-content:space-between;padding:.65rem .88rem;border:1px solid var(--g200);border-radius:9px;cursor:pointer;transition:all .15s}
+.sch-row:hover{border-color:var(--blue);background:var(--bluepale)}
+.sch-rname{font-size:.83rem;font-weight:600;color:var(--g900)}
+.sch-ramt{font-size:.73rem;color:var(--g400);margin-top:.1rem}
+.visit-lnk{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue);color:#fff;padding:.58rem 1.2rem;border-radius:8px;font-size:.83rem;font-weight:600;text-decoration:none;transition:background .15s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.visit-lnk:hover{background:#1d4ed8}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.checklist li{display:flex;gap:.45rem;font-size:.84rem;color:var(--g600);line-height:1.55}
+.checklist li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+.apply-steps{display:flex;flex-direction:column;gap:.62rem}
+.a-step{display:flex;gap:.7rem;padding:.8rem;border:1px solid var(--g200);border-radius:9px}
+.a-circle{width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.69rem;font-weight:700;flex-shrink:0}
+.a-text{font-size:.83rem;color:var(--g600);line-height:1.55;padding-top:.2rem}
+.dl-box{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:.85rem;font-size:.83rem;margin-bottom:.9rem}
+.dl-box strong{color:var(--g900)}
+.amt-pill{display:inline-block;background:var(--gpale);color:var(--green);border:1px solid rgba(22,163,74,.2);padding:.22rem .8rem;border-radius:100px;font-size:.78rem;font-weight:700;margin-top:.55rem}
+
+/* VIDEOS */
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.15rem}
+.vid-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:all .2s}
+.vid-card:hover{border-color:rgba(37,99,235,.45);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+.vid-thumb{height:150px;background:var(--g900);display:flex;align-items:center;justify-content:center;position:relative}
+.play-btn{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.38);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;transition:all .2s}
+.vid-card:hover .play-btn{background:var(--blue);border-color:var(--blue)}
+.vid-dur{position:absolute;bottom:.55rem;right:.55rem;background:rgba(0,0,0,.7);color:#fff;padding:.13rem .48rem;border-radius:5px;font-size:.7rem;font-weight:600}
+.vid-info{padding:.9rem 1rem}
+.vid-title{font-weight:700;font-size:.855rem;color:var(--g900);line-height:1.4;margin-bottom:.3rem}
+.vid-meta{font-size:.75rem;color:var(--g400)}
+.vid-pills{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.55rem}
+
+/* VIDEO MODAL */
+.vm-ov{display:none;position:fixed;inset:0;z-index:9500;background:rgba(5,5,15,.88);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:1rem}
+.vm-ov.open{display:flex}
+.vm-box{background:var(--g900);border-radius:var(--rxl);width:100%;max-width:660px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+.vm-head{padding:1rem 1.35rem;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between}
+.vm-title{color:#fff;font-weight:700;font-size:.88rem}
+.vm-close{background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.vm-close:hover{background:rgba(255,255,255,.2)}
+.vm-body{position:relative;padding-top:56.25%}
+.vm-body iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+
+/* ADVISOR */
+.chat-sec{background:var(--g50);min-height:calc(100vh - 58px);display:flex;padding:1.5rem}
+.chat-box{background:#fff;border:1px solid var(--g200);border-radius:var(--rxl);width:100%;max-width:1000px;margin:0 auto;display:flex;box-shadow:var(--shadow);overflow:hidden}
+.chat-main{flex:1;display:flex;flex-direction:column}
+.chat-hd{padding:1rem 1.5rem;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between}
+.chat-title{font-weight:700;font-size:.92rem;color:var(--g900);display:flex;align-items:center;gap:.5rem}
+.chat-title span{width:8px;height:8px;background:var(--green);border-radius:50%}
+.chat-msgs{flex:1;padding:1.5rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem;background:var(--g50);max-height:60vh}
+.msg{display:flex;gap:.75rem;max-width:85%}
+.msg.umsg{align-self:flex-end;flex-direction:row-reverse}
+.msg-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0}
+.uav{background:var(--g200);color:var(--g700)}
+.aav{background:var(--blue);color:#fff}
+.msg-bub{background:#fff;border:1px solid var(--g200);padding:.75rem 1rem;border-radius:14px;border-top-left-radius:2px;font-size:.875rem;line-height:1.55;color:var(--g800);white-space:pre-line}
+.umsg .msg-bub{background:var(--blue);color:#fff;border-color:var(--blue);border-radius:14px;border-top-right-radius:2px;border-top-left-radius:14px}
+.msg-bub strong{color:var(--g900)}.umsg .msg-bub strong{color:#fff}
+.msg-bub ul,.msg-bub ol{margin: .4rem 0 .4rem 1.2rem}
+.msg-bub li{margin-bottom: .25rem}
+.chat-ft{padding:1rem;border-top:1px solid var(--g200);background:#fff;display:flex;gap:.55rem}
+.chat-in{flex:1;border:1.5px solid var(--g200);border-radius:9px;padding:.65rem .95rem;font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none}
+.chat-in:focus{border-color:var(--blue)}
+.chat-send{background:var(--blue);color:#fff;border:none;padding:0 1.2rem;border-radius:9px;font-weight:600;font-size:.85rem;cursor:pointer}
+.chat-send:hover{background:#1d4ed8}
+.chat-side{width:280px;border-left:1px solid var(--g200);padding:1.25rem;display:flex;flex-direction:column;gap:1.1rem}
+.side-title{font-size:.75rem;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.5px}
+.s-prompt{background:var(--g50);border:1px solid var(--g200);padding:.7rem .85rem;border-radius:8px;font-size:.79rem;font-weight:500;color:var(--g700);cursor:pointer;text-align:left;transition:all .15s}
+.s-prompt:hover{border-color:var(--blue);background:var(--bluepale);color:var(--blue)}
+@keyframes typing{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
+
+/* FOOTER */
+footer{background:var(--g900);padding:4rem 2rem 2.5rem;color:rgba(255,255,255,.45);font-size:.83rem;border-top:1px solid var(--g200)}
+.foot-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:3rem;margin-bottom:3rem}
+.foot-brand h2{font-family:'Instrument Serif',serif;font-size:1.6rem;color:#fff;margin-bottom:.6rem;letter-spacing:-.3px}
+.foot-brand h2 em{color:var(--blue);font-style:normal}
+.foot-brand p{line-height:1.6;max-width:240px}
+.foot-col h3{color:#fff;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:1.1rem}
+.foot-links{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.foot-links a{color:rgba(255,255,255,.55);text-decoration:none;transition:color .15s}
+.foot-links a:hover{color:#fff}
+.foot-btm{max-width:1080px;margin:0 auto;padding-top:1.75rem;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:.78rem}
+
+@media(max-width:900px){
+  nav{padding:0 1rem;gap:.75rem}
+  .nav-links{display:none}
+  .foot-inner{grid-template-columns:1fr 1fr;gap:2rem}
+  .steps-grid,.feat-grid,.prod-body{grid-template-columns:1fr}
+  .chat-box{flex-direction:column}.chat-side{width:100%;border-left:none;border-top:1px solid var(--g200)}
+  .prod-stats{grid-template-columns:1fr 1fr}
+  .stats-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="switchPage('home')">Chetta<em>.</em></div>
+  <div class="nav-links">
+    <button class="nl-btn active" id="nl-home" onclick="switchPage('home')">Home</button>
+    <button class="nl-btn" id="nl-universities" onclick="switchPage('universities')">Universities</button>
+    <button class="nl-btn" id="nl-scholarships" onclick="switchPage('scholarships')">Scholarships</button>
+    <button class="nl-btn" id="nl-sat" onclick="switchPage('sat-practice')">SAT Practice</button>
+    <button class="nl-btn" id="nl-interviews" onclick="switchPage('interviews')">Interviews</button>
+    <button class="nl-btn" id="nl-ai" onclick="switchPage('ai')">AI Advisor</button>
+  </div>
+  <div class="nav-right">
+    <div class="lang-sw" id="langSw">
+      <button class="lang-btn" onclick="toggleLangDd()">🌐 <span id="curLangLbl">EN</span></button>
+      <div class="lang-dd">
+        <div class="lang-opt sel" id="l-en" onclick="changeLang('en')">English <span class="lang-native">EN</span></div>
+        <div class="lang-opt" id="l-uz" onclick="changeLang('uz')">O'zbekcha <span class="lang-native">UZ</span></div>
+        <div class="lang-opt" id="l-ru" onclick="changeLang('ru')">Русский <span class="lang-native">RU</span></div>
+      </div>
+    </div>
+    <div id="authBtns" style="display:flex;gap:.45rem">
+      <button class="btn-ghost" onclick="openAuth('login')" id="lbl-signin">Sign in</button>
+      <button class="btn-blue" onclick="openAuth('register')" id="lbl-register">Get Started</button>
+    </div>
+    <div class="nav-user" id="navUser" style="display:none" onclick="toggleUserDd()">
+      <div class="nav-av" id="navAv">U</div>
+      <div class="nav-uname" id="navUName">User</div>
+      <div class="u-dd">
+        <div class="u-dd-head">
+          <div class="u-dd-name" id="ddName">Loading...</div>
+          <div class="u-dd-email" id="ddEmail">loading...</div>
+        </div>
+        <div class="u-dd-item" onclick="switchPage('ai')">🤖 AI Advisor</div>
+        <div class="u-dd-item danger" onclick="signOut()">🚪 Sign out</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-eye"><span style="color:var(--blue)">✦</span> <span id="h-eye-txt">Your entire roadmap in one clean place</span></div>
+    <h1 id="h-title">Get into your <em>dream university</em>, fully funded.</h1>
+    <p class="hero-sub" id="h-sub">Explore global universities, find fully funded government scholarships, watch successful interviews, and plan your acceptance roadmap.</p>
+    <div class="hero-acts">
+      <button class="h-btn-main" onclick="switchPage('universities')" id="h-btn-1">Explore Universities</button>
+      <button class="h-btn-sec" onclick="switchPage('scholarships')" id="h-btn-2">Find Scholarships</button>
+    </div>
+    <div class="uni-strip">
+      <div class="strip-lbl" id="h-strip">PROUDLY HELPING STUDENTS ENTER GLOBAL FACULTIES</div>
+      <span class="uni-pill">Harvard</span><span class="uni-pill">MIT</span><span class="uni-pill">Stanford</span><span class="uni-pill">Oxford</span><span class="uni-pill">Cambridge</span><span class="uni-pill">NUS</span>
+    </div>
+    <div class="hero-product">
+      <div class="prod-bar">
+        <div class="p-dot" style="background:#ef4444"></div>
+        <div class="p-dot" style="background:#f59e0b"></div>
+        <div class="p-dot" style="background:#10b981"></div>
+        <span class="prod-url">chetta.edu/dashboard</span>
+      </div>
+      <div class="prod-stats">
+        <div class="p-stat"><div class="p-stat-num">140+</div><div class="p-stat-lbl" id="ps-1">Target Schools Listed</div></div>
+        <div class="p-stat"><div class="p-stat-num">45</div><div class="p-stat-lbl" id="ps-2">Full Ride Scholarships</div></div>
+        <div class="p-stat"><div class="p-stat-num">98%</div><div class="p-stat-lbl" id="ps-3">Satisfaction Index</div></div>
+        <div class="p-stat" style="border:none"><div class="p-stat-num">$0</div><div class="p-stat-lbl" id="ps-4">100% Free Resources</div></div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-card">
+          <div class="prod-card-lbl" id="pc-1">Your Metrics Assessment</div>
+          <div class="sk-row"><span class="sk-name">SAT Prep</span><div class="sk-bar"><div class="sk-fill" style="width:85%"></div></div><span class="sk-pct">1540</span></div>
+          <div class="sk-row"><span class="sk-name">IELTS Score</span><div class="sk-bar"><div class="sk-fill" style="width:90%"></div></div><span class="sk-pct">8.0</span></div>
+          <div class="sk-row" style="margin:0"><span class="sk-name">GPA Profile</span><div class="sk-bar"><div class="sk-fill" style="width:95%"></div></div><span class="sk-pct">4.0</span></div>
+        </div>
+        <div class="prod-card" style="display:flex;flex-direction:column;justify-content:center">
+          <div class="prod-card-lbl" id="pc-2">Admissions Funnel Simulation</div>
+          <div class="prod-uni-list">
+            <div class="p-uni"><span class="p-uni-name">Stanford University</span><span class="p-uni-acc" style="color:var(--red)">3.9% acc</span></div>
+            <div class="p-uni" style="margin:0"><span class="p-uni-name">Oxford University</span><span class="p-uni-acc" style="color:var(--amber)">14% acc</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="steps-sec">
+    <div class="steps-inner">
+      <div class="sec-eye" id="s-eye">Systematic Framework</div>
+      <h2 class="sec-title" id="s-title">Your simple 3-step admission journey</h2>
+      <p class="sec-sub" id="s-sub">We have eliminated the clutter. Follow the proven framework to secure high-tier international placement.</p>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">01</div><h3 id="sc1-t">Search Target Profiles</h3><p id="sc1-d">Browse complete structural data parameters for top universities across the US, UK, Europe, and Asia instantly.</p></div>
+        <div class="step-card"><div class="step-num">02</div><h3 id="sc2-t">Identify Funding Packages</h3><p id="sc2-d">Locate institutional scholarships, government grants, and exclusive partial waivers that perfectly suit your background.</p></div>
+        <div class="step-card"><div class="step-num">03</div><h3 id="sc3-t">Consult the Advisor Engine</h3><p id="sc3-d">Utilize our conversational AI layout to refine strategy parameters, look over application checklists, and draft custom roadmaps.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="feat-sec">
+    <div class="feat-inner">
+      <div class="sec-eye" id="f-eye">Core Capabilities</div>
+      <h2 class="sec-title" id="f-title">Everything you require in a unified system</h2>
+      <p class="sec-sub" id="f-sub">No complex trackers or costly consultants. Build your entire profile using structural data pipelines.</p>
+      <div class="feat-grid">
+        <div class="feat-cell"><div class="feat-icon">🎯</div><h3 id="fc1-t">Granular Analytics</h3><p id="fc1-d">Review explicit grade expectations, exact test standards, financial constraints, and acceptance profiles.</p></div>
+        <div class="feat-cell"><div class="feat-icon">💎</div><h3 id="fc2-t">Verified Global Grants</h3><p id="fc2-d">Access full details on prominent opportunities like Fulbright, Chevening, DAAD, and major fully funded university offers.</p></div>
+        <div class="feat-cell"><div class="feat-icon">🎬</div><h3 id="fc3-t">Successful Case Audits</h3><p id="fc3-d">Watch and evaluate real-world interviews and strategic reviews of accepted Ivy League and European scholars.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="universities" class="page">
+  <div class="page-hd">
+    <div class="page-hd-inner">
+      <div class="page-hd-eye" id="uhd-eye">Granular Search Engine</div>
+      <h2 id="uhd-title">Global Universities Directory</h2>
+      <p id="uhd-sub">Filter global institutional directories by regional layout parameters, acceptance index thresholds, or testing profiles.</p>
+      <div class="search-row">
+        <input type="text" class="s-input" id="uniSearch" placeholder="Search by name, location, or majors..." oninput="filterUnisTrigger()">
+        <button class="s-btn" id="lbl-usearch">Search</button>
+      </div>
+      <div class="filter-row" id="uniRegFilters">
+        <button class="f-chip active" onclick="setUniRegion('all', this)">All Regions</button>
+        <button class="f-chip" onclick="setUniRegion('usa', this)">United States</button>
+        <button class="f-chip" onclick="setUniRegion('uk', this)">United Kingdom</button>
+        <button class="f-chip" onclick="setUniRegion('europe', this)">Europe</button>
+        <button class="f-chip" onclick="setUniRegion('asia', this)">Asia</button>
+        <button class="f-chip" onclick="setUniRegion('canada', this)">Canada</button>
+      </div>
+    </div>
+  </div>
+  <div class="cards-sec">
+    <div class="cards-inner">
+      <div class="cards-grid" id="uni-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section id="scholarships" class="page">
+  <div class="page-hd">
+    <div class="page-hd-inner">
+      <div class="page-hd-eye" id="shd-eye">Financial Coverage Matrix</div>
+      <h2 id="shd-title">Global Funding & Scholarship Registry</h2>
+      <p id="shd-sub">Uncover highly prestigious institutional fellowships, fully funded national ride schemas, and partial coverage programs.</p>
+      <div class="search-row">
+        <input type="text" class="s-input" id="schSearch" placeholder="Search by scholarship name or provider..." oninput="filterSchsTrigger()">
+        <button class="s-btn" id="lbl-ssearch">Search</button>
+      </div>
+      <div class="filter-row" id="schTypeFilters">
+        <button class="f-chip active" onclick="setSchType('all', this)">All Structures</button>
+        <button class="f-chip" onclick="setSchType('full', this)">Full Ride Packages</button>
+        <button class="f-chip" onclick="setSchType('partial', this)">Partial Coverage</button>
+      </div>
+    </div>
+  </div>
+  <div class="cards-sec">
+    <div class="cards-inner">
+      <div class="cards-grid" id="sch-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section id="sat-practice" class="page" style="background: var(--g50); padding: 4rem 2rem;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <span class="hero-eye" style="margin-bottom: 0.5rem; text-transform: uppercase;">Elite Question Bank</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-size: 2.5rem; color: var(--black); margin-top: 0.5rem; font-weight: 400;">Interactive SAT Practice</h2>
+      <p style="color: var(--g500); font-size: 0.95rem; margin-top: 0.3rem;">Master your testing strategies with premium diagnostic digital modules.</p>
+    </div>
+
+    <div style="display: flex; background: var(--g200); padding: 4px; border-radius: 10px; margin-bottom: 2rem; max-width: 320px; margin-left: auto; margin-right: auto;">
+      <button onclick="setSatTab('rw')" id="tab-rw" style="flex: 1; padding: 0.5rem; border: none; border-radius: 8px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: var(--blue); color: white; transition: 0.15s;">Reading & Writing</button>
+      <button onclick="setSatTab('math')" id="tab-math" style="flex: 1; padding: 0.5rem; border: none; border-radius: 8px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--g600); transition: 0.15s;">Mathematics</button>
+    </div>
+
+    <div id="sat-questions-container" style="display: flex; flex-direction: column; gap: 1.5rem;"></div>
+
+  </div>
+</section>
+
+<section id="interviews" class="page">
+  <div class="page-hd">
+    <div class="page-hd-inner">
+      <div class="page-hd-eye" id="vhd-eye">Scholastic Case File Audits</div>
+      <h2 id="vhd-title">Successful Case Strategies & Interviews</h2>
+      <p id="vhd-sub">Learn directly from scholars who achieved placement into elite faculties across global landscapes.</p>
+    </div>
+  </div>
+  <div class="cards-sec">
+    <div class="cards-inner">
+      <div class="vid-grid" id="vid-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section id="ai" class="page">
+  <div class="chat-sec">
+    <div class="chat-box">
+      <div class="chat-main">
+        <div class="chat-hd">
+          <div class="chat-title"><span></span> Chetta AI Admission Expert</div>
+          <button class="btn-ghost" style="padding:.3rem .7rem;font-size:.76rem" onclick="clearChat()" id="lbl-cchat">Clear Thread</button>
+        </div>
+        <div class="chat-msgs" id="chat-msgs">
+          <div class="msg">
+            <div class="msg-av aav">✦</div>
+            <div class="msg-bub" id="ai-welcome">Hello! I am your strategic AI Admission Expert. Ask me anything regarding institutional application requirements, elite statement structures, major frameworks, or how to secure prominent global funding grants.</div>
+          </div>
+        </div>
+        <div class="chat-ft">
+          <input type="text" class="chat-in" id="chat-inp" placeholder="Ask about specific schools, scholarships or essay criteria..." onkeydown="if(event.key==='Enter') sendMsg()">
+          <button class="chat-send" onclick="sendMsg()" id="lbl-send">Send</button>
+        </div>
+      </div>
+      <div class="chat-side">
+        <div class="side-title" id="lbl-sp">Suggested Strategy Nodes</div>
+        <button class="s-prompt" onclick="sendMsg('How do I build a profile competitive enough for Ivy League admissions?')">✦ Ivy League strategy profile</button>
+        <button class="s-prompt" onclick="sendMsg('What are the specific document criteria and deadlines for the Chevening Scholarship?')">✦ Chevening program layout</button>
+        <button class="s-prompt" onclick="sendMsg('How should I write a compelling personal statement for top tier universities?')">✦ Statement structural draft</button>
+        <button class="s-prompt" onclick="sendMsg('Which public universities in Europe offer complete English programs with low or zero tuition?')">✦ Low tuition options in Europe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <h2>Chetta<em>.</em></h2>
+      <p id="f-desc">Your end-to-end framework layout pipeline for elite international academic admissions.</p>
+    </div>
+    <div class="foot-col">
+      <h3 id="f-h1">Framework Ecosystem</h3>
+      <ul class="foot-links">
+        <li><a onclick="switchPage('universities')" style="cursor:pointer" id="f-l1">Target Directory</a></li>
+        <li><a onclick="switchPage('scholarships')" style="cursor:pointer" id="f-l2">Funding Pipelines</a></li>
+        <li><a onclick="switchPage('sat-practice')" style="cursor:pointer">SAT Question Bank</a></li>
+        <li><a onclick="switchPage('ai')" style="cursor:pointer" id="f-l3">AI Admission Module</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h3 id="f-h2">Global Pathways</h3>
+      <ul class="foot-links">
+        <li><a onclick="switchPage('universities')" style="cursor:pointer">United States</a></li>
+        <li><a onclick="switchPage('universities')" style="cursor:pointer">United Kingdom</a></li>
+        <li><a onclick="switchPage('universities')" style="cursor:pointer">European Union</a></li>
+        <li><a onclick="switchPage('universities')" style="cursor:pointer">Asian Hubs</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h3 id="f-h3">System Framework</h3>
+      <ul class="foot-links">
+        <li><a onclick="openAuth('login')" style="cursor:pointer">Secure Access</a></li>
+        <li><a onclick="openAuth('register')" style="cursor:pointer">Create Account</a></li>
+        <li><a style="cursor:pointer">System Metrics</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-btm">
+    <div>&copy; 2026 Chetta Platform. All rights reserved.</div>
+    <div style="display:flex;gap:1.2rem"><a style="color:inherit;text-decoration:none">Privacy Matrix</a><a style="color:inherit;text-decoration:none">Terms of Architecture</a></div>
+  </div>
+</footer>
+
+<div class="m-ov" id="uniModal" onclick="if(event.target===this) closeUni()">
+  <div class="m-box">
+    <div class="m-head">
+      <button class="m-close" onclick="closeUni()">×</button>
+      <div class="m-title" id="m-uniName">University Name</div>
+      <div class="m-loc" id="m-uniLoc">Location Profile</div>
+      <div class="m-badges" id="m-uniTags"></div>
+    </div>
+    <div class="m-content">
+      <div class="stats-row">
+        <div class="s-box"><div class="s-box-val" id="m-uniRank">#1</div><div class="s-box-key" id="lbl-m1">Global Rank</div></div>
+        <div class="s-box"><div class="s-box-val" id="m-uniAcc">5%</div><div class="s-box-key" id="lbl-m2">Acceptance Index</div></div>
+        <div class="s-box"><div class="s-box-val" id="m-uniTui">$50k</div><div class="s-box-key" id="lbl-m3">Est. Base Tuition</div></div>
+      </div>
+      <div class="diff-wrap">
+        <div class="diff-lbls"><span id="lbl-md">Admission Profile Difficulty</span><strong id="m-uniDiffPct">85%</strong></div>
+        <div class="diff-track"><div class="diff-fill" id="m-uniDiffBar" style="width:85%"></div></div>
+      </div>
+      <div class="m-sec" id="lbl-ms1">Profile Overview</div>
+      <p class="m-desc" id="m-uniDesc">Description</p>
+      <div class="m-sec" id="lbl-ms2">Academic Majors Matrix</div>
+      <div class="chips-row" id="m-uniMajors"></div>
+      <div class="m-sec" id="lbl-ms3">Available Funding Frameworks</div>
+      <div class="chips-row" id="m-uniSchs"></div>
+      <div class="m-sec" id="lbl-ms4">Strategic Admission Roadmap</div>
+      <div class="roadmap" id="m-uniRoadmap"></div>
+      <div style="margin-top:1.75rem;text-align:right">
+        <a id="m-uniUrl" target="_blank" class="visit-lnk">Visit Institutional Portal ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-ov" id="schModal" onclick="if(event.target===this) closeSch()">
+  <div class="m-box">
+    <div class="m-head" style="background:linear-gradient(135deg,#0f1729,#1e3a8a)">
+      <button class="m-close" onclick="closeSch()">×</button>
+      <div class="m-title" id="m-schName">Scholarship Name</div>
+      <div class="m-loc" id="m-schProvider">Provider Entity</div>
+      <span class="amt-pill" id="m-schAmt">$0 / Full Funding</span>
+    </div>
+    <div class="m-content">
+      <div class="dl-box">
+        <span id="lbl-mdl">Application Pipeline Window Deadline:</span> <strong id="m-schDl">March 15</strong>
+      </div>
+      <div class="m-sec" id="lbl-ms5">Funding Architecture Definition</div>
+      <p class="m-desc" id="m-schDesc">Description</p>
+      <div class="m-sec" id="lbl-ms6">Mandatory Qualifying Prerequisites</div>
+      <ul class="checklist" id="m-schReqs"></ul>
+      <div class="m-sec" id="lbl-ms7">Application Pipeline Steps</div>
+      <div class="apply-steps" id="m-schSteps"></div>
+    </div>
+  </div>
+</div>
+
+<div class="vm-ov" id="vidModal" onclick="if(event.target===this) closeVid()">
+  <div class="vm-box">
+    <div class="vm-head">
+      <div class="vm-title" id="vm-title">Video Strategy Title</div>
+      <button class="vm-close" onclick="closeVid()">×</button>
+    </div>
+    <div class="vm-body">
+      <iframe id="vm-frame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div style="padding:1.25rem;background:var(--g900);border-top:1px solid rgba(255,255,255,.06)">
+      <div class="m-sec" style="color:#fff;margin:0 0 .5rem;font-size:.73rem" id="lbl-ms8">Strategic Advice Nodes Breakdown</div>
+      <ul class="checklist" id="vm-advice" style="color:rgba(255,255,255,.7)"></ul>
+    </div>
+  </div>
+</div>
+
+<div class="auth-ov" id="authModal" onclick="if(event.target===this) closeAuth()">
+  <div class="auth-box">
+    <div class="auth-head">
+      <button class="auth-close" onclick="closeAuth()">×</button>
+      <div class="auth-logo">Chetta<em>.</em></div>
+      <div class="auth-tag" id="auth-tag">Elite Admission System Access</div>
+    </div>
+    <div class="auth-tabs" id="authTabsRow">
+      <div class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Sign In</div>
+      <div class="auth-tab" id="tab-register" onclick="setAuthMode('register')">New Profile</div>
+    </div>
+    <div class="auth-body">
+      <div class="auth-err" id="authErr"></div>
+      
+      <div class="auth-panel active" id="panel-login">
+        <div>
+          <label class="field-lbl">Profile Email Identifier</label>
+          <input type="email" class="field-in" id="lEmail" placeholder="name@domain.com">
+        </div>
+        <div>
+          <label class="field-lbl">Secure Access Key Phrase</label>
+          <input type="password" class="field-in" id="lPass" placeholder="••••••••">
+        </div>
+        <div class="forgot-lnk" onclick="setAuthMode('forgot')" id="lbl-forgot">Forgot access phrase?</div>
+        <button class="auth-btn" onclick="doLogin()" style="margin-top:.4rem" id="lbl-btn-login">Verify Access</button>
+      </div>
+
+      <div class="auth-panel" id="panel-register">
+        <div>
+          <label class="field-lbl">Your Direct Given Name</label>
+          <input type="text" class="field-in" id="rName" placeholder="Alex Chase">
+        </div>
+        <div>
+          <label class="field-lbl">Profile Email Identifier</label>
+          <input type="email" class="field-in" id="rEmail" placeholder="name@domain.com">
+        </div>
+        <div class="two-col">
+          <div>
+            <label class="field-lbl">Access Phrase</label>
+            <input type="password" class="field-in" id="rPass" placeholder="••••••••">
+          </div>
+          <div>
+            <label class="field-lbl">Confirm Phrase</label>
+            <input type="password" class="field-in" id="rConfirm" placeholder="••••••••">
+          </div>
+        </div>
+        <button class="auth-btn" onclick="doRegister()" style="margin-top:.4rem" id="lbl-btn-reg">Generate Profile</button>
+      </div>
+
+      <div class="auth-panel" id="panel-forgot">
+        <p style="font-size:.82rem;color:var(--g500);line-height:1.5" id="lbl-fdesc">Provide your registered profile email address. The system sequence will route a key retrieval validation link.</p>
+        <div>
+          <label class="field-lbl">Profile Email Identifier</label>
+          <input type="email" class="field-in" id="fEmail" placeholder="name@domain.com">
+        </div>
+        <button class="auth-btn" onclick="doForgot()" id="lbl-btn-f">Dispatch Sequence Link</button>
+        <div class="auth-note"><a onclick="setAuthMode('login')" id="lbl-back">Return to Verification</a></div>
+      </div>
+
+      <div id="authSocialsGroup" style="display:flex;flex-direction:column;gap:.7rem;margin-top:1.1rem">
+        <div class="auth-div" id="lbl-or">OR STRUCTURED CONTINUATION</div>
+        <button class="social-btn" onclick="alert('Social single sign-on interface connected to environment.')">
+          <svg style="width:16px;height:16px" viewBox="0 0 24 24"><path fill="#ea4335" d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.866-3.577-7.866-8s3.536-8 7.866-8c2.46 0 4.105 1.025 5.047 1.926l2.427-2.334C17.955 2.192 15.34 1 12.24 1 6.133 1 1.18 5.925 1.18 12s4.953 11 11.06 11c6.373 0 10.596-4.473 10.596-10.74 0-.727-.078-1.282-.175-1.975H12.24z"/></svg>
+          Google Identity Pipeline
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+// Firebase configuration placeholder
+const firebaseConfig = {
+  apiKey: "AIzaSyFakeKeyPlaceholder_ForCompilationOnly",
+  authDomain: "chetta-auth-system.firebaseapp.com",
+  projectId: "chetta-auth-system",
+  storageBucket: "chetta-auth-system.appspot.com",
+  messagingSenderId: "1234567890",
+  appId: "1:1234567890:web:abcdef123456"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* UNIVERSITIES STRUCTURAL DICTIONARY DATA ARRAY */
+const unis = [
+  {id:1,name:"Stanford University",short:"Stanford",loc:"Stanford, California, USA",region:"usa",emoji:"🌲",rank:"#3 World",acc:3.9,tuition:57000,sat:"1500+",gpa:"3.95+",type:"Private Research",url:"https://stanford.edu",diff:96,tags:["Ivy League Tier","Silicon Valley","STEM Focus"],desc:"Stanford University is positioned in the center of California's Silicon Valley. Renowned worldwide for its rigorous technology incubation, high entrepreneurial metrics, computer engineering parameters, and extremely selective intake guidelines.",majors:["Computer Engineering","Bioengineering","Quantitative Economics","Data Sciences","Mathematical Analytics"],scholarships:["Stanford Full Need Grant","Knight-Hennessy Scholars Program"],roadmap:["Maintain unweighted GPA above 3.95 threshold","Achieve competitive standardized assessment profiles (SAT 1540+)","Execute distinctive engineering or social enterprise projects","Acquire highly personalized, high-metric references","Submit comprehensive packages prior to Early Action limits"]},
+  {id:2,name:"University of Oxford",short:"Oxford",loc:"Oxford, United Kingdom",region:"uk",emoji:"👑",rank:"#1 World",acc:14,tuition:42000,sat:"A*A*A* (A-Levels)",gpa:"3.9+",type:"Public Research",url:"https://ox.ac.uk",diff:94,tags:["Oxbridge","Historic","Tutorial System"],desc:"The oldest university in the English-speaking landscape. Oxford incorporates a specialized college framework layout together with intensive targeted internal tutorial systems requiring immense deep analytical capacity.",majors:["Philosophy, Politics & Economics (PPE)","Classical Literature","Theoretical Physics","Advanced Medicine","Law Jurisprudence"],scholarships:["Clarendon Fund Fellowship","Rhodes Scholarship"],roadmap:["Exceed high-metric subject requirements (A*A*A* or IB 42+)","Submit exceptional custom writing portfolio assignments","Prepare systematically for rigorous cognitive admissions evaluations (e.g., TSA, MAT, PAT)","Refine deep speech logic profiles for multi-stage academic interviews","Conclude UCAS system structures before October absolute cutoff limits"]},
+  {id:3,name:"Technical University of Munich",short:"TUM",loc:"Munich, Germany",region:"europe",emoji:"🇩🇪",rank:"#37 World",acc:22,tuition:300,sat:"N/A",gpa:"1.5 (German Scale)",gpaRaw:"3.7+",type:"Public Technical",url:"https://tum.de",diff:74,tags:["Europe Hub","Zero Tuition","Engineering Peak"],desc:"TUM is a leading technical research powerhouse in Europe. Operates high efficiency engineering tracks with minimal administrative costs, maintaining powerful ties with corporate industrial networks.",majors:["Mechanical Engineering","Informatics / Computer Systems","Automotive Design","Aerospace Physics","Biotechnology Systems"],scholarships:["DAAD National Stipend","TUM Merit Waiver Scheme"],roadmap:["Validate secondary certificates through official German VPD sequences","Secure certified linguistic proof profiles (German C1 or English IELTS 7.5)","Maintain high mathematics weighted metrics on historical report cards","Incorporate specific internship documentation frameworks","Submit digital portals via Uni-Assist systems channels"]},
+  {id:4,name:"National University of Singapore",short:"NUS",loc:"Queenstown, Singapore",region:"asia",emoji:"🦁",rank:"#8 World",acc:8,tuition:16000,sat:"1500+",gpa:"3.9+",type:"Public Research",url:"https://nus.edu.sg",diff:88,tags:["Asia Elite","STEM Hub","Global Research"],desc:"NUS ranks consistently as a leading academic nexus in Asia. Delivers rigorous technical pathways, innovative biomedical analytics, and comprehensive cross-disciplinary curriculum modules.",majors:["Data Engineering","Quantitative Finance","Molecular Biochemistry","Global Business Strategy","Civil Architecture Structures"],scholarships:["NUS ASEAN Undergraduate Fellowship","Science & Technology Award"],roadmap:["Fulfill peak international secondary conditions (IB 43+ or SAT 1550)","Document exceptional national or global Olympiad competition rankings","Provide targeted motivation letters highlighting specialized research paths","Obtain validated documentation of extra-curricular metrics","Submit digital admission packages before early annual deadlines"]},
+  {id:5,name:"Massachusetts Institute of Technology",short:"MIT",loc:"Cambridge, Massachusetts, USA",region:"usa",emoji:"🤖",rank:"#1 World",acc:4.5,tuition:59000,sat:"1550+",gpa:"3.98+",type:"Private Technical",url:"https://mit.edu",diff:98,tags:["STEM Peak","Private Research","Elite Intake"],desc:"MIT is a premier institution for scientific discovery and technological innovation. It values extreme analytical capabilities, hands-on inventiveness, and a collaborative, problem-solving mindset.",majors:["Computer Science & Engineering","Artificial Intelligence","Quantum Physics","Aerospace Propulsion","Mathematics Analytics"],scholarships:["MIT Institutional Need-Based Grant Scheme"],roadmap:["Achieve maximum standardized math evaluation bounds (SAT Math 800)","Present validated physical research fabrications or algorithmic platforms","Participate in specific mandatory institutional interview steps","Acquire highly technical recommendation logs from science faculty","Submit early applications during prospective autumn evaluation windows"]},
+  {id:6,name:"University of Cambridge",short:"Cambridge",loc:"Cambridge, United Kingdom",region:"uk",emoji:"🦅",rank:"#2 World",acc:15,tuition:45000,sat:"A*A*A* (A-Levels)",gpa:"3.92+",type:"Public Research",url:"https://cam.ac.uk",diff:95,tags:["Oxbridge","Mathematical Peak","Collegiate"],desc:"Renowned globally for mathematical brilliance, scientific breakthroughs, and deep collegiate traditions, Cambridge demands peerless subject comprehension and foundational logic capability.",majors:["Mathematical Tripos","Natural Sciences","Computer Science Tracks","Engineering Architecture","Historical Economics"],scholarships:["Gates Cambridge Scholarship","Cambridge Trust International Awards"],roadmap:["Maintain top tier percentile positions within high school cohorts","Complete pre-registration test matrix parameters (STEP, TMUA, NSAA)","Draft specialized academic personal profiles centered entirely on the target subject","Undergo intensive academic interview evaluations with college fellows","Complete comprehensive UCAS pipelines by October absolute deadlines"]}
+];
+
+/* GLOBAL COVERAGE REGISTRY SCHOLARSHIPS DATA ARRAY */
+const schs = [
+  {id:1,name:"Fulbright Graduate Fellowship Program",provider:"United States Department of State",type:"full",deadline:"May to August annually",amount:"Full Tuition + $1,800-$2,600/mo Stipend + Airfare + Health Premium",desc:"The Fulbright program is a highly prestigious international educational exchange system designed to fund absolute cost structures for master's or doctoral degree pathways at prominent US facilities.",reqs:["Hold a validated bachelor degree credentials index","Provide proof of verified linguistic proficiency metrics (IELTS 7.5+ or TOEFL 100+)","Present a deeply structured, contextually relevant study objectives framework","Incorporate three detailed professional or academic letters of recommendation","Commit to returning to your country of origin for a 2-year duration post-completion"],steps:["Establish a secure user registration within the authorized regional embassy portal","Draft detailed, highly personal statement narratives and clear study objectives","Compile certified translation packages of all post-secondary text transcripts","Execute authorized digital submission sequences prior to regional seasonal deadlines","Participate in rigorous, multi-stage in-person panel interviews if shortlisted"]},
+  {id:2,name:"Chevening Postgraduate Award Scholarship",provider:"Foreign, Commonwealth & Development Office (UK)",type:"full",deadline:"Early November annually",amount:"100% Tuition Waiver + £1,150-£1,450/mo Living Allocation + Travel Tickets",desc:"Chevening is the UK government's international awards scheme. It funds one-year master's degrees across any top tier UK university, selecting individuals with profound leadership potential.",reqs:["Citizen of a Chevening-eligible sovereign country or territory","Return to country of citizenship for minimum 2 years after study sequence","Possess equivalent of at least 2 years of documented work experience (2,800 hours)","Apply to three distinct eligible UK university course configurations","Hold an undergraduate degree structure clearing upper second-class honors threshold"],steps:["Complete the comprehensive four-part essay matrix (Leadership, Networking, Study in UK, Career Plan) via the online portal","Submit structured selections for 3 distinct master's courses via UCAS channels","Upload certified academic transcripts alongside valid identification vectors","Undergo intensive security evaluation checks by the global review boards","Attend formal panel validation interviews at British Embassy sites if selected"]},
+  {id:3,name:"Gates Cambridge Scholarship Framework",provider:"Bill & Melinda Gates Foundation",type:"full",deadline:"October or December annually",amount:"Full Cost of Cambridge University Attendance + £18,500/yr Living Allowance + Travel",desc:"Established by a major philanthropic endowment, this highly selective program funds full-time postgraduate degree pathways at the University of Cambridge for global applicants displaying extraordinary intellectual capability.",reqs:["Citizen of any country outside the United Kingdom boundaries","Applying to pursue a full-time PhD, MSc, MLitt, or one-year postgraduate course","Demonstrate absolute intellectual justification metrics and elite academic records","Possess clear leadership commitment variables toward global socio-economic progress","Provide a highly compelling statement outlining alignment with the Gates Foundation mission"],steps:["Apply directly for admission to the chosen graduate course at Cambridge via the main Applicant Portal","Complete the explicit internal Gates Cambridge section, incorporating a dedicated 500-word statement","Secure an explicit, highly detailed Gates-specific reference letter regarding social commitment","Submit all materials concurrently with the general university deadline parameters","Participate in formal international panel review sessions if shortlisted for final selection"]}
+];
+
+/* CASE STRATEGIES ARCHIVE VIDEO DATA ARRAY */
+const vids = [
+  {id:1,title:"How I Secured the Chevening Fellowship: 4 Essay Breakdowns",ch:"Elena Rostova",dur:"18:42",tags:["Chevening","UK","Master Profile"],advice:["Structure leadership claims around specific quantifiable organizational projects","Differentiate networking links from casual social media interactions","Clearly define how your UK degree will address critical infrastructure issues back home","Provide a highly realistic 5-year timeline for your post-return career milestones"]},
+  {id:2,title:"Ivy League Statements: Deep Architecture Analysis",ch:"Marcus Vance",dur:"24:15",tags:["Admissions","Personal Statement","USA"],advice:["Avoid repeating resume achievements within your statement text","Focus on an explicit narrative pivot point that reshaped your intellectual view","Ensure your writing displays absolute subject maturity and technical depth","Clearly articulate the explicit research questions you intend to pursue"]},
+  {id:3,title:"Fulbright Interview Panel Prep: Real Simulation Guide",ch:"Amira Mansoor",dur:"31:05",tags:["Fulbright","USA","Interview Matrix"],advice:["Be prepared to explicitly justify why a US institution is critical for your field","Maintain clear composure when questioned about your long-term cultural adaptability","Practice summarizing your research goals within a concise 60-second window","Demonstrate a clear, nuanced understanding of bilateral socio-economic connections"]}
+];
+
+/* ── INTERACTIVE SAT DIAGNOSTIC DATA STRUCTURE ARRAY ── */
+const SAT_QUESTIONS = {
+  rw: [
+    {
+      id: "rw1",
+      passage: "The National Heritage Fellowship was created to honor exceptional folk and traditional artists in the United States. One artist who received the fellowship is taiko drummer Seiichi Tanaka. Tanaka was chosen for his lifetime _______ the arts.",
+      question: "Which choice completes the text with the most logical and precise word or phrase?",
+      options: ["A) contributions to", "B) imitations of", "C) doubts about", "D) misunderstandings of"],
+      correct: 0,
+      explanation: "The text describes an honor awarded to 'exceptional folk and traditional artists' for work done throughout a lifetime. In this context, 'contributions to' is the only logical and contextually positive phrase that aligns with receiving a fellowship for lifetime excellence. Other options denote negative or contradictory relationships with the arts."
+    },
+    {
+      id: "rw2",
+      passage: "The following text is adapted from Kenneth Grahame's 1908 novel The Wind in the Willows. The Mole is dazed after briefly meeting a stranger while traveling with a friend. [The] Mole stood still a moment, held in thought. As one wakened suddenly from a beautiful dream, who struggles to recall it, and can re-capture nothing but a dim sense of the beauty of it, the beauty! Till that, too, fades away in its turn.",
+      question: "As used in the text, what does the word 'recall' most nearly mean?",
+      options: ["A) Begin", "B) Remember", "C) Overlook", "D) Reject"],
+      correct: 1,
+      explanation: "The passage portrays the Mole as attempting to bring back an experience ('struggles to recall it, and can re-capture nothing but a dim sense...'). In this framework, 'recall' means to bring back to mind, which directly aligns with 'Remember'. Other choices fail to fit the context of trying to hold on to a fading dream."
+    },
+    {
+      id: "rw3",
+      passage: "Categorical claims about the original function and significance of the Urfa Man statue of a human figure found in what is now Turkey and dating from around 11,000 years ago should be treated _______. We simply do not know enough about the people of the time to say with certainty what the statue meant to them.",
+      question: "Which choice completes the text with the most logical and precise word or phrase?",
+      options: ["A) indulgently", "B) skeptically", "C) reverentially", "D) individually"],
+      correct: 1,
+      explanation: "The author explicitly notes that 'we simply do not know enough... to say with certainty what the statue meant to them.' Because knowledge is severely limited, absolute or categorical assertions must be met with doubt or caution, meaning they should be treated 'skeptically'."
+    }
+  ],
+  math: [
+    {
+      id: "m1",
+      passage: "A local print shop charges a flat setup fee of $12.00 plus $0.15 for every page printed.",
+      question: "Which of the following functions represents the total cost C, in dollars, for a printing job consisting of p pages?",
+      options: ["A) C(p) = 12p + 0.15", "B) C(p) = 0.15p + 12", "C) C(p) = 12.15p", "D) C(p) = 0.15(p + 12)"],
+      correct: 1,
+      explanation: "The setup charge is an absolute flat baseline constant ($12). The variable printing component increases linearly at a rate of 0.15 per page ($0.15 multiplied by p). Combining these algebraic elements yields the standard linear slope-intercept function layout: C(p) = 0.15p + 12."
+    },
+    {
+      id: "m2",
+      passage: "",
+      question: "If 3x + 7 = 22, what is the value of 6x + 5?",
+      options: ["A) 25", "B) 35", "C) 30", "D) 40"],
+      correct: 1,
+      explanation: "First solve for x by isolating the variable term in the linear equation: 3x + 7 = 22 → 3x = 15 → x = 5. Next, substitute this value into the target algebraic expression: 6(5) + 5 = 30 + 5 = 35."
+    }
+  ]
+};
+
+/* LANGUAGE DICTIONARY OBJECT MASKS */
+const LANGS = {
+  en: {
+    nav_home:'Home',nav_universities:'Universities',nav_scholarships:'Scholarships',nav_interviews:'Interviews',nav_ai:'AI Advisor',nav_signin:'Sign in',
+    h_title:'Get into your <em>dream university</em>, fully funded.',h_sub:'Explore global universities, find fully funded government scholarships, watch successful interviews, and plan your acceptance roadmap.',
+    h_btn_1:'Explore Universities',h_btn_2:'Find Scholarships',h_strip:'PROUDLY HELPING STUDENTS ENTER GLOBAL FACULTIES',
+    ps_1:'Target Schools Listed',ps_2:'Full Ride Scholarships',ps_3:'Satisfaction Index',ps_4:'100% Free Resources',
+    pc_1:'Your Metrics Assessment',pc_2:'Admissions Funnel Simulation',s_eye:'Systematic Framework',s_title:'Your simple 3-step admission journey',
+    s_sub:'We have eliminated the clutter. Follow the proven framework to secure high-tier international placement.',
+    sc1-t:'Search Target Profiles',sc1-d:'Browse complete structural data parameters for top universities across the US, UK, Europe, and Asia instantly.',
+    sc2-t:'Identify Funding Packages',sc2-d:'Locate institutional scholarships, government grants, and exclusive partial waivers that perfectly suit your background.',
+    sc3-t:'Consult the Advisor Engine',sc3-d:'Utilize our conversational AI layout to refine strategy parameters, look over application checklists, and draft custom roadmaps.',
+    f_eye:'Core Capabilities',f_title:'Everything you require in a unified system',f_sub:'No complex trackers or costly consultants. Build your entire profile using structural data pipelines.',
+    fc1-t:'Granular Analytics',fc1-d:'Review explicit grade expectations, exact test standards, financial constraints, and acceptance profiles.',
+    fc2-t:'Verified Global Grants',fc2-d:'Access full details on prominent opportunities like Fulbright, Chevening, DAAD, and major fully funded university offers.',
+    fc3-t:'Successful Case Audits',fc3-d:'Watch and evaluate real-world interviews and strategic reviews of accepted Ivy League and European scholars.',
+    uhd-eye:'Granular Search Engine',uhd-sub:'Filter global institutional directories by regional layout parameters, acceptance index thresholds, or testing profiles.',
+    shd-eye:'Financial Coverage Matrix',shd-sub:'Uncover highly prestigious institutional fellowships, fully funded national ride schemas, and partial coverage programs.',
+    vhd-eye:'Scholastic Case File Audits',vhd-sub:'Learn directly from scholars who achieved placement into elite faculties across global landscapes.',
+    lbl-sp:'Suggested Strategy Nodes',lbl-cchat:'Clear Thread',lbl-send:'Send',lbl-usearch:'Search',lbl-ssearch:'Search',
+    lbl-m1:'Global Rank',lbl-m2:'Acceptance Index',lbl-m3:'Est. Base Tuition',lbl-md:'Admission Profile Difficulty',
+    lbl-ms1:'Profile Overview',lbl-ms2:'Academic Majors Matrix',lbl-ms3:'Available Funding Frameworks',lbl-ms4:'Strategic Admission Roadmap',
+    lbl-mdl:'Application Pipeline Window Deadline:',lbl-ms5:'Funding Architecture Definition',lbl-ms6:'Mandatory Qualifying Prerequisites',lbl-ms7:'Application Pipeline Steps',
+    lbl-ms8:'Strategic Advice Nodes Breakdown',card_view:'View profile →',card_apply:'How to apply →',card_dl:'Deadline:',f_full:'Full Ride',f_partial:'Partial',by:'by'
+  },
+  uz: {
+    nav_home:'Bosh sahifa',nav_universities:'Universitetlar',nav_scholarships:'Stipendiyalar',nav_interviews:'Intervyular',nav_ai:'AI Maslahatchi',nav_signin:'Kirish',
+    h_title:'Orzungizdagi <em>universitetga</em> to\'liq grant asosida kiring.',h_sub:'Global universitetlarni o\'rganing, to\'liq moliyalashtiriladigan davlat grantlarini toping, muvaffaqiyatli intervyularni tomosha qiling va qabul rejangizni tuzing.',
+    h_btn_1:'Universitetlarni ko\'rish',h_btn_2:'Grantlarni topish',h_strip:'TALABALARNING GLOBAL FAKULTETLARGA KIRISHIGA FAXR BILAN YORDAM BERAMIZ',
+    ps_1:'Ro\'yxatdagi maqsadli maktablar',ps_2:'To\'liq grantlar (Full Ride)',ps_3:'Mamnuniyat indeksi',ps_4:'100% bepul resurslar',
+    pc_1:'Sizning ko\'rsatkichlaringiz',pc_2:'Qabul simulyatsiyasi voronkasi',s_eye:'Tizimli asoslar',s_title:'Sizning oddiy 3 bosqichli qabul yo\'lingiz',
+    s_sub:'Biz chalkashliklarni bartaraf etdik. Yuqori darajadagi xalqaro o\'rinni egallash uchun tasdiqlangan tizimga amal qiling.',
+    sc1-t:'Maqsadli profillarni qidirish',sc1-d:'AQSh, Buyuk Britaniya, Yevropa va Osiyodagi eng yaxshi universitetlarning to\'liq ma\'lumotlarini bir zumda ko\'rib chiqing.',
+    sc2-t:'Moliyalashtirish paketlarini aniqlash',sc2-d:'Sizning ma\'lumotingizga mos keladigan universitet stipendiyalari, davlat grantlari va maxsus qisman chetlatishlarni toping.',
+    sc3-t:'Maslahatchi tizimi bilan maslahatlashish',sc3-d:'Strategiya parametrlarini aniqlashtirish, nazorat ro\'yxatlarini ko\'rib chiqish va shaxsiy yo\'l xaritalarini tuzish uchun AI suhbatimizdan foydalaning.',
+    f_eye:'Asosiy imkoniyatlar',f_title:'Yagona tizimda sizga kerak bo\'lgan hamma narsa',f_sub:'Murakkab trekerlar yoki qimmat maslahatchilar yo\'q. Ma\'lumotlar quvurlari yordamida butun profilingizni yarating.',
+    fc1-t:'Aniq tahlillar',fc1-d:'Aniq baho kutilmalarini, test standartlarini, moliyaviy cheklovlarni va qabul profillarini ko\'rib chiqing.',
+    fc2-t:'Tasdiqlangan global grantlar',fc2-d:'Fulbright, Chevening, DAAD va yirik universitet grantlari kabi taniqli imkoniyatlar haqida to\'liq ma\'lumotga ega bo\'ling.',
+    fc3-t:'Muvaffaqiyatli holatlar auditi',fc3-d:'Ayvi Ligasi va Yevropaning muvaffaqiyatli olimlarining real intervyulari va strategik sharhlarini tomosha qiling.',
+    uhd-eye:'Granulyar qidiruv tizimi',uhd-sub:'Global universitetlar kataloglarini mintaqaviy parametrlar, qabul indeksi yoki test profillari bo\'yicha saralang.',
+    shd-eye:'Moliyaviy qoplamalar matritsasi',shd-sub:'Nufuzli universitet stipendiyalari, to\'liq moliyalashtiriladigan milliy grantlar va qisman qoplash dasturlarini oching.',
+    vhd-eye:'Muvaffaqiyatli holatlar tahlili',vhd-sub:'Global miqyosda elita fakultetlariga joylashgan talabalardan to\'g\'ridan-to\'g\'ri o\'rganing.',
+    lbl-sp:'Tavsiya etilgan strategiya tugunlari',lbl-cchat:'Suhbatni tozalash',lbl-send:'Yuborish',lbl-usearch:'Qidirish',lbl-ssearch:'Qidirish',
+    lbl-m1:'Global reyting',lbl-m2:'Qabul ko\'rsatkichi',lbl-m3:'Taxminiy o\'qish to\'lovi',lbl-md:'Qabul qilish qiyinligi darajasi',
+    lbl-ms1:'Profil sharhi',lbl-ms2:'Akademik yo\'nalishlar matritsasi',lbl-ms3:'Mavjud moliyalashtirish tizimlari',lbl-ms4:'Strategik qabul yo\'l xaritamiz',
+    lbl-mdl:'Ariza topshirish muddati yakuni:',lbl-ms5:'Moliyalashtirish arxitekturasi tavsifi',lbl-ms6:'Majburiy saralash shartlari',lbl-ms7:'Ariza topshirish bosqichlari',
+    lbl-ms8:'Strategik maslahatlar tahlili',card_view:'Profilni ko\'rish →',card_apply:'Hujjat topshirish →',card_dl:'Muddat:',f_full:'To\'liq grant',f_partial:'Qisman',by:'tomonidan'
+  },
+  ru: {
+    nav_home:'Главная',nav_universities:'Университеты',nav_scholarships:'Стипендии',nav_interviews:'Интервью',nav_ai:'AI Советник',nav_signin:'Войти',
+    h_title:'Поступите в <em>университет мечты</em> на полное финансирование.',h_sub:'Изучайте мировые университеты, находите государственные стипендии, смотрите успешные интервью и планируйте карту поступления.',
+    h_btn_1:'Университеты',h_btn_2:'Стипендии',h_strip:'С ГОРДОСТЬЮ ПОМОГАЕМ СТУДЕНТАМ ПОСТУПАТЬ НА МИРОВЫЕ ФАКУЛЬТЕТЫ',
+    ps_1:'Целевых вузов в базе',ps_2:'Полных стипендий (Full Ride)',ps_3:'Индекс удовлетворенности',ps_4:'100% Бесплатные ресурсы',
+    pc_1:'Ваши показатели',pc_2:'Симуляция воронки поступления',s_eye:'Системный подход',s_title:'Ваш простой путь в 3 шага',
+    s_sub:'Мы убрали всё лишнее. Следуйте проверенной структуре для обеспечения высококлассного международного зачисления.',
+    sc1-t:'Поиск целевых профилей',sc1-d:'Просматривайте полные структурные параметры лучших университетов США, Великобритании, Европы и Азии мгновенно.',
+    sc2-t:'Определение финансирования',sc2-d:'Находите университетские стипендии, государственные гранты и эксклюзивные скидки, соответствующие вашему бэкграунду.',
+    sc3-t:'Консультация с ИИ-советником',sc3-d:'Используйте наш диалоговый ИИ для уточнения стратегии, проверки чек-листов и составления планов.',
+    f_eye:'Ключевые возможности',f_title:'Всё необходимое в единой системе',f_sub:'Никаких сложных трекеров или дорогих консультантов. Постройте свой профиль с помощью структурированных данных.',
+    fc1-t:'Гранулярная аналитика',fc1-d:'Изучайте точные ожидания по оценкам, стандарты тестов, финансовые ограничения и профили зачисления.',
+    fc2-t:'Проверенные гранты',fc2-d:'Получите полный доступ к информации о таких возможностях, как Fulbright, Chevening, DAAD и грантах университетов.',
+    fc3-t:'Аудит успешных кейсов',fc3-d:'Смотрите реальные интервью и стратегические разборы студентов, поступивших в Лигу Плюща и вузы Европы.',
+    uhd-eye:'Поисковый движок',uhd-sub:'Фильтруйте глобальные каталоги учреждений по региональным параметрам, индексам приемной комиссии или тестам.',
+    shd-eye:'Матрица финансирования',shd-sub:'Откройте для себя престижные институциональные стипендии, полные государственные гранты и программы частичного покрытия.',
+    vhd-eye:'Аудит успешных интервью',vhd-sub:'Учитесь напрямую у студентов, которые смогли поступить на элитные факультеты по всему миру.',
+    lbl-sp:'Рекомендуемые темы стратегии',lbl-cchat:'Очистить историю',lbl-send:'Отправить',lbl-usearch:'Поиск',lbl-ssearch:'Поиск',
+    lbl-m1:'Мировой рейтинг',lbl-m2:'Индекс приема',lbl-m3:'Базовая стоимость',lbl-md:'Сложность профиля поступления',
+    lbl-ms1:'Обзор профиля',lbl-ms2:'Матрица академических специальностей',lbl-ms3:'Доступные программы финансирования',lbl-ms4:'Стратегическая карта поступления',
+    lbl-mdl:'Крайний срок подачи заявки:',lbl-ms5:'Описание архитектуры финансирования',lbl-ms6:'Обязательные критерии отбора',lbl-ms7:'Этапы подачи документов',
+    lbl-ms8:'Анализ стратегических советов',card_view:'Смотреть профиль →',card_apply:'Как подать заявку →',card_dl:'Дедлайн:',f_full:'Полный грант',f_partial:'Частичный',by:'автор:'
+  }
+};
+
+let currentLang = localStorage.getItem('cl') || 'en';
+function T() { return LANGS[currentLang]; }
+
+/* ── INTERACTIVE SAT LAYOUT MANAGER STATE ENGINE ── */
+let currentSatCategory = 'rw';
+
+window.setSatTab = function(category) {
+  currentSatCategory = category;
+  const tabRw = document.getElementById('tab-rw');
+  const tabMath = document.getElementById('tab-math');
+  
+  if (category === 'rw') {
+    if (tabRw) { tabRw.style.background = 'var(--blue)'; tabRw.style.color = 'white'; }
+    if (tabMath) { tabMath.style.background = 'transparent'; tabMath.style.color = 'var(--g600)'; }
+  } else {
+    if (tabMath) { tabMath.style.background = 'var(--blue)'; tabMath.style.color = 'white'; }
+    if (tabRw) { tabRw.style.background = 'transparent'; tabRw.style.color = 'var(--g600)'; }
+  }
+  renderSatQuestions();
+};
+
+function renderSatQuestions() {
+  const container = document.getElementById('sat-questions-container');
+  if (!container) return;
+  
+  const activePool = SAT_QUESTIONS[currentSatCategory];
+  
+  container.innerHTML = activePool.map((q) => {
+    return `
+      <div style="background: white; border: 1.5px solid var(--g200); border-radius: var(--rl); padding: 1.5rem; box-shadow: var(--shadow);">
+        ${q.passage ? `<p style="font-size: 0.9rem; line-height: 1.6; color: var(--g700); background: var(--g50); padding: 1rem; border-radius: var(--r); margin-bottom: 1rem; border-left: 3px solid var(--blue);">${q.passage}</p>` : ''}
+        
+        <p style="font-weight: 600; font-size: 0.95rem; color: var(--g900); margin-bottom: 1rem;">${q.question}</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem;">
+          ${q.options.map((opt, optIndex) => `
+            <button onclick="checkSatAnswer('${q.id}', ${optIndex})" id="opt-${q.id}-${optIndex}" style="text-align: left; width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--g200); border-radius: 9px; background: white; font-family: inherit; font-size: 0.88rem; font-weight: 500; color: var(--g700); cursor: pointer; transition: all 0.15s; outline: none;">
+              ${opt}
+            </button>
+          `).join('')}
+        </div>
+        
+        <div id="explain-${q.id}" style="display: none; background: var(--bluepale); border: 1px solid rgba(37,99,235,0.15); border-radius: var(--r); padding: 1rem; margin-top: 1rem;">
+          <p id="result-text-${q.id}" style="font-weight: 700; font-size: 0.88rem; margin-bottom: 0.25rem;"></p>
+          <p style="font-size: 0.83rem; line-height: 1.5; color: var(--g600);"><strong style="color: var(--g900)">Explanation:</strong> ${q.explanation}</p>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+window.checkSatAnswer = function(qId, selectedIdx) {
+  const pool = SAT_QUESTIONS[currentSatCategory];
+  const qData = pool.find(q => q.id === qId);
+  if (!qData) return;
+
+  const expBox = document.getElementById(`explain-${qId}`);
+  const resultText = document.getElementById(`result-text-${qId}`);
+  
+  qData.options.forEach((_, idx) => {
+    const btn = document.getElementById(`opt-${qId}-${idx}`);
+    if (btn) btn.disabled = true;
+  });
+
+  const selectedBtn = document.getElementById(`opt-${qId}-${selectedIdx}`);
+  const correctBtn = document.getElementById(`opt-${qId}-${qData.correct}`);
+
+  if (selectedIdx === qData.correct) {
+    if (selectedBtn) {
+      selectedBtn.style.borderColor = 'var(--green)';
+      selectedBtn.style.background = 'var(--gpale)';
+      selectedBtn.style.color = 'var(--green)';
+    }
+    if (resultText) {
+      resultText.textContent = "✓ Correct Answer!";
+      resultText.style.color = "var(--green)";
+    }
+  } else {
+    if (selectedBtn) {
+      selectedBtn.style.borderColor = 'var(--red)';
+      selectedBtn.style.background = '#fef2f2';
+      selectedBtn.style.color = 'var(--red)';
+    }
+    if (correctBtn) {
+      correctBtn.style.borderColor = 'var(--green)';
+      correctBtn.style.background = 'var(--gpale)';
+      correctBtn.style.color = 'var(--green)';
+    }
+    if (resultText) {
+      resultText.textContent = "✕ Incorrect Option Selected";
+      resultText.style.color = "var(--red)";
+    }
+  }
+
+  if (expBox) expBox.style.display = 'block';
+};
+
+/* ── CORE SYSTEM PAGE ROUTING ARCHITECTURE ── */
+window.switchPage = function(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) targetPage.classList.add('active');
+
+  document.querySelectorAll('.nl-btn').forEach(b => b.classList.remove('active'));
+  
+  let linkId = 'nl-home';
+  if (pageId === 'universities') linkId = 'nl-universities';
+  else if (pageId === 'scholarships') linkId = 'nl-scholarships';
+  else if (pageId === 'sat-practice') linkId = 'nl-sat';
+  else if (pageId === 'interviews') linkId = 'nl-interviews';
+  else if (pageId === 'ai') linkId = 'nl-ai';
+  
+  const activeLink = document.getElementById(linkId);
+  if (activeLink) activeLink.classList.add('active');
+
+  window.scrollTo(0,0);
+};
+
+/* ── INTERNATIONALIZATION RUNTIME TRANSLATION MATRIX ENGINE ── */
+window.toggleLangDd = function() {
+  document.getElementById('langSw')?.classList.toggle('open');
+};
+
+window.changeLang = function(langCode) {
+  currentLang = langCode;
+  localStorage.setItem('cl', langCode);
+  document.getElementById('langSw')?.classList.remove('open');
+  
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('sel'));
+  document.getElementById(`l-${langCode}`)?.classList.add('sel');
+  document.getElementById('curLangLbl').textContent = langCode.toUpperCase();
+  
+  applyLanguageTranslations();
+};
+
+function applyLanguageTranslations() {
+  const t = T();
+  
+  // Dynamic labels update sequence mapping loop
+  const ids = [
+    'nl-home','nl-universities','nl-scholarships','nl-interviews','nl-ai','lbl-signin','lbl-register',
+    'h-sub','h-btn-1','h-btn-2','h-strip','ps_1','ps_2','ps_3','ps_4','pc_1','pc_2',
+    's-eye','s-title','s-sub','sc1-t','sc1-d','sc2-t','sc2-d','sc3-t','sc3-d',
+    'f-eye','f-title','f-sub','fc1-t','fc1-d','fc2-t','fc2-d','fc3-t','fc3-d',
+    'uhd-eye','uhd-sub','shd-eye','shd-sub','vhd-eye','vhd-sub','lbl-sp','lbl-cchat',
+    'lbl-send','lbl-usearch','lbl-ssearch','lbl-m1','lbl-m2','lbl-m3','lbl-md',
+    'lbl-ms1','lbl-ms2','lbl-ms3','lbl-ms4','lbl-mdl','lbl-ms5','lbl-ms6','lbl-ms7',
+    'lbl-ms8','f-desc','f-h1','f-h2','f-h3','f-l1','f-l2','f-l3'
+  ];
+  
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && t[id.replace('-','_')]) {
+      el.textContent = t[id.replace('-','_')];
+    }
+  });
+
+  const hTitle = document.getElementById('h-title');
+  if(hTitle) hTitle.innerHTML = t.h_title;
+
+  const aiWelcome = document.getElementById('ai-welcome');
+  if(aiWelcome) aiWelcome.textContent = t.ai_welcome || "Hello! I am your strategic AI Admission Expert. Ask me anything regarding institutional application requirements, elite statement structures, major frameworks, or how to secure prominent global funding grants.";
+
+  renderUnis(unis);
+  renderSchs(schs);
+  renderVids();
+}
+
+/* ── DATA DIRECTORY CARD RENDERING PIPELINES ── */
+function renderUnis(data) {
+  const g = document.getElementById('uni-grid'); if(!g) return;
+  const t = T();
+  g.innerHTML = data.map(u => `
+    <div class="u-card" onclick="openUni(${u.id})">
+      <div class="card-top">
+        <div class="card-emoji">${u.emoji}</div>
+        <div>
+          <div class="card-top-name">${u.name}</div>
+          <div class="card-top-loc">${u.loc}</div>
+        </div>
+      </div>
+      <div class="card-bd">
+        <div class="card-pills">
+          ${u.tags.map(tg => `<span class="pill p-blue">${tg}</span>`).join('')}
+          <span class="pill ${u.acc < 10 ? 'p-red' : u.acc < 25 ? 'p-amber' : 'p-green'}">${u.acc}% Acceptance</span>
+        </div>
+        <div class="card-meta">
+          <div class="c-meta">SAT <strong>${u.sat}</strong></div>
+          <div class="c-meta">GPA <strong>${u.gpa}</strong></div>
+        </div>
+        <div class="card-ft">
+          <span class="card-lnk">${t.card_view || 'View profile →'}</span>
+          <span style="color:var(--g300)">#${u.rank.replace(' World','')}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderSchs(data) {
+  const g = document.getElementById('sch-grid'); if(!g) return;
+  const t = T();
+  g.innerHTML = data.map(s => `
+    <div class="s-card" onclick="openSch(${s.id})">
+      <div class="card-top" style="background:linear-gradient(135deg,#0f1729,#1e3a8a)">
+        <div class="card-emoji">🏆</div>
+        <div>
+          <div class="card-top-name">${s.name}</div>
+          <div class="card-top-loc">${s.provider}</div>
+        </div>
+      </div>
+      <div class="card-bd">
+        <div class="card-pills">
+          <span class="pill ${s.type === 'full' ? 'p-green' : 'p-blue'}">${s.type === 'full' ? (t.f_full || 'Full Ride') : (t.f_partial || 'Partial')}</span>
+          <span class="pill p-amber">${t.card_dl || 'Deadline:'} ${s.deadline.split(' ')[0]}</span>
+        </div>
+        <div class="card-meta">
+          <div class="c-meta" style="color:var(--g700);font-weight:500">${s.amount.split(' + ')[0]}</div>
+        </div>
+        <div class="card-ft">
+          <span class="card-lnk">${t.card_apply || 'How to apply →'}</span>
+          <span style="color:var(--g300)">→</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderVids() {
+  const g = document.getElementById('vid-grid'); if(!g) return;
+  const t = T();
+  g.innerHTML = vids.map(v => `
+    <div class="vid-card" onclick="openVid(${v.id})">
+      <div class="vid-thumb">
+        <div class="play-btn">▶</div>
+        <div class="vid-dur">${v.dur}</div>
+      </div>
+      <div class="vid-info">
+        <div class="vid-title">${v.title}</div>
+        <div class="vid-meta">${t.by || 'by'} ${v.ch}</div>
+        <div class="vid-pills">
+          ${v.tags.map(tg => `<span class="pill p-blue">${tg}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── RUNTIME FILTERS CONTROLLERS ── */
+let selUniRegion = 'all';
+window.setUniRegion = function(region, btn) {
+  selUniRegion = region;
+  document.querySelectorAll('#uniRegFilters .f-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  filterUnisTrigger();
+};
+
+function filterUnisTrigger() {
+  const q = document.getElementById('uniSearch').value.toLowerCase();
+  const filtered = unis.filter(u => {
+    const regMatch = selUniRegion === 'all' || u.region === selUniRegion;
+    const txtMatch = u.name.toLowerCase().includes(q) || u.loc.toLowerCase().includes(q) || u.majors.some(m => m.toLowerCase().includes(q));
+    return regMatch && txtMatch;
+  });
+  renderUnis(filtered);
+}
+
+let selSchType = 'all';
+window.setSchType = function(type, btn) {
+  selSchType = type;
+  document.querySelectorAll('#schTypeFilters .f-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  filterSchsTrigger();
+};
+
+function filterSchsTrigger() {
+  const q = document.getElementById('schSearch').value.toLowerCase();
+  const filtered = schs.filter(s => {
+    const typeMatch = selSchType === 'all' || s.type === selSchType;
+    const txtMatch = s.name.toLowerCase().includes(q) || s.provider.toLowerCase().includes(q);
+    return typeMatch && txtMatch;
+  });
+  renderSchs(filtered);
+}
+
+/* ── MODAL WINDOW CONTROLLER PIPELINES ── */
+window.openUni = function(id) {
+  const u = unis.find(x => x.id === id); if(!u) return;
+  document.getElementById('m-uniName').textContent = u.name;
+  document.getElementById('m-uniLoc').textContent = u.loc;
+  document.getElementById('m-uniRank').textContent = u.rank.split(' ')[0];
+  document.getElementById('m-uniAcc').textContent = u.acc + '%';
+  document.getElementById('m-uniTui').textContent = u.tuition >= 1000 ? `$${(u.tuition/1000).toFixed(0)}k` : `$${u.tuition}`;
+  document.getElementById('m-uniDiffPct').textContent = u.diff + '%';
+  document.getElementById('m-uniDiffBar').style.width = u.diff + '%';
+  document.getElementById('m-uniDesc').textContent = u.desc;
+  
+  document.getElementById('m-uniTags').innerHTML = u.tags.map(t => `<span class="m-badge">${t}</span>`).join('');
+  document.getElementById('m-uniMajors').innerHTML = u.majors.map(m => `<span class="chip">${m}</span>`).join('');
+  document.getElementById('m-uniSchs').innerHTML = u.scholarships.map(s => `<span class="pill p-blue" style="padding:.3rem .7rem">${s}</span>`).join('');
+  
+  document.getElementById('m-uniRoadmap').innerHTML = u.roadmap.map((r, i) => `
+    <div class="rm-item">
+      <div class="rm-left"><div class="rm-circle">${i+1}</div><div class="rm-line"></div></div>
+      <div class="rm-text">${r}</div>
+    </div>
+  `).join('');
+  
+  const urlEl = document.getElementById('m-uniUrl');
+  if(urlEl) urlEl.href = u.url;
+  
+  document.getElementById('uniModal').classList.add('open');
+};
+window.closeUni = function() { document.getElementById('uniModal').classList.remove('open'); };
+
+window.openSch = function(id) {
+  const s = schs.find(x => x.id === id); if(!s) return;
+  document.getElementById('m-schName').textContent = s.name;
+  document.getElementById('m-schProvider').textContent = s.provider;
+  document.getElementById('m-schAmt').textContent = s.amount;
+  document.getElementById('m-schDl').textContent = s.deadline;
+  document.getElementById('m-schDesc').textContent = s.desc;
+  
+  document.getElementById('m-schReqs').innerHTML = s.reqs.map(r => `<li>${r}</li>`).join('');
+  document.getElementById('m-schSteps').innerHTML = s.steps.map((st, i) => `
+    <div class="a-step">
+      <div class="a-circle">${i+1}</div>
+      <div class="a-text">${st}</div>
+    </div>
+  `).join('');
+  
+  document.getElementById('schModal').classList.add('open');
+};
+window.closeSch = function() { document.getElementById('schModal').classList.remove('open'); };
+
+window.openVid = function(id) {
+  const v = vids.find(x => x.id === id); if(!v) return;
+  document.getElementById('vm-title').textContent = v.title;
+  document.getElementById('vm-frame').src = "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Simulated frame path link
+  document.getElementById('vm-advice').innerHTML = v.advice.map(a => `<li>${a}</li>`).join('');
+  document.getElementById('vidModal').classList.add('open');
+};
+window.closeVid = function() {
+  document.getElementById('vidModal').classList.remove('open');
+  document.getElementById('vm-frame').src = "";
+};
+
+/* ── CONVERSATIONAL ADVISOR INTELLIGENCE ENGINE ── */
+let isAITyping = false;
+window.clearChat = function() {
+  const m = document.getElementById('chat-msgs'); if(!m) return;
+  const t = T();
+  m.innerHTML = `
+    <div class="msg">
+      <div class="msg-av aav">✦</div>
+      <div class="msg-bub">${t.ai_welcome || "Hello! I am your strategic AI Admission Expert. Ask me anything regarding institutional application requirements, elite statement structures, major frameworks, or how to secure prominent global funding grants."}</div>
+    </div>
+  `;
+};
+
+function getSmartResponse(rawMsg) {
+  const low = rawMsg.toLowerCase();
+  
+  if(/ivy|stanford|harvard|mit/i.test(low)) {
+    return `**Ivy League Strategy Blueprint Framework:**\n\n1. **Academic Parameters**: Secure absolute maximum GPA tiers alongside maximized testing evaluations (SAT 1540+). Institutional software gates process high volumes via unweighted parameters.\n2. **Extracurricular Rigor**: Avoid flat checklists. Focus on a singular depth model displaying distinct leadership capability.\n3. **Recommendation Alignment**: Instruct faculty to document unique research attributes rather than general classroom conduct.`;
+  }
+  if(/chevening/i.test(low)) {
+    return `**Chevening Award Pipeline Metrics:**\n\n- **Mandatory Threshold**: Validate a secondary degree framework together with 2,800 absolute runtime hours of functional career metrics.\n- **Essay Matrix Structure**: Draft high-precision paragraphs demonstrating a robust local networking grid and explicit post-return socio-economic milestones.\n- **Selection Window**: Alignment pipelines conclude globally in November. Ensure university UCAS slots are concurrent.`;
+  }
+  if(/statement|essay|write/i.test(low)) {
+    return `**Personal Statement Structural Draft Protocol:**\n\n- **The Hook**: Initiate without standard clichés. Begin directly inside a technical problem space or research domain framework.\n- **The Pivot**: Connect the narrative problem to explicit engineering or analytical solutions encountered across your career.\n- **Why Us**: Specify exact laboratories, ongoing studies, and institutional professors you intend to track.`;
+  }
+  if(/europe|tuition|free|germany/i.test(low)) {
+    return `**European Low Tuition Architecture Registry:**\n\n- **Germany Hub (e.g., TUM, Heidelberg)**: Base tuition cost metrics scale close to zero. Administrative student sequence fees average €300 per semester.\n- **Language Pathways**: Diverse master pathways operate natively under English IELTS validation, whereas undergraduate steps mostly require certified C1 German alignment via VPD pipelines.`;
+  }
+  
+  return `Thank you for consulting the Chetta system layout sequence. To calibrate this strategic advice node, please clarify:\n\n1. Target regions or elite institutional configurations.\n2. Current profile metrics (GPA, SAT, IELTS, career years).\n3. Desired academic field or scholarship funding needs.`;
+}
+
+window.sendMsg = async function(customTxt) {
+  const inp = document.getElementById('chat-inp');
+  const text = customTxt || (inp ? inp.value.trim() : '');
+  if(!text || isAITyping) return;
+  
+  if(inp) inp.value = '';
+  const m = document.getElementById('chat-msgs'); if(!m) return;
+  
+  isAITyping = true;
+  if(inp) inp.disabled = true;
+  const sendBtn = document.getElementById('lbl-send');
+  if(sendBtn) sendBtn.disabled = true;
+  
+  m.innerHTML += `<div class="msg umsg"><div class="msg-av uav">U</div><div class="msg-bub"><strong>${text}</strong></div></div>`;
+  m.scrollTop = m.scrollHeight;
+  
+  // Create animated typing node
+  const ty = document.createElement('div'); ty.className = 'msg'; ty.id = 'ty-ind';
+  ty.innerHTML = `<div class="msg-av aav">✦</div><div class="msg-bub" style="display:flex;gap:4px;align-items:center"><span style="width:6px;height:6px;border-radius:50%;background:var(--blue);animation:typing 1.2s infinite"></span><span style="width:6px;height:6px;border-radius:50%;background:var(--blue);animation:typing 1.2s .2s infinite"></span><span style="width:6px;height:6px;border-radius:50%;background:var(--blue);animation:typing 1.2s .4s infinite"></span></div>`;
+  m.appendChild(ty);
+  m.scrollTop = m.scrollHeight;
+  
+  await new Promise(r => setTimeout(r, 1000));
+  
+  document.getElementById('ty-ind')?.remove();
+  const reply = getSmartResponse(text);
+  
+  m.innerHTML += `<div class="msg"><div class="msg-av aav">✦</div><div class="msg-bub">${reply}</div></div>`;
+  m.scrollTop = m.scrollHeight;
+  
+  isAITyping = false;
+  if(inp) { inp.disabled = false; inp.focus(); }
+  if(sendBtn) sendBtn.disabled = false;
+};
+
+/* ── SECURE ACCOUNT MATRIX CONTROLLER METHODS ── */
+let currentAuthMode = 'login';
+window.openAuth = function(mode) {
+  document.getElementById('authModal').classList.add('open');
+  setAuthMode(mode || 'login');
+};
+window.closeAuth = function() { document.getElementById('authModal').classList.remove('open'); };
+
+window.toggleUserDd = function() {
+  document.getElementById('navUser')?.classList.toggle('open');
+};
+
+window.setAuthMode = function(mode) {
+  currentAuthMode = mode;
+  document.getElementById('authErr').style.display = 'none';
+  
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('authTabsRow').style.display = 'flex';
+  document.getElementById('authSocialsGroup').style.display = 'block';
+  
+  if(mode === 'login') {
+    document.getElementById('tab-login').classList.add('active');
+    document.getElementById('panel-login').classList.add('active');
+  } else if(mode === 'register') {
+    document.getElementById('tab-register').classList.add('active');
+    document.getElementById('panel-register').classList.add('active');
+  } else if(mode === 'forgot') {
+    document.getElementById('authTabsRow').style.display = 'none';
+    document.getElementById('authSocialsGroup').style.display = 'none';
+    document.getElementById('panel-forgot').classList.add('active');
+  }
+};
+
+window.doLogin = async function() {
+  try {
+    const errBox = document.getElementById('authErr'); errBox.style.display = 'none';
+    const email = document.getElementById('lEmail').value;
+    const pass = document.getElementById('lPass').value;
+    
+    await signInWithEmailAndPassword(auth, email, pass);
+    closeAuth();
+  } catch(e) {
+    const errBox = document.getElementById('authErr');
+    errBox.textContent = e.message; errBox.style.display = 'block';
+  }
+};
+
+window.doRegister = async function() {
+  try {
+    const errBox = document.getElementById('authErr'); errBox.style.display = 'none';
+    const name = document.getElementById('rName').value;
+    const email = document.getElementById('rEmail').value;
+    const pass = document.getElementById('rPass').value;
+    const conf = document.getElementById('rConfirm').value;
+    
+    if(pass !== conf) { throw new Error("Secure verification pass phrases do not match."); }
+    
+    await createUserWithEmailAndPassword(auth, email, pass);
+    closeAuth();
+  } catch(e) {
+    const errBox = document.getElementById('authErr');
+    errBox.textContent = e.message; errBox.style.display = 'block';
+  }
+};
+
+window.doForgot = async function() {
+  try {
+    const email = document.getElementById('fEmail').value;
+    await sendPasswordResetEmail(auth, email);
+    alert("Recovery sequence validation mapped to specified target email vector.");
+    setAuthMode('login');
+  } catch(e) {
+    alert(e.message);
+  }
+};
+
+window.signOut = async function() {
+  await signOut(auth);
+  document.getElementById('navUser').classList.remove('open');
+};
+
+/* IDENTITY AUTH STATE OBSERVATION CYCLE */
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById('authBtns').style.display = 'none';
+    document.getElementById('navUser').style.display = 'flex';
+    document.getElementById('navAv').textContent = (user.email || 'U').slice(0,1).toUpperCase();
+    document.getElementById('navUName').textContent = user.email.split('@')[0];
+    document.getElementById('ddName').textContent = user.email.split('@')[0];
+    document.getElementById('ddEmail').textContent = user.email;
+  } else {
+    document.getElementById('authBtns').style.display = 'flex';
+    document.getElementById('navUser').style.display = 'none';
+  }
+});
+
+/* INITIAL RUNTIME DISPATCH INVOCATION LOOP */
+document.addEventListener('DOMContentLoaded', () => {
+  applyLanguageTranslations();
+  setSatTab('rw'); // Initialize the newly added interactive SAT module layout state engine
+});
+</script>
+</body>
+</html>
