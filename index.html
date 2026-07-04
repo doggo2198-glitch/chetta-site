@@ -2506,5 +2506,85 @@ window.closeQBank=function(){_origCQB();showDesmosBtn(false);};
   </div>
   <div id="desmos-sci" style="display:none;flex:1;min-height:0;overflow:hidden;"></div>
 </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-</body></html>
+const firebaseConfig = {
+  apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
+  authDomain: "chetta-81630.firebaseapp.com",
+  projectId: "chetta-81630",
+  storageBucket: "chetta-81630.firebasestorage.app",
+  messagingSenderId: "504724785390",
+  appId: "1:504724785390:web:3e0abeaec0cd16a2ea8bff",
+  measurementId: "G-VGWQW8QNMD"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+/* LOGIN */
+window.doLogin = async function () {
+  const email = document.getElementById("lEmail").value;
+  const pass = document.getElementById("lPass").value;
+
+  if (!email || !pass) return;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    alert("Logged in!");
+  } catch (e) {
+    document.getElementById("loginErr").innerText = e.message;
+  }
+};
+
+/* REGISTER */
+window.doRegister = async function () {
+  const email = document.getElementById("rEmail").value;
+  const pass = document.getElementById("rPass").value;
+
+  if (!email || !pass) return;
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, pass);
+    alert("Account created!");
+  } catch (e) {
+    document.getElementById("regErr").innerText = e.message;
+  }
+};
+
+/* GOOGLE LOGIN */
+window.doGoogle = async function () {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+/* FORGOT PASSWORD */
+window.doForgot = async function () {
+  const email = document.getElementById("fEmail").value;
+
+  if (!email) return;
+
+  await sendPasswordResetEmail(auth, email);
+  alert("Reset email sent!");
+};
+
+/* AUTH STATE */
+onAuthStateChanged(auth, (user) => {
+  console.log("User:", user);
+});
+</script>
+</body>
+</html>
