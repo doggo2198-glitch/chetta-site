@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chetta â Get Into Your Dream University</title>
+<title>Chetta - Get Into Your Dream University</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -2515,9 +2515,11 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+/* FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
   authDomain: "chetta-81630.firebaseapp.com",
@@ -2532,16 +2534,19 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+/* UI HELPERS */
+function closeAuth() {
+  document.getElementById("authOv").style.display = "none";
+}
+window.closeAuth = closeAuth;
+
 /* LOGIN */
 window.doLogin = async function () {
   const email = document.getElementById("lEmail").value;
   const pass = document.getElementById("lPass").value;
 
-  if (!email || !pass) return;
-
   try {
     await signInWithEmailAndPassword(auth, email, pass);
-    alert("Logged in!");
   } catch (e) {
     document.getElementById("loginErr").innerText = e.message;
   }
@@ -2552,11 +2557,8 @@ window.doRegister = async function () {
   const email = document.getElementById("rEmail").value;
   const pass = document.getElementById("rPass").value;
 
-  if (!email || !pass) return;
-
   try {
     await createUserWithEmailAndPassword(auth, email, pass);
-    alert("Account created!");
   } catch (e) {
     document.getElementById("regErr").innerText = e.message;
   }
@@ -2575,15 +2577,36 @@ window.doGoogle = async function () {
 window.doForgot = async function () {
   const email = document.getElementById("fEmail").value;
 
-  if (!email) return;
-
-  await sendPasswordResetEmail(auth, email);
-  alert("Reset email sent!");
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Reset email sent!");
+  } catch (e) {
+    alert(e.message);
+  }
 };
 
-/* AUTH STATE */
+/* LOGOUT (optional button) */
+window.logout = async function () {
+  await signOut(auth);
+};
+
+/* AUTH STATE (MAIN LOGIC) */
 onAuthStateChanged(auth, (user) => {
-  console.log("User:", user);
+  if (user) {
+    console.log("Logged in:", user);
+
+    // close modal
+    closeAuth();
+
+    // show user in navbar if element exists
+    const el = document.getElementById("userInfo");
+    if (el) {
+      el.innerText = user.displayName || user.email;
+    }
+
+  } else {
+    console.log("No user logged in");
+  }
 });
 </script>
 </body>
