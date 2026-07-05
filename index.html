@@ -772,7 +772,518 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="vm-embed" id="vEmbed"></div>
   <div class="vm-body" id="vBody"></div>
 </div></div>
-
+<!-- PRICING -->
+  <div id="page-pricing" class"page">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chetta - Pricing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+ 
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+ 
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+ 
+        .pricing-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+ 
+        .pricing-header p {
+            font-size: 18px;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+ 
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 40px;
+            align-items: center;
+        }
+ 
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 70px;
+            height: 34px;
+        }
+ 
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+ 
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e0;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+ 
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+ 
+        input:checked + .toggle-slider {
+            background-color: #5a67d8;
+        }
+ 
+        input:checked + .toggle-slider:before {
+            transform: translateX(36px);
+        }
+ 
+        .toggle-label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 16px;
+            min-width: 120px;
+        }
+ 
+        .save-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+ 
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+ 
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+ 
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+ 
+        .pricing-card.featured {
+            border: 2px solid #5a67d8;
+            transform: scale(1.05);
+        }
+ 
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+ 
+        .featured-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+ 
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 12px;
+            margin-top: 12px;
+        }
+ 
+        .plan-description {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+ 
+        .price-section {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+ 
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+ 
+        .price span {
+            font-size: 20px;
+            color: #718096;
+        }
+ 
+        .billing-period {
+            font-size: 14px;
+            color: #a0aec0;
+            font-weight: 500;
+        }
+ 
+        .features-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+ 
+        .features-list li {
+            padding: 12px 0;
+            color: #4a5568;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #f7fafc;
+        }
+ 
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+ 
+        .features-list li:before {
+            content: "✓";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+ 
+        .features-list li.disabled {
+            color: #cbd5e0;
+        }
+ 
+        .features-list li.disabled:before {
+            content: "✗";
+            background: #cbd5e0;
+        }
+ 
+        .cta-button {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+ 
+        .cta-button.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+ 
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+ 
+        .cta-button.secondary {
+            background: #f7fafc;
+            color: #5a67d8;
+            border: 2px solid #e2e8f0;
+        }
+ 
+        .cta-button.secondary:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+ 
+        .faq-section {
+            margin-top: 100px;
+            text-align: center;
+        }
+ 
+        .faq-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 48px;
+        }
+ 
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+ 
+        .faq-item {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+ 
+        .faq-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 12px;
+        }
+ 
+        .faq-item p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+ 
+        @media (max-width: 768px) {
+            .pricing-header h1 {
+                font-size: 36px;
+            }
+ 
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+ 
+            .pricing-card.featured:hover {
+                transform: translateY(-8px);
+            }
+ 
+            .price {
+                font-size: 36px;
+            }
+ 
+            .toggle-label {
+                min-width: auto;
+            }
+ 
+            .pricing-toggle {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pricing-container">
+        <!-- Header -->
+        <div class="pricing-header">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>Choose the plan that works best for your university admission journey. Upgrade or downgrade anytime.</p>
+            
+            <div class="pricing-toggle">
+                <span class="toggle-label">Monthly</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="billingToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Lifetime <span class="save-badge">Save 80%</span></span>
+            </div>
+        </div>
+ 
+        <!-- Pricing Cards -->
+        <div class="pricing-grid">
+            <!-- Standard Plan -->
+            <div class="pricing-card">
+                <h3 class="plan-name">Standard</h3>
+                <p class="plan-description">Perfect for getting started with Chetta</p>
+                
+                <div class="price-section">
+                    <div class="price">Free<span></span></div>
+                    <div class="billing-period">Forever free</div>
+                </div>
+ 
+                <ul class="features-list">
+                    <li>Explore 500+ universities</li>
+                    <li>Basic university search</li>
+                    <li>Limited scholarship database</li>
+                    <li class="disabled">AI Advisor access</li>
+                    <li class="disabled">Mock tests (SAT/IELTS)</li>
+                    <li class="disabled">Priority support</li>
+                </ul>
+ 
+                <button class="cta-button secondary" onclick="handlePlanSelection('standard')">Get Started</button>
+            </div>
+ 
+            <!-- Pro Plan -->
+            <div class="pricing-card featured">
+                <div class="featured-badge">Most Popular</div>
+                <h3 class="plan-name">Pro</h3>
+                <p class="plan-description">All features for serious applicants</p>
+                
+                <div class="price-section">
+                    <div class="price">$<span id="proPrice">3.99</span><span>/month</span></div>
+                    <div class="billing-period" id="proSavings"></div>
+                </div>
+ 
+                <ul class="features-list">
+                    <li>All Standard features</li>
+                    <li>Full university explorer</li>
+                    <li>Complete scholarship finder</li>
+                    <li>Unlimited AI Advisor (Gemini 2.0)</li>
+                    <li>Full SAT & IELTS mock tests</li>
+                    <li>Detailed essay feedback</li>
+                </ul>
+ 
+                <button class="cta-button primary" onclick="handlePlanSelection('pro')">Start Free Trial</button>
+            </div>
+ 
+            <!-- Lifetime Plan -->
+            <div class="pricing-card">
+                <h3 class="plan-name">Lifetime</h3>
+                <p class="plan-description">One-time payment, forever access</p>
+                
+                <div class="price-section">
+                    <div class="price">$39.99</div>
+                    <div class="billing-period">Pay once, use forever</div>
+                </div>
+ 
+                <ul class="features-list">
+                    <li>All Pro features included</li>
+                    <li>Lifetime updates</li>
+                    <li>Priority email support</li>
+                    <li>Early access to new features</li>
+                    <li>Community access</li>
+                    <li>No recurring charges</li>
+                </ul>
+ 
+                <button class="cta-button primary" onclick="handlePlanSelection('lifetime')">Get Lifetime Access</button>
+            </div>
+        </div>
+ 
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Can I change plans anytime?</h3>
+                    <p>Yes! You can upgrade or downgrade your subscription at any time. Changes take effect immediately.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is there a free trial?</h3>
+                    <p>Pro subscribers get a 14-day free trial. No credit card required to start exploring.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What payment methods do you accept?</h3>
+                    <p>We accept all major credit cards, debit cards, and digital payment methods through our secure payment processor.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is my payment information secure?</h3>
+                    <p>Absolutely. We use industry-standard encryption and never store your card details on our servers.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What if I cancel my subscription?</h3>
+                    <p>You can cancel anytime with no penalties. Your Pro access continues until the end of your billing cycle.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer refunds?</h3>
+                    <p>We offer a 30-day money-back guarantee for all new subscriptions if you're not satisfied.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <script>
+        // Toggle between monthly and lifetime pricing
+        const billingToggle = document.getElementById('billingToggle');
+        const proPrice = document.getElementById('proPrice');
+        const proSavings = document.getElementById('proSavings');
+ 
+        billingToggle.addEventListener('change', function() {
+            if (this.checked) {
+                // Lifetime selected
+                proPrice.textContent = '39.99';
+                document.querySelector('.billing-period').textContent = 'One-time payment';
+                proSavings.textContent = 'Equivalent to 10 months of Pro';
+            } else {
+                // Monthly selected
+                proPrice.textContent = '3.99';
+                proSavings.textContent = 'Billed monthly';
+            }
+        });
+ 
+        // Handle plan selection (integrate with your payment processor)
+        function handlePlanSelection(plan) {
+            // This is where you'd integrate with Stripe, Paddle, etc.
+            console.log('Selected plan:', plan);
+            
+            // Example: Send to your backend
+            const message = plan === 'standard' 
+                ? 'Redirecting to sign up...'
+                : `Redirecting to payment for ${plan.charAt(0).toUpperCase() + plan.slice(1)} plan...`;
+            
+            alert(message);
+            
+            // Uncomment and update with your payment processor:
+            // window.location.href = `https://your-payment-provider.com/checkout?plan=${plan}`;
+        }
+ 
+        // Optional: Add smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+   </div>
+  </div>
 <!-- PRACTICE PAGE -->
 <div id="page-practice" class="page">
 <div class="practice-home">
