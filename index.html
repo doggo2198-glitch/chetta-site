@@ -774,7 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div></div>
 <!-- PRICING -->
   <div id="page-pricing" class"page">
- <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chetta - Pricing</title>
@@ -1122,7 +1122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- Header -->
         <div class="pricing-header">
             <h1>Simple, Transparent Pricing</h1>
-            <p>Choose the plan that works best for your university admission journey. Upgrade or downgrade anytime.</p>
+            <p>Choose the plan that works best for your university admission journey. SAT & IELTS practice is free for all users.</p>
             
             <div class="pricing-toggle">
                 <span class="toggle-label">Monthly</span>
@@ -1148,10 +1148,10 @@ document.addEventListener('DOMContentLoaded', () => {
  
                 <ul class="features-list">
                     <li>Explore 500+ universities</li>
+                    <li>Explore 500+ universities</li>
                     <li>Basic university search</li>
                     <li>Limited scholarship database</li>
-                    <li class="disabled">AI Advisor access</li>
-                    <li class="disabled">SAT & IELTS practice</li>
+                    <li class="disabled">Unlimited AI Advisor</li>
                     <li class="disabled">Priority support</li>
                 </ul>
  
@@ -1174,8 +1174,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li>Full university explorer</li>
                     <li>Complete scholarship finder</li>
                     <li>Unlimited AI Advisor (Gemini 2.0)</li>
-                    <li>Full SAT & IELTS mock tests</li>
-                    <li>Detailed essay feedback</li>
+                    <li>Priority email support</li>
+                    <li>Detailed application guidance</li>
                 </ul>
  
                 <button class="cta-button primary" onclick="handlePlanSelection('pro')">Start Free Trial</button>
@@ -1204,86 +1204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </div>
  
-        <!-- FAQ Section -->
-        <div class="faq-section">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h3>Can I change plans anytime?</h3>
-                    <p>Yes! You can upgrade or downgrade your subscription at any time. Changes take effect immediately.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Is there a free trial?</h3>
-                    <p>Pro subscribers get a 14-day free trial. No credit card required to start exploring.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>What payment methods do you accept?</h3>
-                    <p>We accept all major credit cards, debit cards, and digital payment methods through our secure payment processor.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Is my payment information secure?</h3>
-                    <p>Absolutely. We use industry-standard encryption and never store your card details on our servers.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>What if I cancel my subscription?</h3>
-                    <p>You can cancel anytime with no penalties. Your Pro access continues until the end of your billing cycle.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Do you offer refunds?</h3>
-                    <p>We offer a 30-day money-back guarantee for all new subscriptions if you're not satisfied.</p>
-                </div>
-            </div>
-        </div>
-    </div>
- 
-    <script>
-        // Toggle between monthly and lifetime pricing
-        const billingToggle = document.getElementById('billingToggle');
-        const proPrice = document.getElementById('proPrice');
-        const proSavings = document.getElementById('proSavings');
- 
-        billingToggle.addEventListener('change', function() {
-            if (this.checked) {
-                // Lifetime selected
-                proPrice.textContent = '39.99';
-                document.querySelector('.billing-period').textContent = 'One-time payment';
-                proSavings.textContent = 'Equivalent to 10 months of Pro';
-            } else {
-                // Monthly selected
-                proPrice.textContent = '3.99';
-                proSavings.textContent = 'Billed monthly';
-            }
-        });
- 
-        // Handle plan selection (integrate with your payment processor)
-        function handlePlanSelection(plan) {
-            // This is where you'd integrate with Stripe, Paddle, etc.
-            console.log('Selected plan:', plan);
-            
-            // Example: Send to your backend
-            const message = plan === 'standard' 
-                ? 'Redirecting to sign up...'
-                : `Redirecting to payment for ${plan.charAt(0).toUpperCase() + plan.slice(1)} plan...`;
-            
-            alert(message);
-            
-            // Uncomment and update with your payment processor:
-            // window.location.href = `https://your-payment-provider.com/checkout?plan=${plan}`;
-        }
- 
-        // Optional: Add smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
-  </div>
-  
         <!-- FAQ Section -->
         <div class="faq-section">
             <h2>Frequently Asked Questions</h2>
