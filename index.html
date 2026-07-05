@@ -2284,109 +2284,19 @@ function showDesmosBtn(show){
   if(show) btn.classList.add('visible');
   else{btn.classList.remove('visible');desmosOpen=false;document.getElementById('desmos-panel').classList.remove('open');}
 }
+<div id="desmos-graph" style="width:100%;height:500px;"></div>
+<script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=874c087443984c6fb0af9b6ea2e28ef1"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const elt = document.getElementById('desmos-graph');
+    const calculator = Desmos.GraphingCalculator(elt);
 
-// ── GRAPHING CALCULATOR ──
-let graphFuncs=['sin(x)'], graphOffset={x:0,y:0}, graphScale=40;
-const COLORS=['#2563eb','#dc2626','#16a34a','#d97706','#7c3aed'];
-
-function initGraph(){
-  const el=document.getElementById('graph-canvas');
-  if(!el)return;
-  graphCanvas=el; graphCtx=el.getContext('2d');
-  resizeGraph(); drawGraph();
-}
-
-function resizeGraph(){
-  const c=graphCanvas; if(!c)return;
-  c.width=c.offsetWidth*window.devicePixelRatio||c.offsetWidth;
-  c.height=c.offsetHeight*window.devicePixelRatio||c.offsetHeight;
-  graphCtx.scale(window.devicePixelRatio||1, window.devicePixelRatio||1);
-}
-
-function drawGraph(){
-  const cv=graphCanvas,ctx=graphCtx;
-  if(!cv||!ctx)return;
-  const W=cv.offsetWidth, H=cv.offsetHeight;
-  ctx.clearRect(0,0,W,H);
-  const ox=W/2+graphOffset.x, oy=H/2+graphOffset.y;
-  const s=graphScale;
-
-  // Grid
-  ctx.strokeStyle='#e5e7eb'; ctx.lineWidth=1;
-  const startX=Math.floor((-ox)/s)*s, startY=Math.floor((-oy)/s)*s;
-  for(let x=startX;x<W;x+=s){ctx.beginPath();ctx.moveTo(ox+x,0);ctx.lineTo(ox+x,H);ctx.stroke();}
-  for(let y=startY;y<H;y+=s){ctx.beginPath();ctx.moveTo(0,oy+y);ctx.lineTo(W,oy+y);ctx.stroke();}
-
-  // Axes
-  ctx.strokeStyle='#374151'; ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.moveTo(ox,0);ctx.lineTo(ox,H);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(0,oy);ctx.lineTo(W,oy);ctx.stroke();
-
-  // Axis labels
-  ctx.fillStyle='#9ca3af'; ctx.font='10px DM Sans,sans-serif'; ctx.textAlign='center';
-  for(let i=Math.ceil(-ox/s);i<(W-ox)/s;i++){
-    if(i===0)continue;
-    ctx.fillText(i, ox+i*s, oy+12);
-    ctx.beginPath();ctx.moveTo(ox+i*s,oy-3);ctx.lineTo(ox+i*s,oy+3);ctx.strokeStyle='#374151';ctx.lineWidth=1;ctx.stroke();
-  }
-  ctx.textAlign='right';
-  for(let i=Math.ceil(-oy/s);i<(H-oy)/s;i++){
-    if(i===0)continue;
-    ctx.fillText(-i, ox-5, oy+i*s+4);
-    ctx.beginPath();ctx.moveTo(ox-3,oy+i*s);ctx.lineTo(ox+3,oy+i*s);ctx.stroke();
-  }
-
-  // Plot functions
-  graphFuncs.forEach((fn,fi)=>{
-    if(!fn.trim())return;
-    ctx.strokeStyle=COLORS[fi%COLORS.length]; ctx.lineWidth=2.2;
-    ctx.beginPath(); let started=false;
-    for(let px=0;px<W;px++){
-      const x=(px-ox)/s;
-      try{
-        const expr=fn.replace(/sin/g,'Math.sin').replace(/cos/g,'Math.cos').replace(/tan/g,'Math.tan')
-          .replace(/sqrt/g,'Math.sqrt').replace(/abs/g,'Math.abs').replace(/log/g,'Math.log10')
-          .replace(/ln/g,'Math.log').replace(/pi/g,'Math.PI').replace(/e(?![a-zA-Z])/g,'Math.E')
-          .replace(/\^/g,'**');
-        // eslint-disable-next-line no-new-func
-        const y=Function('x','return '+expr)(x);
-        if(!isFinite(y)||isNaN(y)||Math.abs(y)>1e6){started=false;continue;}
-        const py=oy-y*s;
-        if(!started){ctx.moveTo(px,py);started=true;}else ctx.lineTo(px,py);
-      }catch(e){started=false;}
-    }
-    ctx.stroke();
-  });
-}
-
-function addGraphFunc(){
-  const inp=document.getElementById('graph-input');
-  const fn=inp.value.trim(); if(!fn)return;
-  graphFuncs.push(fn); inp.value='';
-  renderGraphInputs(); drawGraph();
-}
-
-function renderGraphInputs(){
-  const list=document.getElementById('graph-func-list');
-  if(!list)return;
-  list.innerHTML=graphFuncs.map((fn,i)=>`
-    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem">
-      <span style="width:10px;height:10px;border-radius:50%;background:${COLORS[i%COLORS.length]};flex-shrink:0"></span>
-      <input value="${fn}" onchange="graphFuncs[${i}]=this.value;drawGraph()" style="flex:1;border:1px solid var(--g200);border-radius:6px;padding:.25rem .5rem;font-size:.75rem;font-family:DM Sans,sans-serif;outline:none"/>
-      <button onclick="graphFuncs.splice(${i},1);renderGraphInputs();drawGraph()" style="background:none;border:none;color:var(--g400);cursor:pointer;font-size:.9rem;line-height:1">✕</button>
-    </div>`).join('');
-}
-
-// Graph pan/zoom
-let graphDrag=null;
-function graphMouseDown(e){graphDrag={x:e.clientX-graphOffset.x,y:e.clientY-graphOffset.y};}
-function graphMouseMove(e){if(!graphDrag)return;graphOffset.x=e.clientX-graphDrag.x;graphOffset.y=e.clientY-graphDrag.y;drawGraph();}
-function graphMouseUp(){graphDrag=null;}
-function graphWheel(e){e.preventDefault();graphScale=Math.max(10,Math.min(200,graphScale*(e.deltaY>0?0.85:1.18)));drawGraph();}
-function graphZoomIn(){graphScale=Math.min(200,graphScale*1.3);drawGraph();}
-function graphZoomOut(){graphScale=Math.max(10,graphScale*0.75);drawGraph();}
-function graphReset(){graphOffset={x:0,y:0};graphScale=40;graphFuncs=['sin(x)'];renderGraphInputs();drawGraph();}
-
+    calculator.setExpression({
+        id: 'graph1',
+        latex: 'y=x^2'
+    });
+});
+</script>
 // ── SCIENTIFIC CALCULATOR ──
 let sciDisplay='0', sciPrev='', sciOp='', sciJustCalc=false;
 
