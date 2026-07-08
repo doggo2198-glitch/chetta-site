@@ -1,3 +1,33 @@
+<body>
+  <!-- NAV BAR -->
+<nav>
+    <div class="nav-logo" onclick="window.location.href='/'">Chetta<em>.</em></div>
+    <div class="nav-links">
+        <button class="nl-btn" onclick="window.location.href='/'">Home</button>
+        <button class="nl-btn" onclick="window.location.href='/#universities'">Universities</button>
+        <button class="nl-btn" onclick="window.location.href='/#scholarships'">Scholarships</button>
+        <button class="nl-btn" onclick="window.location.href='/#interviews'">Interviews</button>
+        <button class="nl-btn active" onclick="window.location.href='/pricing'">Pricing</button>
+        <button class="nl-btn" onclick="window.location.href='/#ai-advisor'">AI Advisor</button>
+        <button class="nl-btn" onclick="window.location.href='/#sat-prep'">SAT Prep</button>
+    </div>
+    <div class="nav-right">
+        <!-- LANG SWITCHER -->
+        <div class="lang-sw" id="langSwitcher">
+            <button class="lang-btn" onclick="document.getElementById('langSwitcher').classList.toggle('open')">
+                🇬🇧 ENG ▾
+            </button>
+            <div class="lang-dd">
+                <div class="lang-opt sel">🇬🇧 English <span class="lang-native">ENG</span></div>
+                <div class="lang-opt">🇺🇿 O'zbekcha <span class="lang-native">UZB</span></div>
+                <div class="lang-opt">🇷🇺 Русский <span class="lang-native">RUS</span></div>
+            </div>
+        </div>
+        <!-- AUTH BUTTONS -->
+        <button class="btn-ghost" id="nav-signin-btn">Sign in</button>
+        <button class="btn-blue" id="nav-register-btn">Get started</button>
+    </div>
+</nav>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -941,3 +971,4 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
     </script>
    </div>
 </div>
+</body>  
