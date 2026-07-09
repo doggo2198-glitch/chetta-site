@@ -898,17 +898,19 @@ function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e
 
 
 function updateNav(){
+  const authBtns=document.getElementById('authBtns'), navUser=document.getElementById('navUser');
+  if(!authBtns||!navUser) return; // this page's nav doesn't have the full user-menu markup
   if(currentUser){
-    document.getElementById('authBtns').style.display='none';
-    const nu=document.getElementById('navUser');nu.style.display='flex';
+    authBtns.style.display='none';
+    navUser.style.display='flex';
     document.getElementById('navAv').textContent=(currentUser.fn[0]+(currentUser.ln?.[0]||'')).toUpperCase();
     document.getElementById('navUName').textContent=currentUser.fn;
     document.getElementById('ddName').textContent=currentUser.fn+' '+(currentUser.ln||'');
     document.getElementById('ddEmail').textContent=currentUser.em;
-  }else{document.getElementById('authBtns').style.display='flex';document.getElementById('navUser').style.display='none';}
+  }else{authBtns.style.display='flex';navUser.style.display='none';}
 }
-function toggleUMenu(){document.getElementById('navUser').classList.toggle('open');}
-document.getElementById('authOv').addEventListener('click',e=>{if(e.target===document.getElementById('authOv'))closeAuth();});
+function toggleUMenu(){document.getElementById('navUser')?.classList.toggle('open');}
+document.getElementById('authOv')?.addEventListener('click',e=>{if(e.target===document.getElementById('authOv'))closeAuth();});
 
 // ── AI ADVISOR (Built-in — no API key needed) ──
 let chatHist=[], isAITyping=false;
@@ -1050,8 +1052,9 @@ function applyLang(lang){
   currentLang=lang;localStorage.setItem('cl',lang);
   const t=T();
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.innerHTML=t[k];});
-  document.getElementById('cflag').textContent=langMeta[lang].f;
-  document.getElementById('clbl').textContent=langMeta[lang].l;
+  const cflag=document.getElementById('cflag'), clbl=document.getElementById('clbl');
+  if(cflag) cflag.textContent=langMeta[lang].f;
+  if(clbl) clbl.textContent=langMeta[lang].l;
   ['en','uz','ru'].forEach(l=>{document.getElementById('lang-'+l)?.classList.toggle('sel',l===lang);});
   // placeholders
   const us=document.getElementById('uni-search');if(us)us.placeholder=lang==='uz'?"Universitet nomi yoki mamlakat...":lang==='ru'?'Поиск по названию или стране...':'Search by name or country...';
@@ -1082,12 +1085,13 @@ document.addEventListener('click',e=>{if(!e.target.closest('#langSw'))document.g
 // ── CHAT INJECT ──
 const chatHTML=`<section class="chat-sec" id="chat-sec"><div class="chat-wrap"><div style="text-align:center;margin-bottom:.25rem"><div class="sec-eye" style="display:inline-block" data-i18n="feat_eye">Platform features</div><h2 class="sec-title" style="margin-top:.5rem" data-i18n="ai_title">Your AI Admissions Advisor</h2><p class="sec-sub" style="margin:0 auto" data-i18n="ai_sub">Ask anything — scholarships, essays, SAT tips, visa questions. Powered by Gemini 2.0.</p></div><div class="chat-win"><div class="chat-hd"><div class="chat-hd-l"><div class="chat-icon">✦AI</div><div><div class="chat-hd-name" data-i18n="ai_agent">Chetta AI</div><div class="chat-hd-status"><span class="st-dot"></span><span data-i18n="ai_status">Powered by Gemini 2.0</span></div></div></div><span style="font-size:.72rem;color:var(--green);font-weight:600;display:flex;align-items:center;gap:.3rem"><span style="width:6px;height:6px;border-radius:50%;background:var(--green)"></span>AI Online</span></div><div class="chat-msgs" id="chat-msgs"><div class="msg"><div class="msg-av aav">✦</div><div class="msg-bub" data-i18n="ai_welcome">Hi! I'm Chetta AI. Ask me anything about getting into top universities. What's your dream school? 🎓</div></div></div><div class="chat-prompts" id="chat-prompts"><button class="p-chip" onclick="sendMsg('How do I get into Harvard?')" data-i18n="c1">How do I get into Harvard?</button><button class="p-chip" onclick="sendMsg('Find me scholarships')" data-i18n="c2">Find me scholarships</button><button class="p-chip" onclick="sendMsg('SAT improvement tips')" data-i18n="c3">SAT improvement tips</button><button class="p-chip" onclick="sendMsg('Help with my essay')" data-i18n="c4">Help with my essay</button><button class="p-chip" onclick="sendMsg('IELTS for Oxford')" data-i18n="c5">IELTS for Oxford</button><button class="p-chip" onclick="sendMsg('Student visa guide')" data-i18n="c6">Student visa guide</button></div><div class="chat-inp-row"><input class="chat-inp" type="text" id="chat-inp" placeholder="Ask me anything about admissions..." onkeydown="if(event.key==='Enter')sendMsg()"><button class="chat-send" onclick="sendMsg()">↑</button></div></div></div></section>`;
 
-document.querySelector('.testi-sec').insertAdjacentHTML('beforebegin',chatHTML);
-document.getElementById('page-home').insertAdjacentHTML('beforeend','<footer></footer>');
+document.querySelector('.testi-sec')?.insertAdjacentHTML('beforebegin',chatHTML);
+document.getElementById('page-home')?.insertAdjacentHTML('beforeend','<footer></footer>');
 
 // ── INIT ──
 applyLang(currentLang);
 updateNav();
+showPage('practice'); // this file only contains the practice page, so show it by default
 // AI ready — no API key needed
 
 
