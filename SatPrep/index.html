@@ -717,7 +717,8 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
     </div>
   </div>
 </div>
- <script>
+
+<script>
 const unis=[
   {id:1,name:"Massachusetts Institute of Technology",short:"MIT",loc:"Cambridge, USA",region:"usa",emoji:"⚛",rank:"#1 World",acc:3.97,tuition:57986,sat:"1510–1580",gpa:"3.9+",type:"Research University",url:"https://mit.edu",diff:98,tags:["STEM","Research","Engineering"],desc:"MIT is the world's leading STEM university, renowned for hands-on innovation. Its culture of building and solving real problems has produced more Nobel laureates per faculty than any other institution in the world.",majors:["Computer Science","Electrical Engineering","Physics","Mathematics","Aerospace","Biology","Economics"],scholarships:["MIT Need-Based Aid","Fulbright","Gates Cambridge"],roadmap:["Score 1550+ SAT or 35+ ACT","Maintain 3.9+ unweighted GPA in rigorous courses","Research experience, hackathons, or significant projects","Essays showing 'mind and hand' — curiosity + practical application","Two teacher recommendations + counselor letter","Apply by November 1 (EA) or January 1 (RD)"]},
   {id:2,name:"Harvard University",short:"Harvard",loc:"Cambridge, USA",region:"usa",emoji:"🏛",rank:"#4 World",acc:3.6,tuition:59076,sat:"1500–1580",gpa:"3.9+",type:"Ivy League",url:"https://harvard.edu",diff:97,tags:["Ivy League","Liberal Arts","Research"],desc:"Harvard is America's oldest university and the gold standard in higher education. Its holistic admissions values extraordinary achievement, authentic storytelling, and intellectual curiosity above all else.",majors:["Law","Medicine","Business","Economics","Political Science","Computer Science","History"],scholarships:["Harvard Financial Aid","Harvard Club Scholarships","Fulbright"],roadmap:["Score 1500+ SAT or 34+ ACT","Top of class GPA in rigorous coursework","Exceptional extracurriculars showing deep leadership","Compelling, specific personal narrative in all essays","Two strong academic recommendations + counselor letter","Apply by November 1 (REA) or January 1 (RD)"]},
@@ -1983,4 +1984,113 @@ window.closeQBank=function(){_origCQB();showDesmosBtn(false);};
 </div>
   <div id="desmos-sci" style="display:none;flex:1;min-height:0;overflow:hidden;"></div>
 </div>
-</body>  
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
+  authDomain: "chetta-81630.firebaseapp.com",
+  projectId: "chetta-81630",
+  storageBucket: "chetta-81630.firebasestorage.app",
+  messagingSenderId: "504724785390",
+  appId: "1:504724785390:web:3e0abeaec0cd16a2ea8bff",
+  measurementId: "G-VGWQW8QNMD"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+/* GOOGLE LOGIN */
+window.doGoogle = async function () {
+  try {
+    await signInWithPopup(auth, provider);
+    if (typeof closeAuth === "function") closeAuth();
+  } catch (e) {
+    alert(e.message);
+  }
+};
+
+/* EMAIL LOGIN */
+window.doLogin = async function () {
+  try {
+    const email = document.getElementById("lEmail").value;
+    const password = document.getElementById("lPass").value;
+
+    await signInWithEmailAndPassword(auth, email, password);
+
+    if (typeof closeAuth === "function") closeAuth();
+  } catch (e) {
+    const err = document.getElementById("loginErr");
+    if (err) err.textContent = e.message;
+  }
+};
+
+/* REGISTER */
+window.doRegister = async function () {
+  try {
+    const email = document.getElementById("rEmail").value;
+    const password = document.getElementById("rPass").value;
+
+    await createUserWithEmailAndPassword(auth, email, password);
+
+    if (typeof closeAuth === "function") closeAuth();
+  } catch (e) {
+    const err = document.getElementById("regErr");
+    if (err) err.textContent = e.message;
+  }
+};
+
+/* RESET PASSWORD */
+window.doForgot = async function () {
+  try {
+    const email = document.getElementById("fEmail").value;
+
+    await sendPasswordResetEmail(auth, email);
+
+    alert("Password reset email sent.");
+  } catch (e) {
+    alert(e.message);
+  }
+};
+
+/* SIGN OUT */
+window.signOut = async function () {
+  await signOut(auth);
+};
+
+/* USER STATE */
+onAuthStateChanged(auth, (user) => {
+  console.log("Auth state:", user);
+
+  if (user) {
+    const authBtns = document.getElementById("authBtns");
+    const navUser = document.getElementById("navUser");
+
+    if (authBtns) authBtns.style.display = "none";
+    if (navUser) navUser.style.display = "flex";
+
+    const navUName = document.getElementById("navUName");
+    const ddName = document.getElementById("ddName");
+    const ddEmail = document.getElementById("ddEmail");
+    const navAv = document.getElementById("navAv");
+
+    if (navUName) navUName.textContent = user.displayName || user.email;
+    if (ddName) ddName.textContent = user.displayName || user.email;
+    if (ddEmail) ddEmail.textContent = user.email;
+    if (navAv && user.photoURL) navAv.src = user.photoURL;
+  }
+});
+</script>
+</body>
