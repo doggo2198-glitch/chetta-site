@@ -799,6 +799,11 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
             }
         }
     </style>
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script>
+      Paddle.Environment.set('sandbox'); // remove this line when you go live
+      Paddle.Initialize({ token: 'test_5971d4c0fedd99a9e136c39fb6a' });
+    </script>
 </head>
 <body>
     <div class="pricing-container">
@@ -938,20 +943,41 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
             }
         });
  
-        // Handle plan selection (integrate with your payment processor)
+        // ── Paddle price IDs ──
+        // Get these from your sandbox dashboard: Catalog → Products → (your product) → Prices
+        const PADDLE_PRICE_IDS = {
+            proMonthly:  'pri_01kx5ckqe4wxgyvhtthz9vbpv3',
+            lifetime:    'pri_01kx5cq6nknj4fn2vt4kpc2583'
+        };
+
+        // Handle plan selection
         function handlePlanSelection(plan) {
-            // This is where you'd integrate with Stripe, Paddle, etc.
-            console.log('Selected plan:', plan);
-            
-            // Example: Send to your backend
-            const message = plan === 'standard' 
-                ? 'Redirecting to sign up...'
-                : `Redirecting to payment for ${plan.charAt(0).toUpperCase() + plan.slice(1)} plan...`;
-            
-            alert(message);
-            
-            // Uncomment and update with your payment processor:
-            // window.location.href = `https://your-payment-provider.com/checkout?plan=${plan}`;
+            if (plan === 'standard') {
+                // Free plan — no payment needed, just take them to sign up / the app itself
+                window.location.href = '/';
+                return;
+            }
+
+            let priceId;
+            if (plan === 'pro') {
+                priceId = billingToggle.checked ? PADDLE_PRICE_IDS.lifetime : PADDLE_PRICE_IDS.proMonthly;
+            } else if (plan === 'lifetime') {
+                priceId = PADDLE_PRICE_IDS.lifetime;
+            }
+
+            if (!priceId || priceId.includes('REPLACE_WITH')) {
+                alert('Payment isn\'t configured yet — add your Paddle price IDs in the script.');
+                return;
+            }
+
+            Paddle.Checkout.open({
+                items: [{ priceId, quantity: 1 }],
+                settings: {
+                    displayMode: 'overlay',
+                    theme: 'light',
+                    successUrl: 'https://chetta.xyz/payment-success/'
+                }
+            });
         }
  
         // Optional: Add smooth scroll for navigation
@@ -967,4 +993,4 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
     </script>
    </div>
 </div>
-</body>  
+</body>
