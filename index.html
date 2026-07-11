@@ -52,6 +52,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .nav-user{display:flex;align-items:center;gap:.45rem;cursor:pointer;position:relative}
 .nav-av{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;border:2px solid var(--g200)}
 .nav-uname{font-size:.82rem;font-weight:600;color:var(--g700)}
+.user-pro-badge{background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.4px;padding:.15rem .5rem;border-radius:100px;margin-left:.1rem}
 .u-dd{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--g200);border-radius:var(--rl);min-width:195px;box-shadow:var(--shadowlg);z-index:1000;overflow:hidden}
 .nav-user.open .u-dd{display:block}
 .u-dd-head{padding:.8rem 1rem;border-bottom:1px solid var(--g100)}
@@ -515,6 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="nav-user" id="navUser" style="display:none" onclick="toggleUMenu()">
       <div class="nav-av" id="navAv">JD</div>
       <span class="nav-uname" id="navUName">You</span>
+      <span class="user-pro-badge" id="navPlanBadge" style="display:none">PRO</span>
       <div class="u-dd" id="uDd">
         <div class="u-dd-head"><div class="u-dd-name" id="ddName"></div><div class="u-dd-email" id="ddEmail"></div></div>
         <div class="u-dd-item" onclick="showPage('universities')">🏛 <span data-i18n="nav_universities">Universities</span></div>
@@ -2943,7 +2945,22 @@ async function loadChettaPlan(uid) {
     console.error("Could not load plan:", e);
     window.chettaPlan = "standard";
   }
+  updatePlanBadge();
 }
+
+window.updatePlanBadge = function () {
+  const badge = document.getElementById("navPlanBadge");
+  if (!badge) return;
+  if (window.chettaPlan === "pro") {
+    badge.textContent = "PRO";
+    badge.style.display = "inline-block";
+  } else if (window.chettaPlan === "lifetime") {
+    badge.textContent = "LIFETIME";
+    badge.style.display = "inline-block";
+  } else {
+    badge.style.display = "none";
+  }
+};
 
 /* GOOGLE LOGIN */
 window.doGoogle = async function () {
