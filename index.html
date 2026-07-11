@@ -1312,7 +1312,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <p data-i18n="pb_math_desc">Algebra, geometry, data analysis and advanced math — step-by-step solutions for every problem.</p>
       <span class="prac-badge" style="background:var(--gpale);color:var(--green)" data-i18n="pb_math_badge">150+ questions</span>
     </div>
-    <div class="prac-card amber" onclick="if(requirePro())openQBank('test')">
+    <div class="prac-card amber" onclick="if(requirePro())openExamMenu()">
       <span class="pro-badge">PRO</span>
       <div class="prac-icon amber">📝</div>
       <h3 data-i18n="pb_test_title">Past Exam Papers + Predictions</h3>
@@ -2524,6 +2524,30 @@ function requirePro() {
   document.getElementById('upgradeOv').classList.add('open');
   return false;
 }
+// ── Past Exam Papers + Predictions menu ──
+function openExamMenu() {
+  document.getElementById('examMenuStep1').style.display = 'flex';
+  document.getElementById('examMenuStep2').style.display = 'none';
+  document.getElementById('examMenuTitle').textContent = 'Past Exam Papers + Predictions';
+  document.getElementById('examMenuSub').textContent = "Choose what you'd like to practice";
+  document.getElementById('examMenuOv').classList.add('open');
+}
+function closeExamMenu() {
+  document.getElementById('examMenuOv').classList.remove('open');
+}
+function showPredictionsStep() {
+  document.getElementById('examMenuStep1').style.display = 'none';
+  document.getElementById('examMenuStep2').style.display = 'flex';
+  document.getElementById('examMenuTitle').textContent = 'Predictions';
+  document.getElementById('examMenuSub').textContent = 'Which section would you like a projected score for?';
+}
+function backToExamMenuStep1() {
+  document.getElementById('examMenuStep1').style.display = 'flex';
+  document.getElementById('examMenuStep2').style.display = 'none';
+  document.getElementById('examMenuTitle').textContent = 'Past Exam Papers + Predictions';
+  document.getElementById('examMenuSub').textContent = "Choose what you'd like to practice";
+}
+
 
 // ── VOCAB LEARN MODE (Quizlet-style multiple choice) ──
 let vlPool = [], vlCurrent = null, vlScore = 0, vlTotal = 0;
@@ -2946,6 +2970,7 @@ async function loadChettaPlan(uid) {
     window.chettaPlan = "standard";
   }
   updatePlanBadge();
+  if (typeof window.onChettaPlanReady === "function") window.onChettaPlanReady();
 }
 
 window.updatePlanBadge = function () {
@@ -3025,7 +3050,7 @@ onAuthStateChanged(auth, (user) => {
   console.log("Auth state:", user);
   window.chettaUser = user;
   window.chettaPlan = "standard";
-  if (user) loadChettaPlan(user.uid);
+  if (user) loadChettaPlan(user.uid); else { updatePlanBadge(); if (typeof window.onChettaPlanReady === "function") window.onChettaPlanReady(); }
 
   if (user) {
     const authBtns = document.getElementById("authBtns");
@@ -3046,6 +3071,45 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 </script>
+<div class="m-ov" id="examMenuOv">
+  <div class="m-box" style="max-width:460px">
+    <div class="m-head" style="border-radius:var(--rxl) var(--rxl) 0 0">
+      <button class="m-close" onclick="closeExamMenu()">✕</button>
+      <div class="m-title" style="font-size:1.35rem" id="examMenuTitle">Past Exam Papers + Predictions</div>
+      <div class="m-loc" id="examMenuSub">Choose what you'd like to practice</div>
+    </div>
+    <div class="m-content">
+      <!-- STEP 1 -->
+      <div id="examMenuStep1" style="display:flex;flex-direction:column;gap:.8rem">
+        <div class="prac-card blue" style="cursor:pointer" onclick="window.location.href='/SatPrep/PastExams/'">
+          <div class="prac-icon blue">📄</div>
+          <h3>Past Exams</h3>
+          <p>Real past exam papers, timed and scored just like the actual test.</p>
+        </div>
+        <div class="prac-card purple" style="cursor:pointer" onclick="window.location.href='/SatPrep/Predictions/'">
+          <div class="prac-icon purple">🔮</div>
+          <h3>Predictions</h3>
+          <p>Get a projected score for a specific section based on your performance.</p>
+        </div>
+      </div>
+      <!-- STEP 2 -->
+      <div id="examMenuStep2" style="display:none;flex-direction:column;gap:.8rem">
+        <button class="qb-btn outline" style="align-self:flex-start" onclick="backToExamMenuStep1()">← Back</button>
+        <div class="prac-card blue" style="cursor:pointer" onclick="closeExamMenu();openQBank('reading')">
+          <div class="prac-icon blue">📖</div>
+          <h3>Reading &amp; Writing</h3>
+          <p>Projected Reading &amp; Writing score based on a focused practice set.</p>
+        </div>
+        <div class="prac-card green" style="cursor:pointer" onclick="closeExamMenu();openQBank('math')">
+          <div class="prac-icon green">📐</div>
+          <h3>Math</h3>
+          <p>Projected Math score based on a focused practice set.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="auth-ov" id="upgradeOv">
   <div class="auth-box" style="max-width:380px;text-align:center;padding:2rem 1.5rem">
     <div style="font-size:2rem;margin-bottom:.5rem">🔒</div>
