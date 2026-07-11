@@ -804,6 +804,29 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
       Paddle.Environment.set('sandbox'); // remove this line when you go live
       Paddle.Initialize({ token: 'test_5971d4c0fedd99a9e136c39fb6a' });
     </script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
+        authDomain: "chetta-81630.firebaseapp.com",
+        projectId: "chetta-81630",
+        storageBucket: "chetta-81630.firebasestorage.app",
+        messagingSenderId: "504724785390",
+        appId: "1:504724785390:web:3e0abeaec0cd16a2ea8bff",
+        measurementId: "G-VGWQW8QNMD"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Expose the signed-in user to the regular (non-module) script below
+      window.chettaUser = null;
+      onAuthStateChanged(auth, (user) => {
+        window.chettaUser = user;
+      });
+    </script>
 </head>
 <body>
     <div class="pricing-container">
@@ -970,8 +993,15 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
                 return;
             }
 
+            if (!window.chettaUser) {
+                alert('Please sign in first so we can attach this purchase to your account.');
+                window.location.href = '/'; // send them to sign in on the main site
+                return;
+            }
+
             Paddle.Checkout.open({
                 items: [{ priceId, quantity: 1 }],
+                customData: { firebaseUid: window.chettaUser.uid },
                 settings: {
                     displayMode: 'overlay',
                     theme: 'light',
