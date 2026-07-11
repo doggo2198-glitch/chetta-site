@@ -2196,6 +2196,7 @@ async function loadChettaPlan(uid) {
     window.chettaPlan = "standard";
   }
   updatePlanBadge();
+  if (typeof window.onChettaPlanReady === "function") window.onChettaPlanReady();
 }
 
 window.updatePlanBadge = function () {
@@ -2275,7 +2276,7 @@ onAuthStateChanged(auth, (user) => {
   console.log("Auth state:", user);
   window.chettaUser = user;
   window.chettaPlan = "standard";
-  if (user) loadChettaPlan(user.uid);
+  if (user) loadChettaPlan(user.uid); else { updatePlanBadge(); if (typeof window.onChettaPlanReady === "function") window.onChettaPlanReady(); }
 
   if (user) {
     const authBtns = document.getElementById("authBtns");
@@ -2306,12 +2307,12 @@ onAuthStateChanged(auth, (user) => {
     <div class="m-content">
       <!-- STEP 1 -->
       <div id="examMenuStep1" style="display:flex;flex-direction:column;gap:.8rem">
-        <div class="prac-card blue" style="cursor:pointer" onclick="closeExamMenu();openQBank('test')">
+        <div class="prac-card blue" style="cursor:pointer" onclick="window.location.href='/SatPrep/PastExams/'">
           <div class="prac-icon blue">📄</div>
           <h3>Past Exams</h3>
           <p>Real past exam papers, timed and scored just like the actual test.</p>
         </div>
-        <div class="prac-card purple" style="cursor:pointer" onclick="showPredictionsStep()">
+        <div class="prac-card purple" style="cursor:pointer" onclick="window.location.href='/SatPrep/Predictions/'">
           <div class="prac-icon purple">🔮</div>
           <h3>Predictions</h3>
           <p>Get a projected score for a specific section based on your performance.</p>
