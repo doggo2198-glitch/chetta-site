@@ -50,6 +50,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .nav-user{display:flex;align-items:center;gap:.45rem;cursor:pointer;position:relative}
 .nav-av{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;border:2px solid var(--g200)}
 .nav-uname{font-size:.82rem;font-weight:600;color:var(--g700)}
+.user-pro-badge{background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.4px;padding:.15rem .5rem;border-radius:100px;margin-left:.1rem}
 .u-dd{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--g200);border-radius:var(--rl);min-width:195px;box-shadow:var(--shadowlg);z-index:1000;overflow:hidden}
 .nav-user.open .u-dd{display:block}
 .u-dd-head{padding:.8rem 1rem;border-bottom:1px solid var(--g100)}
@@ -421,101 +422,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 @media(max-width:480px){
   .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:5rem}
 }
-/* ── DESMOS CALCULATOR ── */
-.desmos-toggle{
-  display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:850;
-  background:var(--blue);color:#fff;border:none;
-  width:52px;height:52px;border-radius:50%;
-  font-size:1.3rem;cursor:pointer;
-  box-shadow:0 4px 20px rgba(37,99,235,.45);
-  transition:all .2s;align-items:center;justify-content:center
-}
-.desmos-toggle:hover{background:#1d4ed8;transform:scale(1.08)}
-.desmos-toggle.visible{display:flex}
-.desmos-panel{
-  display:none;position:fixed;bottom:5rem;right:1.5rem;z-index:849;
-  width:380px;height:500px;
-  background:#fff;border:1.5px solid var(--g200);
-  border-radius:var(--rxl);
-  box-shadow:0 16px 60px rgba(0,0,0,.18);
-  overflow:hidden;flex-direction:column
-}
-.desmos-panel.open{display:flex}
-.desmos-panel-head{
-  padding:.65rem 1rem;background:#fff;
-  border-bottom:1px solid var(--g200);
-  display:flex;align-items:center;justify-content:space-between;
-  flex-shrink:0
-}
-.desmos-panel-title{font-weight:700;font-size:.82rem;color:var(--g900);display:flex;align-items:center;gap:.4rem}
-.desmos-panel-close{background:none;border:none;color:var(--g400);cursor:pointer;font-size:1rem;line-height:1;padding:.2rem}
-.desmos-panel-close:hover{color:var(--g900)}
-.desmos-tabs{display:flex;border-bottom:1px solid var(--g200);background:#fff;flex-shrink:0}
-.desmos-tab{flex:1;padding:.5rem;text-align:center;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--g400);border-bottom:2px solid transparent;transition:all .15s}
-.desmos-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
-#desmos-graph,#desmos-sci{flex:1;width:100%;background:#fff;min-height:0}
-@media(max-width:480px){
-  .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:5rem}
-}
 
-</style>
-</head>
-  <body>
-  <!-- Desmos API -->
-<script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=874c087443984c6fb0af9b6ea2e28ef1"></script>
-
-<!-- Calculator Button -->
-<button class="desmos-toggle visible" id="desmosToggle">
-  📈
-</button>
-
-<!-- Calculator Panel -->
-<div class="desmos-panel" id="desmosPanel">
-  <div class="desmos-panel-head">
-    <div class="desmos-panel-title">
-      Desmos Calculator
-    </div>
-    <button class="desmos-panel-close" id="desmosClose">✕</button>
-  </div>
-
-  <div class="desmos-tabs">
-    <div class="desmos-tab active" data-tab="graph">Graphing</div>
-  </div>
-
-  <div id="desmos-graph"></div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-  const panel = document.getElementById('desmosPanel');
-  const toggle = document.getElementById('desmosToggle');
-  const closeBtn = document.getElementById('desmosClose');
-
-  toggle.addEventListener('click', () => {
-    panel.classList.toggle('open');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    panel.classList.remove('open');
-  });
-
-  const elt = document.getElementById('desmos-graph');
-
-  const calculator = Desmos.GraphingCalculator(elt, {
-    expressions: true,
-    settingsMenu: true,
-    zoomButtons: true,
-    expressionsCollapsed: false
-  });
-
-  calculator.setExpression({
-    id: 'graph1',
-    latex: 'y=x^2'
-  });
-
-});
-</script>
 </style>
 </head>
 <body>
@@ -531,23 +438,82 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="nl-btn" onclick="window.location.href='/#ai-advisor'">AI Advisor</button>
         <button class="nl-btn" id="nav-practice" onclick="window.location.href='/SatPrep/'" data-i18n="nav_practice">SAT Prep</button>
     </div>
-    <div class="nav-right">
-        <!-- LANG SWITCHER -->
-        <div class="lang-sw" id="langSwitcher">
-            <button class="lang-btn" onclick="document.getElementById('langSwitcher').classList.toggle('open')">
-                🇬🇧 ENG ▾
-            </button>
-            <div class="lang-dd">
-                <div class="lang-opt sel">🇬🇧 English <span class="lang-native">ENG</span></div>
-                <div class="lang-opt">🇺🇿 O'zbekcha <span class="lang-native">UZB</span></div>
-                <div class="lang-opt">🇷🇺 Русский <span class="lang-native">RUS</span></div>
-            </div>
-        </div>
-        <!-- AUTH BUTTONS -->
-        <button class="btn-ghost" id="nav-signin-btn">Sign in</button>
-        <button class="btn-blue" id="nav-register-btn">Get started</button>
+  <div class="nav-right">
+    <div class="lang-sw" id="langSw">
+      <button class="lang-btn" onclick="toggleLangMenu(event)">
+        <span id="cflag">🇬🇧</span><span id="clbl">ENG</span><span style="font-size:.52rem;opacity:.45">▼</span>
+      </button>
+      <div class="lang-dd" id="langDd">
+        <div class="lang-opt sel" onclick="setLang('en')" id="lang-en">🇬🇧 <span>English</span><span class="lang-native">ENG</span></div>
+        <div class="lang-opt" onclick="setLang('uz')" id="lang-uz">🇺🇿 <span>O'zbek</span><span class="lang-native">UZ</span></div>
+        <div class="lang-opt" onclick="setLang('ru')" id="lang-ru">🇷🇺 <span>Русский</span><span class="lang-native">RU</span></div>
+      </div>
     </div>
+    <div id="authBtns" style="display:flex;align-items:center;gap:.45rem">
+      <button class="btn-ghost" onclick="openAuth('login')" data-i18n="nav_signin">Sign in</button>
+      <button class="btn-blue" onclick="openAuth('register')" data-i18n="nav_getstarted">Get started</button>
+    </div>
+    <div class="nav-user" id="navUser" style="display:none" onclick="toggleUMenu()">
+      <div class="nav-av" id="navAv">JD</div>
+      <span class="nav-uname" id="navUName">You</span>
+      <span class="user-pro-badge" id="navPlanBadge" style="display:none">PRO</span>
+      <div class="u-dd" id="uDd">
+        <div class="u-dd-head"><div class="u-dd-name" id="ddName"></div><div class="u-dd-email" id="ddEmail"></div></div>
+        <div class="u-dd-item" onclick="window.location.href='/Universities/'">🏛 <span data-i18n="nav_universities">Universities</span></div>
+        <div class="u-dd-item" onclick="window.location.href='/Scholarships/'">🎓 <span data-i18n="nav_scholarships">Scholarships</span></div>
+        <div class="u-dd-item" onclick="window.location.href='/#ai-advisor'">✦ <span data-i18n="nav_ai">AI Advisor</span></div>
+        <div class="u-dd-item danger" onclick="signOut()">↩ <span data-i18n="dd_signout">Sign out</span></div>
+      </div>
+    </div>
+  </div>
 </nav>
+<div class="auth-ov" id="authOv">
+  <div class="auth-box">
+    <div class="auth-head">
+      <button class="auth-close" onclick="closeAuth()">✕</button>
+      <div class="auth-logo">Chetta<em>.</em></div>
+      <div class="auth-tag" data-i18n="auth_tagline">Your path to a top university</div>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login" onclick="switchTab('login')" data-i18n="auth_signin">Sign in</div>
+      <div class="auth-tab" id="tab-register" onclick="switchTab('register')" data-i18n="auth_create">Create account</div>
+    </div>
+    <div class="auth-body">
+      <div class="auth-panel active" id="panel-login">
+        <div class="auth-err" id="loginErr"></div>
+        <div><label class="field-lbl" data-i18n="auth_email">Email</label><input class="field-in" type="email" id="lEmail" placeholder="you@example.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <div><label class="field-lbl" data-i18n="auth_password">Password</label><input class="field-in" type="password" id="lPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <div class="forgot-lnk" onclick="switchTab('forgot')" data-i18n="auth_forgot">Forgot password?</div>
+        <button class="auth-btn" onclick="doLogin()" data-i18n="auth_signin_btn">Sign in</button>
+        <div class="auth-div" data-i18n="auth_or">or</div>
+        <button class="social-btn" onclick="doGoogle()">🌐 <span data-i18n="auth_google">Continue with Google</span></button>
+        <p class="auth-note"><span data-i18n="auth_no_account">No account?</span> <a onclick="switchTab('register')" data-i18n="auth_create_link">Create one free</a></p>
+      </div>
+      <div class="auth-panel" id="panel-register">
+        <div class="auth-err" id="regErr"></div>
+        <div class="two-col">
+          <div><label class="field-lbl" data-i18n="auth_firstname">First name</label><input class="field-in" type="text" id="rFirst" placeholder="Aisha"></div>
+          <div><label class="field-lbl" data-i18n="auth_lastname">Last name</label><input class="field-in" type="text" id="rLast" placeholder="Karimova"></div>
+        </div>
+        <div><label class="field-lbl" data-i18n="auth_email">Email</label><input class="field-in" type="email" id="rEmail" placeholder="you@example.com"></div>
+        <div><label class="field-lbl" data-i18n="auth_password">Password</label><input class="field-in" type="password" id="rPass" placeholder="Min. 6 characters" onkeydown="if(event.key==='Enter')doRegister()"></div>
+        <button class="auth-btn" onclick="doRegister()" data-i18n="auth_create_btn">Create free account</button>
+        <div class="auth-div" data-i18n="auth_or">or</div>
+        <button class="social-btn" onclick="doGoogle()">🌐 <span data-i18n="auth_google">Continue with Google</span></button>
+        <p class="auth-note" style="font-size:.72rem;color:var(--g300)" data-i18n="auth_terms">By signing up you agree to our Terms and Privacy Policy.</p>
+      </div>
+      <div class="auth-panel" id="panel-forgot">
+        <p style="font-size:.855rem;color:var(--g500);line-height:1.65" data-i18n="auth_forgot_desc">Enter your email and we'll send a reset link.</p>
+        <div><label class="field-lbl" data-i18n="auth_email">Email</label><input class="field-in" type="email" id="fEmail" placeholder="you@example.com"></div>
+        <button class="auth-btn" onclick="doForgot()" data-i18n="auth_send_reset">Send reset link</button>
+        <p class="auth-note"><a onclick="switchTab('login')" data-i18n="auth_back_login">← Back to sign in</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+
 <div id="page-practice" class="page">
 <div class="practice-home">
   <div class="prac-hero">
@@ -568,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <p data-i18n="pb_math_desc">Algebra, geometry, data analysis and advanced math — step-by-step solutions for every problem.</p>
       <span class="prac-badge" style="background:var(--gpale);color:var(--green)" data-i18n="pb_math_badge">150+ questions</span>
     </div>
-    <div class="prac-card amber" onclick="if(requirePro())openQBank('test')">
+    <div class="prac-card amber" onclick="if(requirePro())openExamMenu()">
       <span class="pro-badge">PRO</span>
       <div class="prac-icon amber">📝</div>
       <h3 data-i18n="pb_test_title">Past Exam Papers + Predictions</h3>
@@ -1784,6 +1750,30 @@ function requirePro() {
   document.getElementById('upgradeOv').classList.add('open');
   return false;
 }
+// ── Past Exam Papers + Predictions menu ──
+function openExamMenu() {
+  document.getElementById('examMenuStep1').style.display = 'flex';
+  document.getElementById('examMenuStep2').style.display = 'none';
+  document.getElementById('examMenuTitle').textContent = 'Past Exam Papers + Predictions';
+  document.getElementById('examMenuSub').textContent = "Choose what you'd like to practice";
+  document.getElementById('examMenuOv').classList.add('open');
+}
+function closeExamMenu() {
+  document.getElementById('examMenuOv').classList.remove('open');
+}
+function showPredictionsStep() {
+  document.getElementById('examMenuStep1').style.display = 'none';
+  document.getElementById('examMenuStep2').style.display = 'flex';
+  document.getElementById('examMenuTitle').textContent = 'Predictions';
+  document.getElementById('examMenuSub').textContent = 'Which section would you like a projected score for?';
+}
+function backToExamMenuStep1() {
+  document.getElementById('examMenuStep1').style.display = 'flex';
+  document.getElementById('examMenuStep2').style.display = 'none';
+  document.getElementById('examMenuTitle').textContent = 'Past Exam Papers + Predictions';
+  document.getElementById('examMenuSub').textContent = "Choose what you'd like to practice";
+}
+
 
 // ── VOCAB LEARN MODE (Quizlet-style multiple choice) ──
 let vlPool = [], vlCurrent = null, vlScore = 0, vlTotal = 0;
@@ -2205,7 +2195,22 @@ async function loadChettaPlan(uid) {
     console.error("Could not load plan:", e);
     window.chettaPlan = "standard";
   }
+  updatePlanBadge();
 }
+
+window.updatePlanBadge = function () {
+  const badge = document.getElementById('navPlanBadge');
+  if (!badge) return;
+  if (window.chettaPlan === 'pro') {
+    badge.textContent = 'PRO';
+    badge.style.display = 'inline-block';
+  } else if (window.chettaPlan === 'lifetime') {
+    badge.textContent = 'LIFETIME';
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+};
 
 /* GOOGLE LOGIN */
 window.doGoogle = async function () {
@@ -2291,6 +2296,45 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 </script>
+<div class="m-ov" id="examMenuOv">
+  <div class="m-box" style="max-width:460px">
+    <div class="m-head" style="border-radius:var(--rxl) var(--rxl) 0 0">
+      <button class="m-close" onclick="closeExamMenu()">✕</button>
+      <div class="m-title" style="font-size:1.35rem" id="examMenuTitle">Past Exam Papers + Predictions</div>
+      <div class="m-loc" id="examMenuSub">Choose what you'd like to practice</div>
+    </div>
+    <div class="m-content">
+      <!-- STEP 1 -->
+      <div id="examMenuStep1" style="display:flex;flex-direction:column;gap:.8rem">
+        <div class="prac-card blue" style="cursor:pointer" onclick="closeExamMenu();openQBank('test')">
+          <div class="prac-icon blue">📄</div>
+          <h3>Past Exams</h3>
+          <p>Real past exam papers, timed and scored just like the actual test.</p>
+        </div>
+        <div class="prac-card purple" style="cursor:pointer" onclick="showPredictionsStep()">
+          <div class="prac-icon purple">🔮</div>
+          <h3>Predictions</h3>
+          <p>Get a projected score for a specific section based on your performance.</p>
+        </div>
+      </div>
+      <!-- STEP 2 -->
+      <div id="examMenuStep2" style="display:none;flex-direction:column;gap:.8rem">
+        <button class="qb-btn outline" style="align-self:flex-start" onclick="backToExamMenuStep1()">← Back</button>
+        <div class="prac-card blue" style="cursor:pointer" onclick="closeExamMenu();openQBank('reading')">
+          <div class="prac-icon blue">📖</div>
+          <h3>Reading &amp; Writing</h3>
+          <p>Projected Reading &amp; Writing score based on a focused practice set.</p>
+        </div>
+        <div class="prac-card green" style="cursor:pointer" onclick="closeExamMenu();openQBank('math')">
+          <div class="prac-icon green">📐</div>
+          <h3>Math</h3>
+          <p>Projected Math score based on a focused practice set.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="auth-ov" id="upgradeOv">
   <div class="auth-box" style="max-width:380px;text-align:center;padding:2rem 1.5rem">
     <div style="font-size:2rem;margin-bottom:.5rem">🔒</div>
