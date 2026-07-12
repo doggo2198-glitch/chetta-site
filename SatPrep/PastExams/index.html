@@ -801,12 +801,517 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 const PAST_EXAMS = {
   1: {
     rw1: [
-      {id:'e1-rw1-1', passage:`"Woman Hollering Creek" is an English-language short story by Sandra Cisneros.It occasionally includes Spanish words adn phrases.The English text surrounding these words and phrases\n\n their meaning,so readers who aren't familiar with Spanish can easily read teh story.Rudolfo Anaya takes the same approach in his novel Heart of Aztlan.`,
-       question:`Which choicee completes the text with the most logical and precise word or phrase`,
-       options:['suspects','purchases','loses','suggests'],
-       answer:3, explanation:`For unfamiliar readers to understand the Spanish terms easily, the surrounding English text must hint at, imply, or provide clues to what those words mean. Suggests fits this perfectly by indicating that the context hints at or conveys the intended meaning.`},
+      {
+        id: 'e1-rw1-1',
+        passage: `The Apollo Moon landings (1969-1972) left charged particle detectors and equipment too heavy for liftoff on the Moon and produced large amounts of data. Researcher Philip Metzger, who is investigating the long-term effects of being on the Moon, continues to use Apollo's data, demonstrating that the missions' value to science _____`,
+        question: `Which choice completes the text with the most logical and precise word or phrase?`,
+        options: ['persists', 'responds', 'arrives', 'agrees'],
+        answer: 0,
+        explanation: `Since the researcher "continues to use Apollo's data" to investigate long-term effects, it demonstrates that the scientific value of the missions remains active or carries forward over time, which matches the definition of "persists."`
+      },
+      {
+        id: 'e1-rw1-2',
+        passage: `The following text is from Billie Jean King's 2021 autobiography All In.
+[P]eople on both sides of my family had repeatedly demonstrated an independent streak. In the end, that was the temperament I gravitated toward, too. Both the Moffitts and the members of my mother's clan, the Jermans, came from mining and oil-geyser towns on the western frontier. They kept their heads down and worked, worked, worked. But they also bucked convention.`,
+        question: `As used in the text, what does the word "demonstrated" most nearly mean?`,
+        options: ['Protested', 'Defined', 'Exhibited', 'Confirmed'],
+        answer: 2,
+        explanation: `To have "demonstrated an independent streak" means they physically displayed or revealed a specific behavioral character trait, making "exhibited" the most precise and accurate synonym.`
+      },
+      {
+        id: 'e1-rw1-3',
+        passage: `Scientists studying marine ecosystems were surprised by the extent of internal carbon recycling by red coralline algae. While some recycling of carbon was expected, the scientists found that the algae reabsorb nearly 40% of the carbon dioxide they produce during calcification processes and harness it for photosynthesis.`,
+        question: `Which choice completes the text with the most logical and precise word or phrase?`,
+        options: ['reuse', 'imitation', 'supply', 'examination'],
+        answer: 0,
+        explanation: `The passage explains that the algae "reabsorb nearly 40% of the carbon dioxide they produce" and "harness it for photosynthesis." This action of reabsorbing and using something again is a clear example of "reuse."`
+      },
+      {
+        id: 'e1-rw1-4',
+        passage: `The traditional Puerto Rican dish mofongo, characterized broadly by its base of mashed plantains, is often _____ in its preparation and serving style. Coastal families typically serve it with fresh-caught octopus and shrimp, mountain families tend to prepare it with chicharrones, and restaurant chefs in San Juan explore innovations like topping the dish with guarapo (juice from sugarcane).`,
+        question: `Which choice completes the text with the most logical and precise word or phrase?`,
+        options: ['seasonal', 'proprietary', 'meticulous', 'localized'],
+        answer: 3,
+        explanation: `The passage lists clear geographic and location-based differences in how the dish is made: coastal families, mountain families, and city chefs in San Juan all use different methods. This variation depending on the region or area makes it "localized."`
+      },
+      {
+        id: 'e1-rw1-5',
+        passage: `The following text is from Charles Chesnutt's 1905 novel The Colonel's Dream. Mr. French and Mr. Kirby work together.
+Mr. French, the senior partner, who sat opposite Kirby, was an older man—a safe guess would have placed him somewhere in the debatable ground between forty and fifty; of a good height, as could be seen even from the seated figure, the upper part of which was held erect with the unconscious ease which one associates with military training.`,
+        question: `As used in the text, what does the word "good" most nearly mean?`,
+        options: ['Reliable', 'Courteous', 'Considerable', 'Capable'],
+        answer: 2,
+        explanation: `In this descriptive context, describing someone's height as a "good height" means they possess a tall or noteworthy stature, making "considerable" the closest fit.`
+      },
+      {
+        id: 'e1-rw1-6',
+        passage: `The Uffington White Horse in England is a large chalk image of a horse made by ancient peoples. Monuments like these were an inspiration for the land art movement that began in the 1960s. Land art artists create works set in the outdoors. For example, in her 1976 work Sun Tunnels, Nancy Holt placed four tubes made of concrete in a Utah desert to form an X and frame the sun.`,
+        question: `Which choice best states the main purpose of the text?`,
+        options: [
+          'The text argues against placing works of art outside.',
+          'The text provides information about the land art movement.',
+          'The text describes the popularity of art galleries in the 1960s.',
+          'The text describes the benefits of being an artist.'
+        ],
+        answer: 1,
+        explanation: `The text introduces the Land Art movement, attributes its inspiration to ancient environmental monuments, explains that its artists set their creations outdoors, and gives a practical example with Nancy Holt's work.`
+      },
+      {
+        id: 'e1-rw1-7',
+        passage: `Though Chloe Zhao's films are fictional, she incorporates real events into them in a documentary-like style and casts nonprofessional actors who reside in the places that she aims to portray. She also encourages these actors, whether they are teenagers living on the Pine Ridge Indian Reservation or adults who travel the country for work, to put as much of themselves into their roles as possible. Her approach adds powerful resonance to films that explore the highly personal experiences of place and home, and often the difficult decision to stay or leave.`,
+        question: `Which choice best states the main purpose of the text?`,
+        options: [
+          "To discuss how Chloe Zhao's background in documentary filmmaking has influenced her storytelling style in films",
+          "To emphasize that Chloe Zhao's decisions during the filmmaking process reinforce the themes of her films",
+          "To summarize how Chloe Zhao's style of filmmaking changed over the course of her career",
+          "To argue that Chloe Zhao's films are best understood as documentaries"
+        ],
+        answer: 1,
+        explanation: `The passage outlines the specific production choices made by Zhao (casting locals, embedding real events, asking actors to share themselves) and shows how these direct choices bring resonance to her films' core themes of place and home.`
+      },
+      {
+        id: 'e1-rw1-8',
+        passage: `While many initiatives aimed at limiting atmospheric warming focus on curbing emissions of methane (CH4), a greenhouse gas that is typically generated by microbially mediated processes, Lisa Y. Stein and Mary E. Lidstrom caution that under certain circumstances, such efforts cause microbial communities to accelerate production of nitrous oxide (N2O), another potent greenhouse gas, thus offsetting the impact of CH4 reduction. Researchers, therefore, need to take such biological interactions into account to ensure that any CH4 mitigation strategy has an overall positive climate effect.`,
+        question: `Which choice best describes the overall structure of the text?`,
+        options: [
+          'It mentions a phenomenon that negatively affects the environment, summarizes competing methods for remedying that phenomenon, and then concedes that even apparently distinct methods share similar problems.',
+          'It describes a widely accepted approach to addressing an environmental issue caused by a type of chemical emissions, indicates a potential disadvantage of that approach, and then discusses an implication of that disadvantage.',
+          'It reports on a predicament resulting from emissions of a particular greenhouse gas, outlines a strategy aimed at solving that predicament, and then admonishes those who utilize that strategy without fully comprehending its ramifications.',
+          'It presents an ongoing environmental challenge, demonstrates why the impact of that challenge may intensify over time, and then criticizes a misguidedly narrow attempt to address that impact.'
+        ],
+        answer: 1,
+        explanation: `The passage details a common environmental strategy (mitigating methane), points out an unexpected drawback (raising nitrous oxide emissions), and outlines what actions researchers must take to address the issue.`
+      },
+      {
+        id: 'e1-rw1-9',
+        passage: `A debut novel is the first book that an author has published. An example of a debut novel is The Skin I'm In by Sharon G. Flake. It was published in 1998. Debut novels are especially interesting to literary critics and readers because these books offer a look at new voices in the literary world.`,
+        question: `Which choice best states the main topic of the text?`,
+        options: ['The benefits of reading', 'Famous literary critics', 'Debut novels', 'Careers in the publishing industry'],
+        answer: 2,
+        explanation: `The passage introduces, defines, and discusses the importance of debut novels to the literary world.`
+      },
+      {
+        id: 'e1-rw1-10',
+        passage: `Scientists collected information about brown bears in Katmai National Park in Alaska. This information included each bear's sex, age, and approximate weight.
+ Bear identification number | Sex | Age (years) | Approximate weight (pounds)
+ 173 | female | 10 | 400
+ 122 | male | 3 | 200
+ 117 | female | 6 | 325
+ 103 | male | 4 | 275
+For the bear with identification number 122, for example, the scientists recorded that the bear was _____`,
+        question: `Which choice most effectively uses data from the table to complete the statement?`,
+        options: [
+          'male, 4 years old, and weighed approximately 275 pounds.',
+          'female, 10 years old, and weighed approximately 400 pounds.',
+          'male, 3 years old, and weighed approximately 200 pounds.',
+          'female, 6 years old, and weighed approximately 325 pounds.'
+        ],
+        answer: 2,
+        explanation: `Looking up the row for identification number 122 confirms that the bear is recorded as a male, 3 years old, weighing approximately 200 pounds.`
+      },
+      {
+        id: 'e1-rw1-11',
+        passage: `Great Expectations is an 1861 novel by Charles Dickens. The narrator describes his uncle, Joe Gargery, as being both powerful and tender:`,
+        question: `Which quotation from Great Expectations most effectively illustrates the claim?`,
+        options: [
+          '"There I stood, for minutes, looking at Joe, already at work with a glow of health and strength upon his face that made it show as if the bright sun of the life in store for him were shining on it."',
+          '"In his working-clothes, Joe was a well-knit characteristic-looking blacksmith; in his holiday clothes, he was more like a scarecrow in good circumstances, than anything else."',
+          '"I have often thought since, Joe was rather like the steam-hammer that can crush a man or pat an egg-shell, in his combination of strength with gentleness."',
+          '"Estella opened the gate as usual, and, the moment she appeared, Joe took his hat off and stood weighing it by the brim in both his hands."'
+        ],
+        answer: 2,
+        explanation: `The quote comparing Joe to a steam-hammer that can "crush a man or pat an egg-shell" specifically and directly highlights his unique balance of "strength with gentleness," confirming the claim that he is both powerful and tender.`
+      },
+      {
+        id: 'e1-rw1-12',
+        passage: `Lin-Tai Ho and colleagues counted fish in a tide pool in Taiwan at several times during the year and found that some species had a significantly higher maximum population count than others. For example, the highest count for the combtooth blenny was 62 individuals in January of 2001, whereas the highest count for the striated rockskipper was _____`,
+        question: `Which choice most effectively uses data from the graph to complete the example?`,
+        options: [
+          '16 individuals in October of 2001.',
+          '15 individuals in July of 2001.',
+          '72 individuals in January of 2001.',
+          '5 individuals in July of 2001.'
+        ],
+        answer: 1,
+        explanation: `According to the graph and dataset, the population peak for the striated rockskipper occurs at exactly 15 individuals during the month of July 2001.`
+      },
+      {
+        id: 'e1-rw1-13',
+        passage: `In the early 1970s, art historian Michael Baxandall created an approach to viewing art called the "period eye," which explains how to look at art through the lens of its historical period. Baxandall argued that it is critical that art historians understand and communicate the original social and cultural contexts of older works of art so that it is clear what the artists intended and how the pieces would have been understood by their original viewers. Since it was first introduced, Baxandall's period eye has significantly influenced the practice of art history.`,
+        question: `Which statement, if true, would most strongly support the claim in the underlined sentence?`,
+        options: [
+          'Many art historians working before the 1970s produced detailed analyses of the social and cultural contexts of older artworks, though few extended that approach to artworks produced in their own lifetimes.',
+          "Art historians working today have largely rejected the idea, common among Baxandall's predecessors, that artists' intentions should influence how artworks are interpreted.",
+          "For some historical periods, it is difficult for art historians to reconstruct how the original viewers of artworks understood what artists' intentions for their works were.",
+          'Numerous art historians of the late twentieth century and twenty-first century have focused their scholarship on how various artworks were interpreted at the time of their creation.'
+        ],
+        answer: 3,
+        explanation: `The final underlined sentence states that Baxandall's approach has significantly influenced modern art history practice. Finding that numerous historians in subsequent decades focused their research exactly on original viewer interpretation strongly shows this wide-reaching influence.`
+      },
+      {
+        id: 'e1-rw1-14',
+        passage: `Last-mile delivery refers to the final step in delivering packages to customers and this final step can be very difficult. Delivery companies are contending with the increasing popularity of next-day delivery and with complex and inefficient delivery routes, resulting in a growing bottleneck of packages in the last-mile delivery stage. These companies have been experimenting with innovative solutions in last-mile delivery, including autonomous delivery robots (robots that deliver parcels from a van). Unfortunately, many of these innovations create new obstacles (e.g., robots travel relatively slowly since they must navigate many ground-level obstacles) and are not ready for full-scale implementation. As a result, delivery companies will likely _____`,
+        question: `Which choice most logically completes the text?`,
+        options: [
+          'encourage consumers to expect next-day delivery only for products that are widely available.',
+          "be able to meet consumer's expectations for next-day delivery in many areas but not in all regions.",
+          'have little incentive to find a solution to last-mile delivery challenges.',
+          'continue to struggle with last-mile delivery operations until viable solutions become available.'
+        ],
+        answer: 3,
+        explanation: `Because the passage emphasizes that current bottlenecks are real and that experimental solutions have run into functional road-blocks that prevent full implementation, it follows logically that the delivery companies will continue to face problems until a practical solution arrives.`
+      },
+      {
+        id: 'e1-rw1-15',
+        passage: `The olona shrub is one of many forest plant species native to Oahu (a Hawaiian island) that are at risk of extinction in the wild. Ecologists say that fruit-eating birds help support these species' population numbers by dropping seeds from the plants' fruits to different spots where new plants can grow. The birds native to Oahu that used to do this have all gone extinct over time. However, the common waxbill and other fruit-eating bird species brought to the island in the last 150 years have been found to spread plant seeds. Based on this finding, some ecologists suggest that olona shrubs and other forest plants native to Oahu _____`,
+        question: `Which choice most logically completes the text?`,
+        options: [
+          'probably established themselves on the island at about the same time as common waxbills and other fruit-eating birds did.',
+          'may now depend on non-native birds, such as the common waxbill, to help maintain and increase their populations on the island.',
+          'were likely already close to extinction long before non-native birds arrived on the island.',
+          'seem to produce fewer fruits per plant now than they did when fruit-eating birds native to the island were still present.'
+        ],
+        answer: 1,
+        explanation: `Since the native seed-dispersing birds have died out, but newly introduced species like the waxbill have actively taken over seed-spreading roles, it is logical to conclude that these native shrubs might now rely on those non-native birds to keep their populations alive.`
+      },
+      {
+        id: 'e1-rw1-16',
+        passage: `Established in 1935 for the specific purpose of promoting collective bargaining between US labor unions and employers, _____ helped the nation recover from the Great Depression.`,
+        question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+        options: [
+          "the US government's many ways, just one of which was the National Labor Relations Act (NLRA),",
+          'the National Labor Relations Act (NLRA) was just one of many ways the US government',
+          'many ways, just one of which was the National Labor Relations Act (NLRA), were how the US government',
+          'the US government in many ways, just one of which was the National Labor Relations Act (NLRA),'
+        ],
+        answer: 1,
+        explanation: `The initial modifier phrase describes an act, institution, or law established in 1935. Therefore, the main subject immediately following the comma must match this description. The subject must be 'the National Labor Relations Act (NLRA)', which properly sets up the structure.`
+      },
+      {
+        id: 'e1-rw1-17',
+        passage: `In their 2019 study of butterfly diversity at Rupa Lake in Nepal, researcher Hari Adhikari and his colleagues counted eight Paris peacock _____ to the Papilionidae family, the Paris peacock (Papilio paris) is known to be rare.`,
+        question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+        options: ['butterflies, belonging', 'butterflies. Belonging', 'butterflies and belonging', 'butterflies belonging'],
+        answer: 1,
+        explanation: `The sentence consists of two complete independent clauses: the count at Rupa Lake and the note about its scarcity. Placing a period after 'butterflies' correctly splits them into two grammatical sentences, with 'Belonging...' properly modifying the second subject.`
+      },
+      {
+        id: 'e1-rw1-18',
+        passage: `How a folktale begins depends largely on the language in which it _____ folktales told in the Pashto language open with a phrase that roughly means "there was this work that." English-language folktales, on the other hand, often begin with "once upon a time."`,
+        question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+        options: ['originates. Many', 'originates, many', 'originates many', 'originates many,'],
+        answer: 0,
+        explanation: `The phrase ending with the pronoun 'it' forms a complete clause. 'Many folktales told...' begins a new standalone thought, requiring a terminating period between them to prevent a run-on sentence.`
+      },
+      {
+        id: 'e1-rw1-19',
+        passage: `Maize was among the many plant species from the Western Hemisphere introduced into the Eastern Hemisphere in the years following Christopher Columbus's first transatlantic voyage in 1492. This ongoing transfer of species between hemispheres _____ now known as the Columbian Exchange.`,
+        question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+        options: ['were', 'being', 'is', 'are'],
+        answer: 2,
+        explanation: `The singular subject 'This ongoing transfer' requires a matching singular main verb. The present tense verb 'is' correctly links the subject to its complement.`
+      },
+      {
+        id: 'e1-rw1-20',
+        passage: `Now seen as a mechanical precursor to the e-reader, Spanish educator and inventor Angela Ruiz Robles's Enciclopedia Mecanica eschewed pages in favor of three horizontal paper scrolls that could be easily swapped out to accommodate a range of subjects. Though Ruiz Robles's prototype had limited functionality, interactive features described in her 1949 patent—such as a button labeled "verb" that would illuminate relevant text when pressed—_____ an impressive early vision of hypertext.`,
+        question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+        options: ['revealing', 'has revealed', 'reveals', 'reveal'],
+        answer: 3,
+        explanation: `The grammatical subject of this clause is the plural noun 'features' (found before the dash). Plural subjects take a base plural verb form, so 'reveal' matches cleanly.`
+      },
+      {
+        id: 'e1-rw1-21',
+        passage: `In the seventeenth century, market-savvy British greenhouses scrambled to cultivate _____ group of wealthy consumers who could afford to import them from the Caribbean, the fruits had become a status symbol.`,
+        question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+        options: ['pineapples for', 'pineapples, which for', 'pineapples, for', 'pineapples. For'],
+        answer: 3,
+        explanation: `The segment before 'pineapples' forms a complete thought, and the clause after forms an independent thought. Using a period to divide them avoids run-on issues.`
+      },
+      {
+        id: 'e1-rw1-22',
+        passage: `It's tempting to think that the comic strips Jump Start and Wee Pals have the same main purpose—to amuse—because both feature humorous situations. _____ Wee Pals focuses just as much on challenging readers with sociopolitical commentary as it does on making them laugh.`,
+        question: `Which choice completes the text with the most logical transition?`,
+        options: ['Likewise,', 'Next,', 'However,', 'In other words,'],
+        answer: 2,
+        explanation: `The first sentence suggests both comics have the simple purpose of amusing people, while the second notes that Wee Pals also carries heavy sociopolitical commentary. This contrast demands a transitional word like 'However'.`
+      },
+      {
+        id: 'e1-rw1-23',
+        passage: `Karel Capek's 1920 play R.U.R. (Rossum's Universal Robots), in which artificial workers overthrow their masters, left an indelible mark on the science fiction genre, and the English language, by introducing the term "robot" (derived from the Czech word robota, meaning "indentured labor" or "drudgery"). Capek's play also contributed to a venerable literary and mythological tradition: using artificial beings as mirrors and foils for humanity. _____`,
+        question: `Which choice completes the text with the most logical transition?`,
+        options: [
+          'Despite its creation of such an iconic trope,',
+          'By achieving such a lofty goal,',
+          'Ultimately limited in its lasting influence,',
+          'Beyond the simple coining of a term,'
+        ],
+        answer: 3,
+        explanation: `The passage mentions that the play introduced a famous word, but immediately transitions to explaining that it also contributed to a deep literary tradition. 'Beyond the simple coining of a term' connects these two ideas smoothly.`
+      },
+      {
+        id: 'e1-rw1-24',
+        passage: `While researching a topic, a student has taken the following notes:
+ • The Expedition of Humphry Clinker (1771) is an epistolary novel by English author Tobias Smollett.
+ • Epistolary novels are novels written primarily as a series of fictional documents.
+ • These documents can be letters, journal entries, newspaper clippings, and more.
+ • The Expedition of Humphry Clinker consists primarily of letters.
+ • The letters are sent between four family members, their maid, and a young man.`,
+        question: `The student wants to define the term "epistolary novel." Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+        options: [
+          "Tobias Smollett's novel The Expedition of Humphry Clinker was published in 1771 and consists primarily of letters sent between four family members, their maid, and a young man.",
+          "Consisting primarily of letters sent between four family members, their maid, and a young man, Tobias Smollett's The Expedition of Humphry Clinker is an epistolary novel.",
+          "Published in 1771, The Expedition of Humphry Clinker is an epistolary novel by English author Tobias Smollett.",
+          "An epistolary novel is a novel written primarily as a series of fictional documents, such as letters, journal entries, or newspaper clippings."
+        ],
+        answer: 3,
+        explanation: `To accomplish the specific goal of defining an 'epistolary novel', the statement must provide the definition of the term itself rather than focus on details of Smollett's individual book.`
+      },
+      {
+        id: 'e1-rw1-25',
+        passage: `While researching a topic, a student has taken the following notes:
+ • The capital of Jamaica is Kingston.
+ • The largest city in Jamaica by population is Kingston.
+ • The capital of Morocco is Rabat.
+ • The largest city in Morocco by population is Casablanca.`,
+        question: `The student wants to make a generalization about capital cities. Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+        options: [
+          'Casablanca and Rabat are both cities in Morocco.',
+          "A country's capital city is not always the country's most populous city.",
+          'Rabat, not Casablanca, is the capital of Morocco.',
+          'The capital of Morocco is Rabat, while the capital of Jamaica is Kingston.'
+        ],
+        answer: 1,
+        explanation: `The data shows that in Jamaica the capital is the largest city, but in Morocco the capital is not the largest city. Therefore, the broad generalization to make from this contrast is that a capital is not always a country's most populous city.`
+      },
+      {
+        id: 'e1-rw1-26',
+        passage: `While researching a topic, a student has taken the following notes:
+ • The A.M. Turing Award is a prestigious award given by the Association for Computing Machinery (ACM).
+ • The ACM gives the award for "major contributions of lasting importance to computing."
+ • It is named after groundbreaking British mathematician Alan Turing.
+ • Edgar F. Codd won the award in 1981.`,
+        question: `The student wants to explain whom the award is named for and identify one recipient of it. Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+        options: [
+          'The A.M. Turing Award, which is named for British mathematician Alan Turing, was given to Edgar F. Codd in 1981.',
+          'In 1981, Edgar F. Codd won the A.M. Turing Award, which is given for "major contributions of lasting importance to computing."',
+          'The A.M. Turing Award is given for "major contributions of lasting importance to computing."',
+          'It was in 1981 that Edgar F. Codd won the A.M. Turing Award.'
+        ],
+        answer: 0,
+        explanation: `Choice A explicitly satisfies both targets of the prompt: it tells you who the award is named after (Alan Turing) and states a direct recipient of the award (Edgar F. Codd).`
+      },
+      {
+        id: 'e1-rw1-27',
+        passage: `While researching a topic, a student has taken the following notes:
+ • Albert Einstein's theory of general relativity allows for potential shortcuts through spacetime.
+ • These hypothetical spacetime tunnels are known as wormholes.
+ • For matter to travel through a wormhole, it would need to have negative energy density.
+ • Negative energy density means that the matter would have less energy than empty space.
+ • Such matter has not been shown to exist.`,
+        question: `The student wants to acknowledge a complication affecting travel through wormholes. Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+        options: [
+          'The hypothetical tunnels known as wormholes would be potential shortcuts through spacetime were it not for one complication: they have less energy than empty space.',
+          "Einstein's theory of general relativity allows for potential spacetime shortcuts called wormholes but does not explain how matter with negative energy density could travel through them.",
+          'For matter to travel through a wormhole, the matter would need to have less energy than empty space; such matter has not been shown to exist.',
+          'For wormholes to be possible, according to Einstein's theory of general relativity, they would have to allow for potential shortcuts through spacetime.'
+        ],
+        answer: 2,
+        explanation: `This choice clearly communicates the exact structural complication described in the notes: travel requires a very specific type of matter that has not yet been proven to exist.`
+      }
     ],
-    rw2: [],
+   rw2 = [
+  {
+    id: 'e1-rw2-1',
+    passage: `In 1913, California became the first US state to pass an "anti-alien" land law, which prohibited Asian immigrants from buying agricultural land. The state legislature argued that the measure was necessary to protect the local farming economy, but the law's true intent was to _____ the growth of Japanese American communities by cutting off their primary means of economic independence.`,
+    question: `Which choice completes the text with the most logical and precise word or phrase?`,
+    options: ['stifle', 'predict', 'negotiate', 'accelerate'],
+    answer: 0
+  },
+  {
+    id: 'e1-rw2-2',
+    passage: `[P]eople on both sides of my family had repeatedly demonstrated an independent streak. In the end, that was the temperament I gravitated toward, too. Both the Moffitts and the members of my mother's clan, the Jermans, came from mining and oil-geyser towns on the western frontier. They kept their heads down and worked, worked, worked. But they also bucked convention.`,
+    question: `As used in the text, what does the word "demonstrated" most nearly mean?`,
+    options: ['Protested', 'Defined', 'Exhibited', 'Confirmed'],
+    answer: 2
+  },
+  {
+    id: 'e1-rw2-3',
+    passage: `Scientists studying marine ecosystems were surprised by the extent of internal carbon recycling by red coralline algae. While some of carbon was expected, the scientists found that the algae reabsorb nearly 40% of the carbon dioxide they produce during calcification processes and harness it for photosynthesis.`,
+    question: `Which choice completes the text with the most logical and precise word or phrase?`,
+    options: ['reuse', 'imitation', 'supply', 'examination'],
+    answer: 0
+  },
+  {
+    id: 'e1-rw2-4',
+    passage: `The traditional Puerto Rican dish mofongo, characterized broadly by its base of mashed plantains, is often _____ in its preparation and serving style. Coastal families typically serve it with fresh-caught octopus and shrimp, mountain families tend to prepare it with chicharrones, and restaurant chefs in San Juan explore innovations like topping the dish with guarapo (juice from sugarcane).`,
+    question: `Which choice completes the text with the most logical and precise word or phrase?`,
+    options: ['seasonal', 'proprietary', 'meticulous', 'localized'],
+    answer: 3
+  },
+  {
+    id: 'e1-rw2-5',
+    passage: `Mr. French, the senior partner, who sat opposite Kirby, was an older man... of a good height, as could be seen even from the seated figure, the upper part of which was held erect with the unconscious ease which one associates with military training.`,
+    question: `As used in the text, what does the word "good" most nearly mean?`,
+    options: ['Reliable', 'Courteous', 'Considerable', 'Capable'],
+    answer: 2
+  },
+  {
+    id: 'e1-rw2-6',
+    passage: `The Uffington White Horse in England is a large chalk image of a horse made by ancient peoples. Monuments like these were an inspiration for the land art movement that began in the 1960s. Land art artists create works set in the outdoors. For example, in her 1976 work Sun Tunnels, Nancy Holt placed four tubes made of concrete in a Utah desert to form an X and frame the sun.`,
+    question: `Which choice best states the main purpose of the text?`,
+    options: ['The text argues against placing works of art outside.', 'The text provides information about the land art movement.', 'The text describes the popularity of art galleries in the 1960s.', 'The text describes the benefits of being an artist.'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-7',
+    passage: `Though Chloe Zhao's films are fictional, she incorporates real events into them in a documentary-like style and casts nonprofessional actors who reside in the places that she aims to portray... Her approach adds powerful resonance to films that explore the highly personal experiences of place and home, and often the difficult decision to stay or leave.`,
+    question: `Which choice best states the main purpose of the text?`,
+    options: ['To discuss how Chloe Zhao\'s background in documentary filmmaking has influenced her storytelling style in films.', 'To emphasize that Chloe Zhao\'s decisions during the filmmaking process reinforce the themes of her films.', 'To summarize how Chloe Zhao\'s style of filmmaking changed over the course of time.', 'To argue that Chloe Zhao\'s films are best understood as documentaries.'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-8',
+    passage: `While many initiatives aimed at limiting atmospheric warming focus on curbing emissions of methane (CH4)... Lisa Y. Stein and Mary E. Lidstrom caution that under certain circumstances, such efforts cause microbial communities to accelerate production of nitrous oxide (N2O)... Researchers, therefore, need to take such biological interactions into account to ensure that any CH4 mitigation strategy has an overall positive climate effect.`,
+    question: `Which choice best describes the overall structure of the text?`,
+    options: ['It mentions a phenomenon that negatively affects the environment...', 'It describes a widely accepted approach to addressing an environmental issue...', 'It reports on a predicament...', 'It presents an ongoing environmental challenge...'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-9',
+    passage: `A debut novel is the first book that an author has published. An example of a debut novel is The Skin I'm In by Sharon G. Flake. It was published in 1998. Debut novels are especially interesting to literary critics and readers because these books offer a look at new voices in the literary world.`,
+    question: `Which choice best states the main topic of the text?`,
+    options: ['The benefits of reading', 'Famous literary critics', 'Debut novels', 'Careers in the publishing industry'],
+    answer: 2
+  },
+  {
+    id: 'e1-rw2-10',
+    passage: `For the bear with identification number 122, for example, the scientists recorded that the bear was _____`,
+    question: `Which choice most effectively uses data from the table to complete the statement?`,
+    options: ['male, 4 years old, and weighed approximately 275 pounds.', 'female, 10 years old, and weighed approximately 400 pounds.', 'male, 3 years old, and weighed approximately 200 pounds.', 'female, 6 years old, and weighed approximately 325 pounds.'],
+    answer: 2
+  },
+  {
+    id: 'e1-rw2-11',
+    passage: `Great Expectations is an 1861 novel by Charles Dickens. The narrator describes his uncle, Joe Gargery, as being both powerful and tender: Which quotation from Great Expectations most effectively illustrates the claim?`,
+    question: `Which choice most effectively illustrates the claim?`,
+    options: ['"There I stood..."', '"In his working-clothes..."', '"...in his combination of strength with gentleness"', '"Estella opened the gate..."'],
+    answer: 2
+  },
+  {
+    id: 'e1-rw2-12',
+    passage: `Lin-Tai Ho and colleagues counted fish... For example, the highest count for the combtooth blenny was 62 individuals in January of 2001, whereas the highest count for the striated rockskipper was _____`,
+    question: `Which choice most effectively uses data from the graph to complete the example?`,
+    options: ['16 individuals in October of 2001.', '15 individuals in July of 2001.', '72 individuals in January of 2001.', '5 individuals in July of 2001.'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-13',
+    passage: `In the early 1970s, art historian Michael Baxandall created an approach to viewing art called the "period eye"... Baxandall argued that it is critical that art historians understand and communicate the original social and cultural contexts...`,
+    question: `Which statement, if true, would most strongly support the claim in the underlined sentence?`,
+    options: ['Many art historians working before the 1970s...', 'Art historians working today have largely rejected...', 'For some historical periods, it is difficult...', 'Numerous art historians of the late twentieth century and twenty-first century have focused their scholarship on how various artworks were interpreted at the time of their creation.'],
+    answer: 3
+  },
+  {
+    id: 'e1-rw2-14',
+    passage: `Last-mile delivery refers to the final step in delivering packages to customers... Delivery companies are contending with the increasing popularity of next-day delivery... Unfortunately, many of these innovations create new obstacles... As a result, delivery companies will likely _____`,
+    question: `Which choice most logically completes the text?`,
+    options: ['encourage consumers...', 'be able to meet...', 'have little incentive...', 'continue to struggle with last-mile delivery operations until viable solutions become available'],
+    answer: 3
+  },
+  {
+    id: 'e1-rw2-15',
+    passage: `The olona shrub is one of many forest plant species native to Oahu... Ecologists say that fruit-eating birds help support these species' population numbers... However, the common waxbill... have been found to spread plant seeds. Based on this finding, some ecologists suggest that olona shrubs and other forest plants native to Oahu _____`,
+    question: `Which choice most logically completes the text?`,
+    options: ['probably established...', 'may now depend on non-native birds, such as the common waxbill, to help maintain and increase their populations on the island', 'were likely already close to extinction...', 'seem to produce fewer fruits...'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-16',
+    passage: `Established in 1935 for the specific purpose of promoting collective bargaining between US labor unions and employers, _____ helped the nation recover from the Great Depression.`,
+    question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+    options: ['the US government\'s many ways...', 'the National Labor Relations Act (NLRA) was just one of many ways the US government', 'many ways...', 'the US government in many ways...'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-17',
+    passage: `In their 2019 study of coral resilience near Fiji, marine biologist Anita Desai and her team identified three distinct _____ to the Papilionidae family, the Paris peacock (Papilio paris) is known to be rare.`,
+    question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+    options: ['species, belonging', 'species. Belonging', 'species and belonging', 'species belonging'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-18',
+    passage: `How a folktale begins depends largely on the language in which it _____ folktales told in the Pashto language open with a phrase that roughly means "there was this work that." English-language folktales, on the other hand, often begin with "once upon a time."`,
+    question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+    options: ['originates. Many', 'originates, many', 'originates many', 'originates many,'],
+    answer: 0
+  },
+  {
+    id: 'e1-rw2-19',
+    passage: `Maize was among the many plant species from the Western Hemisphere introduced into the Eastern Hemisphere... This _____ ongoing transfer of species between hemispheres now known as the Columbian Exchange.`,
+    question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+    options: ['were', 'being', 'is', 'are'],
+    answer: 2
+  },
+  {
+    id: 'e1-rw2-20',
+    passage: `Now seen as a mechanical precursor to the e-reader, Spanish educator and inventor Angela Ruiz Robles's Enciclopedia Mecanica eschewed pages... Though Ruiz Robles's prototype had limited functionality, interactive features described in her 1949 patent... _____ an impressive early vision of hypertext.`,
+    question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+    options: ['revealing', 'has revealed', 'reveals', 'reveal'],
+    answer: 2
+  },
+  {
+    id: 'e1-rw2-21',
+    passage: `In the seventeenth century, market-savvy British greenhouses scrambled to cultivate _____ the small group of wealthy consumers who could afford to import them from the Caribbean, the fruits had become a status symbol.`,
+    question: `Which choice completes the text so that it conforms to the conventions of Standard English?`,
+    options: ['pineapples for', 'pineapples, which for', 'pineapples, for', 'pineapples. For'],
+    answer: 3
+  },
+  {
+    id: 'e1-rw2-22',
+    passage: `It's tempting to think that the comic strips Jump Start and Wee Pals have the same main purpose to amuse because both feature humorous situations. _____ Wee Pals focuses just as much on challenging readers with sociopolitical commentary as it does on making them laugh.`,
+    question: `Which choice completes the text with the most logical transition?`,
+    options: ['Likewise,', 'Next,'],
+    answer: 0
+  },
+  {
+    id: 'e1-rw2-23',
+    passage: `Karel Capek's 1920 play R.U.R. (Rossum's Universal Robots)... left an indelible mark... Capek's play also contributed to a venerable literary and mythological tradition: using artificial beings as mirrors and foils for humanity _____`,
+    question: `Which choice completes the text with the most logical transition?`,
+    options: ['Despite its creation of such an iconic trope,', 'By achieving such a lofty goal,', 'Ultimately limited in its lasting influence,', 'Beyond the simple coining of a term,'],
+    answer: 3
+  },
+  {
+    id: 'e1-rw2-24',
+    passage: `(Student notes about The Expedition of Humphry Clinker) The student wants to define the term "epistolary novel."`,
+    question: `Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+    options: ['Tobias Smollett\'s novel...', 'Consisting primarily of letters...', 'Published in 1771...', 'An epistolary novel is a novel written primarily as a series of fictional documents, such as letters, journal entries, or newspaper clippings'],
+    answer: 3
+  },
+  {
+    id: 'e1-rw2-25',
+    passage: `(Student notes about capital cities of Jamaica and Morocco) The student wants to make a generalization about capital cities.`,
+    question: `Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+    options: ['Casablanca and Rabat are both cities in Morocco.', 'A country\'s capital city is not always the country\'s most populous city.', 'Rabat, not Casablanca, is the capital of Morocco.', 'The capital of Morocco is Rabat, while the capital of Jamaica is Kingston.'],
+    answer: 1
+  },
+  {
+    id: 'e1-rw2-26',
+    passage: `(Student notes about A.M. Turing Award) The student wants to explain whom the award is named for and identify one recipient of it.`,
+    question: `Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+    options: ['The A.M. Turing Award, which is named for British mathematician Alan Turing, was given to Edgar F. Codd in 1981.', 'In 1981, Edgar F. Codd won the A.M. Turing Award...', 'The A.M. Turing Award is given for...', 'It was in 1981 that Edgar F. Codd won the A.M. Turing Award.'],
+    answer: 0
+  },
+  {
+    id: 'e1-rw2-27',
+    passage: `(Student notes about Einstein and wormholes) The student wants to acknowledge a complication affecting travel through wormholes.`,
+    question: `Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
+    options: ['The hypothetical tunnels known as wormholes would be potential shortcuts through spacetime were it not for one complication: they have less energy than empty space.', 'Einstein\'s theory of general relativity...', 'For matter to travel through a wormhole, the matter would need to have less energy than empty space; such matter has not been shown to exist.', 'For wormholes to be possible...'],
+    answer: 2
+  }
+];
+  }
+};
     math1: [
       {id:'e1-m1-1', passage:``, question:`If 3x + 7 = 22, what is the value of 6x + 5?`,
        options:['25','35','30','40'], answer:1,
