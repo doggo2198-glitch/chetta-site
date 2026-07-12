@@ -2129,30 +2129,36 @@ function openQBank(mode) {
   page.classList.add('open');
   document.body.style.overflow = 'hidden';
 
+  const combinedPool = [...QUESTIONS.reading, ...QUESTIONS.math];
+  const sliceMatch = mode.match(/^(predict|pastexam)-(\d)$/);
+
   let pool = mode === 'math' ? QUESTIONS.math :
              mode === 'diagnostic' ? [...QUESTIONS.reading.slice(0,3), ...QUESTIONS.math.slice(0,3)] :
              mode === 'test' ? [...QUESTIONS.reading, ...QUESTIONS.math] :
+             sliceMatch ? combinedPool.filter((q, i) => i % 4 === (parseInt(sliceMatch[2], 10) - 1)) :
              QUESTIONS.reading;
 
   // Shuffle
   qbQuestions = [...pool].sort(() => Math.random() - .5);
   if(mode === 'diagnostic') qbQuestions = qbQuestions.slice(0, 6);
+  else if(sliceMatch) { /* use the full sliced group, no truncation */ }
   else if(mode !== 'test') qbQuestions = qbQuestions.slice(0, Math.min(8, qbQuestions.length));
 
   qbCurrent = 0; qbCorrect = 0; qbWrong = 0; qbSelected = null;
   qbStartTime = Date.now(); qbTotalTime = 0;
 
   // Set UI
+  const sliceLabel = sliceMatch ? (sliceMatch[1] === 'predict' ? `Prediction ${sliceMatch[2]}` : `Past Exam ${sliceMatch[2]}`) : null;
   const titles = {reading:'Reading & Writing',math:'Math',test:'Past Exam Papers + Predictions',diagnostic:'Diagnostic Test'};
   const badges = {reading:'R&W',math:'Math',test:'Full Test',diagnostic:'Diagnostic'};
-  document.getElementById('qb-title').textContent = titles[mode] || 'Question Bank';
-  document.getElementById('qb-badge').textContent = badges[mode] || mode;
+  document.getElementById('qb-title').textContent = sliceLabel || titles[mode] || 'Question Bank';
+  document.getElementById('qb-badge').textContent = sliceLabel ? (sliceMatch[1] === 'predict' ? 'Prediction' : 'Past Exam') : (badges[mode] || mode);
   document.getElementById('qb-results').classList.remove('show');
   document.getElementById('qb-body').style.display = '';
 
   // Timer for test mode
-  if(mode === 'test' || mode === 'diagnostic') {
-    qbTimeLeft = mode === 'test' ? 134*60 : 30*60;
+  if(mode === 'test' || mode === 'diagnostic' || sliceMatch) {
+    qbTimeLeft = (mode === 'test' || (sliceMatch && sliceMatch[1] === 'pastexam')) ? 134*60 : 30*60;
     startQBTimer();
     document.getElementById('qb-timer').style.display = 'block';
   } else {
@@ -2285,7 +2291,7 @@ function showQBResults() {
   document.getElementById('qb-prog-fill').style.width = '100%';
 
   // Update projected score display
-  if(qbMode === 'diagnostic') {
+  if(qbMode === 'diagnostic' || /^predict-\d$/.test(qbMode)) {
     const projectedSAT = 400 + Math.round(pct * 12);
     document.getElementById('res-sub').textContent += ` Projected SAT: ~${projectedSAT}`;
   }
