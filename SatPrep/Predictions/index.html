@@ -515,75 +515,42 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 <!-- HOME PAGE -->
 
 <div id="page-practice" class="page">
-<div class="practice-home">
-  <div class="prac-hero">
-    <div class="sec-eye" style="display:inline-block" data-i18n="prac_eye">Test Prep</div>
-    <h2 class="sec-title" style="margin-top:.5rem" data-i18n="prac_title">Practice like it's the real thing.</h2>
-    <p class="sec-sub" style="margin:0 auto;text-align:center" data-i18n="prac_sub">4,000+ SAT, IELTS, and English questions with AI-powered explanations, timed tests, and analytics.</p>
+<div class="page-hd">
+  <div class="page-hd-inner">
+    <div class="page-hd-eye">Test Prep</div>
+    <h2>Predictions</h2>
+    <p>Choose a set to get your projected score.</p>
+    <button class="qb-btn outline" style="margin-top:1rem;color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2);font-family:'DM Sans',sans-serif" onclick="window.location.href='/SatPrep/'">← Back to SAT Prep</button>
   </div>
-  <div class="prac-cards">
-    <div class="prac-card blue" onclick="openQBank('reading')">
-      <div class="prac-icon blue">📖</div>
-      <h3 data-i18n="pb_reading&writing_title">Reading&Writing</h3>
-      <p data-i18n="pb_qb_desc">Work through SAT Reading & Writing questions at your own pace with full AI explanations.</p>
-      <span class="prac-badge" data-i18n="pb_qb_badge">200+ questions</span>
+</div>
+<div class="cards-sec">
+  <div class="cards-inner">
+    <div class="prac-cards">
+      <div class="prac-card purple" onclick="if(requirePro())openQBank('predict-1')">
+        <span class="pro-badge">PRO</span>
+        <div class="prac-icon purple">🔮</div>
+        <h3>Prediction 1</h3>
+        <p>Get a projected SAT score from this set.</p>
+      </div>
+      <div class="prac-card purple" onclick="if(requirePro())openQBank('predict-2')">
+        <span class="pro-badge">PRO</span>
+        <div class="prac-icon purple">🔮</div>
+        <h3>Prediction 2</h3>
+        <p>Get a projected SAT score from this set.</p>
+      </div>
+      <div class="prac-card purple" onclick="if(requirePro())openQBank('predict-3')">
+        <span class="pro-badge">PRO</span>
+        <div class="prac-icon purple">🔮</div>
+        <h3>Prediction 3</h3>
+        <p>Get a projected SAT score from this set.</p>
+      </div>
+      <div class="prac-card purple" onclick="if(requirePro())openQBank('predict-4')">
+        <span class="pro-badge">PRO</span>
+        <div class="prac-icon purple">🔮</div>
+        <h3>Prediction 4</h3>
+        <p>Get a projected SAT score from this set.</p>
+      </div>
     </div>
-    <div class="prac-card green" onclick="openQBank('math')">
-      <div class="prac-icon green">📐</div>
-      <h3 data-i18n="pb_math_title">Math Practice</h3>
-      <p data-i18n="pb_math_desc">Algebra, geometry, data analysis and advanced math — step-by-step solutions for every problem.</p>
-      <span class="prac-badge" style="background:var(--gpale);color:var(--green)" data-i18n="pb_math_badge">150+ questions</span>
-    </div>
-    <div class="prac-card amber" onclick="if(requirePro())openExamMenu()">
-      <span class="pro-badge">PRO</span>
-      <div class="prac-icon amber">📝</div>
-      <h3 data-i18n="pb_test_title">Past Exam Papers + Predictions</h3>
-      <p data-i18n="pb_test_desc">Simulate the real Digital SAT experience — timed, scored, and reviewed with explanations.</p>
-      <span class="prac-badge" style="background:var(--apale);color:var(--amber)" data-i18n="pb_test_badge">+15 full practice tests</span>
-    </div>
-    <div class="prac-card red" onclick="openRush()">
-      <div class="prac-icon red">⚡</div>
-      <h3 data-i18n="pb_rush_title">Question Rush</h3>
-      <p data-i18n="pb_rush_desc">Race against the clock — 30 seconds per question. Build speed and improve your pacing.</p>
-      <span class="prac-badge" style="background:#fef2f2;color:var(--red)" data-i18n="pb_rush_badge">Speed mode</span>
-    </div>
-    <div class="prac-card purple" onclick="if(requirePro())showSubPage('vocab')">
-      <span class="pro-badge">PRO</span>
-      <div class="prac-icon purple">🔤</div>
-      <h3 data-i18n="pb_vocab_title">Vocabulary</h3>
-      <p data-i18n="pb_vocab_desc">Master the 200 most tested SAT words with flashcards, definitions, and example sentences.</p>
-      <span class="prac-badge" style="background:#f5f3ff;color:#7c3aed" data-i18n="pb_vocab_badge">200 words</span>
-    </div>
-    <div class="prac-card teal" onclick="showSubPage('planner')">
-      <div class="prac-icon teal">📅</div>
-      <h3 data-i18n="pb_plan_title">Study Planner</h3>
-      <p data-i18n="pb_plan_desc">Enter your test date and target score. Get a personalised week-by-week study schedule.</p>
-      <span class="prac-badge" style="background:#f0fdfa;color:#0d9488" data-i18n="pb_plan_badge">Personalised</span>
-    </div>
-  </div>
-
-  <!-- DIAGNOSTIC + SCORE CALC -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.15rem;margin-top:1.15rem;width:100%">
-    <div class="prac-card blue" onclick="if(requirePro())openQBank('diagnostic')" style="grid-column:1">
-      <span class="pro-badge">PRO</span>
-      <div class="prac-icon blue">🩺</div>
-      <h3 data-i18n="pb_diag_title">Diagnostic Test</h3>
-      <p data-i18n="pb_diag_desc">Find your projected score and the domains costing you the most points in 30 minutes.</p>
-      <span class="prac-badge" data-i18n="pb_diag_badge">30 min • Predicted score</span>
-    </div>
-    <div class="prac-card teal" onclick="showSubPage('calculator')" style="grid-column:2">
-      <div class="prac-icon teal">🧮</div>
-      <h3 data-i18n="pb_calc_title">SAT Score Calculator</h3>
-      <p data-i18n="pb_calc_desc">Enter your raw scores for Reading/Writing and Math to instantly see your total SAT score and percentile.</p>
-      <span class="prac-badge" style="background:#f0fdfa;color:#0d9488" data-i18n="pb_calc_badge">Instant results</span>
-    </div>
-  </div>
-
-  <!-- ANALYTICS PREVIEW -->
-  <div style="margin-top:2.5rem">
-    <div class="sec-eye" data-i18n="ana_eye">Your Progress</div>
-    <h2 class="sec-title" style="margin-top:.4rem;font-size:1.5rem" data-i18n="ana_title">Know your weak spots.</h2>
-    <div id="analytics-preview"></div>
   </div>
 </div>
 </div>
@@ -1172,15 +1139,10 @@ applyLang(currentLang);
 updateNav();
 showPage('practice'); // this file only contains the practice page, so show it by default
 
-// Dedicated page: gate, then jump straight into the Predictions (Reading&Writing / Math) chooser
+// Dedicated page: just gate access — the page itself shows the 4 choices,
+// user picks which one to actually open.
 window.onChettaPlanReady = function () {
-  if (requirePro()) {
-    document.getElementById('examMenuStep1').style.display = 'none';
-    document.getElementById('examMenuStep2').style.display = 'flex';
-    document.getElementById('examMenuTitle').textContent = 'Predictions';
-    document.getElementById('examMenuSub').textContent = 'Which section would you like a projected score for?';
-    document.getElementById('examMenuOv').classList.add('open');
-  }
+  requirePro();
 };
 // AI ready — no API key needed
 
@@ -1366,30 +1328,36 @@ function openQBank(mode) {
   page.classList.add('open');
   document.body.style.overflow = 'hidden';
 
+  const combinedPool = [...QUESTIONS.reading, ...QUESTIONS.math];
+  const sliceMatch = mode.match(/^(predict|pastexam)-(\d)$/);
+
   let pool = mode === 'math' ? QUESTIONS.math :
              mode === 'diagnostic' ? [...QUESTIONS.reading.slice(0,3), ...QUESTIONS.math.slice(0,3)] :
              mode === 'test' ? [...QUESTIONS.reading, ...QUESTIONS.math] :
+             sliceMatch ? combinedPool.filter((q, i) => i % 4 === (parseInt(sliceMatch[2], 10) - 1)) :
              QUESTIONS.reading;
 
   // Shuffle
   qbQuestions = [...pool].sort(() => Math.random() - .5);
   if(mode === 'diagnostic') qbQuestions = qbQuestions.slice(0, 6);
+  else if(sliceMatch) { /* use the full sliced group, no truncation */ }
   else if(mode !== 'test') qbQuestions = qbQuestions.slice(0, Math.min(8, qbQuestions.length));
 
   qbCurrent = 0; qbCorrect = 0; qbWrong = 0; qbSelected = null;
   qbStartTime = Date.now(); qbTotalTime = 0;
 
   // Set UI
+  const sliceLabel = sliceMatch ? (sliceMatch[1] === 'predict' ? `Prediction ${sliceMatch[2]}` : `Past Exam ${sliceMatch[2]}`) : null;
   const titles = {reading:'Reading & Writing',math:'Math',test:'Past Exam Papers + Predictions',diagnostic:'Diagnostic Test'};
   const badges = {reading:'R&W',math:'Math',test:'Full Test',diagnostic:'Diagnostic'};
-  document.getElementById('qb-title').textContent = titles[mode] || 'Question Bank';
-  document.getElementById('qb-badge').textContent = badges[mode] || mode;
+  document.getElementById('qb-title').textContent = sliceLabel || titles[mode] || 'Question Bank';
+  document.getElementById('qb-badge').textContent = sliceLabel ? (sliceMatch[1] === 'predict' ? 'Prediction' : 'Past Exam') : (badges[mode] || mode);
   document.getElementById('qb-results').classList.remove('show');
   document.getElementById('qb-body').style.display = '';
 
   // Timer for test mode
-  if(mode === 'test' || mode === 'diagnostic') {
-    qbTimeLeft = mode === 'test' ? 134*60 : 30*60;
+  if(mode === 'test' || mode === 'diagnostic' || sliceMatch) {
+    qbTimeLeft = (mode === 'test' || (sliceMatch && sliceMatch[1] === 'pastexam')) ? 134*60 : 30*60;
     startQBTimer();
     document.getElementById('qb-timer').style.display = 'block';
   } else {
@@ -1522,7 +1490,7 @@ function showQBResults() {
   document.getElementById('qb-prog-fill').style.width = '100%';
 
   // Update projected score display
-  if(qbMode === 'diagnostic') {
+  if(qbMode === 'diagnostic' || /^predict-\d$/.test(qbMode)) {
     const projectedSAT = 400 + Math.round(pct * 12);
     document.getElementById('res-sub').textContent += ` Projected SAT: ~${projectedSAT}`;
   }
@@ -2331,7 +2299,7 @@ onAuthStateChanged(auth, (user) => {
       </div>
       <!-- STEP 2 -->
       <div id="examMenuStep2" style="display:none;flex-direction:column;gap:.8rem">
-        <button class="qb-btn outline" style="align-self:flex-start" onclick="window.location.href='/SatPrep/'">← Back</button>
+        <button class="qb-btn outline" style="align-self:flex-start" onclick="backToExamMenuStep1()">← Back</button>
         <div class="prac-card blue" style="cursor:pointer" onclick="closeExamMenu();openQBank('reading')">
           <div class="prac-icon blue">📖</div>
           <h3>Reading &amp; Writing</h3>
