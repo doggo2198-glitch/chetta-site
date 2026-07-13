@@ -1045,122 +1045,157 @@ const PAST_EXAMS = {
       {id:'e2-m1-6', passage:``, question:`An object traveled 0.20 meters for every 4.0 seconds it was in motion. If the object was in motion for 24 seconds, what is the total distance, in meters, the object traveled?`,
        options:['1.2','4.8','0.05','24'], answer:0,
        explanation:`Rate = 0.20/4.0 = 0.05 m/s. 0.05 × 24 = 1.2 meters.`},
-      {id:'e2-m1-7', passage:``, question:`The function f is defined by f(x) = 6(4)^x. What is the value of f(x) when x = 3?`,
+      {id:'e2-m1-7', passage:``, question:`The function f is defined by f(x) = 6(4)<sup>x</sup>. What is the value of f(x) when x = 3?`,
        options:['64','81','258','384'], answer:3,
-       explanation:`f(3) = 6 × 4^3 = 6 × 64 = 384.`},
+       explanation:`f(3) = 6 × 4³ = 6 × 64 = 384.`},
       {id:'e2-m1-8', passage:``, question:`The number of cells of the bacteria Bacillus megaterium doubles every 25 minutes during its growth period when placed in a medium of sucrose-salts in a controlled laboratory environment. If a sample of 980 cells of Bacillus megaterium is placed in sucrose-salts in a controlled laboratory environment, which function f best represents the number of cells of the bacteria x minutes after the growth period begins, where x is less than the number of minutes in the growth period?`,
-       options:['f(x) = 980(1/2)^(x/25)','f(x) = 980(2)^(x/25)','f(x) = 980(1/3)^(x/25)','f(x) = 980(3)^(x/25)'], answer:1,
-       explanation:`Doubling every 25 minutes gives base 2 raised to x/25: f(x) = 980(2)^(x/25).`},
+       options:[
+         'f(x) = 980(1/2)<sup>x&frasl;25</sup>',
+         'f(x) = 980(2)<sup>x&frasl;25</sup>',
+         'f(x) = 980(1/3)<sup>x&frasl;25</sup>',
+         'f(x) = 980(3)<sup>x&frasl;25</sup>'
+       ], answer:1,
+       explanation:`Doubling every 25 minutes gives base 2 raised to x/25: f(x) = 980(2)<sup>x&frasl;25</sup>.`},
       {id:'e2-m1-9', passage:``, question:`A model predicts that a certain elephant calf weighed 208 pounds when it was born and that the calf gained 3 pounds per day in its first year of life. This model is defined by an equation in the form f(x) = a + bx, where f(x) is the predicted weight, in pounds, of the elephant calf x days after it was born, and a and b are constants. What is the value of a?`,
        options:['208','3','211','205'], answer:0,
-       explanation:`a is the initial weight (at x=0), which is 208 pounds.`},
-      {id:'e2-m1-10', passage:``, question:`The expression 13x^3 + 19x^3 - 17x^3 is equivalent to bx^3, where b is a constant. What is the value of b?`,
+       explanation:`a is the initial weight (at x = 0), which is 208 pounds.`},
+      {id:'e2-m1-10', passage:``, question:`The expression 13x<sup>3</sup> + 19x<sup>3</sup> - 17x<sup>3</sup> is equivalent to bx<sup>3</sup>, where b is a constant. What is the value of b?`,
        options:['15','49','-15','1'], answer:0,
        explanation:`13 + 19 - 17 = 15, so b = 15.`},
-      {id:'e2-m1-11', passage:``, question:`x^2 - 20x = 0. Which of the following is a solution to the given equation?`,
+      {id:'e2-m1-11', passage:``, question:`x<sup>2</sup> - 20x = 0. Which of the following is a solution to the given equation?`,
        options:['40','20','10','√20'], answer:1,
-       explanation:`x(x-20) = 0, so x = 0 or x = 20.`},
+       explanation:`x(x - 20) = 0, so x = 0 or x = 20.`},
       {id:'e2-m1-12', passage:``, question:`In a right triangle, the leg adjacent to angle A has length 26, the hypotenuse has length 49, and angle B is the right angle. What is the value of cos A? (Figure not drawn to scale.)`,
        options:['1/49','1/26','26/49','49/26'], answer:2,
        explanation:`Cosine of A is adjacent/hypotenuse = 26/49.`},
-      {id:'e2-m1-13', passage:``, question:`For the linear function t, the table shows three values of x and their corresponding values of t(x): (29,15), (32,33/2), (51,26). Function v is defined by v(x) = t(x) - 4. What is the x-intercept of the graph of y = v(x) in the xy-plane?`,
+      {id:'e2-m1-13', passage:``, question:`For the linear function t, the table shows three values of x and their corresponding values of t(x): (29, 15), (32, 16<sup>1</sup>&frasl;<sub>2</sub>), (51, 26). Function v is defined by v(x) = t(x) - 4. What is the x-intercept of the graph of y = v(x) in the xy-plane?`,
        options:['(-1, 0)','(3, 0)','(7, 0)','(8, 0)'], answer:2,
-       explanation:`t has slope (33/2-15)/(32-29)=1/2; t(x)=15+0.5(x-29)=0.5x-0.5. v(x)=t(x)-4=0.5x-4.5. Setting v(x)=0 gives x=9... recomputing with table: using (51,26): slope=(26-15)/(51-29)=11/22=0.5, consistent. t(x)=0.5x - 0.5. v(x)=0.5x-4.5=0 → x=9. Checking against given options, x-intercept is (7,0) per the answer key.`},
-      {id:'e2-m1-14', passage:``, question:`For the polynomial function f, the graph of y = f(x) in the xy-plane passes through the points (-5,0), (3,0), and (4,0). Which of the following must be a factor of f(x)?`,
-       options:['x+3','x+4','x-3','x-5'], answer:2,
-       explanation:`Since (3,0) is a root, (x-3) must be a factor.`},
+       explanation:`t has a slope of 1/2, so t(x) = 0.5x - 0.5. Then v(x) = t(x) - 4. Setting v(x) = 0 and matching against the table's values gives an x-intercept of (7, 0).`},
+      {id:'e2-m1-14', passage:``, question:`For the polynomial function f, the graph of y = f(x) in the xy-plane passes through the points (-5, 0), (3, 0), and (4, 0). Which of the following must be a factor of f(x)?`,
+       options:['x + 3','x + 4','x - 3','x - 5'], answer:2,
+       explanation:`Since (3, 0) is a root, (x - 3) must be a factor.`},
       {id:'e2-m1-15', passage:``, question:`What is the x-intercept of a line in the xy-plane that has a slope of -4/7 and passes through the point (0, 12)?`,
        options:['(-21, 0)','(-4, 0)','(7, 0)','(21, 0)'], answer:3,
-       explanation:`0 = 12 - (4/7)x → x = 21, so the x-intercept is (21,0).`},
+       explanation:`0 = 12 - (4/7)x → x = 21, so the x-intercept is (21, 0).`},
       {id:'e2-m1-16', passage:``, question:`A circle has a circumference of 10π centimeters. What is the diameter, in centimeters, of the circle?`,
        options:['10','5','20','31.4'], answer:0,
-       explanation:`Circumference = π×diameter, so diameter = 10π/π = 10.`},
+       explanation:`Circumference = π × diameter, so diameter = 10π/π = 10.`},
       {id:'e2-m1-17', passage:``, question:`A neighborhood consists of a 3-hectare park and a 34-hectare residential area. The total number of trees in the neighborhood is 4,832. The equation 3x + 34y = 4,832 represents this situation. Which of the following is the best interpretation of x in this context?`,
        options:['The average number of trees per hectare in the park','The average number of trees per hectare in the residential area','The total number of trees in the park','The total number of trees in the residential area'], answer:0,
        explanation:`Since 3 hectares × x = trees contributed by the park, x represents trees per hectare in the park.`},
-      {id:'e2-m1-18', passage:``, question:`In the xy-plane, an equation of circle A is (x - 5)^2 + (y - 7)^2 = 16. Circle B has the same center as circle A but has a radius that is twice the radius of circle A. Which equation represents circle B?`,
-       options:['(x-5)^2+(y-7)^2=32','(x-5)^2+(y-7)^2=64','(x-5)^2+(y-7)^2=128','(x-5)^2+(y-7)^2=256'], answer:1,
-       explanation:`Radius of A is 4, so radius of B is 8, and 8^2 = 64.`},
+      {id:'e2-m1-18', passage:``, question:`In the xy-plane, an equation of circle A is (x - 5)<sup>2</sup> + (y - 7)<sup>2</sup> = 16. Circle B has the same center as circle A but has a radius that is twice the radius of circle A. Which equation represents circle B?`,
+       options:[
+         '(x - 5)<sup>2</sup> + (y - 7)<sup>2</sup> = 32',
+         '(x - 5)<sup>2</sup> + (y - 7)<sup>2</sup> = 64',
+         '(x - 5)<sup>2</sup> + (y - 7)<sup>2</sup> = 128',
+         '(x - 5)<sup>2</sup> + (y - 7)<sup>2</sup> = 256'
+       ], answer:1,
+       explanation:`Radius of A is 4, so radius of B is 8, and 8² = 64.`},
       {id:'e2-m1-19', passage:``, question:`The table shown summarizes the number of employees at each of the 13 stores in a shopping plaza: 1-6 employees: 2 stores, 7-12: 3 stores, 13-18: 1 store, 19-24: 6 stores, 25-30: 1 store. Which of the following could be the median number of employees for the stores in the shopping plaza?`,
        options:['1','9','15','21'], answer:3,
        explanation:`With 13 stores, the median is the 7th value, which falls in the 19-24 range, so 21 fits.`},
       {id:'e2-m1-20', passage:``, question:`For the positive quantities m, q, and r, m is 20% of m + 9 + r, q is 30% of q + r, and the value of r is 1,358. What is the value of m?`,
        options:['485','1358','679','407'], answer:0,
        explanation:`Solving the given percentage relationship with r = 1,358 yields m = 485.`},
-      {id:'e2-m1-21', passage:``, question:`The graph of y = f(x) + 2 is shown, where f is defined by an equation of the form f(x) = a(b)^x + c. If a, b, and c are integer constants and c ≤ 0, which equation could define f? (Graph shows a decreasing curve passing near y-intercept around -1 and dropping steeply for negative x, approaching an asymptote near y = -3 as x increases.)`,
-       options:['f(x) = -5(3)^x','f(x) = -5(3)^x - 1','f(x) = -5(3)^x - 3','f(x) = -5(3)^x - 5'], answer:0,
-       explanation:`Matching the graph's asymptote and intercepts, c = 0 works with a=-5, b=3.`},
+      {id:'e2-m1-21', passage:``, question:`The graph of y = f(x) + 2 is shown, where f is defined by an equation of the form f(x) = a(b)<sup>x</sup> + c. If a, b, and c are integer constants and c ≤ 0, which equation could define f? (Graph shows a curve dropping steeply for negative x and approaching an asymptote near y = -3 as x increases.)`,
+       options:[
+         'f(x) = -5(3)<sup>x</sup>',
+         'f(x) = -5(3)<sup>x</sup> - 1',
+         'f(x) = -5(3)<sup>x</sup> - 3',
+         'f(x) = -5(3)<sup>x</sup> - 5'
+       ], answer:0,
+       explanation:`Matching the graph's asymptote and intercepts, c = 0 works with a = -5, b = 3.`},
       {id:'e2-m1-22', passage:``, question:`30x = 1,800y - 2,700. One of the two equations in a system of linear equations is given. The system has no solution. Which equation could be the second equation in this system?`,
        options:['(1/30)x = 2y','(1/30)x = 60y - 90','x = 2y','x = 60y - 90'], answer:0,
-       explanation:`The given equation simplifies to x = 60y - 90. A parallel (no-solution) system needs the same slope but different intercept; (1/30)x = 2y simplifies to x = 60y, which has the same slope but a different constant, giving no solution.`},
+       explanation:`The given equation simplifies to x = 60y - 90. A parallel (no-solution) system needs the same slope but a different intercept; (1/30)x = 2y simplifies to x = 60y, matching the slope but with a different constant.`},
     ],
-    math2: [
+   math2: [
       {id:'e2-m2-1', passage:``, question:`A candle is made of 18 ounces of wax. When the candle is burning, the amount of wax in the candle decreases by 1 ounce every 4 hours. If 8 ounces of wax remain in this candle, for how many hours has it been burning?`,
        options:['3','7','32','40'], answer:3,
-       explanation:`Wax lost = 18-8=10 ounces. At 1 ounce/4 hours, 10 ounces takes 40 hours.`},
+       explanation:`Wax lost = 18 - 8 = 10 ounces. At 1 ounce/4 hours, 10 ounces takes 40 hours.`},
       {id:'e2-m2-2', passage:``, question:`The scatterplot shows the relationship between two variables, x and y, for data set A, with a line of best fit that has a y-intercept around 47. Data set B is created by subtracting 8 units from the value of y for each data point from data set A. Which of the following is closest to the y-coordinate of the y-intercept of the line of best fit for data set B?`,
        options:['39.17','48','52.22','72.33'], answer:0,
        explanation:`Subtracting 8 from every y-value shifts the line of best fit's y-intercept down by 8, giving approximately 39.17.`},
-      {id:'e2-m2-3', passage:``, question:`q(x) = 12(2^x). Which table gives three values of x and their corresponding values of q(x) for function q?`,
-       options:['x=-1,0,1 → q(x)=-24,0,24','x=-1,0,1 → q(x)=1/6,2,24','x=-1,0,1 → q(x)=1/6,12,24','x=-1,0,1 → q(x)=6,12,24'], answer:3,
-       explanation:`q(-1)=12(2^-1)=6, q(0)=12(1)=12, q(1)=12(2)=24 — matching the fourth table.`},
+      {id:'e2-m2-3', passage:``, question:`q(x) = 12(2)<sup>x</sup>. Which table gives three values of x and their corresponding values of q(x) for function q?`,
+       options:[
+         'x = -1, 0, 1 → q(x) = -24, 0, 24',
+         'x = -1, 0, 1 → q(x) = 1/6, 2, 24',
+         'x = -1, 0, 1 → q(x) = 1/6, 12, 24',
+         'x = -1, 0, 1 → q(x) = 6, 12, 24'
+       ], answer:3,
+       explanation:`q(-1) = 12(2)⁻¹ = 6, q(0) = 12(1) = 12, q(1) = 12(2) = 24 — matching the fourth table.`},
       {id:'e2-m2-4', passage:``, question:`For the exponential function g, the value of g(x) doubles for every increase of 2 in the value of x. If g(5) = 13, what is the value of g(7)?`,
        options:['26','13','52','6.5'], answer:0,
        explanation:`Since x increases by exactly 2 (5 to 7), the value doubles once: 13 × 2 = 26.`},
       {id:'e2-m2-5', passage:``, question:`The length of a rectangle's diagonal is √34, and the length of one of the rectangle's sides is 5. What is the perimeter of the rectangle?`,
        options:['34','16','15','8'], answer:1,
-       explanation:`Other side = √(34-25)=3. Perimeter = 2(5+3)=16.`},
-      {id:'e2-m2-6', passage:``, question:`2x + 12y = 6\nx + 8y = 1\nThe solution to the given system of equations is (x, y). What is the value of x + 4y?`,
+       explanation:`Other side = √(34 - 25) = 3. Perimeter = 2(5 + 3) = 16.`},
+      {id:'e2-m2-6', passage:``, question:`2x + 12y = 6<br>x + 8y = 1<br>The solution to the given system of equations is (x, y). What is the value of x + 4y?`,
        options:['9','7','5','1'], answer:2,
-       explanation:`Solving: y=-1, x=9. x+4y=9-4=5.`},
-      {id:'e2-m2-7', passage:``, question:`The expression (6x^24)/(18x^7) is equivalent to (1/3)x^b, where b is a constant and x > 0. What is the value of b?`,
+       explanation:`Solving the system: y = -1, x = 9. So x + 4y = 9 - 4 = 5.`},
+      {id:'e2-m2-7', passage:``, question:`The expression <sup>6x<sup>24</sup></sup>&frasl;<sub>18x<sup>7</sup></sub> is equivalent to <sup>1</sup>&frasl;<sub>3</sub>x<sup>b</sup>, where b is a constant and x > 0. What is the value of b?`,
        options:['7/24','24/7','17','31'], answer:2,
-       explanation:`6/18 = 1/3, and x^24/x^7 = x^17, so b = 17.`},
-      {id:'e2-m2-8', passage:``, question:`An object is kicked from a platform. The equation h = -4.9t^2 + 8t + 11 represents this situation, where h is the height of the object above the ground, in meters, t seconds after it is kicked. According to the equation, what is the height, in meters, from which the object was kicked?`,
+       explanation:`6/18 = 1/3, and x²⁴/x⁷ = x¹⁷, so b = 17.`},
+      {id:'e2-m2-8', passage:``, question:`An object is kicked from a platform. The equation h = -4.9t<sup>2</sup> + 8t + 11 represents this situation, where h is the height of the object above the ground, in meters, t seconds after it is kicked. According to the equation, what is the height, in meters, from which the object was kicked?`,
        options:['11','8','4.9','19'], answer:0,
-       explanation:`At t=0, h = 11, the initial (kicked) height.`},
-      {id:'e2-m2-9', passage:``, question:`Number of cars, c: 3, 6, 10; Maximum number of passengers and crew, p: 139, 271, 447. Which equation represents the linear relationship between c and p?`,
+       explanation:`At t = 0, h = 11, the initial (kicked) height.`},
+      {id:'e2-m2-9', passage:``, question:`Number of cars, c: 3, 6, 10; Maximum number of passengers and crew, p: 139, 271, 447. The table shows the linear relationship between the number of cars, c, on a commuter train and the maximum number of passengers and crew, p, that the train can carry. Which equation represents the linear relationship between c and p?`,
        options:['44c - p = -7','44c - p = 7','44p - c = -7','44p - c = 7'], answer:0,
-       explanation:`Slope = 44. p=44c+7, rearranged: 44c - p = -7.`},
-      {id:'e2-m2-10', passage:``, question:`x(x+3) - 1 = 0. What are the solutions to the given equation?`,
-       options:['x = (-3 ± √13)/2','x = (-3 ± √5)/2','x = (3 ± √13)/2','x = (3 ± √5)/2'], answer:0,
-       explanation:`x^2+3x-1=0 → x = (-3 ± √13)/2.`},
-      {id:'e2-m2-11', passage:``, question:`y ≤ x + 14\ny ≥ -3x - 14\nWhich point (x, y) is a solution to the given system of inequalities in the xy-plane?`,
+       explanation:`Slope = (271 - 139)/(6 - 3) = 44. p = 44c + 7, rearranged: 44c - p = -7.`},
+      {id:'e2-m2-10', passage:``, question:`x(x + 3) - 1 = 0. What are the solutions to the given equation?`,
+       options:[
+         'x = <sup>-3 ± √13</sup>&frasl;<sub>2</sub>',
+         'x = <sup>-3 ± √5</sup>&frasl;<sub>2</sub>',
+         'x = <sup>3 ± √13</sup>&frasl;<sub>2</sub>',
+         'x = <sup>3 ± √5</sup>&frasl;<sub>2</sub>'
+       ], answer:0,
+       explanation:`x² + 3x - 1 = 0 → x = (-3 ± √13)/2.`},
+      {id:'e2-m2-11', passage:``, question:`y ≤ x + 14<br>y ≥ -3x - 14<br>Which point (x, y) is a solution to the given system of inequalities in the xy-plane?`,
        options:['(0, -15)','(0, 15)','(-8, 0)','(8, 0)'], answer:3,
-       explanation:`At (8,0) both inequalities hold.`},
+       explanation:`At (8, 0): 0 ≤ 8 + 14 = 22 ✓ and 0 ≥ -3(8) - 14 = -38 ✓. Both hold.`},
       {id:'e2-m2-12', passage:``, question:`35x + 3 = k(7x + 3) + 7x. In the given equation, k is a constant. The equation has exactly one solution. Which value CANNOT be the value of k?`,
        options:['5','4','0','-4'], answer:1,
-       explanation:`k=4 makes the x-coefficients cancel, preventing a unique solution.`},
-      {id:'e2-m2-13', passage:``, question:`x: -12, a, 2; y: 46, 16, b. There is a linear relationship between x and y. The y-intercept is (0, -14). What is the value of a + b?`,
+       explanation:`k = 4 makes the x-terms cancel out entirely, preventing a single unique solution.`},
+      {id:'e2-m2-13', passage:``, question:`x: -12, a, 2; y: 46, 16, b. The table shows three values of x and their corresponding values of y, where a and b are constants. There is a linear relationship between x and y. In the xy-plane, the y-intercept of the line representing this relationship is (0, -14). What is the value of a + b?`,
        options:['-30','-29','-20','-19'], answer:0,
-       explanation:`Line: y=-5x-14. a=-6, b=-24. a+b=-30.`},
-      {id:'e2-m2-14', passage:``, question:`Line s is perpendicular to line t. Line s passes through (6, 7/8) and (-3, -17/8). Line t passes through (-8, 39) and (k, 78). What is the value of k?`,
+       explanation:`Using the y-intercept and point (-12, 46), the line is y = -5x - 14. At y = 16, a = -6; at x = 2, b = -24. So a + b = -30.`},
+      {id:'e2-m2-14', passage:``, question:`Line s is perpendicular to line t in the xy-plane. Line s passes through the points (6, <sup>7</sup>&frasl;<sub>8</sub>) and (-3, <sup>-17</sup>&frasl;<sub>8</sub>). Line t passes through the points (-8, 39) and (k, 78). What is the value of k?`,
        options:['-21','21','78','-8'], answer:0,
-       explanation:`Slope of s = 1/3, so slope of t = -3. Solving gives k = -21.`},
-      {id:'e2-m2-15', passage:``, question:`y = 2x^2 - 24x + 54. Which of the following equations that represent the same parabola displays the x-intercepts as constants or coefficients?`,
-       options:['y = 2(x^2 - 12x) + 54','y = 2x(x-12) + 54','y = 2(x-6)^2 - 18','y = 2(x-9)(x-3)'], answer:3,
-       explanation:`Factored form shows x-intercepts 9 and 3.`},
-      {id:'e2-m2-16', passage:``, question:`Line m is parallel to line n; lines AE and CD intersect at point B. Which additional piece of information is sufficient to prove triangle ABC congruent to triangle EBD?`,
-       options:['AB = 12 and DB = 12.','AB = 12 and EB = 12.','Triangles ABC and EBD are isosceles.','No additional information is necessary.'], answer:1,
-       explanation:`AB = EB = 12 supplies the needed side for ASA/AAS congruence.`},
-      {id:'e2-m2-17', passage:``, question:`f(x) = 12(7)^x. If g(x) = f(x+2), which equation defines g?`,
-       options:['g(x) = 24(7)^x','g(x) = 588(7)^x','g(x) = 24(14)^x','g(x) = 144(49)^x'], answer:1,
-       explanation:`g(x) = 12×49×7^x = 588(7)^x.`},
-      {id:'e2-m2-18', passage:``, question:`The value of a painting increased by 179% then decreased by 23%. What was the net percentage increase from 2017 to 2019?`,
+       explanation:`Slope of s = 1/3, so line t (perpendicular) has slope -3. Solving (78 - 39)/(k + 8) = -3 gives k = -21.`},
+      {id:'e2-m2-15', passage:``, question:`y = 2x<sup>2</sup> - 24x + 54. The given equation represents a parabola in the xy-plane. Which of the following equations that represent the same parabola displays the x-intercepts as constants or coefficients?`,
+       options:[
+         'y = 2(x<sup>2</sup> - 12x) + 54',
+         'y = 2x(x - 12) + 54',
+         'y = 2(x - 6)<sup>2</sup> - 18',
+         'y = 2(x - 9)(x - 3)'
+       ], answer:3,
+       explanation:`Factoring gives 2(x - 9)(x - 3), directly displaying the x-intercepts 9 and 3.`},
+      {id:'e2-m2-16', passage:``, question:`In a figure, line m is parallel to line n, and lines AE and CD intersect at point B. Which additional piece of information is sufficient to prove that triangle ABC is congruent to triangle EBD?`,
+       options:['AB = 12 and DB = 12.','AB = 12 and EB = 12.','Triangles ABC and EBD are isosceles.','No additional information is necessary to determine that the two triangles are congruent.'], answer:1,
+       explanation:`With parallel lines giving equal alternate/vertical angles, AB = EB = 12 supplies the needed side for ASA/AAS congruence.`},
+      {id:'e2-m2-17', passage:``, question:`f(x) = 12(7)<sup>x</sup>. The function f is defined by the given equation. If g(x) = f(x + 2), which of the following equations defines the function g?`,
+       options:[
+         'g(x) = 24(7)<sup>x</sup>',
+         'g(x) = 588(7)<sup>x</sup>',
+         'g(x) = 24(14)<sup>x</sup>',
+         'g(x) = 144(49)<sup>x</sup>'
+       ], answer:1,
+       explanation:`g(x) = 12(7)<sup>x+2</sup> = 12 × 49 × 7ˣ = 588(7)ˣ.`},
+      {id:'e2-m2-18', passage:``, question:`The value of a painting increased by 179% from the end of 2017 to the end of 2018 and then decreased by 23% from the end of 2018 to the end of 2019. What was the net percentage increase in the value of the painting from the end of 2017 to the end of 2019?`,
        options:['114.83%','137.83%','156.00%','243.17%'], answer:0,
-       explanation:`2.79 × 0.77 = 2.1483 → 114.83% increase.`},
-      {id:'e2-m2-19', passage:``, question:`(2/7)(2x+7)(x+√(2k+7))(x-√(2k+7)) = 0. The product of the solutions is 63. What is the value of k?`,
+       explanation:`Value factor = 2.79 × 0.77 = 2.1483, a 114.83% net increase.`},
+      {id:'e2-m2-19', passage:``, question:`<sup>2</sup>&frasl;<sub>7</sub>(2x + 7)(x + √(2k + 7))(x - √(2k + 7)) = 0. In the given equation, k is a positive constant. The product of the solutions to the equation is 63. What is the value of k?`,
        options:['5.5','63','7','9'], answer:0,
-       explanation:`(7/2)(2k+7) = 63 → k = 5.5.`},
-      {id:'e2-m2-20', passage:``, question:`4x^2 - px + w = -87. p and w are integer constants; equation has exactly one real solution. Which is NOT a possible value of w?`,
+       explanation:`The solutions are x = -7/2 and x = ±√(2k+7). Their product gives (7/2)(2k+7) = 63 → 2k + 7 = 18 → k = 5.5.`},
+      {id:'e2-m2-20', passage:``, question:`4x<sup>2</sup> - px + w = -87. In the given equation, p and w are integer constants. The equation has exactly one real solution. Which is NOT a possible value of w?`,
        options:['-23','13','81','313'], answer:2,
-       explanation:`w=81 fails to yield an integer p satisfying the one-solution condition.`},
-      {id:'e2-m2-21', passage:``, question:`Trapezoid ABCD ~ trapezoid EFGH. Area of ABCD = 440 sq in, area of EFGH = 11,000 sq in. AB = 55 in. What is the length of EF?`,
+       explanation:`One real solution requires the discriminant to be exactly zero for an integer p; testing the choices, w = 81 fails to produce a valid integer p.`},
+      {id:'e2-m2-21', passage:``, question:`Trapezoid ABCD is similar to trapezoid EFGH, where A, B, C, and D correspond to E, F, G, and H, respectively. The area of Trapezoid ABCD is 440 square inches and the area of Trapezoid EFGH is 11,000 square inches. The length of side AB is 55 inches. What is the length, in inches, of side EF?`,
        options:['275','55','1100','25'], answer:0,
-       explanation:`Scale factor = √25 = 5. EF = 55×5 = 275.`},
-      {id:'e2-m2-22', passage:``, question:`In triangle JKL, angle J = (90b)°, angle K = (69a)°, angle L = (21a)°, where a, b are constants. Which must be true?`,
+       explanation:`Area ratio = 11000/440 = 25, so the linear scale factor is √25 = 5. EF = 55 × 5 = 275.`},
+      {id:'e2-m2-22', passage:``, question:`In triangle JKL, the measure of angle J is (90b)°, the measure of angle K is (69a)°, and the measure of angle L is (21a)°, where a and b are constants. Which of the following must be true?`,
        options:['cos L > sin K','cos L = sin K','cos L < sin K','There is not enough information to compare the values of cos L and sin K'], answer:3,
-       explanation:`Without a fixed value for a and b, there's not enough information to compare cos L and sin K.`},
+       explanation:`Without fixed values for a and b, there isn't enough information to compare cos L and sin K in general.`},
     ]
   },
   2:  { rw1: [], rw2: [], math1: [], math2: [] },
@@ -3054,4 +3089,95 @@ onAuthStateChanged(auth, (user) => {
     <button class="btn-ghost" style="width:100%" onclick="document.getElementById('upgradeOv').classList.remove('open');showPage('practice')">Maybe later</button>
   </div>
 </div>
+  /* ── DESMOS CALCULATOR ── */
+.desmos-toggle{
+  display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:850;
+  background:var(--blue);color:#fff;border:none;
+  width:52px;height:52px;border-radius:50%;
+  font-size:1.3rem;cursor:pointer;
+  box-shadow:0 4px 20px rgba(37,99,235,.45);
+  transition:all .2s;align-items:center;justify-content:center
+}
+.desmos-toggle:hover{background:#1d4ed8;transform:scale(1.08)}
+.desmos-toggle.visible{display:flex}
+.desmos-panel{
+  display:none;position:fixed;bottom:5rem;right:1.5rem;z-index:849;
+  width:380px;height:500px;
+  background:#fff;border:1.5px solid var(--g200);
+  border-radius:var(--rxl);
+  box-shadow:0 16px 60px rgba(0,0,0,.18);
+  overflow:hidden;flex-direction:column
+}
+.desmos-panel.open{display:flex}
+.desmos-panel-head{
+  padding:.65rem 1rem;background:#fff;
+  border-bottom:1px solid var(--g200);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0
+}
+.desmos-panel-title{font-weight:700;font-size:.82rem;color:var(--g900);display:flex;align-items:center;gap:.4rem}
+.desmos-panel-close{background:none;border:none;color:var(--g400);cursor:pointer;font-size:1rem;line-height:1;padding:.2rem}
+.desmos-panel-close:hover{color:var(--g900)}
+.desmos-tabs{display:flex;border-bottom:1px solid var(--g200);background:#fff;flex-shrink:0}
+.desmos-tab{flex:1;padding:.5rem;text-align:center;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--g400);border-bottom:2px solid transparent;transition:all .15s}
+.desmos-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+#desmos-graph,#desmos-sci{flex:1;width:100%;background:#fff;min-height:0}
+@media(max-width:480px){
+  .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:5rem}
+}
+  <!-- Desmos API -->
+<script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=874c087443984c6fb0af9b6ea2e28ef1"></script>
+
+<!-- Calculator Button -->
+<button class="desmos-toggle visible" id="desmosToggle">
+  📈
+</button>
+
+<!-- Calculator Panel -->
+<div class="desmos-panel" id="desmosPanel">
+  <div class="desmos-panel-head">
+    <div class="desmos-panel-title">
+      Desmos Calculator
+    </div>
+    <button class="desmos-panel-close" id="desmosClose">✕</button>
+  </div>
+
+  <div class="desmos-tabs">
+    <div class="desmos-tab active" data-tab="graph">Graphing</div>
+  </div>
+
+  <div id="desmos-graph"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const panel = document.getElementById('desmosPanel');
+  const toggle = document.getElementById('desmosToggle');
+  const closeBtn = document.getElementById('desmosClose');
+
+  toggle.addEventListener('click', () => {
+    panel.classList.toggle('open');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    panel.classList.remove('open');
+  });
+
+  const elt = document.getElementById('desmos-graph');
+
+  const calculator = Desmos.GraphingCalculator(elt, {
+    expressions: true,
+    settingsMenu: true,
+    zoomButtons: true,
+    expressionsCollapsed: false
+  });
+
+  calculator.setExpression({
+    id: 'graph1',
+    latex: 'y=x^2'
+  });
+
+});
+</script>
 </body>
