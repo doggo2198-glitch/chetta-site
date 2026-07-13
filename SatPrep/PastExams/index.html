@@ -411,7 +411,8 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 @media(max-width:480px){.ft-grid{grid-template-columns:1fr}.cta-btns,.hero-acts{flex-direction:column;align-items:center}}
 /* ââ PRACTICE MODULE STYLES ââ *//* NAV PRACTICE TAB */.nl-btn.practice-tab{color:var(--blue);font-weight:600}/* PRACTICE HOME */.practice-home{padding:2.5rem 2rem 5rem;background:#fff;max-width:1080px;margin:0 auto;width:100%}.prac-hero{text-align:center;padding:2.5rem 0 3rem}.prac-hero .sec-eye{display:inline-block}.prac-cards{display:grid!important;grid-template-columns:repeat(3,1fr);gap:1.15rem;margin-top:2rem;width:100%}@media(max-width:768px){.prac-cards{grid-template-columns:1fr 1fr}}@media(max-width:480px){.prac-cards{grid-template-columns:1fr}}.prac-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.6rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:block!important}.prac-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s}.prac-card:hover{border-color:rgba(37,99,235,.4);box-shadow:var(--shadowlg);transform:translateY(-2px)}.prac-card:hover::before{opacity:1}.prac-card.blue::before{background:var(--blue)}.prac-card.green::before{background:var(--green)}.prac-card.amber::before{background:var(--amber)}.prac-card.red::before{background:var(--red)}.prac-card.purple::before{background:#7c3aed}.prac-card.teal::before{background:#0d9488}.prac-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem}.prac-icon.blue{background:var(--bluepale)}.prac-icon.green{background:var(--gpale)}.prac-icon.amber{background:var(--apale)}.prac-icon.red{background:#fef2f2}.prac-icon.purple{background:#f5f3ff}.prac-icon.teal{background:#f0fdfa}.prac-card h3{font-size:.95rem;font-weight:700;color:var(--g900);margin-bottom:.4rem}.prac-card p{font-size:.83rem;color:var(--g500);line-height:1.62}.prac-badge{display:inline-block;margin-top:.8rem;background:var(--bluepale);color:var(--blue);font-size:.7rem;font-weight:600;padding:.2rem .65rem;border-radius:100px}.pro-badge{position:absolute;top:.9rem;right:.9rem;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2}/* QUESTION BANK / TEST UI */.qbank-page{display:none;position:fixed;inset:0;z-index:800;background:#fff;overflow-y:auto;flex-direction:column}.qbank-page.open{display:flex}.qb-topbar{height:52px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;background:#fff;flex-shrink:0;position:sticky;top:0;z-index:10}.qb-topbar-left{display:flex;align-items:center;gap:1rem}.qb-back{background:none;border:none;color:var(--g500);cursor:pointer;font-size:.83rem;font-weight:600;display:flex;align-items:center;gap:.35rem;font-family:'DM Sans',sans-serif}.qb-back:hover{color:var(--g900)}.qb-title{font-weight:700;font-size:.9rem;color:var(--g900)}.qb-mode-badge{background:var(--bluepale);color:var(--blue);font-size:.72rem;font-weight:600;padding:.2rem .65rem;border-radius:100px}.qb-topbar-right{display:flex;align-items:center;gap:.75rem}.qb-timer{font-family:'Instrument Serif',serif;font-size:1.1rem;color:var(--g900);letter-spacing:.5px;min-width:55px;text-align:center}.qb-timer.warning{color:var(--red)}.qb-progress-text{font-size:.78rem;color:var(--g500)}/* QUESTION LAYOUT */.qb-body{flex:1;display:grid;grid-template-columns:1fr 1fr;max-width:1080px;margin:0 auto;width:100%;padding:2rem 1.5rem;gap:2.5rem}@media(max-width:768px){.qb-body{grid-template-columns:1fr;padding:1.25rem}}.qb-passage{font-size:.875rem;color:var(--g700);line-height:1.78;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.5rem;height:fit-content;position:sticky;top:4.5rem}.qb-passage-label{font-size:.7rem;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.75rem}.qb-question-panel{}.qb-q-num{font-size:.75rem;font-weight:600;color:var(--g400);margin-bottom:.65rem}.qb-q-text{font-size:.93rem;color:var(--g900);line-height:1.72;font-weight:500;margin-bottom:1.5rem}.qb-options{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}.qb-option{display:flex;align-items:flex-start;gap:.75rem;padding:.85rem 1rem;border:1.5px solid var(--g200);border-radius:var(--r);cursor:pointer;transition:all .15s;font-size:.875rem;color:var(--g700);line-height:1.5}.qb-option:hover{border-color:var(--blue);background:var(--bluepale)}.qb-option.selected{border-color:var(--blue);background:var(--bluepale);color:var(--blue);font-weight:600}.qb-option.correct{border-color:var(--green);background:var(--gpale);color:var(--green)}.qb-option.wrong{border-color:var(--red);background:#fef2f2;color:var(--red)}.qb-option-letter{width:24px;height:24px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:.05rem}.qb-actions{display:flex;gap:.65rem;flex-wrap:wrap}.qb-btn{padding:.6rem 1.25rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.855rem;font-weight:600;cursor:pointer;transition:all .15s;border:none}.qb-btn.primary{background:var(--blue);color:#fff}.qb-btn.primary:hover{background:#1d4ed8}.qb-btn.outline{background:#fff;color:var(--g700);border:1.5px solid var(--g200)}.qb-btn.outline:hover{border-color:var(--g300);background:var(--g50)}.qb-btn:disabled{opacity:.4;cursor:not-allowed}/* EXPLANATION */.qb-explanation{margin-top:1.25rem;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.25rem;font-size:.855rem;color:var(--g700);line-height:1.72;display:none}.qb-explanation.show{display:block}.qb-exp-title{font-weight:700;color:var(--g900);margin-bottom:.55rem;font-size:.88rem}.qb-exp-correct{color:var(--green);font-weight:700;margin-bottom:.4rem}.qb-exp-wrong{color:var(--red);font-weight:700;margin-bottom:.4rem}.qb-ai-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;background:var(--blue);color:#fff;border:none;padding:.48rem 1rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}.qb-ai-btn:hover{background:#1d4ed8}.qb-ai-explain{margin-top:.85rem;background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1rem;font-size:.835rem;color:var(--g700);line-height:1.7;display:none}.qb-ai-explain.show{display:block}/* PROGRESS BAR */.qb-progress-bar{height:3px;background:var(--g100);position:fixed;top:52px;left:0;right:0;z-index:11}.qb-progress-fill{height:100%;background:var(--blue);transition:width .3s}/* RESULTS */.qb-results{display:none;flex-direction:column;align-items:center;padding:3rem 2rem;text-align:center;flex:1}.qb-results.show{display:flex}.res-score-ring{width:130px;height:130px;border-radius:50%;background:var(--bluepale);border:5px solid var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1.5rem}.res-score-num{font-family:'Instrument Serif',serif;font-size:2.2rem;color:var(--blue);line-height:1}.res-score-lbl{font-size:.72rem;color:var(--g400);font-weight:500;margin-top:.2rem}.res-title{font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--black);margin-bottom:.5rem;letter-spacing:-.5px}.res-sub{color:var(--g500);font-size:.9rem;margin-bottom:2rem}.res-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:500px;margin:0 auto 2rem;width:100%}.res-box{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:.9rem;text-align:center}.res-box-val{font-family:'Instrument Serif',serif;font-size:1.5rem;color:var(--g900)}.res-box-key{font-size:.7rem;color:var(--g400);margin-top:.15rem}.res-btns{display:flex;gap:.65rem;justify-content:center;flex-wrap:wrap}/* SCORE CALCULATOR */.score-calc{padding:3rem 2rem;max-width:680px;margin:0 auto}.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:1.75rem}@media(max-width:480px){.calc-grid{grid-template-columns:1fr}}.calc-box{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.4rem}.calc-box h3{font-weight:700;font-size:.93rem;color:var(--g900);margin-bottom:1rem}.calc-slider-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--g500);margin-bottom:.4rem}.calc-slider{width:100%;-webkit-appearance:none;height:5px;border-radius:100px;background:var(--g200);outline:none;margin-bottom:.9rem}.calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;border:2px solid #fff;box-shadow:var(--shadow)}.calc-result{background:var(--bluepale);border:1px solid rgba(37,99,235,.2);border-radius:var(--rl);padding:1.5rem;text-align:center;margin-top:1.25rem}.calc-total{font-family:'Instrument Serif',serif;font-size:3rem;color:var(--blue);letter-spacing:-1px;line-height:1}.calc-total-lbl{font-size:.8rem;color:var(--g500);margin-top:.3rem}.calc-subscores{display:flex;gap:2rem;justify-content:center;margin-top:1rem}.calc-subscore{text-align:center}.calc-subscore-val{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g900)}.calc-subscore-lbl{font-size:.72rem;color:var(--g400)}.percentile-bar{margin-top:1.25rem}.perc-label{font-size:.78rem;color:var(--g500);margin-bottom:.4rem;display:flex;justify-content:space-between}.perc-track{background:var(--g200);border-radius:100px;height:8px;overflow:hidden}.perc-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--blue),#7c3aed);transition:width .6s}/* VOCAB */.vocab-page{padding:2.5rem 2rem;max-width:900px;margin:0 auto}.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-top:1.75rem}.vocab-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.25rem;cursor:pointer;transition:all .2s}.vocab-card:hover{border-color:var(--blue);box-shadow:var(--shadow);transform:translateY(-1px)}.vocab-card.flipped .v-front{display:none}.vocab-card.flipped .v-back{display:block}.v-word{font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--g900);margin-bottom:.3rem;letter-spacing:-.3px}.v-pos{font-size:.72rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem}.v-hint{font-size:.8rem;color:var(--g500);font-style:italic}.v-back{display:none}.v-def{font-size:.855rem;color:var(--g700);line-height:1.65;margin-bottom:.6rem}.v-example{font-size:.8rem;color:var(--g400);font-style:italic;border-left:2px solid var(--blue);padding-left:.6rem}.vocab-filter{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}/* STUDY PLANNER */.planner-page{padding:2.5rem 2rem;max-width:900px;margin:0 auto}.planner-setup{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rxl);padding:2rem;margin-top:1.75rem}.planner-form{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.5rem}@media(max-width:480px){.planner-form{grid-template-columns:1fr}}.plan-label{font-size:.78rem;font-weight:600;color:var(--g700);display:block;margin-bottom:.35rem}.plan-input{width:100%;padding:.62rem .88rem;border:1.5px solid var(--g200);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--g900);outline:none;transition:border-color .15s}.plan-input:focus{border-color:var(--blue)}.plan-week{margin-top:1.5rem}.plan-day{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:1rem;margin-bottom:.75rem}.plan-day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}.plan-day-name{font-weight:700;font-size:.88rem;color:var(--g900)}.plan-day-time{font-size:.75rem;color:var(--g400)}.plan-task{display:flex;align-items:center;gap:.6rem;font-size:.83rem;color:var(--g700);padding:.45rem 0;border-bottom:1px solid var(--g100)}.plan-task:last-child{border-bottom:none}.plan-task-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.plan-countdown{background:var(--g900);color:#fff;border-radius:var(--rl);padding:1.25rem;text-align:center;margin-top:1.5rem}.plan-days-left{font-family:'Instrument Serif',serif;font-size:2.5rem;color:#fff;line-height:1}.plan-days-lbl{font-size:.8rem;color:rgba(255,255,255,.45);margin-top:.3rem}.plan-test-date{font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.5rem}/* ANALYTICS */.analytics-page{padding:2.5rem 2rem;max-width:1080px;margin:0 auto}.analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.75rem}@media(max-width:768px){.analytics-grid{grid-template-columns:repeat(2,1fr)}}.ana-stat{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.25rem}.ana-num{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--g900);letter-spacing:-.5px}.ana-lbl{font-size:.75rem;color:var(--g400);margin-top:.2rem}.ana-delta{font-size:.75rem;font-weight:600;margin-top:.3rem}.ana-delta.up{color:var(--green)}.ana-delta.down{color:var(--red)}.skill-bars{margin-top:1.75rem;background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.5rem}.skill-section{margin-bottom:1.5rem}.skill-section:last-child{margin-bottom:0}.skill-section-title{font-weight:700;font-size:.88rem;color:var(--g900);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}.skill-item{margin-bottom:.85rem}.skill-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem;font-size:.82rem}.skill-item-name{color:var(--g700);font-weight:500}.skill-item-pct{font-weight:700;color:var(--g900)}.skill-item-bar{height:6px;background:var(--g100);border-radius:100px;overflow:hidden}.skill-item-fill{height:100%;border-radius:100px;transition:width .8s}/* QUESTION RUSH */.rush-page{display:none;position:fixed;inset:0;z-index:800;background:var(--g900);overflow:hidden;flex-direction:column;align-items:center;justify-content:center}.rush-page.open{display:flex}.rush-timer-ring{width:120px;height:120px;margin:0 auto 1.5rem;position:relative}.rush-timer-ring svg{width:120px;height:120px;transform:rotate(-90deg)}.rush-timer-ring circle{fill:none;stroke-width:6;r:52;cx:60;cy:60}.rush-timer-bg{stroke:rgba(255,255,255,.1)}.rush-timer-fg{stroke:var(--blue2);stroke-linecap:round;stroke-dasharray:326.7;transition:stroke-dashoffset .1s linear}.rush-timer-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rush-timer-num{font-family:'Instrument Serif',serif;font-size:1.8rem;color:#fff;line-height:1}.rush-timer-lbl{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem}.rush-q{max-width:680px;width:100%;padding:0 1.5rem}.rush-q-text{font-size:1rem;color:#fff;line-height:1.65;font-weight:500;margin-bottom:1.25rem;text-align:center}.rush-options{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.rush-opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.85);padding:.8rem 1rem;border-radius:var(--r);cursor:pointer;transition:all .15s;font-size:.875rem;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.6rem}.rush-opt:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}.rush-opt.correct{background:rgba(22,163,74,.2);border-color:var(--green);color:#fff}.rush-opt.wrong{background:rgba(220,38,38,.2);border-color:var(--red);color:#fff}.rush-opt-letter{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.69rem;font-weight:700;flex-shrink:0}.rush-streak{display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;justify-content:center}.rush-streak-num{font-family:'Instrument Serif',serif;font-size:1.5rem;color:#fff}.rush-streak-lbl{font-size:.75rem;color:rgba(255,255,255,.4)}.rush-back{position:absolute;top:1.1rem;left:1.1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);padding:.45rem .9rem;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600}.rush-score{position:absolute;top:1.1rem;right:1.1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);padding:.45rem .9rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600}
 
-/* ── DESMOS CALCULATOR ── */
+
+  /* ── DESMOS CALCULATOR ── */
 .desmos-toggle{
   display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:850;
   background:var(--blue);color:#fff;border:none;
@@ -425,6 +426,8 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-panel{
   display:none;position:fixed;bottom:5rem;right:1.5rem;z-index:849;
   width:380px;height:500px;
+  min-width:280px;min-height:260px;
+  max-width:96vw;max-height:90vh;
   background:#fff;border:1.5px solid var(--g200);
   border-radius:var(--rxl);
   box-shadow:0 16px 60px rgba(0,0,0,.18);
@@ -432,82 +435,38 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 }
 .desmos-panel.open{display:flex}
 .desmos-panel-head{
-  padding:.65rem 1rem;background:#fff;
+  padding:.65rem .5rem .65rem 1rem;background:#fff;
   border-bottom:1px solid var(--g200);
   display:flex;align-items:center;justify-content:space-between;
-  flex-shrink:0
+  flex-shrink:0;cursor:move;user-select:none
 }
 .desmos-panel-title{font-weight:700;font-size:.82rem;color:var(--g900);display:flex;align-items:center;gap:.4rem}
+.desmos-panel-head-btns{display:flex;align-items:center;gap:.15rem}
+.desmos-dock-btn{background:none;border:none;color:var(--g400);cursor:pointer;font-size:.8rem;line-height:1;padding:.35rem;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.desmos-dock-btn:hover{color:var(--g900);background:var(--g100)}
+.desmos-dock-menu{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--g200);border-radius:10px;box-shadow:var(--shadowlg);z-index:2;padding:.3rem;grid-template-columns:repeat(2,1fr);gap:.2rem}
+.desmos-dock-menu.open{display:grid}
+.desmos-dock-opt{width:34px;height:34px;border-radius:7px;border:1px solid var(--g200);background:var(--g50);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--g500)}
+.desmos-dock-opt:hover{border-color:var(--blue);color:var(--blue);background:var(--bluepale)}
 .desmos-panel-close{background:none;border:none;color:var(--g400);cursor:pointer;font-size:1rem;line-height:1;padding:.2rem}
 .desmos-panel-close:hover{color:var(--g900)}
 .desmos-tabs{display:flex;border-bottom:1px solid var(--g200);background:#fff;flex-shrink:0}
 .desmos-tab{flex:1;padding:.5rem;text-align:center;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--g400);border-bottom:2px solid transparent;transition:all .15s}
 .desmos-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
 #desmos-graph,#desmos-sci{flex:1;width:100%;background:#fff;min-height:0}
+.desmos-resize-handle{
+  position:absolute;width:18px;height:18px;bottom:2px;right:2px;
+  cursor:nwse-resize;z-index:3;
+  background:linear-gradient(135deg,transparent 0 50%,var(--g300) 50% 60%,transparent 60% 70%,var(--g300) 70% 80%,transparent 80% 100%)
+}
+.desmos-panel.dragging,.desmos-panel.resizing{transition:none!important;user-select:none}
 @media(max-width:480px){
   .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:5rem}
 }
-
 </style>
+
 </head>
-  <body>
-  <!-- Desmos API -->
-<script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=874c087443984c6fb0af9b6ea2e28ef1"></script>
-
-<!-- Calculator Button -->
-<button class="desmos-toggle visible" id="desmosToggle">
-  📈
-</button>
-
-<!-- Calculator Panel -->
-<div class="desmos-panel" id="desmosPanel">
-  <div class="desmos-panel-head">
-    <div class="desmos-panel-title">
-      Desmos Calculator
-    </div>
-    <button class="desmos-panel-close" id="desmosClose">✕</button>
-  </div>
-
-  <div class="desmos-tabs">
-    <div class="desmos-tab active" data-tab="graph">Graphing</div>
-  </div>
-
-  <div id="desmos-graph"></div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-  const panel = document.getElementById('desmosPanel');
-  const toggle = document.getElementById('desmosToggle');
-  const closeBtn = document.getElementById('desmosClose');
-
-  toggle.addEventListener('click', () => {
-    panel.classList.toggle('open');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    panel.classList.remove('open');
-  });
-
-  const elt = document.getElementById('desmos-graph');
-
-  const calculator = Desmos.GraphingCalculator(elt, {
-    expressions: true,
-    settingsMenu: true,
-    zoomButtons: true,
-    expressionsCollapsed: false
-  });
-
-  calculator.setExpression({
-    id: 'graph1',
-    latex: 'y=x^2'
-  });
-
-});
-</script>
 <body>
-<html>
   <!-- NAV BAR -->
 <nav>
     <div class="nav-logo" onclick="window.location.href='/'">Chetta<em>.</em></div>
@@ -1308,6 +1267,9 @@ function loadExamModule() {
   document.getElementById('exam-module-lbl').textContent = `SAT Exam ${examNum} — ${lbl.section}`;
   document.getElementById('exam-module-sub').textContent = lbl.sub;
 
+  if (typeof showDesmosBtn === 'function') {
+    showDesmosBtn(moduleKey === 'math1' || moduleKey === 'math2');
+  }
 
   examCurrentQ = 0;
   examTimeLeft = EXAM_MODULE_TIME[moduleKey];
@@ -1501,6 +1463,8 @@ function exitExam() {
   document.getElementById('exam-nav-strip').style.display = '';
   document.getElementById('exam-body').style.display = 'grid';
   document.getElementById('exam-footer').style.display = 'flex';
+  if (typeof showDesmosBtn === 'function') showDesmosBtn(false);
+  document.getElementById('desmos-panel')?.classList.remove('open');
 }
 </script>
 
@@ -3078,6 +3042,28 @@ function switchDesmosTab(tab, el){
   document.getElementById('desmos-sci').style.display = tab==='scientific' ? 'flex' : 'none';
   if(tab==='scientific' && typeof renderSciCalc === 'function') renderSciCalc();
 }
+
+// ── DESMOS PANEL: DRAG, RESIZE, DOCK TO CORNER ──
+function toggleDesmosDockMenu(){
+  document.getElementById('desmos-dock-menu')?.classList.toggle('open');
+}
+document.addEventListener('click', (e)=>{
+  const menu = document.getElementById('desmos-dock-menu');
+  if(menu && menu.classList.contains('open') && !e.target.closest('.desmos-panel-head-btns')) menu.classList.remove('open');
+});
+
+function dockDesmos(corner){
+  const panel = document.getElementById('desmos-panel');
+  if(!panel) return;
+  panel.style.top = panel.style.bottom = panel.style.left = panel.style.right = '';
+  const margin = '1.5rem';
+  if(corner==='top-left'){ panel.style.top = margin; panel.style.left = margin; }
+  else if(corner==='top-right'){ panel.style.top = margin; panel.style.right = margin; }
+  else if(corner==='bottom-left'){ panel.style.bottom = margin; panel.style.left = margin; }
+  else if(corner==='bottom-right'){ panel.style.bottom = margin; panel.style.right = margin; }
+  document.getElementById('desmos-dock-menu')?.classList.remove('open');
+  try{ localStorage.setItem('chetta_desmos_pos', JSON.stringify({mode:'dock',corner})); }catch(e){}
+}
 </script>
 <script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=874c087443984c6fb0af9b6ea2e28ef1"></script>
 <!-- DESMOS CALCULATOR -->
@@ -3090,12 +3076,23 @@ function switchDesmosTab(tab, el){
   </svg>
 </button>
 <div class="desmos-panel" id="desmos-panel">
-  <div class="desmos-panel-head">
+  <div class="desmos-panel-head" id="desmos-drag-handle">
     <div class="desmos-panel-title">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="13" y1="10" x2="16" y2="10"/></svg>
       Graphing Calculator
     </div>
-    <button class="desmos-panel-close" onclick="toggleDesmos()">✕</button>
+    <div class="desmos-panel-head-btns">
+      <div style="position:relative">
+        <button class="desmos-dock-btn" onclick="event.stopPropagation();toggleDesmosDockMenu()" title="Move to corner">⤢</button>
+        <div class="desmos-dock-menu" id="desmos-dock-menu">
+          <button class="desmos-dock-opt" onclick="event.stopPropagation();dockDesmos('top-left')" title="Top left">↖</button>
+          <button class="desmos-dock-opt" onclick="event.stopPropagation();dockDesmos('top-right')" title="Top right">↗</button>
+          <button class="desmos-dock-opt" onclick="event.stopPropagation();dockDesmos('bottom-left')" title="Bottom left">↙</button>
+          <button class="desmos-dock-opt" onclick="event.stopPropagation();dockDesmos('bottom-right')" title="Bottom right">↘</button>
+        </div>
+      </div>
+      <button class="desmos-panel-close" onclick="toggleDesmos()">✕</button>
+    </div>
   </div>
   <div class="desmos-tabs">
     <div class="desmos-tab active" onclick="switchDesmosTab('graphing',this)">Graphing</div>
@@ -3104,8 +3101,117 @@ function switchDesmosTab(tab, el){
  <div id="desmos-graph"
      style="flex:1;width:100%;height:100%;min-height:400px;">
 </div>
+  <div class="desmos-resize-handle" id="desmos-resize-handle"></div>
   <div id="desmos-sci" style="display:none;flex:1;min-height:0;overflow:hidden;"></div>
 </div>
+<script>
+(function initDesmosDragResize(){
+  const panel = document.getElementById('desmos-panel');
+  const handle = document.getElementById('desmos-drag-handle');
+  const resizeHandle = document.getElementById('desmos-resize-handle');
+  if(!panel || !handle || !resizeHandle) return;
+
+  function clamp(val, min, max){ return Math.min(Math.max(val, min), max); }
+
+  function setFreePosition(left, top){
+    const maxLeft = window.innerWidth - panel.offsetWidth - 8;
+    const maxTop = window.innerHeight - panel.offsetHeight - 8;
+    left = clamp(left, 8, Math.max(8, maxLeft));
+    top = clamp(top, 8, Math.max(8, maxTop));
+    panel.style.right = ''; panel.style.bottom = '';
+    panel.style.left = left + 'px';
+    panel.style.top = top + 'px';
+  }
+
+  // Dragging via header
+  let dragging = false, dragOffX = 0, dragOffY = 0;
+  handle.addEventListener('mousedown', (e)=>{
+    if(e.target.closest('button')) return;
+    dragging = true;
+    panel.classList.add('dragging');
+    const rect = panel.getBoundingClientRect();
+    dragOffX = e.clientX - rect.left;
+    dragOffY = e.clientY - rect.top;
+    e.preventDefault();
+  });
+  handle.addEventListener('touchstart', (e)=>{
+    if(e.target.closest('button')) return;
+    dragging = true;
+    panel.classList.add('dragging');
+    const rect = panel.getBoundingClientRect();
+    const t = e.touches[0];
+    dragOffX = t.clientX - rect.left;
+    dragOffY = t.clientY - rect.top;
+  }, {passive:true});
+
+  function onMove(clientX, clientY){
+    if(!dragging) return;
+    setFreePosition(clientX - dragOffX, clientY - dragOffY);
+  }
+  document.addEventListener('mousemove', (e)=> onMove(e.clientX, e.clientY));
+  document.addEventListener('touchmove', (e)=>{ if(dragging){ const t=e.touches[0]; onMove(t.clientX, t.clientY); } }, {passive:true});
+  function stopDrag(){
+    if(!dragging) return;
+    dragging = false;
+    panel.classList.remove('dragging');
+    try{
+      const rect = panel.getBoundingClientRect();
+      localStorage.setItem('chetta_desmos_pos', JSON.stringify({mode:'free', left:rect.left, top:rect.top}));
+    }catch(e){}
+  }
+  document.addEventListener('mouseup', stopDrag);
+  document.addEventListener('touchend', stopDrag);
+
+  // Resizing via corner handle
+  let resizing = false, startW = 0, startH = 0, startX = 0, startY = 0;
+  resizeHandle.addEventListener('mousedown', (e)=>{
+    resizing = true;
+    panel.classList.add('resizing');
+    startW = panel.offsetWidth; startH = panel.offsetHeight;
+    startX = e.clientX; startY = e.clientY;
+    e.preventDefault(); e.stopPropagation();
+  });
+  resizeHandle.addEventListener('touchstart', (e)=>{
+    resizing = true;
+    panel.classList.add('resizing');
+    startW = panel.offsetWidth; startH = panel.offsetHeight;
+    const t = e.touches[0];
+    startX = t.clientX; startY = t.clientY;
+    e.stopPropagation();
+  }, {passive:true});
+
+  function onResize(clientX, clientY){
+    if(!resizing) return;
+    const newW = clamp(startW + (clientX - startX), 280, window.innerWidth - 16);
+    const newH = clamp(startH + (clientY - startY), 260, window.innerHeight - 16);
+    panel.style.width = newW + 'px';
+    panel.style.height = newH + 'px';
+  }
+  document.addEventListener('mousemove', (e)=> onResize(e.clientX, e.clientY));
+  document.addEventListener('touchmove', (e)=>{ if(resizing){ const t=e.touches[0]; onResize(t.clientX, t.clientY); } }, {passive:true});
+  function stopResize(){
+    if(!resizing) return;
+    resizing = false;
+    panel.classList.remove('resizing');
+    try{
+      localStorage.setItem('chetta_desmos_size', JSON.stringify({width:panel.offsetWidth, height:panel.offsetHeight}));
+    }catch(e){}
+  }
+  document.addEventListener('mouseup', stopResize);
+  document.addEventListener('touchend', stopResize);
+
+  // Restore saved size/position
+  try{
+    const savedSize = JSON.parse(localStorage.getItem('chetta_desmos_size')||'null');
+    if(savedSize){ panel.style.width = savedSize.width+'px'; panel.style.height = savedSize.height+'px'; }
+    const savedPos = JSON.parse(localStorage.getItem('chetta_desmos_pos')||'null');
+    if(savedPos){
+      if(savedPos.mode === 'dock' && typeof dockDesmos === 'function') dockDesmos(savedPos.corner);
+      else if(savedPos.mode === 'free') setFreePosition(savedPos.left, savedPos.top);
+    }
+  }catch(e){}
+})();
+</script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
