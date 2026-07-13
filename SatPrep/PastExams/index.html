@@ -426,6 +426,66 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 </style>
 </head>
 <body>
+  </style>
+</head>
+  <body>
+  <!-- Desmos API -->
+<script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=874c087443984c6fb0af9b6ea2e28ef1"></script>
+
+<!-- Calculator Button -->
+<button class="desmos-toggle visible" id="desmosToggle">
+  📈
+</button>
+
+<!-- Calculator Panel -->
+<div class="desmos-panel" id="desmosPanel">
+  <div class="desmos-panel-head">
+    <div class="desmos-panel-title">
+      Desmos Calculator
+    </div>
+    <button class="desmos-panel-close" id="desmosClose">✕</button>
+  </div>
+
+  <div class="desmos-tabs">
+    <div class="desmos-tab active" data-tab="graph">Graphing</div>
+  </div>
+
+  <div id="desmos-graph"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const panel = document.getElementById('desmosPanel');
+  const toggle = document.getElementById('desmosToggle');
+  const closeBtn = document.getElementById('desmosClose');
+
+  toggle.addEventListener('click', () => {
+    panel.classList.toggle('open');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    panel.classList.remove('open');
+  });
+
+  const elt = document.getElementById('desmos-graph');
+
+  const calculator = Desmos.GraphingCalculator(elt, {
+    expressions: true,
+    settingsMenu: true,
+    zoomButtons: true,
+    expressionsCollapsed: false
+  });
+
+  calculator.setExpression({
+    id: 'graph1',
+    latex: 'y=x^2'
+  });
+
+});
+  </script>
+<body>
+<html>
   <!-- NAV BAR -->
 <nav>
     <div class="nav-logo" onclick="window.location.href='/'">Chetta<em>.</em></div>
