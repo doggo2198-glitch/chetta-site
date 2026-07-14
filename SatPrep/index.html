@@ -384,7 +384,52 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
   .ft-grid{grid-template-columns:1fr 1fr;gap:2rem}.nav-links{display:none}nav{padding:0 1rem}
 }
 @media(max-width:480px){.ft-grid{grid-template-columns:1fr}.cta-btns,.hero-acts{flex-direction:column;align-items:center}}
-/* ââ PRACTICE MODULE STYLES ââ *//* NAV PRACTICE TAB */.nl-btn.practice-tab{color:var(--blue);font-weight:600}/* PRACTICE HOME */.practice-home{padding:2.5rem 2rem 5rem;background:#fff;max-width:1080px;margin:0 auto;width:100%}.prac-hero{text-align:center;padding:2.5rem 0 3rem}.prac-hero .sec-eye{display:inline-block}.prac-cards{display:grid!important;grid-template-columns:repeat(3,1fr);gap:1.15rem;margin-top:2rem;width:100%}@media(max-width:768px){.prac-cards{grid-template-columns:1fr 1fr}}@media(max-width:480px){.prac-cards{grid-template-columns:1fr}}.prac-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.6rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:block!important}.prac-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s}.prac-card:hover{border-color:rgba(37,99,235,.4);box-shadow:var(--shadowlg);transform:translateY(-2px)}.prac-card:hover::before{opacity:1}.prac-card.blue::before{background:var(--blue)}.prac-card.green::before{background:var(--green)}.prac-card.amber::before{background:var(--amber)}.prac-card.red::before{background:var(--red)}.prac-card.purple::before{background:#7c3aed}.prac-card.teal::before{background:#0d9488}.prac-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem}.prac-icon.blue{background:var(--bluepale)}.prac-icon.green{background:var(--gpale)}.prac-icon.amber{background:var(--apale)}.prac-icon.red{background:#fef2f2}.prac-icon.purple{background:#f5f3ff}.prac-icon.teal{background:#f0fdfa}.prac-card h3{font-size:.95rem;font-weight:700;color:var(--g900);margin-bottom:.4rem}.prac-card p{font-size:.83rem;color:var(--g500);line-height:1.62}.prac-badge{display:inline-block;margin-top:.8rem;background:var(--bluepale);color:var(--blue);font-size:.7rem;font-weight:600;padding:.2rem .65rem;border-radius:100px}.pro-badge{position:absolute;top:.9rem;right:.9rem;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2}/* QUESTION BANK / TEST UI */.qbank-page{display:none;position:fixed;inset:0;z-index:800;background:#fff;overflow-y:auto;flex-direction:column}.qbank-page.open{display:flex}.qb-topbar{height:52px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;background:#fff;flex-shrink:0;position:sticky;top:0;z-index:10}.qb-topbar-left{display:flex;align-items:center;gap:1rem}.qb-back{background:none;border:none;color:var(--g500);cursor:pointer;font-size:.83rem;font-weight:600;display:flex;align-items:center;gap:.35rem;font-family:'DM Sans',sans-serif}.qb-back:hover{color:var(--g900)}.qb-title{font-weight:700;font-size:.9rem;color:var(--g900)}.qb-mode-badge{background:var(--bluepale);color:var(--blue);font-size:.72rem;font-weight:600;padding:.2rem .65rem;border-radius:100px}.qb-topbar-right{display:flex;align-items:center;gap:.75rem}.qb-timer{font-family:'Instrument Serif',serif;font-size:1.1rem;color:var(--g900);letter-spacing:.5px;min-width:55px;text-align:center}.qb-timer.warning{color:var(--red)}.qb-progress-text{font-size:.78rem;color:var(--g500)}/* QUESTION LAYOUT */.qb-body{flex:1;display:grid;grid-template-columns:1fr 1fr;max-width:1080px;margin:0 auto;width:100%;padding:2rem 1.5rem;gap:2.5rem}@media(max-width:768px){.qb-body{grid-template-columns:1fr;padding:1.25rem}}.qb-passage{font-size:.875rem;color:var(--g700);line-height:1.78;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.5rem;height:fit-content;position:sticky;top:4.5rem}.qb-passage-label{font-size:.7rem;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.75rem}.qb-question-panel{}.qb-q-num{font-size:.75rem;font-weight:600;color:var(--g400);margin-bottom:.65rem}.qb-q-text{font-size:.93rem;color:var(--g900);line-height:1.72;font-weight:500;margin-bottom:1.5rem}.qb-options{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}.qb-option{display:flex;align-items:flex-start;gap:.75rem;padding:.85rem 1rem;border:1.5px solid var(--g200);border-radius:var(--r);cursor:pointer;transition:all .15s;font-size:.875rem;color:var(--g700);line-height:1.5}.qb-option:hover{border-color:var(--blue);background:var(--bluepale)}.qb-option.selected{border-color:var(--blue);background:var(--bluepale);color:var(--blue);font-weight:600}.qb-option.correct{border-color:var(--green);background:var(--gpale);color:var(--green)}.qb-option.wrong{border-color:var(--red);background:#fef2f2;color:var(--red)}.qb-option-letter{width:24px;height:24px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:.05rem}.qb-actions{display:flex;gap:.65rem;flex-wrap:wrap}.qb-btn{padding:.6rem 1.25rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.855rem;font-weight:600;cursor:pointer;transition:all .15s;border:none}.qb-btn.primary{background:var(--blue);color:#fff}.qb-btn.primary:hover{background:#1d4ed8}.qb-btn.outline{background:#fff;color:var(--g700);border:1.5px solid var(--g200)}.qb-btn.outline:hover{border-color:var(--g300);background:var(--g50)}.qb-btn:disabled{opacity:.4;cursor:not-allowed}/* EXPLANATION */.qb-explanation{margin-top:1.25rem;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.25rem;font-size:.855rem;color:var(--g700);line-height:1.72;display:none}.qb-explanation.show{display:block}.qb-exp-title{font-weight:700;color:var(--g900);margin-bottom:.55rem;font-size:.88rem}.qb-exp-correct{color:var(--green);font-weight:700;margin-bottom:.4rem}.qb-exp-wrong{color:var(--red);font-weight:700;margin-bottom:.4rem}.qb-ai-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;background:var(--blue);color:#fff;border:none;padding:.48rem 1rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}.qb-ai-btn:hover{background:#1d4ed8}.qb-ai-explain{margin-top:.85rem;background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1rem;font-size:.835rem;color:var(--g700);line-height:1.7;display:none}.qb-ai-explain.show{display:block}/* PROGRESS BAR */.qb-progress-bar{height:3px;background:var(--g100);position:fixed;top:52px;left:0;right:0;z-index:11}.qb-progress-fill{height:100%;background:var(--blue);transition:width .3s}/* RESULTS */.qb-results{display:none;flex-direction:column;align-items:center;padding:3rem 2rem;text-align:center;flex:1}.qb-results.show{display:flex}.res-score-ring{width:130px;height:130px;border-radius:50%;background:var(--bluepale);border:5px solid var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1.5rem}.res-score-num{font-family:'Instrument Serif',serif;font-size:2.2rem;color:var(--blue);line-height:1}.res-score-lbl{font-size:.72rem;color:var(--g400);font-weight:500;margin-top:.2rem}.res-title{font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--black);margin-bottom:.5rem;letter-spacing:-.5px}.res-sub{color:var(--g500);font-size:.9rem;margin-bottom:2rem}.res-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:500px;margin:0 auto 2rem;width:100%}.res-box{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:.9rem;text-align:center}.res-box-val{font-family:'Instrument Serif',serif;font-size:1.5rem;color:var(--g900)}.res-box-key{font-size:.7rem;color:var(--g400);margin-top:.15rem}.res-btns{display:flex;gap:.65rem;justify-content:center;flex-wrap:wrap}/* SCORE CALCULATOR */.score-calc{padding:3rem 2rem;max-width:680px;margin:0 auto}.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:1.75rem}@media(max-width:480px){.calc-grid{grid-template-columns:1fr}}.calc-box{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.4rem}.calc-box h3{font-weight:700;font-size:.93rem;color:var(--g900);margin-bottom:1rem}.calc-slider-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--g500);margin-bottom:.4rem}.calc-slider{width:100%;-webkit-appearance:none;height:5px;border-radius:100px;background:var(--g200);outline:none;margin-bottom:.9rem}.calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;border:2px solid #fff;box-shadow:var(--shadow)}.calc-result{background:var(--bluepale);border:1px solid rgba(37,99,235,.2);border-radius:var(--rl);padding:1.5rem;text-align:center;margin-top:1.25rem}.calc-total{font-family:'Instrument Serif',serif;font-size:3rem;color:var(--blue);letter-spacing:-1px;line-height:1}.calc-total-lbl{font-size:.8rem;color:var(--g500);margin-top:.3rem}.calc-subscores{display:flex;gap:2rem;justify-content:center;margin-top:1rem}.calc-subscore{text-align:center}.calc-subscore-val{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g900)}.calc-subscore-lbl{font-size:.72rem;color:var(--g400)}.percentile-bar{margin-top:1.25rem}.perc-label{font-size:.78rem;color:var(--g500);margin-bottom:.4rem;display:flex;justify-content:space-between}.perc-track{background:var(--g200);border-radius:100px;height:8px;overflow:hidden}.perc-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--blue),#7c3aed);transition:width .6s}/* VOCAB */.vocab-page{padding:2.5rem 2rem;max-width:900px;margin:0 auto}.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-top:1.75rem}.vocab-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.25rem;cursor:pointer;transition:all .2s}.vocab-card:hover{border-color:var(--blue);box-shadow:var(--shadow);transform:translateY(-1px)}.vocab-card.flipped .v-front{display:none}.vocab-card.flipped .v-back{display:block}.v-word{font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--g900);margin-bottom:.3rem;letter-spacing:-.3px}.v-pos{font-size:.72rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem}.v-hint{font-size:.8rem;color:var(--g500);font-style:italic}.v-back{display:none}.v-def{font-size:.855rem;color:var(--g700);line-height:1.65;margin-bottom:.6rem}.v-example{font-size:.8rem;color:var(--g400);font-style:italic;border-left:2px solid var(--blue);padding-left:.6rem}.vocab-filter{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}/* STUDY PLANNER */.planner-page{padding:2.5rem 2rem;max-width:900px;margin:0 auto}.planner-setup{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rxl);padding:2rem;margin-top:1.75rem}.planner-form{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.5rem}@media(max-width:480px){.planner-form{grid-template-columns:1fr}}.plan-label{font-size:.78rem;font-weight:600;color:var(--g700);display:block;margin-bottom:.35rem}.plan-input{width:100%;padding:.62rem .88rem;border:1.5px solid var(--g200);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--g900);outline:none;transition:border-color .15s}.plan-input:focus{border-color:var(--blue)}.plan-week{margin-top:1.5rem}.plan-day{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:1rem;margin-bottom:.75rem}.plan-day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}.plan-day-name{font-weight:700;font-size:.88rem;color:var(--g900)}.plan-day-time{font-size:.75rem;color:var(--g400)}.plan-task{display:flex;align-items:center;gap:.6rem;font-size:.83rem;color:var(--g700);padding:.45rem 0;border-bottom:1px solid var(--g100)}.plan-task:last-child{border-bottom:none}.plan-task-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.plan-countdown{background:var(--g900);color:#fff;border-radius:var(--rl);padding:1.25rem;text-align:center;margin-top:1.5rem}.plan-days-left{font-family:'Instrument Serif',serif;font-size:2.5rem;color:#fff;line-height:1}.plan-days-lbl{font-size:.8rem;color:rgba(255,255,255,.45);margin-top:.3rem}.plan-test-date{font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.5rem}/* ANALYTICS */.analytics-page{padding:2.5rem 2rem;max-width:1080px;margin:0 auto}.analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.75rem}@media(max-width:768px){.analytics-grid{grid-template-columns:repeat(2,1fr)}}.ana-stat{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.25rem}.ana-num{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--g900);letter-spacing:-.5px}.ana-lbl{font-size:.75rem;color:var(--g400);margin-top:.2rem}.ana-delta{font-size:.75rem;font-weight:600;margin-top:.3rem}.ana-delta.up{color:var(--green)}.ana-delta.down{color:var(--red)}.skill-bars{margin-top:1.75rem;background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.5rem}.skill-section{margin-bottom:1.5rem}.skill-section:last-child{margin-bottom:0}.skill-section-title{font-weight:700;font-size:.88rem;color:var(--g900);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}.skill-item{margin-bottom:.85rem}.skill-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem;font-size:.82rem}.skill-item-name{color:var(--g700);font-weight:500}.skill-item-pct{font-weight:700;color:var(--g900)}.skill-item-bar{height:6px;background:var(--g100);border-radius:100px;overflow:hidden}.skill-item-fill{height:100%;border-radius:100px;transition:width .8s}/* QUESTION RUSH */.rush-page{display:none;position:fixed;inset:0;z-index:800;background:var(--g900);overflow:hidden;flex-direction:column;align-items:center;justify-content:center}.rush-page.open{display:flex}.rush-timer-ring{width:120px;height:120px;margin:0 auto 1.5rem;position:relative}.rush-timer-ring svg{width:120px;height:120px;transform:rotate(-90deg)}.rush-timer-ring circle{fill:none;stroke-width:6;r:52;cx:60;cy:60}.rush-timer-bg{stroke:rgba(255,255,255,.1)}.rush-timer-fg{stroke:var(--blue2);stroke-linecap:round;stroke-dasharray:326.7;transition:stroke-dashoffset .1s linear}.rush-timer-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rush-timer-num{font-family:'Instrument Serif',serif;font-size:1.8rem;color:#fff;line-height:1}.rush-timer-lbl{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem}.rush-q{max-width:680px;width:100%;padding:0 1.5rem}.rush-q-text{font-size:1rem;color:#fff;line-height:1.65;font-weight:500;margin-bottom:1.25rem;text-align:center}.rush-options{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.rush-opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.85);padding:.8rem 1rem;border-radius:var(--r);cursor:pointer;transition:all .15s;font-size:.875rem;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.6rem}.rush-opt:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}.rush-opt.correct{background:rgba(22,163,74,.2);border-color:var(--green);color:#fff}.rush-opt.wrong{background:rgba(220,38,38,.2);border-color:var(--red);color:#fff}.rush-opt-letter{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.69rem;font-weight:700;flex-shrink:0}.rush-streak{display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;justify-content:center}.rush-streak-num{font-family:'Instrument Serif',serif;font-size:1.5rem;color:#fff}.rush-streak-lbl{font-size:.75rem;color:rgba(255,255,255,.4)}.rush-back{position:absolute;top:1.1rem;left:1.1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);padding:.45rem .9rem;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600}.rush-score{position:absolute;top:1.1rem;right:1.1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);padding:.45rem .9rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600}
+/* ââ PRACTICE MODULE STYLES ââ *//* NAV PRACTICE TAB */.nl-btn.practice-tab{color:var(--blue);font-weight:600}/* PRACTICE HOME */.practice-home{padding:2.5rem 2rem 5rem;background:#fff;max-width:1080px;margin:0 auto;width:100%}.prac-hero{text-align:center;padding:2.5rem 0 3rem}.prac-hero .sec-eye{display:inline-block}.prac-cards{display:grid!important;grid-template-columns:repeat(3,1fr);gap:1.15rem;margin-top:2rem;width:100%}@media(max-width:768px){.prac-cards{grid-template-columns:1fr 1fr}}@media(max-width:480px){.prac-cards{grid-template-columns:1fr}}.prac-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.6rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:block!important}.prac-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s}.prac-card:hover{border-color:rgba(37,99,235,.4);box-shadow:var(--shadowlg);transform:translateY(-2px)}.prac-card:hover::before{opacity:1}.prac-card.blue::before{background:var(--blue)}.prac-card.green::before{background:var(--green)}.prac-card.amber::before{background:var(--amber)}.prac-card.red::before{background:var(--red)}.prac-card.purple::before{background:#7c3aed}.prac-card.teal::before{background:#0d9488}.prac-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem}.prac-icon.blue{background:var(--bluepale)}.prac-icon.green{background:var(--gpale)}.prac-icon.amber{background:var(--apale)}.prac-icon.red{background:#fef2f2}.prac-icon.purple{background:#f5f3ff}.prac-icon.teal{background:#f0fdfa}.prac-card h3{font-size:.95rem;font-weight:700;color:var(--g900);margin-bottom:.4rem}.prac-card p{font-size:.83rem;color:var(--g500);line-height:1.62}.prac-badge{display:inline-block;margin-top:.8rem;background:var(--bluepale);color:var(--blue);font-size:.7rem;font-weight:600;padding:.2rem .65rem;border-radius:100px}.pro-badge{position:absolute;top:.9rem;right:.9rem;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2}/* QUESTION BANK / TEST UI */.qbank-page{display:none;position:fixed;inset:0;z-index:800;background:#fff;overflow-y:auto;flex-direction:column}.qbank-page.open{display:flex}.qb-topbar{height:52px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;background:#fff;flex-shrink:0;position:sticky;top:0;z-index:10}.qb-topbar-left{display:flex;align-items:center;gap:1rem}.qb-back{background:none;border:none;color:var(--g500);cursor:pointer;font-size:.83rem;font-weight:600;display:flex;align-items:center;gap:.35rem;font-family:'DM Sans',sans-serif}.qb-back:hover{color:var(--g900)}.qb-title{font-weight:700;font-size:.9rem;color:var(--g900)}.qb-mode-badge{background:var(--bluepale);color:var(--blue);font-size:.72rem;font-weight:600;padding:.2rem .65rem;border-radius:100px}.qb-topbar-right{display:flex;align-items:center;gap:.75rem}.qb-timer{font-family:'Instrument Serif',serif;font-size:1.1rem;color:var(--g900);letter-spacing:.5px;min-width:55px;text-align:center}.qb-timer.warning{color:var(--red)}.qb-progress-text{font-size:.78rem;color:var(--g500)}/* QUESTION LAYOUT */.qb-body{flex:1;display:grid;grid-template-columns:1fr 1fr;max-width:1080px;margin:0 auto;width:100%;padding:2rem 1.5rem;gap:2.5rem}@media(max-width:768px){.qb-body{grid-template-columns:1fr;padding:1.25rem}}.qb-passage{font-size:.875rem;color:var(--g700);line-height:1.78;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.5rem;height:fit-content;position:sticky;top:4.5rem}.qb-passage-label{font-size:.7rem;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.75rem}.qb-question-panel{}.qb-q-num{font-size:.75rem;font-weight:600;color:var(--g400);margin-bottom:.65rem}.qb-q-text{font-size:.93rem;color:var(--g900);line-height:1.72;font-weight:500;margin-bottom:1.5rem}.qb-options{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}.qb-option{display:flex;align-items:flex-start;gap:.75rem;padding:.85rem 1rem;border:1.5px solid var(--g200);border-radius:var(--r);cursor:pointer;transition:all .15s;font-size:.875rem;color:var(--g700);line-height:1.5}.qb-option:hover{border-color:var(--blue);background:var(--bluepale)}.qb-option.selected{border-color:var(--blue);background:var(--bluepale);color:var(--blue);font-weight:600}.qb-option.correct{border-color:var(--green);background:var(--gpale);color:var(--green)}.qb-option.wrong{border-color:var(--red);background:#fef2f2;color:var(--red)}.qb-option-letter{width:24px;height:24px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:.05rem}.qb-actions{display:flex;gap:.65rem;flex-wrap:wrap}.qb-btn{padding:.6rem 1.25rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.855rem;font-weight:600;cursor:pointer;transition:all .15s;border:none}.qb-btn.primary{background:var(--blue);color:#fff}.qb-btn.primary:hover{background:#1d4ed8}.qb-btn.outline{background:#fff;color:var(--g700);border:1.5px solid var(--g200)}.qb-btn.outline:hover{border-color:var(--g300);background:var(--g50)}.qb-btn:disabled{opacity:.4;cursor:not-allowed}/* EXPLANATION */.qb-explanation{margin-top:1.25rem;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.25rem;font-size:.855rem;color:var(--g700);line-height:1.72;display:none}.qb-explanation.show{display:block}.qb-exp-title{font-weight:700;color:var(--g900);margin-bottom:.55rem;font-size:.88rem}.qb-exp-correct{color:var(--green);font-weight:700;margin-bottom:.4rem}.qb-exp-wrong{color:var(--red);font-weight:700;margin-bottom:.4rem}.qb-ai-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;background:var(--blue);color:#fff;border:none;padding:.48rem 1rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}.qb-ai-btn:hover{background:#1d4ed8}.qb-ai-explain{margin-top:.85rem;background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1rem;font-size:.835rem;color:var(--g700);line-height:1.7;display:none}.qb-ai-explain.show{display:block}/* PROGRESS BAR */.qb-progress-bar{height:3px;background:var(--g100);position:fixed;top:52px;left:0;right:0;z-index:11}.qb-progress-fill{height:100%;background:var(--blue);transition:width .3s}/* RESULTS */.qb-results{display:none;flex-direction:column;align-items:center;padding:3rem 2rem;text-align:center;flex:1}.qb-results.show{display:flex}.res-score-ring{width:130px;height:130px;border-radius:50%;background:var(--bluepale);border:5px solid var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1.5rem}.res-score-num{font-family:'Instrument Serif',serif;font-size:2.2rem;color:var(--blue);line-height:1}.res-score-lbl{font-size:.72rem;color:var(--g400);font-weight:500;margin-top:.2rem}.res-title{font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--black);margin-bottom:.5rem;letter-spacing:-.5px}.res-sub{color:var(--g500);font-size:.9rem;margin-bottom:2rem}.res-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:500px;margin:0 auto 2rem;width:100%}.res-box{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:.9rem;text-align:center}.res-box-val{font-family:'Instrument Serif',serif;font-size:1.5rem;color:var(--g900)}.res-box-key{font-size:.7rem;color:var(--g400);margin-top:.15rem}.res-btns{display:flex;gap:.65rem;justify-content:center;flex-wrap:wrap}/* SCORE CALCULATOR */.score-calc{padding:3rem 2rem;max-width:680px;margin:0 auto}.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:1.75rem}@media(max-width:480px){.calc-grid{grid-template-columns:1fr}}.calc-box{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.4rem}.calc-box h3{font-weight:700;font-size:.93rem;color:var(--g900);margin-bottom:1rem}.calc-slider-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--g500);margin-bottom:.4rem}.calc-slider{width:100%;-webkit-appearance:none;height:5px;border-radius:100px;background:var(--g200);outline:none;margin-bottom:.9rem}.calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;border:2px solid #fff;box-shadow:var(--shadow)}.calc-result{background:var(--bluepale);border:1px solid rgba(37,99,235,.2);border-radius:var(--rl);padding:1.5rem;text-align:center;margin-top:1.25rem}.calc-total{font-family:'Instrument Serif',serif;font-size:3rem;color:var(--blue);letter-spacing:-1px;line-height:1}.calc-total-lbl{font-size:.8rem;color:var(--g500);margin-top:.3rem}.calc-subscores{display:flex;gap:2rem;justify-content:center;margin-top:1rem}.calc-subscore{text-align:center}.calc-subscore-val{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g900)}.calc-subscore-lbl{font-size:.72rem;color:var(--g400)}.percentile-bar{margin-top:1.25rem}.perc-label{font-size:.78rem;color:var(--g500);margin-bottom:.4rem;display:flex;justify-content:space-between}.perc-track{background:var(--g200);border-radius:100px;height:8px;overflow:hidden}.perc-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--blue),#7c3aed);transition:width .6s}/* VOCAB */.vocab-page{padding:2.5rem 2rem;max-width:900px;margin:0 auto}
+.vocab-sets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.1rem;margin-top:1.75rem}
+.vocab-set-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.5rem;cursor:pointer;transition:all .2s;position:relative}
+.vocab-set-card:hover:not(.locked){border-color:var(--blue);box-shadow:var(--shadow);transform:translateY(-2px)}
+.vocab-set-card.locked{cursor:default;opacity:.55}
+.vs-num{font-family:'Instrument Serif',serif;font-size:1.7rem;color:var(--g900);margin-bottom:.2rem}
+.vs-title{font-size:.92rem;font-weight:700;color:var(--g900);margin-bottom:.35rem}
+.vs-count{font-size:.75rem;color:var(--g400);margin-bottom:.75rem}
+.vs-progress-track{height:5px;background:var(--g100);border-radius:100px;overflow:hidden}
+.vs-progress-fill{height:100%;background:var(--blue);border-radius:100px;transition:width .4s}
+.vs-badge-soon{display:inline-block;margin-top:.7rem;font-size:.68rem;font-weight:700;letter-spacing:.4px;color:var(--g400);background:var(--g50);padding:.2rem .55rem;border-radius:100px}
+.vocab-back-btn{background:none;border:none;color:var(--g500);cursor:pointer;font-size:.83rem;font-weight:600;display:flex;align-items:center;gap:.35rem;font-family:'DM Sans',sans-serif;margin-bottom:1.5rem}
+.vocab-back-btn:hover{color:var(--g900)}
+.vso-title{font-family:'Instrument Serif',serif;font-size:1.7rem;color:var(--g900);margin-bottom:.3rem}
+.vso-sub{font-size:.85rem;color:var(--g500);margin-bottom:2rem}
+.vocab-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;max-width:520px}
+@media(max-width:480px){.vocab-options-grid{grid-template-columns:1fr}}
+.vocab-option-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all .2s}
+.vocab-option-card:hover{border-color:var(--blue);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+.vocab-option-icon{font-size:1.8rem;margin-bottom:.7rem}
+.vocab-option-name{font-weight:700;font-size:.95rem;color:var(--g900);margin-bottom:.3rem}
+.vocab-option-desc{font-size:.78rem;color:var(--g500);line-height:1.5}
+.fc-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.fc-progress-text{font-size:.82rem;color:var(--g500);font-weight:600}
+.fc-progress-track{height:4px;background:var(--g100);border-radius:100px;overflow:hidden;margin-bottom:2rem}
+.fc-progress-fill{height:100%;background:var(--blue);border-radius:100px;transition:width .3s}
+.flashcard-wrap{max-width:480px;margin:0 auto;perspective:1200px}
+.flashcard{position:relative;min-height:280px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s}
+.flashcard.flipped{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--rxl);border:1.5px solid var(--g200);background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
+.fc-back{transform:rotateY(180deg);justify-content:flex-start;padding-top:2.2rem}
+.fc-word{font-family:'Instrument Serif',serif;font-size:2.2rem;color:var(--g900);letter-spacing:-.5px}
+.fc-pos{font-size:.75rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.6px;margin-top:.5rem}
+.fc-tap-hint{font-size:.75rem;color:var(--g300);margin-top:1.5rem}
+.fc-word-small{font-family:'Instrument Serif',serif;font-size:1.3rem;color:var(--g900);margin-bottom:.9rem}
+.fc-def{font-size:.9rem;color:var(--g700);line-height:1.65;margin-bottom:1rem;padding:0 .5rem}
+.fc-example{font-size:.83rem;color:var(--g500);font-style:italic;border-left:2px solid var(--blue);padding-left:.7rem;text-align:left;margin:0 .5rem}
+.fc-actions{display:flex;gap:.6rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.fc-btn{padding:.65rem 1.3rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s;border:1.5px solid var(--g200);background:#fff;color:var(--g700)}
+.fc-btn:hover{border-color:var(--g300);background:var(--g50)}
+.fc-btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.fc-btn.primary:hover{background:#1d4ed8}
+.fc-btn.warn{color:var(--amber);border-color:rgba(245,158,11,.35)}
+.fc-btn.warn:hover{background:var(--apale)}
+.fc-btn:disabled{opacity:.35;cursor:not-allowed}
+.fc-done{text-align:center;padding:2.5rem 1rem}/* STUDY PLANNER */.planner-page{padding:2.5rem 2rem;max-width:900px;margin:0 auto}.planner-setup{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rxl);padding:2rem;margin-top:1.75rem}.planner-form{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.5rem}@media(max-width:480px){.planner-form{grid-template-columns:1fr}}.plan-label{font-size:.78rem;font-weight:600;color:var(--g700);display:block;margin-bottom:.35rem}.plan-input{width:100%;padding:.62rem .88rem;border:1.5px solid var(--g200);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--g900);outline:none;transition:border-color .15s}.plan-input:focus{border-color:var(--blue)}.plan-week{margin-top:1.5rem}.plan-day{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);padding:1rem;margin-bottom:.75rem}.plan-day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}.plan-day-name{font-weight:700;font-size:.88rem;color:var(--g900)}.plan-day-time{font-size:.75rem;color:var(--g400)}.plan-task{display:flex;align-items:center;gap:.6rem;font-size:.83rem;color:var(--g700);padding:.45rem 0;border-bottom:1px solid var(--g100)}.plan-task:last-child{border-bottom:none}.plan-task-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.plan-countdown{background:var(--g900);color:#fff;border-radius:var(--rl);padding:1.25rem;text-align:center;margin-top:1.5rem}.plan-days-left{font-family:'Instrument Serif',serif;font-size:2.5rem;color:#fff;line-height:1}.plan-days-lbl{font-size:.8rem;color:rgba(255,255,255,.45);margin-top:.3rem}.plan-test-date{font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.5rem}/* ANALYTICS */.analytics-page{padding:2.5rem 2rem;max-width:1080px;margin:0 auto}.analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.75rem}@media(max-width:768px){.analytics-grid{grid-template-columns:repeat(2,1fr)}}.ana-stat{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.25rem}.ana-num{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--g900);letter-spacing:-.5px}.ana-lbl{font-size:.75rem;color:var(--g400);margin-top:.2rem}.ana-delta{font-size:.75rem;font-weight:600;margin-top:.3rem}.ana-delta.up{color:var(--green)}.ana-delta.down{color:var(--red)}.skill-bars{margin-top:1.75rem;background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.5rem}.skill-section{margin-bottom:1.5rem}.skill-section:last-child{margin-bottom:0}.skill-section-title{font-weight:700;font-size:.88rem;color:var(--g900);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}.skill-item{margin-bottom:.85rem}.skill-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem;font-size:.82rem}.skill-item-name{color:var(--g700);font-weight:500}.skill-item-pct{font-weight:700;color:var(--g900)}.skill-item-bar{height:6px;background:var(--g100);border-radius:100px;overflow:hidden}.skill-item-fill{height:100%;border-radius:100px;transition:width .8s}/* QUESTION RUSH */.rush-page{display:none;position:fixed;inset:0;z-index:800;background:var(--g900);overflow:hidden;flex-direction:column;align-items:center;justify-content:center}.rush-page.open{display:flex}.rush-timer-ring{width:120px;height:120px;margin:0 auto 1.5rem;position:relative}.rush-timer-ring svg{width:120px;height:120px;transform:rotate(-90deg)}.rush-timer-ring circle{fill:none;stroke-width:6;r:52;cx:60;cy:60}.rush-timer-bg{stroke:rgba(255,255,255,.1)}.rush-timer-fg{stroke:var(--blue2);stroke-linecap:round;stroke-dasharray:326.7;transition:stroke-dashoffset .1s linear}.rush-timer-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.rush-timer-num{font-family:'Instrument Serif',serif;font-size:1.8rem;color:#fff;line-height:1}.rush-timer-lbl{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.1rem}.rush-q{max-width:680px;width:100%;padding:0 1.5rem}.rush-q-text{font-size:1rem;color:#fff;line-height:1.65;font-weight:500;margin-bottom:1.25rem;text-align:center}.rush-options{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.rush-opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.85);padding:.8rem 1rem;border-radius:var(--r);cursor:pointer;transition:all .15s;font-size:.875rem;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.6rem}.rush-opt:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}.rush-opt.correct{background:rgba(22,163,74,.2);border-color:var(--green);color:#fff}.rush-opt.wrong{background:rgba(220,38,38,.2);border-color:var(--red);color:#fff}.rush-opt-letter{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.69rem;font-weight:700;flex-shrink:0}.rush-streak{display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;justify-content:center}.rush-streak-num{font-family:'Instrument Serif',serif;font-size:1.5rem;color:#fff}.rush-streak-lbl{font-size:.75rem;color:rgba(255,255,255,.4)}.rush-back{position:absolute;top:1.1rem;left:1.1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);padding:.45rem .9rem;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600}.rush-score{position:absolute;top:1.1rem;right:1.1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);padding:.45rem .9rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600}
 
 /* ── DESMOS CALCULATOR ── */
 .desmos-toggle{
@@ -547,12 +592,12 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
       <p data-i18n="pb_rush_desc">Race against the clock — 30 seconds per question. Build speed and improve your pacing.</p>
       <span class="prac-badge" style="background:#fef2f2;color:var(--red)" data-i18n="pb_rush_badge">Speed mode</span>
     </div>
-    <div class="prac-card purple" onclick="if(requirePro())showSubPage('vocab')">
+    <div class="prac-card purple" onclick="window.location.href='/SatPrep/Vocabulary/'">
       <span class="pro-badge">PRO</span>
       <div class="prac-icon purple">🔤</div>
       <h3 data-i18n="pb_vocab_title">Vocabulary</h3>
-      <p data-i18n="pb_vocab_desc">Master the 200 most tested SAT words with flashcards, definitions, and example sentences.</p>
-      <span class="prac-badge" style="background:#f5f3ff;color:#7c3aed" data-i18n="pb_vocab_badge">200 words</span>
+      <p data-i18n="pb_vocab_desc">10 word sets of 150 words each — study with flashcards or test yourself.</p>
+      <span class="prac-badge" style="background:#f5f3ff;color:#7c3aed" data-i18n="pb_vocab_badge">1500 words</span>
     </div>
     <div class="prac-card teal" onclick="showSubPage('planner')">
       <div class="prac-icon teal">📅</div>
@@ -593,28 +638,86 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
   <div class="page-hd"><div class="page-hd-inner">
     <div class="page-hd-eye" data-i18n="prac_eye">Test Prep</div>
     <h2 data-i18n="pb_vocab_title">Vocabulary</h2>
-    <p data-i18n="vocab_sub">Click any card to reveal the definition. Master all 200 SAT words.</p>
+    <p data-i18n="vocab_sub">Choose a set, then study with flashcards or test yourself.</p>
     <button class="qb-btn outline" style="margin-top:1rem;color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2);font-family:'DM Sans',sans-serif" onclick="showPage('practice')">← Back to Practice</button>
   </div></div>
   <div class="vocab-page">
-    <div style="text-align:center;margin-bottom:1.25rem">
-      <button class="qb-btn primary" onclick="startVocabLearn()">🎯 Learn Mode (quiz yourself)</button>
+
+    <!-- SETS GRID VIEW -->
+    <div id="vocab-sets-view">
+      <div class="vocab-sets-grid" id="vocab-sets-grid"></div>
     </div>
-<div id="vocab-cards-view">
-    <div class="vocab-filter" id="vocab-filter"></div>
-    <div class="vocab-grid" id="vocab-grid"></div>
-</div>
-<div id="vocab-learn-view" style="display:none;max-width:520px;margin:0 auto">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
-      <span id="vl-progress" style="font-size:.85rem;color:var(--g500);font-weight:600">Score: 0 / 0</span>
-      <button class="qb-btn outline" onclick="exitVocabLearn()">✕ Exit Learn Mode</button>
+
+    <!-- SET OPTIONS VIEW (Flashcards / Test) -->
+    <div id="vocab-set-options-view" style="display:none">
+      <button class="vocab-back-btn" onclick="backToVocabSets()">← Back to Sets</button>
+      <div class="vso-title" id="vso-title"></div>
+      <div class="vso-sub" id="vso-sub"></div>
+      <div class="vocab-options-grid">
+        <div class="vocab-option-card" onclick="startFlashcards()">
+          <div class="vocab-option-icon">📇</div>
+          <div class="vocab-option-name">Flashcards</div>
+          <div class="vocab-option-desc">Flip through each word, definition, and example.</div>
+        </div>
+        <div class="vocab-option-card" onclick="startVocabTest()">
+          <div class="vocab-option-icon">🎯</div>
+          <div class="vocab-option-name">Test</div>
+          <div class="vocab-option-desc">Quiz yourself with multiple-choice definitions.</div>
+        </div>
+      </div>
     </div>
-    <div style="background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:2rem;text-align:center;margin-bottom:1.25rem">
-      <div id="vl-word" style="font-family:'Instrument Serif',serif;font-size:1.9rem;color:var(--g900);letter-spacing:-.4px"></div>
-      <div id="vl-pos" style="font-size:.75rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-top:.3rem"></div>
+
+    <!-- FLASHCARD VIEW -->
+    <div id="vocab-flashcard-view" style="display:none">
+      <div class="fc-topbar">
+        <button class="vocab-back-btn" style="margin-bottom:0" onclick="exitFlashcards()">✕ Exit</button>
+        <span class="fc-progress-text" id="fc-progress-text">1 / 150</span>
+      </div>
+      <div class="fc-progress-track"><div class="fc-progress-fill" id="fc-progress-fill" style="width:0%"></div></div>
+
+      <div id="fc-card-area">
+        <div class="flashcard-wrap">
+          <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
+            <div class="fc-front">
+              <div class="fc-word" id="fc-word"></div>
+              <div class="fc-pos" id="fc-pos"></div>
+              <div class="fc-tap-hint">Tap card to flip →</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-word-small" id="fc-word-back"></div>
+              <div class="fc-def" id="fc-def"></div>
+              <div class="fc-example" id="fc-example" style="display:none"></div>
+            </div>
+          </div>
+        </div>
+        <div class="fc-actions">
+          <button class="fc-btn" id="fc-prev-btn" onclick="fcPrevious()">← Previous</button>
+          <button class="fc-btn warn" onclick="fcStillLearning()">Still Learning</button>
+          <button class="fc-btn primary" id="fc-next-btn" onclick="fcNext()">Next →</button>
+        </div>
+      </div>
+
+      <div id="fc-done-area" class="fc-done" style="display:none">
+        <div style="font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--g900);margin-bottom:.5rem">Set complete 🎉</div>
+        <p id="fc-done-summary" style="color:var(--g500);font-size:.9rem;margin-bottom:1.5rem"></p>
+        <button class="qb-btn primary" onclick="restartFlashcards()">Review Again</button>
+        <button class="qb-btn outline" onclick="exitFlashcards()">Back to Set</button>
+      </div>
     </div>
-    <div id="vl-options" class="qb-options"></div>
-</div>
+
+    <!-- TEST VIEW (multiple choice, scoped to current set) -->
+    <div id="vocab-learn-view" style="display:none;max-width:520px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+        <span id="vl-progress" style="font-size:.85rem;color:var(--g500);font-weight:600">Score: 0 / 0</span>
+        <button class="qb-btn outline" onclick="exitVocabLearn()">✕ Exit Test</button>
+      </div>
+      <div style="background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:2rem;text-align:center;margin-bottom:1.25rem">
+        <div id="vl-word" style="font-family:'Instrument Serif',serif;font-size:1.9rem;color:var(--g900);letter-spacing:-.4px"></div>
+        <div id="vl-pos" style="font-size:.75rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-top:.3rem"></div>
+      </div>
+      <div id="vl-options" class="qb-options"></div>
+    </div>
+
   </div>
 </div>
 
@@ -1118,11 +1221,11 @@ async function sendMsg(custom) {
 // ── I18N ──
 let currentLang=localStorage.getItem('cl')||'en';
 const LANGS={
-en:{nav_home:'Home',nav_universities:'Universities',nav_scholarships:'Scholarships',nav_interviews:'Interviews',nav_ai:'AI Advisor',nav_signin:'Sign in',nav_getstarted:'Get started',nav_practice:'SAT Prep',dd_signout:'Sign out',auth_tagline:'Your path to a top university',auth_signin:'Sign in',auth_create:'Create account',auth_email:'Email',auth_password:'Password',auth_forgot:'Forgot password?',auth_signin_btn:'Sign in',auth_or:'or',auth_google:'Continue with Google',auth_no_account:'No account?',auth_create_link:'Create one free',auth_firstname:'First name',auth_lastname:'Last name',auth_create_btn:'Create free account',auth_terms:'By signing up you agree to our Terms and Privacy Policy.',auth_forgot_desc:"Enter your email and we'll send a reset link.",auth_send_reset:'Send reset link',auth_back_login:'← Back to sign in',hero_eyebrow:'✦ AI-Powered Admissions Platform',hero_h1:'Get into your <em>dream university</em>.',hero_sub:'Chetta gives you the tools, data, and AI guidance to navigate the most competitive university admissions in the world.',hero_btn1:'Start for free',hero_btn2:'Try AI Advisor',strip_label:'Helping students get into',ps1:'Universities saved',ps2:'Scholarships matched',ps3:'SAT target score',ps4:'Next deadline',pc1_lbl:'Application Readiness',pc2_lbl:'Your Universities',steps_eye:'How it works',steps_title:'Three steps to your dream school.',steps_sub:'From first search to final submission — Chetta walks you through every step.',s1_title:'Explore universities',s1_desc:'Browse 500+ universities with acceptance rates, tuition, SAT requirements, and full application roadmaps.',s2_title:'Find your scholarships',s2_desc:'Discover $2B+ in scholarships matched to your profile, country, GPA, and field — with deadlines and guides.',s3_title:'Get AI-powered guidance',s3_desc:'Chat with Chetta AI for essay feedback, admissions strategy, SAT tips, and visa guidance — 24/7.',feat_eye:'Platform features',feat_title:'Everything in one place.',f1_title:'University Explorer',f1_desc:'500+ universities with rankings, acceptance rates, tuition, and requirements — filterable by country and field.',f2_title:'Scholarship Finder',f2_desc:'Discover Rhodes, Gates Cambridge, Fulbright and more — with step-by-step guides and eligibility checklists.',f3_title:'AI Admissions Advisor',f3_desc:'Gemini-powered AI for essays, SAT tips, visa questions, comparisons. Remembers your conversation.',f4_title:'Ivy League Interviews',f4_desc:'Real Harvard, MIT, and Oxford students explain how they got in — with key advice and YouTube links.',f5_title:'Application Roadmaps',f5_desc:"Every university profile includes a step-by-step checklist for that school's specific process.",f6_title:'Multilingual Support',f6_desc:"Full support in English, O'zbek, and Русский. Switch instantly. AI responds in your language too.",testi_eye:'Student stories',testi_title:'Real students. Real results.',t1_q:'"Chetta\'s AI helped me understand what MIT was looking for. I rewrote my essays three times — and I got in."',t2_q:'"I found a full-ride scholarship through Chetta I\'d never heard of. The guide made applying easy. It covered four full years."',t3_q:'"The interview videos showed me how Oxford students think. Watching them changed how I wrote my personal statement."',faq_title:'Common questions',faq1_q:'Is Chetta free to use?',faq1_a:"Yes! University search, scholarships, and AI chat are all free. The AI uses Gemini — get a free key from Google AI Studio.",faq2_q:'How does the AI Advisor work?',faq2_a:"It uses Google Gemini 2.0 Flash configured as a university admissions expert. It remembers your conversation and replies in your language.",faq3_q:'What countries does Chetta cover?',faq3_a:'USA, UK, Canada, Europe (Germany, Switzerland, Netherlands), and Asia. 40+ countries with scholarships globally.',faq4_q:'Available in Uzbek and Russian?',faq4_a:"Yes — switch instantly with the flag selector top-right. The AI also detects and replies in your language.",cta_title:'Join thousands of students on their way to the top.',cta_sub:'Free to start. No credit card required.',cta_btn1:'Get started free →',cta_btn2:'Browse Universities',upage_eye:'Explore',upage_title:'University Explorer',upage_sub:'Click any university for full details, acceptance rates, and scholarships.',btn_search:'Search',f_all:'All',f_full:'Full Ride',f_partial:'Partial',spage_eye:'Funding',spage_title:'Scholarship Finder',spage_sub:'Discover $2B+ in scholarships — click any to see eligibility, amounts, and how to apply. Showing 14 featured scholarships.',ipage_eye:'Stories',ipage_title:'Ivy League Interviews',ipage_sub:'Real students. Real strategies. Learn from those who got in.',acc:'acc.',card_view:'View profile →',card_apply:'How to apply →',f_full:'Full Ride',f_partial:'Partial',card_dl:'Deadline:',by:'by',mod_acc:'Acceptance Rate',mod_tui:'Annual Tuition',mod_sat:'SAT Range',mod_diff:'Difficulty to Get In',diff_ext:'Extremely Selective',diff_very:'Very Selective',diff_sel:'Selective',mod_majors:'Popular Majors',mod_road:'Application Roadmap',mod_schs:'Available Scholarships',mod_visit:'Visit university website',mod_elig:'Eligibility Requirements',mod_howto:'How to Apply — Step by Step',mod_dl:'⏰ Deadline:',mod_field:'📚 Field:',mod_svis:'Official scholarship website',mod_watch:'Watch on YouTube',mod_adv:'💡 Key Advice from this Interview',ai_title:'Your AI Admissions Advisor',ai_sub:'Ask anything — scholarships, essays, SAT tips, visa questions. Powered by Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Powered by Gemini 2.0',ai_welcome:"Hi! I'm Chetta AI. Ask me anything about getting into top universities — essays, scholarships, SAT prep, visa guidance, or comparing schools. What's your dream school? 🎓",c1:'How do I get into Harvard?',c2:'Find me scholarships',c3:'SAT improvement tips',c4:'Help with my essay',c5:'IELTS for Oxford',c6:'Student visa guide',chat_ph:'Ask me anything about admissions...',prac_eye:'Test Prep',prac_title:'Practice like it\'s the real thing.',prac_sub:'4000+ SAT and IELTS questions with AI explanations, timed tests, and analytics.',pb_qb_title:'Question Bank',pb_qb_desc:'Work through SAT questions at your own pace with AI explanations.',pb_qb_badge:'200+ questions',pb_math_title:'Math Practice',pb_math_desc:'Algebra, geometry, data analysis with step-by-step solutions.',pb_math_badge:'150+ questions',pb_test_title:'Past Exam Papers + Predictions',pb_test_desc:'Simulate the real Digital SAT — timed, scored, reviewed.',pb_test_badge:'Last 10 SAT exams',pb_rush_title:'Question Rush',pb_rush_desc:'30 seconds per question. Build speed and improve pacing.',pb_rush_badge:'Speed mode',pb_vocab_title:'Vocabulary',pb_vocab_desc:'Master 200 most-tested SAT words with flashcards.',pb_vocab_badge:'200 words',pb_plan_title:'Study Planner',pb_plan_desc:'Enter test date and target score for a personalised schedule.',pb_plan_badge:'Personalised',pb_diag_title:'Diagnostic Test',pb_diag_desc:'Find your projected SAT score and weak domains in 30 min.',pb_diag_badge:'30 min',pb_calc_title:'Score Calculator',pb_calc_desc:'Enter raw scores to see your SAT score and percentile.',pb_calc_badge:'Instant',ana_eye:'Your Progress',ana_title:'Know your weak spots.',vocab_sub:'Click any card to reveal the definition.',planner_sub:'Set your test date and target score to generate your plan.',plan_date:'SAT Test Date',plan_current:'Current Score',plan_target:'Target Score',plan_hrs:'Daily Study Hours',plan_generate:'Generate My Plan',calc_sub:'Move sliders to see your estimated SAT score and percentile.',calc_rw:'Reading and Writing',calc_math:'Math',calc_questions:'Questions',calc_estimated:'Estimated SAT Score',calc_percentile:'Percentile',ielts_title:'IELTS Band Estimator',ielts_listening:'Listening',ielts_reading:'Reading',ielts_overall:'Estimated Overall Band',qb_submit:'Check Answer',qb_next:'Next',qb_skip:'Skip',res_retry:'Try Again',res_back:'Back to Practice',rush_title:'Question Rush',rush_desc:'30 seconds per question. Answer as many as you can!',rush_start:'Start Rush',rush_again:'Play Again',rush_answered:'questions answered',ft_desc:'Helping ambitious students worldwide access top universities and life-changing scholarships through intelligent guidance.',ft_ex:'Explore',ft_res:'Resources',ft_co:'Company',ft_sat:'SAT Prep Guide',ft_ielts:'IELTS Tips',ft_essay:'Essay Templates',ft_visa:'Visa Guide',ft_about:'About Chetta',ft_blog:'Blog',ft_priv:'Privacy Policy',ft_contact:'Contact',ft_copy:'© 2025 Chetta. All rights reserved.',ft_love:'Made for ambitious students everywhere'},
+en:{nav_home:'Home',nav_universities:'Universities',nav_scholarships:'Scholarships',nav_interviews:'Interviews',nav_ai:'AI Advisor',nav_signin:'Sign in',nav_getstarted:'Get started',nav_practice:'SAT Prep',dd_signout:'Sign out',auth_tagline:'Your path to a top university',auth_signin:'Sign in',auth_create:'Create account',auth_email:'Email',auth_password:'Password',auth_forgot:'Forgot password?',auth_signin_btn:'Sign in',auth_or:'or',auth_google:'Continue with Google',auth_no_account:'No account?',auth_create_link:'Create one free',auth_firstname:'First name',auth_lastname:'Last name',auth_create_btn:'Create free account',auth_terms:'By signing up you agree to our Terms and Privacy Policy.',auth_forgot_desc:"Enter your email and we'll send a reset link.",auth_send_reset:'Send reset link',auth_back_login:'← Back to sign in',hero_eyebrow:'✦ AI-Powered Admissions Platform',hero_h1:'Get into your <em>dream university</em>.',hero_sub:'Chetta gives you the tools, data, and AI guidance to navigate the most competitive university admissions in the world.',hero_btn1:'Start for free',hero_btn2:'Try AI Advisor',strip_label:'Helping students get into',ps1:'Universities saved',ps2:'Scholarships matched',ps3:'SAT target score',ps4:'Next deadline',pc1_lbl:'Application Readiness',pc2_lbl:'Your Universities',steps_eye:'How it works',steps_title:'Three steps to your dream school.',steps_sub:'From first search to final submission — Chetta walks you through every step.',s1_title:'Explore universities',s1_desc:'Browse 500+ universities with acceptance rates, tuition, SAT requirements, and full application roadmaps.',s2_title:'Find your scholarships',s2_desc:'Discover $2B+ in scholarships matched to your profile, country, GPA, and field — with deadlines and guides.',s3_title:'Get AI-powered guidance',s3_desc:'Chat with Chetta AI for essay feedback, admissions strategy, SAT tips, and visa guidance — 24/7.',feat_eye:'Platform features',feat_title:'Everything in one place.',f1_title:'University Explorer',f1_desc:'500+ universities with rankings, acceptance rates, tuition, and requirements — filterable by country and field.',f2_title:'Scholarship Finder',f2_desc:'Discover Rhodes, Gates Cambridge, Fulbright and more — with step-by-step guides and eligibility checklists.',f3_title:'AI Admissions Advisor',f3_desc:'Gemini-powered AI for essays, SAT tips, visa questions, comparisons. Remembers your conversation.',f4_title:'Ivy League Interviews',f4_desc:'Real Harvard, MIT, and Oxford students explain how they got in — with key advice and YouTube links.',f5_title:'Application Roadmaps',f5_desc:"Every university profile includes a step-by-step checklist for that school's specific process.",f6_title:'Multilingual Support',f6_desc:"Full support in English, O'zbek, and Русский. Switch instantly. AI responds in your language too.",testi_eye:'Student stories',testi_title:'Real students. Real results.',t1_q:'"Chetta\'s AI helped me understand what MIT was looking for. I rewrote my essays three times — and I got in."',t2_q:'"I found a full-ride scholarship through Chetta I\'d never heard of. The guide made applying easy. It covered four full years."',t3_q:'"The interview videos showed me how Oxford students think. Watching them changed how I wrote my personal statement."',faq_title:'Common questions',faq1_q:'Is Chetta free to use?',faq1_a:"Yes! University search, scholarships, and AI chat are all free. The AI uses Gemini — get a free key from Google AI Studio.",faq2_q:'How does the AI Advisor work?',faq2_a:"It uses Google Gemini 2.0 Flash configured as a university admissions expert. It remembers your conversation and replies in your language.",faq3_q:'What countries does Chetta cover?',faq3_a:'USA, UK, Canada, Europe (Germany, Switzerland, Netherlands), and Asia. 40+ countries with scholarships globally.',faq4_q:'Available in Uzbek and Russian?',faq4_a:"Yes — switch instantly with the flag selector top-right. The AI also detects and replies in your language.",cta_title:'Join thousands of students on their way to the top.',cta_sub:'Free to start. No credit card required.',cta_btn1:'Get started free →',cta_btn2:'Browse Universities',upage_eye:'Explore',upage_title:'University Explorer',upage_sub:'Click any university for full details, acceptance rates, and scholarships.',btn_search:'Search',f_all:'All',f_full:'Full Ride',f_partial:'Partial',spage_eye:'Funding',spage_title:'Scholarship Finder',spage_sub:'Discover $2B+ in scholarships — click any to see eligibility, amounts, and how to apply. Showing 14 featured scholarships.',ipage_eye:'Stories',ipage_title:'Ivy League Interviews',ipage_sub:'Real students. Real strategies. Learn from those who got in.',acc:'acc.',card_view:'View profile →',card_apply:'How to apply →',f_full:'Full Ride',f_partial:'Partial',card_dl:'Deadline:',by:'by',mod_acc:'Acceptance Rate',mod_tui:'Annual Tuition',mod_sat:'SAT Range',mod_diff:'Difficulty to Get In',diff_ext:'Extremely Selective',diff_very:'Very Selective',diff_sel:'Selective',mod_majors:'Popular Majors',mod_road:'Application Roadmap',mod_schs:'Available Scholarships',mod_visit:'Visit university website',mod_elig:'Eligibility Requirements',mod_howto:'How to Apply — Step by Step',mod_dl:'⏰ Deadline:',mod_field:'📚 Field:',mod_svis:'Official scholarship website',mod_watch:'Watch on YouTube',mod_adv:'💡 Key Advice from this Interview',ai_title:'Your AI Admissions Advisor',ai_sub:'Ask anything — scholarships, essays, SAT tips, visa questions. Powered by Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Powered by Gemini 2.0',ai_welcome:"Hi! I'm Chetta AI. Ask me anything about getting into top universities — essays, scholarships, SAT prep, visa guidance, or comparing schools. What's your dream school? 🎓",c1:'How do I get into Harvard?',c2:'Find me scholarships',c3:'SAT improvement tips',c4:'Help with my essay',c5:'IELTS for Oxford',c6:'Student visa guide',chat_ph:'Ask me anything about admissions...',prac_eye:'Test Prep',prac_title:'Practice like it\'s the real thing.',prac_sub:'4000+ SAT and IELTS questions with AI explanations, timed tests, and analytics.',pb_qb_title:'Question Bank',pb_qb_desc:'Work through SAT questions at your own pace with AI explanations.',pb_qb_badge:'200+ questions',pb_math_title:'Math Practice',pb_math_desc:'Algebra, geometry, data analysis with step-by-step solutions.',pb_math_badge:'150+ questions',pb_test_title:'Past Exam Papers + Predictions',pb_test_desc:'Simulate the real Digital SAT — timed, scored, reviewed.',pb_test_badge:'Last 10 SAT exams',pb_rush_title:'Question Rush',pb_rush_desc:'30 seconds per question. Build speed and improve pacing.',pb_rush_badge:'Speed mode',pb_vocab_title:'Vocabulary',pb_vocab_desc:'10 sets of 150 words — flashcards or test yourself.',pb_vocab_badge:'1500 words',pb_plan_title:'Study Planner',pb_plan_desc:'Enter test date and target score for a personalised schedule.',pb_plan_badge:'Personalised',pb_diag_title:'Diagnostic Test',pb_diag_desc:'Find your projected SAT score and weak domains in 30 min.',pb_diag_badge:'30 min',pb_calc_title:'Score Calculator',pb_calc_desc:'Enter raw scores to see your SAT score and percentile.',pb_calc_badge:'Instant',ana_eye:'Your Progress',ana_title:'Know your weak spots.',vocab_sub:'Click any card to reveal the definition.',planner_sub:'Set your test date and target score to generate your plan.',plan_date:'SAT Test Date',plan_current:'Current Score',plan_target:'Target Score',plan_hrs:'Daily Study Hours',plan_generate:'Generate My Plan',calc_sub:'Move sliders to see your estimated SAT score and percentile.',calc_rw:'Reading and Writing',calc_math:'Math',calc_questions:'Questions',calc_estimated:'Estimated SAT Score',calc_percentile:'Percentile',ielts_title:'IELTS Band Estimator',ielts_listening:'Listening',ielts_reading:'Reading',ielts_overall:'Estimated Overall Band',qb_submit:'Check Answer',qb_next:'Next',qb_skip:'Skip',res_retry:'Try Again',res_back:'Back to Practice',rush_title:'Question Rush',rush_desc:'30 seconds per question. Answer as many as you can!',rush_start:'Start Rush',rush_again:'Play Again',rush_answered:'questions answered',ft_desc:'Helping ambitious students worldwide access top universities and life-changing scholarships through intelligent guidance.',ft_ex:'Explore',ft_res:'Resources',ft_co:'Company',ft_sat:'SAT Prep Guide',ft_ielts:'IELTS Tips',ft_essay:'Essay Templates',ft_visa:'Visa Guide',ft_about:'About Chetta',ft_blog:'Blog',ft_priv:'Privacy Policy',ft_contact:'Contact',ft_copy:'© 2025 Chetta. All rights reserved.',ft_love:'Made for ambitious students everywhere'},
 
-uz:{nav_home:'Bosh sahifa',nav_universities:'Universitetlar',nav_scholarships:'Stipendiyalar',nav_interviews:'Intervyular',nav_ai:'AI Maslahatchi',nav_signin:'Kirish',nav_getstarted:'Boshlash',nav_practice:'SAT Tayyorgarlik',dd_signout:'Chiqish',auth_tagline:"Top universitetga yo'lingiz",auth_signin:'Kirish',auth_create:'Hisob yaratish',auth_email:'Email',auth_password:'Parol',auth_forgot:'Parolni unutdingizmi?',auth_signin_btn:'Kirish',auth_or:'yoki',auth_google:'Google orqali kirish',auth_no_account:"Hisobingiz yo'qmi?",auth_create_link:'Bepul yarating',auth_firstname:'Ism',auth_lastname:'Familiya',auth_create_btn:'Bepul hisob yaratish',auth_terms:"Ro'yxatdan o'tib Shartlar va Maxfiylik siyosatiga rozisiz.",auth_forgot_desc:'Emailingizni kiriting, tiklash havolasini yuboramiz.',auth_send_reset:'Havolani yuborish',auth_back_login:'← Kirishga qaytish',hero_eyebrow:'✦ AI-Quvvatli Qabul Platformasi',hero_h1:'<em>Orzu universitetingizga</em> kiring.',hero_sub:"Chetta sizga dunyoning eng tanlov universitetlariga qabul bo'lishda kerakli vositalar, ma'lumotlar va AI yo'riqnomasini beradi.",hero_btn1:'Bepul boshlash',hero_btn2:"AI Maslahatchi sinab ko'rish",strip_label:"Quyidagilarga o'quvchilar kirdi",ps1:'Saqlangan universitetlar',ps2:'Mos stipendiyalar',ps3:'SAT maqsad bali',ps4:'Keyingi muddat',pc1_lbl:'Ariza tayyorgarligi',pc2_lbl:'Sizning universitetlaringiz',steps_eye:'Qanday ishlaydi',steps_title:"Orzu maktabingizga uch qadam.",steps_sub:"Birinchi qidiruvdan yakuniy topshiriqgacha — Chetta har qadamda yo'l ko'rsatadi.",s1_title:"Universitetlarni o'rganing",s1_desc:"500+ universitetni qabul darajasi, to'lov, SAT talablari va to'liq ariza yo'l xaritalari bilan ko'ring.",s2_title:'Stipendiyalaringizni toping',s2_desc:"Profilingizga, mamlakatga, GPA va sohangizga mos $2 mlrd+ stipendiyalarni toping — muddatlar va qo'llanmalar bilan.",s3_title:"AI yo'riqnoma oling",s3_desc:"Esse, qabul strategiyasi, SAT va viza uchun Chetta AI bilan suhbatlashing — 7/24 O'zbek, Ingliz, Rus tillarida.",feat_eye:'Platforma imkoniyatlari',feat_title:'Hamma narsa bir joyda.',f1_title:"Universitet Izlovchi",f1_desc:"500+ universitetni reyting, qabul darajasi, to'lov va talablar bilan — mamlakat va soha bo'yicha filtrlab.",f2_title:'Stipendiya Izlovchi',f2_desc:"Rhodes, Gates Cambridge, Fulbright va boshqalarni toping — qadam-baqadam qo'llanmalar bilan.",f3_title:'AI Qabul Maslahatchisi',f3_desc:'Gemini-quvvatli AI: essalar, SAT maslahatlari, viza savollari, universitetlarni solishtirish. Suhbatni eslab qoladi.',f4_title:"Ivy League Intervyulari",f4_desc:"Harvard, MIT va Oksford talabalarining o'zlaridan qanday kirganliklarini eshiting.",f5_title:"Ariza Yo'l Xaritalari",f5_desc:"Har bir universitet profili o'sha maktabning o'ziga xos jarayoni uchun qadam-baqadam ro'yxat o'z ichiga oladi.",f6_title:"Ko'p tilli qo'llab-quvvatlash",f6_desc:"O'zbek, Ingliz va Rus tillarida to'liq qo'llab-quvvatlash. Bir zumda almashtiring. AI ham tilingizda javob beradi.",testi_eye:'Talabalar hikoyalari',testi_title:"Haqiqiy talabalar. Haqiqiy natijalar.",t1_q:'"Chetta AI menga MITning nima qidirganini tushunishda yordam berdi. Fikr-mulohazasi asosida essalarni uch marta yozdim — va qabul bo\'ldim."',t2_q:'"Chetta orqali hech eshitmagan to\'liq stipendiyamni topdim. Qadam-baqadam qo\'llanma ariza berishni osonlashtirdi. To\'rt yilni qopladi."',t3_q:'"Intervyu videolari Oksford talabalarining qanday fikrlovini ko\'rsatdi. Shaxsiy bayonnomamni butunlay o\'zgartirdim."',faq_title:"Tez-tez so'raladigan savollar",faq1_q:"Chetta bepulmi?",faq1_a:"Ha! Universitet qidiruvi, stipendiyalar va AI suhbat barchasi bepul. AI Gemini'dan foydalanadi — Google AI Studio'dan bepul kalit oling.",faq2_q:'AI Maslahatchi qanday ishlaydi?',faq2_a:"Google Gemini 2.0 Flash qabul maslahatchisi sifatida sozlangan. Suhbatingizni eslab qoladi va tilingizda javob beradi.",faq3_q:'Chetta qaysi mamlakatlarni qamrab oladi?',faq3_a:"AQSh, Britaniya, Kanada, Yevropa (Germaniya, Shveytsariya, Niderlandiya) va Osiyo. Butun dunyo bo'yicha 40+ mamlakat.",faq4_q:"O'zbek va Rus tillarida mavjudmi?",faq4_a:"Ha — yuqori o'ng burchakdagi bayroqdan bir zumda almashtiring. AI ham tilingizni aniqlab, shunga javob beradi.",cta_title:"Minlab talabalar bilan top universitetlarga yo'lda qo'shiling.",cta_sub:"Boshlash bepul. Kredit karta talab qilinmaydi.",cta_btn1:'Bepul boshlash →',cta_btn2:"Universitetlarni ko'rish",upage_eye:'Izlash',upage_title:"Universitet Izlovchi",upage_sub:"To'liq tafsilotlar va stipendiyalarni ko'rish uchun istalgan universitetni bosing.",btn_search:'Qidirish',f_all:'Barchasi',f_full:"To'liq stipendiya",f_partial:'Qisman',spage_eye:'Moliyalashtirish',spage_title:'Stipendiya Izlovchi',spage_sub:"$2 mlrd+ stipendiya — munosiblik va ariza qanday berish haqida ko'rish uchun bosing.",ipage_eye:'Hikoyalar',ipage_title:"Ivy League Intervyulari",ipage_sub:"Haqiqiy talabalar. Haqiqiy strategiyalar. Muvaffaq bo'lganlardan o'rganing.",acc:'qabul',card_view:"Profilni ko'rish →",card_apply:'Qanday ariza berish →',card_dl:'Muddat:',by:'',mod_acc:'Qabul darajasi',mod_tui:"Yillik o'quv to'lovi",mod_sat:'SAT diapazoni',mod_diff:'Kirish qiyinligi',diff_ext:"O'ta tanlovli",diff_very:'Juda tanlovli',diff_sel:'Tanlovli',mod_majors:"Mashhur ixtisosliklar",mod_road:"Ariza yo'l xaritasi",mod_schs:"Mavjud stipendiyalar",mod_visit:"Universitet saytiga o'tish",mod_elig:'Munosiblik talablari',mod_howto:'Qanday ariza berish — qadam-baqadam',mod_dl:'⏰ Muddat:',mod_field:"📚 Soha:",mod_svis:"Rasmiy stipendiya saytiga o'tish",mod_watch:"YouTube'da ko'rish",mod_adv:"💡 Intervyudan asosiy maslahatlar",ai_title:'Sizning AI Qabul Maslahatchangiz',ai_sub:"Istalganini so'rang — stipendiyalar, essalar, SAT, viza. Gemini 2.0 bilan ishlaydi.",ai_agent:'Chetta AI',ai_status:'Gemini 2.0 bilan ishlaydi',ai_welcome:"Salom! Men Chetta AI. Top universitetlarga kirish haqida istalgan narsani so'rang. Orzu universitetingiz qaysi? 🎓",c1:'Harvardga qanday kirish mumkin?',c2:'Menga stipendiya toping',c3:'SAT balini yaxshilash',c4:'Esse yozishda yordam',c5:"Oksford uchun IELTS",c6:"Talaba vizasi yo'riqnomasi",chat_ph:"Qabul haqida istalgan narsani so'rang...",prac_eye:'Test Tayyorgarligi',prac_title:'Haqiqiy imtihondek mashq qiling.',prac_sub:"4000+ SAT va IELTS savollari AI tushuntirishlari bilan.",pb_qb_title:'Savollar Banki',pb_qb_desc:"SAT savollarini o'z sur'atingizda ishlang.",pb_qb_badge:'200+ savol',pb_math_title:'Matematika',pb_math_desc:'Algebra va geometriya — qadam-baqadam yechimlar.',pb_math_badge:'150+ savol',pb_test_title:"O'tgan Imtihon Savollari + Bashoratlar",pb_test_desc:"Haqiqiy SATni simulyatsiya qiling.",pb_test_badge:'15+ to\'liq test',pb_rush_title:'Savol Rush',pb_rush_desc:'Har savol uchun 30 soniya.',pb_rush_badge:'Tezlik',pb_vocab_title:"Lug'at",pb_vocab_desc:"SAT so'zlarini kartochkalar bilan o'rganing.",pb_vocab_badge:"200 so'z",pb_plan_title:"O'qish Rejasi",pb_plan_desc:'Test sanangizni kiriting — shaxsiy jadval oling.',pb_plan_badge:'Shaxsiy',pb_diag_title:'Diagnostik Test',pb_diag_desc:'30 daqiqada taxminiy balingizni toping.',pb_diag_badge:'30 daq',pb_calc_title:'Bal Kalkulyatori',pb_calc_desc:'Xom ballarni kiriting — natijani bir zumda koring.',pb_calc_badge:'Tezkor',ana_eye:'Taraqqiyotingiz',ana_title:"Zaif joylaringizni biling.",vocab_sub:"Izohni ko'rsatish uchun bosing.",planner_sub:'Test sanangizni va maqsad balingizni kiriting.',plan_date:'SAT Test Sanasi',plan_current:'Joriy Bal',plan_target:'Maqsad Bal',plan_hrs:"O'qish soatlari",plan_generate:'Reja Yaratish',calc_sub:'Slayderni torting.',calc_rw:"O'qish va Yozish",calc_math:'Matematika',calc_questions:'Savollar',calc_estimated:'Taxminiy SAT Bali',calc_percentile:'Foizli daraja',ielts_title:'IELTS Band Estimator',ielts_listening:'Tinglash',ielts_reading:"O'qish",ielts_overall:'Taxminiy Band',qb_submit:'Tekshirish',qb_next:'Keyingisi',qb_skip:"O'tkazish",res_retry:'Qayta urinish',res_back:'Orqaga',rush_title:'Savol Rush',rush_desc:'Har savol uchun 30 soniya!',rush_start:'Boshlash',rush_again:"Yana o'ynash",rush_answered:'savol javoblandi',ft_desc:"Chetta dunyo bo'ylab talabalariga top universitetlar va stipendiyalarga yordam beradi.",ft_ex:'Izlash',ft_res:'Resurslar',ft_co:'Kompaniya',ft_sat:"SAT Qo'llanmasi",ft_ielts:'IELTS Maslahatlari',ft_essay:'Esse Shablonlari',ft_visa:"Viza Qo'llanmasi",ft_about:'Chetta Haqida',ft_blog:'Blog',ft_priv:'Maxfiylik Siyosati',ft_contact:'Aloqa',ft_copy:"© 2025 Chetta. Barcha huquqlar himoyalangan.",ft_love:"Dunyo bo'yicha talabalar uchun yaratilgan"},
+uz:{nav_home:'Bosh sahifa',nav_universities:'Universitetlar',nav_scholarships:'Stipendiyalar',nav_interviews:'Intervyular',nav_ai:'AI Maslahatchi',nav_signin:'Kirish',nav_getstarted:'Boshlash',nav_practice:'SAT Tayyorgarlik',dd_signout:'Chiqish',auth_tagline:"Top universitetga yo'lingiz",auth_signin:'Kirish',auth_create:'Hisob yaratish',auth_email:'Email',auth_password:'Parol',auth_forgot:'Parolni unutdingizmi?',auth_signin_btn:'Kirish',auth_or:'yoki',auth_google:'Google orqali kirish',auth_no_account:"Hisobingiz yo'qmi?",auth_create_link:'Bepul yarating',auth_firstname:'Ism',auth_lastname:'Familiya',auth_create_btn:'Bepul hisob yaratish',auth_terms:"Ro'yxatdan o'tib Shartlar va Maxfiylik siyosatiga rozisiz.",auth_forgot_desc:'Emailingizni kiriting, tiklash havolasini yuboramiz.',auth_send_reset:'Havolani yuborish',auth_back_login:'← Kirishga qaytish',hero_eyebrow:'✦ AI-Quvvatli Qabul Platformasi',hero_h1:'<em>Orzu universitetingizga</em> kiring.',hero_sub:"Chetta sizga dunyoning eng tanlov universitetlariga qabul bo'lishda kerakli vositalar, ma'lumotlar va AI yo'riqnomasini beradi.",hero_btn1:'Bepul boshlash',hero_btn2:"AI Maslahatchi sinab ko'rish",strip_label:"Quyidagilarga o'quvchilar kirdi",ps1:'Saqlangan universitetlar',ps2:'Mos stipendiyalar',ps3:'SAT maqsad bali',ps4:'Keyingi muddat',pc1_lbl:'Ariza tayyorgarligi',pc2_lbl:'Sizning universitetlaringiz',steps_eye:'Qanday ishlaydi',steps_title:"Orzu maktabingizga uch qadam.",steps_sub:"Birinchi qidiruvdan yakuniy topshiriqgacha — Chetta har qadamda yo'l ko'rsatadi.",s1_title:"Universitetlarni o'rganing",s1_desc:"500+ universitetni qabul darajasi, to'lov, SAT talablari va to'liq ariza yo'l xaritalari bilan ko'ring.",s2_title:'Stipendiyalaringizni toping',s2_desc:"Profilingizga, mamlakatga, GPA va sohangizga mos $2 mlrd+ stipendiyalarni toping — muddatlar va qo'llanmalar bilan.",s3_title:"AI yo'riqnoma oling",s3_desc:"Esse, qabul strategiyasi, SAT va viza uchun Chetta AI bilan suhbatlashing — 7/24 O'zbek, Ingliz, Rus tillarida.",feat_eye:'Platforma imkoniyatlari',feat_title:'Hamma narsa bir joyda.',f1_title:"Universitet Izlovchi",f1_desc:"500+ universitetni reyting, qabul darajasi, to'lov va talablar bilan — mamlakat va soha bo'yicha filtrlab.",f2_title:'Stipendiya Izlovchi',f2_desc:"Rhodes, Gates Cambridge, Fulbright va boshqalarni toping — qadam-baqadam qo'llanmalar bilan.",f3_title:'AI Qabul Maslahatchisi',f3_desc:'Gemini-quvvatli AI: essalar, SAT maslahatlari, viza savollari, universitetlarni solishtirish. Suhbatni eslab qoladi.',f4_title:"Ivy League Intervyulari",f4_desc:"Harvard, MIT va Oksford talabalarining o'zlaridan qanday kirganliklarini eshiting.",f5_title:"Ariza Yo'l Xaritalari",f5_desc:"Har bir universitet profili o'sha maktabning o'ziga xos jarayoni uchun qadam-baqadam ro'yxat o'z ichiga oladi.",f6_title:"Ko'p tilli qo'llab-quvvatlash",f6_desc:"O'zbek, Ingliz va Rus tillarida to'liq qo'llab-quvvatlash. Bir zumda almashtiring. AI ham tilingizda javob beradi.",testi_eye:'Talabalar hikoyalari',testi_title:"Haqiqiy talabalar. Haqiqiy natijalar.",t1_q:'"Chetta AI menga MITning nima qidirganini tushunishda yordam berdi. Fikr-mulohazasi asosida essalarni uch marta yozdim — va qabul bo\'ldim."',t2_q:'"Chetta orqali hech eshitmagan to\'liq stipendiyamni topdim. Qadam-baqadam qo\'llanma ariza berishni osonlashtirdi. To\'rt yilni qopladi."',t3_q:'"Intervyu videolari Oksford talabalarining qanday fikrlovini ko\'rsatdi. Shaxsiy bayonnomamni butunlay o\'zgartirdim."',faq_title:"Tez-tez so'raladigan savollar",faq1_q:"Chetta bepulmi?",faq1_a:"Ha! Universitet qidiruvi, stipendiyalar va AI suhbat barchasi bepul. AI Gemini'dan foydalanadi — Google AI Studio'dan bepul kalit oling.",faq2_q:'AI Maslahatchi qanday ishlaydi?',faq2_a:"Google Gemini 2.0 Flash qabul maslahatchisi sifatida sozlangan. Suhbatingizni eslab qoladi va tilingizda javob beradi.",faq3_q:'Chetta qaysi mamlakatlarni qamrab oladi?',faq3_a:"AQSh, Britaniya, Kanada, Yevropa (Germaniya, Shveytsariya, Niderlandiya) va Osiyo. Butun dunyo bo'yicha 40+ mamlakat.",faq4_q:"O'zbek va Rus tillarida mavjudmi?",faq4_a:"Ha — yuqori o'ng burchakdagi bayroqdan bir zumda almashtiring. AI ham tilingizni aniqlab, shunga javob beradi.",cta_title:"Minlab talabalar bilan top universitetlarga yo'lda qo'shiling.",cta_sub:"Boshlash bepul. Kredit karta talab qilinmaydi.",cta_btn1:'Bepul boshlash →',cta_btn2:"Universitetlarni ko'rish",upage_eye:'Izlash',upage_title:"Universitet Izlovchi",upage_sub:"To'liq tafsilotlar va stipendiyalarni ko'rish uchun istalgan universitetni bosing.",btn_search:'Qidirish',f_all:'Barchasi',f_full:"To'liq stipendiya",f_partial:'Qisman',spage_eye:'Moliyalashtirish',spage_title:'Stipendiya Izlovchi',spage_sub:"$2 mlrd+ stipendiya — munosiblik va ariza qanday berish haqida ko'rish uchun bosing.",ipage_eye:'Hikoyalar',ipage_title:"Ivy League Intervyulari",ipage_sub:"Haqiqiy talabalar. Haqiqiy strategiyalar. Muvaffaq bo'lganlardan o'rganing.",acc:'qabul',card_view:"Profilni ko'rish →",card_apply:'Qanday ariza berish →',card_dl:'Muddat:',by:'',mod_acc:'Qabul darajasi',mod_tui:"Yillik o'quv to'lovi",mod_sat:'SAT diapazoni',mod_diff:'Kirish qiyinligi',diff_ext:"O'ta tanlovli",diff_very:'Juda tanlovli',diff_sel:'Tanlovli',mod_majors:"Mashhur ixtisosliklar",mod_road:"Ariza yo'l xaritasi",mod_schs:"Mavjud stipendiyalar",mod_visit:"Universitet saytiga o'tish",mod_elig:'Munosiblik talablari',mod_howto:'Qanday ariza berish — qadam-baqadam',mod_dl:'⏰ Muddat:',mod_field:"📚 Soha:",mod_svis:"Rasmiy stipendiya saytiga o'tish",mod_watch:"YouTube'da ko'rish",mod_adv:"💡 Intervyudan asosiy maslahatlar",ai_title:'Sizning AI Qabul Maslahatchangiz',ai_sub:"Istalganini so'rang — stipendiyalar, essalar, SAT, viza. Gemini 2.0 bilan ishlaydi.",ai_agent:'Chetta AI',ai_status:'Gemini 2.0 bilan ishlaydi',ai_welcome:"Salom! Men Chetta AI. Top universitetlarga kirish haqida istalgan narsani so'rang. Orzu universitetingiz qaysi? 🎓",c1:'Harvardga qanday kirish mumkin?',c2:'Menga stipendiya toping',c3:'SAT balini yaxshilash',c4:'Esse yozishda yordam',c5:"Oksford uchun IELTS",c6:"Talaba vizasi yo'riqnomasi",chat_ph:"Qabul haqida istalgan narsani so'rang...",prac_eye:'Test Tayyorgarligi',prac_title:'Haqiqiy imtihondek mashq qiling.',prac_sub:"4000+ SAT va IELTS savollari AI tushuntirishlari bilan.",pb_qb_title:'Savollar Banki',pb_qb_desc:"SAT savollarini o'z sur'atingizda ishlang.",pb_qb_badge:'200+ savol',pb_math_title:'Matematika',pb_math_desc:'Algebra va geometriya — qadam-baqadam yechimlar.',pb_math_badge:'150+ savol',pb_test_title:"O'tgan Imtihon Savollari + Bashoratlar",pb_test_desc:"Haqiqiy SATni simulyatsiya qiling.",pb_test_badge:'15+ to\'liq test',pb_rush_title:'Savol Rush',pb_rush_desc:'Har savol uchun 30 soniya.',pb_rush_badge:'Tezlik',pb_vocab_title:"Lug'at",pb_vocab_desc:"10 ta to'plam, har birida 150 ta so'z.",pb_vocab_badge:"1500 so'z",pb_plan_title:"O'qish Rejasi",pb_plan_desc:'Test sanangizni kiriting — shaxsiy jadval oling.',pb_plan_badge:'Shaxsiy',pb_diag_title:'Diagnostik Test',pb_diag_desc:'30 daqiqada taxminiy balingizni toping.',pb_diag_badge:'30 daq',pb_calc_title:'Bal Kalkulyatori',pb_calc_desc:'Xom ballarni kiriting — natijani bir zumda koring.',pb_calc_badge:'Tezkor',ana_eye:'Taraqqiyotingiz',ana_title:"Zaif joylaringizni biling.",vocab_sub:"Izohni ko'rsatish uchun bosing.",planner_sub:'Test sanangizni va maqsad balingizni kiriting.',plan_date:'SAT Test Sanasi',plan_current:'Joriy Bal',plan_target:'Maqsad Bal',plan_hrs:"O'qish soatlari",plan_generate:'Reja Yaratish',calc_sub:'Slayderni torting.',calc_rw:"O'qish va Yozish",calc_math:'Matematika',calc_questions:'Savollar',calc_estimated:'Taxminiy SAT Bali',calc_percentile:'Foizli daraja',ielts_title:'IELTS Band Estimator',ielts_listening:'Tinglash',ielts_reading:"O'qish",ielts_overall:'Taxminiy Band',qb_submit:'Tekshirish',qb_next:'Keyingisi',qb_skip:"O'tkazish",res_retry:'Qayta urinish',res_back:'Orqaga',rush_title:'Savol Rush',rush_desc:'Har savol uchun 30 soniya!',rush_start:'Boshlash',rush_again:"Yana o'ynash",rush_answered:'savol javoblandi',ft_desc:"Chetta dunyo bo'ylab talabalariga top universitetlar va stipendiyalarga yordam beradi.",ft_ex:'Izlash',ft_res:'Resurslar',ft_co:'Kompaniya',ft_sat:"SAT Qo'llanmasi",ft_ielts:'IELTS Maslahatlari',ft_essay:'Esse Shablonlari',ft_visa:"Viza Qo'llanmasi",ft_about:'Chetta Haqida',ft_blog:'Blog',ft_priv:'Maxfiylik Siyosati',ft_contact:'Aloqa',ft_copy:"© 2025 Chetta. Barcha huquqlar himoyalangan.",ft_love:"Dunyo bo'yicha talabalar uchun yaratilgan"},
 
-ru:{nav_home:'Главная',nav_universities:'Университеты',nav_scholarships:'Стипендии',nav_interviews:'Интервью',nav_ai:'ИИ Советник',nav_signin:'Войти',nav_getstarted:'Начать',nav_practice:'Подготовка к SAT',dd_signout:'Выйти',auth_tagline:'Ваш путь в топ-университет',auth_signin:'Войти',auth_create:'Создать аккаунт',auth_email:'Email',auth_password:'Пароль',auth_forgot:'Забыли пароль?',auth_signin_btn:'Войти',auth_or:'или',auth_google:'Войти через Google',auth_no_account:'Нет аккаунта?',auth_create_link:'Создайте бесплатно',auth_firstname:'Имя',auth_lastname:'Фамилия',auth_create_btn:'Создать бесплатный аккаунт',auth_terms:'Регистрируясь вы соглашаетесь с Условиями и Политикой конфиденциальности.',auth_forgot_desc:'Введите email, и мы отправим ссылку для сброса пароля.',auth_send_reset:'Отправить ссылку',auth_back_login:'← Назад к входу',hero_eyebrow:'✦ ИИ-платформа для поступления',hero_h1:'Поступите в <em>университет мечты</em>.',hero_sub:'Chetta даёт вам инструменты, данные и руководство ИИ для навигации в самых конкурентных университетских приёмных в мире.',hero_btn1:'Начать бесплатно',hero_btn2:'Попробовать ИИ Советник',strip_label:'Помогаем студентам поступить в',ps1:'Сохранённых университетов',ps2:'Подобранных стипендий',ps3:'Целевой балл SAT',ps4:'Следующий дедлайн',pc1_lbl:'Готовность заявки',pc2_lbl:'Ваши университеты',steps_eye:'Как это работает',steps_title:'Три шага до университета мечты.',steps_sub:'От первого поиска до финальной подачи — Chetta ведёт вас через каждый шаг.',s1_title:'Изучите университеты',s1_desc:'Просматривайте 500+ университетов с процентами поступления, стоимостью, SAT и полными дорожными картами заявки.',s2_title:'Найдите стипендии',s2_desc:'Откройте $2+ млрд стипендий, подобранных по профилю, стране, GPA и области — с дедлайнами и руководствами.',s3_title:'Получите ИИ-руководство',s3_desc:'Общайтесь с Chetta AI для отзывов на эссе, стратегии, советов по SAT и визовых вопросов — 24/7.',feat_eye:'Возможности платформы',feat_title:'Всё в одном месте.',f1_title:'Обзор Университетов',f1_desc:'500+ университетов с рейтингами, процентами поступления и требованиями — фильтрация по стране и области.',f2_title:'Поиск Стипендий',f2_desc:'Откройте Rhodes, Gates Cambridge, Fulbright и другие — с пошаговыми руководствами и чеклистами.',f3_title:'ИИ Советник',f3_desc:'Gemini-ИИ для эссе, SAT, визовых вопросов, сравнений. Запоминает разговор.',f4_title:'Интервью Ivy League',f4_desc:'Реальные студенты Гарварда, MIT и Оксфорда объясняют как поступили — с советами и ссылками на YouTube.',f5_title:'Дорожные карты заявки',f5_desc:'Каждый профиль включает пошаговый чеклист для конкретного процесса этой школы.',f6_title:'Многоязычная поддержка',f6_desc:'Полная поддержка на русском, английском и узбекском. Переключайте мгновенно. ИИ отвечает на вашем языке.',testi_eye:'Истории студентов',testi_title:'Реальные студенты. Реальные результаты.',t1_q:'"ИИ Chetta помог мне понять что искал MIT. Трижды переписал эссе на основе отзывов — и поступил."',t2_q:'"Нашёл полную стипендию через Chetta о которой никогда не слышал. Пошаговое руководство упростило всё. Покрыла четыре года."',t3_q:'"Видео с интервью показали как мыслят студенты Оксфорда. Это полностью изменило моё личное заявление."',faq_title:'Частые вопросы',faq1_q:'Chetta бесплатна?',faq1_a:'Да! Поиск университетов, стипендий и ИИ-чат бесплатны. ИИ использует Gemini — получите бесплатный ключ в Google AI Studio.',faq2_q:'Как работает ИИ Советник?',faq2_a:'Использует Google Gemini 2.0 Flash настроенный как эксперт по поступлению. Запоминает разговор и отвечает на вашем языке.',faq3_q:'Какие страны охватывает Chetta?',faq3_a:'США, Великобритания, Канада, Европа (Германия, Швейцария, Нидерланды) и Азия. 40+ стран со стипендиями глобально.',faq4_q:'Доступна на узбекском и русском?',faq4_a:'Да — переключайте мгновенно через флаг в правом верхнем углу. ИИ также определяет и отвечает на вашем языке.',cta_title:'Присоединяйтесь к тысячам студентов на пути к вершине.',cta_sub:'Бесплатный старт. Кредитная карта не нужна.',cta_btn1:'Начать бесплатно →',cta_btn2:'Смотреть университеты',upage_eye:'Обзор',upage_title:'Обзор Университетов',upage_sub:'Нажмите на любой университет для полных деталей, процента поступления и стипендий.',btn_search:'Поиск',f_all:'Все',f_full:'Полное финансирование',f_partial:'Частичное',spage_eye:'Финансирование',spage_title:'Поиск Стипендий',spage_sub:'$2+ млрд стипендий — нажмите на любую для критериев и как подать заявку.',ipage_eye:'Истории',ipage_title:'Интервью Ivy League',ipage_sub:'Реальные студенты. Реальные стратегии. Учитесь у поступивших.',acc:'поступление',card_view:'Смотреть профиль →',card_apply:'Как подать →',card_dl:'Дедлайн:',by:'',mod_acc:'Процент поступления',mod_tui:'Годовая стоимость',mod_sat:'Диапазон SAT',mod_diff:'Сложность поступления',diff_ext:'Крайне высокий конкурс',diff_very:'Очень высокий конкурс',diff_sel:'Высокий конкурс',mod_majors:'Популярные специальности',mod_road:'Дорожная карта заявки',mod_schs:'Доступные стипендии',mod_visit:'Перейти на сайт университета',mod_elig:'Требования участия',mod_howto:'Как подать — шаг за шагом',mod_dl:'⏰ Дедлайн:',mod_field:'📚 Область:',mod_svis:'Официальный сайт стипендии',mod_watch:'Смотреть на YouTube',mod_adv:'💡 Ключевые советы из интервью',ai_title:'Ваш ИИ Советник по поступлению',ai_sub:'Спрашивайте что угодно — стипендии, эссе, SAT, визовые вопросы. Работает на Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Работает на Gemini 2.0',ai_welcome:'Привет! Я Chetta AI. Спрашивайте что угодно о поступлении в топ-университеты. Какой ваш университет мечты? 🎓',c1:'Как поступить в Гарвард?',c2:'Найти стипендии',c3:'Советы по улучшению SAT',c4:'Помощь с эссе',c5:'IELTS для Оксфорда',c6:'Руководство по студенческой визе',chat_ph:'Спросите что угодно о поступлении...',prac_eye:'Подготовка',prac_title:'Практикуйтесь как на настоящем экзамене.',prac_sub:'4000+ вопросов SAT и IELTS с объяснениями ИИ и аналитикой.',pb_qb_title:'Банк вопросов',pb_qb_desc:'Решайте вопросы SAT в своём темпе с объяснениями ИИ.',pb_qb_badge:'200+ вопросов',pb_math_title:'Математика',pb_math_desc:'Алгебра и геометрия с пошаговыми решениями.',pb_math_badge:'150+ вопросов',pb_test_title:'Прошлые экзамены + прогнозы',pb_test_desc:'Симулируйте реальный SAT с таймером и разбором.',pb_test_badge:'15+ полных тестов',pb_rush_title:'Быстрые вопросы',pb_rush_desc:'30 секунд на вопрос. Развивайте скорость.',pb_rush_badge:'Скорость',pb_vocab_title:'Словарь',pb_vocab_desc:'200 слов SAT с карточками и примерами.',pb_vocab_badge:'200 слов',pb_plan_title:'План обучения',pb_plan_desc:'Введите дату теста для персонального расписания.',pb_plan_badge:'Персональный',pb_diag_title:'Диагностика',pb_diag_desc:'Узнайте прогноз балла SAT за 30 минут.',pb_diag_badge:'30 мин',pb_calc_title:'Калькулятор',pb_calc_desc:'Введите баллы — мгновенный результат.',pb_calc_badge:'Мгновенно',ana_eye:'Прогресс',ana_title:'Знайте свои слабые места.',vocab_sub:'Нажмите на карточку для определения.',planner_sub:'Введите дату теста и целевой балл.',plan_date:'Дата SAT',plan_current:'Текущий балл',plan_target:'Целевой балл',plan_hrs:'Часов в день',plan_generate:'Создать план',calc_sub:'Двигайте слайдеры для расчёта балла.',calc_rw:'Чтение и письмо',calc_math:'Математика',calc_questions:'Вопросы',calc_estimated:'Расчётный балл SAT',calc_percentile:'Перцентиль',ielts_title:'Оценщик IELTS',ielts_listening:'Аудирование',ielts_reading:'Чтение',ielts_overall:'Общий балл',qb_submit:'Проверить',qb_next:'Далее',qb_skip:'Пропустить',res_retry:'Ещё раз',res_back:'Назад',rush_title:'Быстрые вопросы',rush_desc:'30 секунд на вопрос!',rush_start:'Начать',rush_again:'Снова',rush_answered:'отвечено',ft_desc:'Chetta помогает амбициозным студентам по всему миру получить доступ к топ-университетам и стипендиям.',ft_ex:'Обзор',ft_res:'Ресурсы',ft_co:'Компания',ft_sat:'Руководство по SAT',ft_ielts:'Советы по IELTS',ft_essay:'Шаблоны эссе',ft_visa:'Визовое руководство',ft_about:'О Chetta',ft_blog:'Блог',ft_priv:'Конфиденциальность',ft_contact:'Контакт',ft_copy:'© 2025 Chetta. Все права защищены.',ft_love:'Создано для амбициозных студентов везде'},
+ru:{nav_home:'Главная',nav_universities:'Университеты',nav_scholarships:'Стипендии',nav_interviews:'Интервью',nav_ai:'ИИ Советник',nav_signin:'Войти',nav_getstarted:'Начать',nav_practice:'Подготовка к SAT',dd_signout:'Выйти',auth_tagline:'Ваш путь в топ-университет',auth_signin:'Войти',auth_create:'Создать аккаунт',auth_email:'Email',auth_password:'Пароль',auth_forgot:'Забыли пароль?',auth_signin_btn:'Войти',auth_or:'или',auth_google:'Войти через Google',auth_no_account:'Нет аккаунта?',auth_create_link:'Создайте бесплатно',auth_firstname:'Имя',auth_lastname:'Фамилия',auth_create_btn:'Создать бесплатный аккаунт',auth_terms:'Регистрируясь вы соглашаетесь с Условиями и Политикой конфиденциальности.',auth_forgot_desc:'Введите email, и мы отправим ссылку для сброса пароля.',auth_send_reset:'Отправить ссылку',auth_back_login:'← Назад к входу',hero_eyebrow:'✦ ИИ-платформа для поступления',hero_h1:'Поступите в <em>университет мечты</em>.',hero_sub:'Chetta даёт вам инструменты, данные и руководство ИИ для навигации в самых конкурентных университетских приёмных в мире.',hero_btn1:'Начать бесплатно',hero_btn2:'Попробовать ИИ Советник',strip_label:'Помогаем студентам поступить в',ps1:'Сохранённых университетов',ps2:'Подобранных стипендий',ps3:'Целевой балл SAT',ps4:'Следующий дедлайн',pc1_lbl:'Готовность заявки',pc2_lbl:'Ваши университеты',steps_eye:'Как это работает',steps_title:'Три шага до университета мечты.',steps_sub:'От первого поиска до финальной подачи — Chetta ведёт вас через каждый шаг.',s1_title:'Изучите университеты',s1_desc:'Просматривайте 500+ университетов с процентами поступления, стоимостью, SAT и полными дорожными картами заявки.',s2_title:'Найдите стипендии',s2_desc:'Откройте $2+ млрд стипендий, подобранных по профилю, стране, GPA и области — с дедлайнами и руководствами.',s3_title:'Получите ИИ-руководство',s3_desc:'Общайтесь с Chetta AI для отзывов на эссе, стратегии, советов по SAT и визовых вопросов — 24/7.',feat_eye:'Возможности платформы',feat_title:'Всё в одном месте.',f1_title:'Обзор Университетов',f1_desc:'500+ университетов с рейтингами, процентами поступления и требованиями — фильтрация по стране и области.',f2_title:'Поиск Стипендий',f2_desc:'Откройте Rhodes, Gates Cambridge, Fulbright и другие — с пошаговыми руководствами и чеклистами.',f3_title:'ИИ Советник',f3_desc:'Gemini-ИИ для эссе, SAT, визовых вопросов, сравнений. Запоминает разговор.',f4_title:'Интервью Ivy League',f4_desc:'Реальные студенты Гарварда, MIT и Оксфорда объясняют как поступили — с советами и ссылками на YouTube.',f5_title:'Дорожные карты заявки',f5_desc:'Каждый профиль включает пошаговый чеклист для конкретного процесса этой школы.',f6_title:'Многоязычная поддержка',f6_desc:'Полная поддержка на русском, английском и узбекском. Переключайте мгновенно. ИИ отвечает на вашем языке.',testi_eye:'Истории студентов',testi_title:'Реальные студенты. Реальные результаты.',t1_q:'"ИИ Chetta помог мне понять что искал MIT. Трижды переписал эссе на основе отзывов — и поступил."',t2_q:'"Нашёл полную стипендию через Chetta о которой никогда не слышал. Пошаговое руководство упростило всё. Покрыла четыре года."',t3_q:'"Видео с интервью показали как мыслят студенты Оксфорда. Это полностью изменило моё личное заявление."',faq_title:'Частые вопросы',faq1_q:'Chetta бесплатна?',faq1_a:'Да! Поиск университетов, стипендий и ИИ-чат бесплатны. ИИ использует Gemini — получите бесплатный ключ в Google AI Studio.',faq2_q:'Как работает ИИ Советник?',faq2_a:'Использует Google Gemini 2.0 Flash настроенный как эксперт по поступлению. Запоминает разговор и отвечает на вашем языке.',faq3_q:'Какие страны охватывает Chetta?',faq3_a:'США, Великобритания, Канада, Европа (Германия, Швейцария, Нидерланды) и Азия. 40+ стран со стипендиями глобально.',faq4_q:'Доступна на узбекском и русском?',faq4_a:'Да — переключайте мгновенно через флаг в правом верхнем углу. ИИ также определяет и отвечает на вашем языке.',cta_title:'Присоединяйтесь к тысячам студентов на пути к вершине.',cta_sub:'Бесплатный старт. Кредитная карта не нужна.',cta_btn1:'Начать бесплатно →',cta_btn2:'Смотреть университеты',upage_eye:'Обзор',upage_title:'Обзор Университетов',upage_sub:'Нажмите на любой университет для полных деталей, процента поступления и стипендий.',btn_search:'Поиск',f_all:'Все',f_full:'Полное финансирование',f_partial:'Частичное',spage_eye:'Финансирование',spage_title:'Поиск Стипендий',spage_sub:'$2+ млрд стипендий — нажмите на любую для критериев и как подать заявку.',ipage_eye:'Истории',ipage_title:'Интервью Ivy League',ipage_sub:'Реальные студенты. Реальные стратегии. Учитесь у поступивших.',acc:'поступление',card_view:'Смотреть профиль →',card_apply:'Как подать →',card_dl:'Дедлайн:',by:'',mod_acc:'Процент поступления',mod_tui:'Годовая стоимость',mod_sat:'Диапазон SAT',mod_diff:'Сложность поступления',diff_ext:'Крайне высокий конкурс',diff_very:'Очень высокий конкурс',diff_sel:'Высокий конкурс',mod_majors:'Популярные специальности',mod_road:'Дорожная карта заявки',mod_schs:'Доступные стипендии',mod_visit:'Перейти на сайт университета',mod_elig:'Требования участия',mod_howto:'Как подать — шаг за шагом',mod_dl:'⏰ Дедлайн:',mod_field:'📚 Область:',mod_svis:'Официальный сайт стипендии',mod_watch:'Смотреть на YouTube',mod_adv:'💡 Ключевые советы из интервью',ai_title:'Ваш ИИ Советник по поступлению',ai_sub:'Спрашивайте что угодно — стипендии, эссе, SAT, визовые вопросы. Работает на Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Работает на Gemini 2.0',ai_welcome:'Привет! Я Chetta AI. Спрашивайте что угодно о поступлении в топ-университеты. Какой ваш университет мечты? 🎓',c1:'Как поступить в Гарвард?',c2:'Найти стипендии',c3:'Советы по улучшению SAT',c4:'Помощь с эссе',c5:'IELTS для Оксфорда',c6:'Руководство по студенческой визе',chat_ph:'Спросите что угодно о поступлении...',prac_eye:'Подготовка',prac_title:'Практикуйтесь как на настоящем экзамене.',prac_sub:'4000+ вопросов SAT и IELTS с объяснениями ИИ и аналитикой.',pb_qb_title:'Банк вопросов',pb_qb_desc:'Решайте вопросы SAT в своём темпе с объяснениями ИИ.',pb_qb_badge:'200+ вопросов',pb_math_title:'Математика',pb_math_desc:'Алгебра и геометрия с пошаговыми решениями.',pb_math_badge:'150+ вопросов',pb_test_title:'Прошлые экзамены + прогнозы',pb_test_desc:'Симулируйте реальный SAT с таймером и разбором.',pb_test_badge:'15+ полных тестов',pb_rush_title:'Быстрые вопросы',pb_rush_desc:'30 секунд на вопрос. Развивайте скорость.',pb_rush_badge:'Скорость',pb_vocab_title:'Словарь',pb_vocab_desc:'10 наборов по 150 слов каждый.',pb_vocab_badge:'1500 слов',pb_plan_title:'План обучения',pb_plan_desc:'Введите дату теста для персонального расписания.',pb_plan_badge:'Персональный',pb_diag_title:'Диагностика',pb_diag_desc:'Узнайте прогноз балла SAT за 30 минут.',pb_diag_badge:'30 мин',pb_calc_title:'Калькулятор',pb_calc_desc:'Введите баллы — мгновенный результат.',pb_calc_badge:'Мгновенно',ana_eye:'Прогресс',ana_title:'Знайте свои слабые места.',vocab_sub:'Нажмите на карточку для определения.',planner_sub:'Введите дату теста и целевой балл.',plan_date:'Дата SAT',plan_current:'Текущий балл',plan_target:'Целевой балл',plan_hrs:'Часов в день',plan_generate:'Создать план',calc_sub:'Двигайте слайдеры для расчёта балла.',calc_rw:'Чтение и письмо',calc_math:'Математика',calc_questions:'Вопросы',calc_estimated:'Расчётный балл SAT',calc_percentile:'Перцентиль',ielts_title:'Оценщик IELTS',ielts_listening:'Аудирование',ielts_reading:'Чтение',ielts_overall:'Общий балл',qb_submit:'Проверить',qb_next:'Далее',qb_skip:'Пропустить',res_retry:'Ещё раз',res_back:'Назад',rush_title:'Быстрые вопросы',rush_desc:'30 секунд на вопрос!',rush_start:'Начать',rush_again:'Снова',rush_answered:'отвечено',ft_desc:'Chetta помогает амбициозным студентам по всему миру получить доступ к топ-университетам и стипендиям.',ft_ex:'Обзор',ft_res:'Ресурсы',ft_co:'Компания',ft_sat:'Руководство по SAT',ft_ielts:'Советы по IELTS',ft_essay:'Шаблоны эссе',ft_visa:'Визовое руководство',ft_about:'О Chetta',ft_blog:'Блог',ft_priv:'Конфиденциальность',ft_contact:'Контакт',ft_copy:'© 2025 Chetta. Все права защищены.',ft_love:'Создано для амбициозных студентов везде'},
 };
 const langMeta={en:{f:'🇬🇧',l:'ENG'},uz:{f:'🇺🇿',l:'UZ'},ru:{f:'🇷🇺',l:'RU'}};
 const T=()=>LANGS[currentLang]||LANGS.en;
@@ -1656,97 +1759,499 @@ function rushTimeExpired() {
   document.getElementById('rush-final-streak').textContent = `Best streak: ${rushBestStreak} 🔥`;
 }
 
-// ── VOCABULARY DATA ──
-const VOCAB = [
-  {word:'Aberrant',pos:'adj',hint:'unusual, deviant',def:'Departing from an accepted standard; abnormal or unusual.',ex:'His aberrant behaviour during the trial surprised the jury.'},
-  {word:'Abstruse',pos:'adj',hint:'difficult to understand',def:'Difficult to understand; obscure.',ex:'The professor\'s abstruse lecture confused even the graduate students.'},
-  {word:'Acrimony',pos:'noun',hint:'bitterness in speech',def:'Bitterness or ill feeling, especially in manner or speech.',ex:'The divorce proceedings were marked by considerable acrimony.'},
-  {word:'Adroit',pos:'adj',hint:'clever and skilful',def:'Clever or skilful in using the hands or mind.',ex:'She was adroit at navigating difficult political situations.'},
-  {word:'Aesthetic',pos:'adj/noun',hint:'relating to beauty',def:'Concerned with beauty or the appreciation of beauty.',ex:'The architect had a refined aesthetic sensibility.'},
-  {word:'Alacrity',pos:'noun',hint:'cheerful willingness',def:'Brisk and cheerful readiness to do something.',ex:'She accepted the invitation with alacrity.'},
-  {word:'Ambiguous',pos:'adj',hint:'open to multiple meanings',def:'Open to more than one interpretation; not having one obvious meaning.',ex:'The contract contained several ambiguous clauses.'},
-  {word:'Ameliorate',pos:'verb',hint:'to improve',def:'To make something bad or unsatisfactory better.',ex:'The new policy aims to ameliorate poverty in rural areas.'},
-  {word:'Anachronistic',pos:'adj',hint:'out of its time period',def:'Belonging to a period other than that being portrayed.',ex:'Using a typewriter today seems anachronistic.'},
-  {word:'Antagonist',pos:'noun',hint:'opponent or enemy',def:'A person who actively opposes or is hostile to someone.',ex:'The antagonist in the novel seeks to destroy the hero\'s work.'},
-  {word:'Apathy',pos:'noun',hint:'lack of interest',def:'Lack of interest, enthusiasm, or concern.',ex:'Voter apathy reached an all-time high during the election.'},
-  {word:'Arduous',pos:'adj',hint:'very difficult',def:'Involving or requiring strenuous effort; difficult and tiring.',ex:'The arduous trek up the mountain took three days.'},
-  {word:'Austere',pos:'adj',hint:'stern and simple',def:'Severe or strict in manner; morally strict; simple and unadorned.',ex:'The monastery maintained an austere lifestyle.'},
-  {word:'Banal',pos:'adj',hint:'boring, predictable',def:'So lacking in originality as to be obvious and boring.',ex:'The speech was full of banal platitudes.'},
-  {word:'Benevolent',pos:'adj',hint:'kind and generous',def:'Well meaning and kindly; generous.',ex:'The benevolent donor funded a new hospital wing.'},
-  {word:'Blithe',pos:'adj',hint:'carefree, casual',def:'Showing a casual and cheerful indifference considered to be callous.',ex:'She showed a blithe disregard for the consequences.'},
-  {word:'Bolster',pos:'verb',hint:'to support or strengthen',def:'To support or strengthen; prop up.',ex:'The new evidence bolstered her argument considerably.'},
-  {word:'Candid',pos:'adj',hint:'truthful and straightforward',def:'Truthful and straightforward; frank.',ex:'He gave a candid assessment of the company\'s failures.'},
-  {word:'Capricious',pos:'adj',hint:'unpredictably changeable',def:'Given to sudden and unaccountable changes of mood or behaviour.',ex:'Her capricious management style frustrated her employees.'},
-  {word:'Caustic',pos:'adj',hint:'sharply critical',def:'Sarcastic in a scathing and bitter way.',ex:'His caustic wit made him both feared and admired.'},
-  {word:'Cogent',pos:'adj',hint:'convincing and logical',def:'Clear, logical, and convincing.',ex:'She made a cogent case for reforming the tax system.'},
-  {word:'Compliant',pos:'adj',hint:'obedient, following rules',def:'Inclined to agree with others or obey rules, especially to an excessive degree.',ex:'The compliant student never questioned the teacher\'s methods.'},
-  {word:'Concur',pos:'verb',hint:'to agree',def:'To be of the same opinion; agree.',ex:'The board members concurred that the project should proceed.'},
-  {word:'Contrite',pos:'adj',hint:'feeling remorseful',def:'Feeling or expressing remorse at the recognition of wrongdoing.',ex:'He was genuinely contrite about the pain he had caused.'},
-  {word:'Copious',pos:'adj',hint:'large in quantity',def:'Abundant in supply or quantity.',ex:'She took copious notes throughout the lecture.'},
-  {word:'Culpable',pos:'adj',hint:'deserving blame',def:'Deserving blame or censure; blameworthy.',ex:'The investigation found the manager culpable for the accident.'},
-  {word:'Deference',pos:'noun',hint:'respectful submission',def:'Humble submission and respect to another.',ex:'Students showed deference to the senior professor.'},
-  {word:'Diligent',pos:'adj',hint:'hard-working',def:'Having or showing care and conscientiousness in work or duties.',ex:'Her diligent research yielded impressive results.'},
-  {word:'Discordant',pos:'adj',hint:'not in harmony',def:'Not in agreement; not in harmony.',ex:'The discordant views of the committee prevented any decision.'},
-  {word:'Dissonance',pos:'noun',hint:'conflict or tension',def:'Lack of agreement; inconsistency between beliefs and actions.',ex:'There was obvious dissonance between his words and his behaviour.'},
-  {word:'Dogmatic',pos:'adj',hint:'asserting beliefs without question',def:'Inclined to lay down principles as incontrovertibly true.',ex:'Her dogmatic approach left no room for discussion.'},
-  {word:'Eloquent',pos:'adj',hint:'fluent and persuasive',def:'Fluent or persuasive in speaking or writing.',ex:'The eloquent speech moved the entire audience to tears.'},
-  {word:'Emulate',pos:'verb',hint:'to imitate and try to equal',def:'To match or surpass (a person or achievement), typically by imitation.',ex:'Young athletes emulate their sporting heroes.'},
-  {word:'Ephemeral',pos:'adj',hint:'lasting a very short time',def:'Lasting for a very short time.',ex:'Fame is often ephemeral in the entertainment industry.'},
-  {word:'Equivocal',pos:'adj',hint:'ambiguous, uncertain',def:'Open to more than one interpretation; uncertain.',ex:'The politician gave an equivocal answer to the question.'},
-  {word:'Erudite',pos:'adj',hint:'knowledgeable through study',def:'Having or showing great knowledge or learning.',ex:'The erudite professor could discuss any historical period in detail.'},
-  {word:'Esoteric',pos:'adj',hint:'intended for a select few',def:'Intended for or understood by only a small group with specialist knowledge.',ex:'The esoteric ritual was known only to senior members.'},
-  {word:'Exacerbate',pos:'verb',hint:'to make worse',def:'To make (a problem) worse.',ex:'The drought was exacerbated by poor water management.'},
-  {word:'Fastidious',pos:'adj',hint:'very attentive to detail',def:'Very attentive to accuracy and detail; difficult to please.',ex:'She was fastidious about the presentation of her work.'},
-  {word:'Frugal',pos:'adj',hint:'economical with money',def:'Sparing or economical with money or food; simple and plain.',ex:'Her frugal habits allowed her to save enough for university within two years.'},
-  {word:'Futile',pos:'adj',hint:'pointless, without result',def:'Incapable of producing any useful result; pointless.',ex:'His attempts to repair the broken engine proved futile.'},
-  {word:'Garrulous',pos:'adj',hint:'excessively talkative',def:'Excessively talkative, especially on trivial matters.',ex:'The garrulous professor often ran over time during lectures.'},
-  {word:'Gregarious',pos:'adj',hint:'sociable, enjoys company',def:'Fond of company; sociable.',ex:'Her gregarious nature made her instantly popular at university.'},
-  {word:'Guile',pos:'noun',hint:'clever but deceitful',def:'Sly or cunning intelligence; deceptive behaviour.',ex:'He used guile rather than force to get what he wanted.'},
-  {word:'Hackneyed',pos:'adj',hint:'overused, cliched',def:'Lacking significance through having been overused; not original.',ex:'The essay was full of hackneyed phrases that the admissions officer had read a thousand times.'},
-  {word:'Haughty',pos:'adj',hint:'arrogantly superior',def:'Arrogantly superior and disdainful.',ex:'Her haughty dismissal of others\'s ideas alienated her colleagues.'},
-  {word:'Hegemony',pos:'noun',hint:'dominant leadership',def:'Leadership or dominance, especially of one country or group over others.',ex:'The cultural hegemony of English affects education worldwide.'},
-  {word:'Heretical',pos:'adj',hint:'against accepted beliefs',def:'Believing in or practising heresy; going against accepted beliefs.',ex:'At the time, his heliocentric theory was considered heretical.'},
-  {word:'Hypocritical',pos:'adj',hint:'pretending virtue',def:'Behaving in a way that contradicts one\'s stated beliefs.',ex:'It seemed hypocritical to preach honesty while hiding the truth.'},
-  {word:'Iconoclast',pos:'noun',hint:'challenger of traditions',def:'A person who attacks cherished beliefs or institutions.',ex:'The iconoclast scientist challenged every assumption in the field.'},
-  {word:'Immutable',pos:'adj',hint:'unchanging',def:'Unchanging over time or unable to be changed.',ex:'The laws of physics are immutable.'},
-  {word:'Impartial',pos:'adj',hint:'unbiased, fair',def:'Treating all rivals or disputants equally; fair and just.',ex:'The judge was required to remain impartial throughout the trial.'},
-  {word:'Impetuous',pos:'adj',hint:'acting without thinking',def:'Acting or done quickly and without thought or care.',ex:'His impetuous decision to quit cost him the opportunity.'},
-  {word:'Implicit',pos:'adj',hint:'implied, not stated',def:'Implied though not plainly expressed.',ex:'There was an implicit understanding between the two colleagues.'},
-  {word:'Indolent',pos:'adj',hint:'habitually lazy',def:'Wanting to avoid activity or exertion; lazy.',ex:'Despite his intelligence, his indolent attitude limited his progress.'},
-  {word:'Inevitable',pos:'adj',hint:'cannot be avoided',def:'Certain to happen; unavoidable.',ex:'Given the evidence, a guilty verdict seemed inevitable.'},
-  {word:'Innocuous',pos:'adj',hint:'harmless',def:'Not harmful or offensive.',ex:'What seemed like an innocuous comment caused unexpected offence.'},
-  {word:'Insidious',pos:'adj',hint:'subtly harmful',def:'Proceeding in a gradual, subtle way but with harmful effects.',ex:'The insidious spread of misinformation undermined public trust.'},
-  {word:'Intransigent',pos:'adj',hint:'stubbornly refusing to change',def:'Unwilling or refusing to change one\'s views or to agree.',ex:'The intransigent negotiator refused every compromise offered.'},
-  {word:'Fervent',pos:'adj',hint:'intensely enthusiastic',def:'Having or displaying a passionate intensity.',ex:'He was a fervent supporter of social justice.'},
+// ── VOCABULARY DATA (10 sets x 150 words) ──
+const VOCAB_SETS = [
+  {id:1, words:[
+    {w:'Aberrant',p:'adj',d:'Departing from an accepted standard; abnormal or unusual.',e:'His aberrant behaviour during the trial surprised the jury.'},
+    {w:'Abstruse',p:'adj',d:'Difficult to understand; obscure.',e:'The professor\'s abstruse lecture confused even the graduate students.'},
+    {w:'Acrimony',p:'noun',d:'Bitterness or ill feeling, especially in manner or speech.',e:'The divorce proceedings were marked by considerable acrimony.'},
+    {w:'Adroit',p:'adj',d:'Clever or skilful in using the hands or mind.',e:'She was adroit at navigating difficult political situations.'},
+    {w:'Aesthetic',p:'adj/noun',d:'Concerned with beauty or the appreciation of beauty.',e:'The architect had a refined aesthetic sensibility.'},
+    {w:'Alacrity',p:'noun',d:'Brisk and cheerful readiness to do something.',e:'She accepted the invitation with alacrity.'},
+    {w:'Ambiguous',p:'adj',d:'Open to more than one interpretation; not having one obvious meaning.',e:'The contract contained several ambiguous clauses.'},
+    {w:'Ameliorate',p:'verb',d:'To make something bad or unsatisfactory better.',e:'The new policy aims to ameliorate poverty in rural areas.'},
+    {w:'Anachronistic',p:'adj',d:'Belonging to a period other than that being portrayed.',e:'Using a typewriter today seems anachronistic.'},
+    {w:'Antagonist',p:'noun',d:'A person who actively opposes or is hostile to someone.',e:'The antagonist in the novel seeks to destroy the hero\'s work.'},
+    {w:'Apathy',p:'noun',d:'Lack of interest, enthusiasm, or concern.',e:'Voter apathy reached an all-time high during the election.'},
+    {w:'Arduous',p:'adj',d:'Involving or requiring strenuous effort; difficult and tiring.',e:'The arduous trek up the mountain took three days.'},
+    {w:'Austere',p:'adj',d:'Severe or strict in manner; morally strict; simple and unadorned.',e:'The monastery maintained an austere lifestyle.'},
+    {w:'Banal',p:'adj',d:'So lacking in originality as to be obvious and boring.',e:'The speech was full of banal platitudes.'},
+    {w:'Benevolent',p:'adj',d:'Well meaning and kindly; generous.',e:'The benevolent donor funded a new hospital wing.'},
+    {w:'Blithe',p:'adj',d:'Showing a casual and cheerful indifference considered to be callous.',e:'She showed a blithe disregard for the consequences.'},
+    {w:'Bolster',p:'verb',d:'To support or strengthen; prop up.',e:'The new evidence bolstered her argument considerably.'},
+    {w:'Candid',p:'adj',d:'Truthful and straightforward; frank.',e:'He gave a candid assessment of the company\'s failures.'},
+    {w:'Capricious',p:'adj',d:'Given to sudden and unaccountable changes of mood or behaviour.',e:'Her capricious management style frustrated her employees.'},
+    {w:'Caustic',p:'adj',d:'Sarcastic in a scathing and bitter way.',e:'His caustic wit made him both feared and admired.'},
+    {w:'Cogent',p:'adj',d:'Clear, logical, and convincing.',e:'She made a cogent case for reforming the tax system.'},
+    {w:'Compliant',p:'adj',d:'Inclined to agree with others or obey rules, especially to an excessive degree.',e:'The compliant student never questioned the teacher\'s methods.'},
+    {w:'Concur',p:'verb',d:'To be of the same opinion; agree.',e:'The board members concurred that the project should proceed.'},
+    {w:'Contrite',p:'adj',d:'Feeling or expressing remorse at the recognition of wrongdoing.',e:'He was genuinely contrite about the pain he had caused.'},
+    {w:'Copious',p:'adj',d:'Abundant in supply or quantity.',e:'She took copious notes throughout the lecture.'},
+    {w:'Culpable',p:'adj',d:'Deserving blame or censure; blameworthy.',e:'The investigation found the manager culpable for the accident.'},
+    {w:'Deference',p:'noun',d:'Humble submission and respect to another.',e:'Students showed deference to the senior professor.'},
+    {w:'Diligent',p:'adj',d:'Having or showing care and conscientiousness in work or duties.',e:'Her diligent research yielded impressive results.'},
+    {w:'Discordant',p:'adj',d:'Not in agreement; not in harmony.',e:'The discordant views of the committee prevented any decision.'},
+    {w:'Dissonance',p:'noun',d:'Lack of agreement; inconsistency between beliefs and actions.',e:'There was obvious dissonance between his words and his behaviour.'},
+    {w:'Dogmatic',p:'adj',d:'Inclined to lay down principles as incontrovertibly true.',e:'Her dogmatic approach left no room for discussion.'},
+    {w:'Eloquent',p:'adj',d:'Fluent or persuasive in speaking or writing.',e:'The eloquent speech moved the entire audience to tears.'},
+    {w:'Emulate',p:'verb',d:'To match or surpass (a person or achievement), typically by imitation.',e:'Young athletes emulate their sporting heroes.'},
+    {w:'Ephemeral',p:'adj',d:'Lasting for a very short time.',e:'Fame is often ephemeral in the entertainment industry.'},
+    {w:'Equivocal',p:'adj',d:'Open to more than one interpretation; uncertain.',e:'The politician gave an equivocal answer to the question.'},
+    {w:'Erudite',p:'adj',d:'Having or showing great knowledge or learning.',e:'The erudite professor could discuss any historical period in detail.'},
+    {w:'Esoteric',p:'adj',d:'Intended for or understood by only a small group with specialist knowledge.',e:'The esoteric ritual was known only to senior members.'},
+    {w:'Exacerbate',p:'verb',d:'To make (a problem) worse.',e:'The drought was exacerbated by poor water management.'},
+    {w:'Fastidious',p:'adj',d:'Very attentive to accuracy and detail; difficult to please.',e:'She was fastidious about the presentation of her work.'},
+    {w:'Frugal',p:'adj',d:'Sparing or economical with money or food; simple and plain.',e:'Her frugal habits allowed her to save enough for university within two years.'},
+    {w:'Futile',p:'adj',d:'Incapable of producing any useful result; pointless.',e:'His attempts to repair the broken engine proved futile.'},
+    {w:'Garrulous',p:'adj',d:'Excessively talkative, especially on trivial matters.',e:'The garrulous professor often ran over time during lectures.'},
+    {w:'Gregarious',p:'adj',d:'Fond of company; sociable.',e:'Her gregarious nature made her instantly popular at university.'},
+    {w:'Guile',p:'noun',d:'Sly or cunning intelligence; deceptive behaviour.',e:'He used guile rather than force to get what he wanted.'},
+    {w:'Hackneyed',p:'adj',d:'Lacking significance through having been overused; not original.',e:'The essay was full of hackneyed phrases that the admissions officer had read a thousand times.'},
+    {w:'Haughty',p:'adj',d:'Arrogantly superior and disdainful.',e:'Her haughty dismissal of others\'s ideas alienated her colleagues.'},
+    {w:'Hegemony',p:'noun',d:'Leadership or dominance, especially of one country or group over others.',e:'The cultural hegemony of English affects education worldwide.'},
+    {w:'Heretical',p:'adj',d:'Believing in or practising heresy; going against accepted beliefs.',e:'At the time, his heliocentric theory was considered heretical.'},
+    {w:'Hypocritical',p:'adj',d:'Behaving in a way that contradicts one\'s stated beliefs.',e:'It seemed hypocritical to preach honesty while hiding the truth.'},
+    {w:'Iconoclast',p:'noun',d:'A person who attacks cherished beliefs or institutions.',e:'The iconoclast scientist challenged every assumption in the field.'},
+    {w:'Immutable',p:'adj',d:'Unchanging over time or unable to be changed.',e:'The laws of physics are immutable.'},
+    {w:'Impartial',p:'adj',d:'Treating all rivals or disputants equally; fair and just.',e:'The judge was required to remain impartial throughout the trial.'},
+    {w:'Impetuous',p:'adj',d:'Acting or done quickly and without thought or care.',e:'His impetuous decision to quit cost him the opportunity.'},
+    {w:'Implicit',p:'adj',d:'Implied though not plainly expressed.',e:'There was an implicit understanding between the two colleagues.'},
+    {w:'Indolent',p:'adj',d:'Wanting to avoid activity or exertion; lazy.',e:'Despite his intelligence, his indolent attitude limited his progress.'},
+    {w:'Inevitable',p:'adj',d:'Certain to happen; unavoidable.',e:'Given the evidence, a guilty verdict seemed inevitable.'},
+    {w:'Innocuous',p:'adj',d:'Not harmful or offensive.',e:'What seemed like an innocuous comment caused unexpected offence.'},
+    {w:'Insidious',p:'adj',d:'Proceeding in a gradual, subtle way but with harmful effects.',e:'The insidious spread of misinformation undermined public trust.'},
+    {w:'Intransigent',p:'adj',d:'Unwilling or refusing to change one\'s views or to agree.',e:'The intransigent negotiator refused every compromise offered.'},
+    {w:'Fervent',p:'adj',d:'Having or displaying a passionate intensity.',e:'He was a fervent supporter of social justice.'},
+    {w:'Loquacious',p:'adj',d:'Tending to talk a great deal; very talkative.',e:'Their loquacious neighbor kept them on the porch for an hour.'},
+    {w:'Meticulous',p:'adj',d:'Showing great attention to detail; very careful and precise.',e:'She was meticulous in checking every figure in the budget.'},
+    {w:'Nebulous',p:'adj',d:'Vague or unclear in outline or meaning.',e:'His plans for the business remained nebulous and undefined.'},
+    {w:'Obsequious',p:'adj',d:'Excessively eager to please or obey someone.',e:'The obsequious waiter hovered anxiously over the wealthy guests.'},
+    {w:'Placate',p:'verb',d:'To make someone less angry by giving them something they want.',e:'She offered a refund to placate the frustrated customer.'},
+    {w:'Quixotic',p:'adj',d:'Extremely idealistic and unrealistic, often impractically so.',e:'His quixotic plan to fund the trip through poetry sales never worked.'},
+    {w:'Rancor',p:'noun',d:'Bitterness or resentfulness, especially long-lasting.',e:'Despite the settlement, rancor lingered between the two families.'},
+    {w:'Sagacious',p:'adj',d:'Having good judgment; wise and shrewd.',e:'The sagacious old merchant rarely made a bad deal.'},
+    {w:'Taciturn',p:'adj',d:'Reserved or uncommunicative in speech; saying little.',e:'The taciturn farmer answered questions with a single nod.'},
+    {w:'Ubiquitous',p:'adj',d:'Present, appearing, or found everywhere.',e:'Smartphones have become ubiquitous in daily life.'},
+    {w:'Vociferous',p:'adj',d:'Vehement or loud in expressing one\'s views.',e:'The vociferous crowd demanded the referee\'s immediate removal.'},
+    {w:'Wary',p:'adj',d:'Feeling or showing caution about possible dangers.',e:'She remained wary of strangers offering unusually generous deals.'},
+    {w:'Zealous',p:'adj',d:'Having great energy or enthusiasm in pursuit of a cause.',e:'His zealous support for the charity inspired the entire office.'},
+    {w:'Abate',p:'verb',d:'To become less intense or widespread.',e:'The storm began to abate just before midnight.'},
+    {w:'Abstain',p:'verb',d:'To restrain oneself from doing or enjoying something.',e:'He decided to abstain from voting on the controversial measure.'},
+    {w:'Accolade',p:'noun',d:'An award or expression of praise for an achievement.',e:'The novel received accolades from critics around the world.'},
+    {w:'Acquiesce',p:'verb',d:'To accept something reluctantly but without protest.',e:'She eventually acquiesced to her parents\' wishes about college.'},
+    {w:'Admonish',p:'verb',d:'To warn or reprimand someone firmly but not harshly.',e:'The teacher admonished the students for arriving late again.'},
+    {w:'Aloof',p:'adj',d:'Not friendly or forthcoming; cool and distant.',e:'He remained aloof at the party, speaking to almost no one.'},
+    {w:'Ambivalent',p:'adj',d:'Having mixed or contradictory feelings about something.',e:'She felt ambivalent about accepting the promotion.'},
+    {w:'Amiable',p:'adj',d:'Having a friendly and pleasant manner.',e:'Their amiable host made everyone feel instantly at home.'},
+    {w:'Anomaly',p:'noun',d:'Something that deviates from what is standard or expected.',e:'The unusual reading was dismissed as a simple data anomaly.'},
+    {w:'Antipathy',p:'noun',d:'A deep-seated feeling of dislike or aversion.',e:'There was clear antipathy between the two rival coaches.'},
+    {w:'Apex',p:'noun',d:'The highest point or culmination of something.',e:'The award marked the apex of her long career.'},
+    {w:'Appease',p:'verb',d:'To pacify or placate someone by conceding to their demands.',e:'The company offered discounts to appease angry customers.'},
+    {w:'Ardent',p:'adj',d:'Enthusiastic or passionate about something.',e:'He remained an ardent supporter of the local theater.'},
+    {w:'Articulate',p:'adj',d:'Able to express ideas clearly and effectively.',e:'The articulate young speaker impressed the entire panel.'},
+    {w:'Assiduous',p:'adj',d:'Showing great care and perseverance in one\'s work.',e:'Her assiduous note-taking paid off during exam week.'},
+    {w:'Astute',p:'adj',d:'Having a sharp mind; shrewd and perceptive.',e:'The astute investor spotted the trend months before others.'},
+    {w:'Audacious',p:'adj',d:'Showing a willingness to take bold risks.',e:'The heist required an audacious plan and perfect timing.'},
+    {w:'Avarice',p:'noun',d:'Extreme greed for wealth or material gain.',e:'His avarice eventually cost him the trust of his partners.'},
+    {w:'Belligerent',p:'adj',d:'Hostile and aggressive in manner.',e:'The belligerent customer refused to lower his voice.'},
+    {w:'Benign',p:'adj',d:'Gentle, kindly, or not harmful.',e:'Fortunately, the tumor turned out to be benign.'},
+    {w:'Brevity',p:'noun',d:'Concise and exact use of words; shortness.',e:'The eulogy\'s brevity made it all the more powerful.'},
+    {w:'Brusque',p:'adj',d:'Abrupt or blunt in manner or speech.',e:'His brusque reply left little room for further discussion.'},
+    {w:'Capitulate',p:'verb',d:'To cease resistance and accept an opponent\'s demands.',e:'After weeks of protest, the board finally capitulated.'},
+    {w:'Chronic',p:'adj',d:'Persisting for a long time or constantly recurring.',e:'He suffered from chronic pain for over a decade.'},
+    {w:'Coalesce',p:'verb',d:'To come together to form one mass or whole.',e:'The small groups eventually coalesced into a single movement.'},
+    {w:'Coerce',p:'verb',d:'To persuade someone using force or threats.',e:'He was coerced into signing the contract under pressure.'},
+    {w:'Cognizant',p:'adj',d:'Having knowledge or awareness of something.',e:'She was fully cognizant of the risks before investing.'},
+    {w:'Complacent',p:'adj',d:'Showing smug satisfaction with one\'s own achievements.',e:'The team grew complacent after several easy wins.'},
+    {w:'Conciliatory',p:'adj',d:'Intended to placate or pacify; making peace.',e:'His conciliatory tone helped calm the heated meeting.'},
+    {w:'Condone',p:'verb',d:'To accept or forgive behavior that is considered wrong.',e:'The manager refused to condone any form of dishonesty.'},
+    {w:'Congenial',p:'adj',d:'Pleasant and friendly; suited to one\'s tastes.',e:'They found the small town congenial and decided to stay.'},
+    {w:'Connoisseur',p:'noun',d:'An expert judge in matters of taste, especially art or food.',e:'He fancied himself a connoisseur of fine wine.'},
+    {w:'Contentious',p:'adj',d:'Causing or likely to cause disagreement.',e:'Immigration remains one of the most contentious political topics.'},
+    {w:'Convivial',p:'adj',d:'Friendly, lively, and enjoyable in atmosphere.',e:'The convivial gathering lasted well past midnight.'},
+    {w:'Credulous',p:'adj',d:'Too ready to believe things without sufficient evidence.',e:'The credulous investor fell for the obvious scam.'},
+    {w:'Cursory',p:'adj',d:'Hasty and therefore not thorough or detailed.',e:'A cursory glance at the report missed the key error.'},
+    {w:'Debilitate',p:'verb',d:'To weaken someone or something physically or mentally.',e:'The prolonged illness began to debilitate his once-strong body.'},
+    {w:'Deleterious',p:'adj',d:'Causing harm or damage.',e:'The deleterious effects of the chemical were not known for years.'},
+    {w:'Deride',p:'verb',d:'To express contempt for someone by mocking them.',e:'Critics derided the film as shallow and poorly written.'},
+    {w:'Despot',p:'noun',d:'A ruler who wields power cruelly or oppressively.',e:'The despot ruled the small nation for over thirty years.'},
+    {w:'Deterrent',p:'noun',d:'Something that discourages an action or event.',e:'Harsh penalties serve as a deterrent to repeat offenders.'},
+    {w:'Diffident',p:'adj',d:'Modest or shy due to lack of self-confidence.',e:'His diffident manner made him easy to overlook in meetings.'},
+    {w:'Digress',p:'verb',d:'To depart from the main subject temporarily.',e:'The lecturer tended to digress into personal anecdotes.'},
+    {w:'Disparage',p:'verb',d:'To regard or describe as being of little worth.',e:'He often disparaged the work of younger colleagues.'},
+    {w:'Disparate',p:'adj',d:'Essentially different in kind; not able to be compared.',e:'The committee brought together disparate views on the issue.'},
+    {w:'Dissent',p:'noun',d:'The holding or expression of opinions differing from the majority.',e:'The judge\'s dissent argued forcefully against the ruling.'},
+    {w:'Divergent',p:'adj',d:'Tending to develop in different directions from a common point.',e:'Their divergent opinions made compromise nearly impossible.'},
+    {w:'Docile',p:'adj',d:'Ready to accept control or instruction; submissive.',e:'The docile puppy followed every command without hesitation.'},
+    {w:'Eclectic',p:'adj',d:'Deriving ideas or style from a broad range of sources.',e:'Her eclectic taste in music ranged from jazz to punk rock.'},
+    {w:'Egregious',p:'adj',d:'Outstandingly bad; shocking.',e:'The report revealed an egregious error in the calculations.'},
+    {w:'Elated',p:'adj',d:'Extremely happy and excited.',e:'She was elated after hearing she\'d been accepted to the program.'},
+    {w:'Elicit',p:'verb',d:'To draw out a response or reaction.',e:'The survey was designed to elicit honest feedback from employees.'},
+    {w:'Elusive',p:'adj',d:'Difficult to find, catch, or achieve.',e:'A cure for the disease remained frustratingly elusive.'},
+    {w:'Emaciated',p:'adj',d:'Abnormally thin or weak, especially from illness or hunger.',e:'The rescued animals were emaciated after weeks without food.'},
+    {w:'Empathy',p:'noun',d:'The ability to understand and share the feelings of another.',e:'Good doctors combine medical skill with genuine empathy.'},
+    {w:'Encroach',p:'verb',d:'To gradually intrude on a territory, rights, or subject.',e:'New housing developments began to encroach on the forest.'},
+    {w:'Endorse',p:'verb',d:'To publicly declare one\'s support for someone or something.',e:'The senator refused to endorse either candidate.'},
+    {w:'Enervate',p:'verb',d:'To cause someone to feel drained of energy or vitality.',e:'The oppressive heat enervated the entire hiking group.'},
+    {w:'Engender',p:'verb',d:'To cause or give rise to a feeling or situation.',e:'The policy engendered distrust among longtime employees.'},
+    {w:'Enigma',p:'noun',d:'A person or thing that is mysterious or difficult to understand.',e:'The reclusive author remained an enigma to his readers.'},
+    {w:'Enmity',p:'noun',d:'A state or feeling of deep-seated hatred or hostility.',e:'Old enmity between the two nations resurfaced during the crisis.'},
+    {w:'Equanimity',p:'noun',d:'Mental calmness and composure, especially in difficult situations.',e:'She handled the crisis with remarkable equanimity.'},
+    {w:'Erroneous',p:'adj',d:'Incorrect; based on faulty information or reasoning.',e:'The report contained several erroneous statistics.'},
+    {w:'Euphoric',p:'adj',d:'Characterized by intense feelings of well-being and excitement.',e:'The crowd grew euphoric as the final buzzer sounded.'},
+    {w:'Exemplary',p:'adj',d:'Serving as a desirable model; outstandingly good.',e:'Her exemplary conduct earned her a leadership award.'},
+    {w:'Exonerate',p:'verb',d:'To officially clear someone of blame or wrongdoing.',e:'New DNA evidence finally exonerated the wrongly convicted man.'},
+    {w:'Expedient',p:'adj',d:'Convenient and practical, though sometimes improper or unethical.',e:'He chose the expedient solution rather than the fair one.'},
+    {w:'Exuberant',p:'adj',d:'Full of energy, excitement, and cheerfulness.',e:'The exuberant fans celebrated late into the night.'},
+    {w:'Fallacious',p:'adj',d:'Based on a mistaken belief; containing a logical flaw.',e:'His argument relied on a fallacious assumption about the data.'},
+    {w:'Fickle',p:'adj',d:'Changing frequently, especially in loyalties or affections.',e:'The fickle crowd cheered for whichever team was winning.'},
+    {w:'Flagrant',p:'adj',d:'Conspicuously offensive, often deliberately so.',e:'The referee called a flagrant foul in the final seconds.'},
+    {w:'Fledgling',p:'adj',d:'New and inexperienced; just beginning to develop.',e:'The fledgling company struggled to secure its first investors.'},
+    {w:'Florid',p:'adj',d:'Excessively elaborate or ornate, especially in style.',e:'Critics found his florid prose difficult to take seriously.'},
+    {w:'Forbearance',p:'noun',d:'Patient self-control and restraint, especially under provocation.',e:'She showed great forbearance in dealing with the difficult client.'},
+    {w:'Forlorn',p:'adj',d:'Pitifully sad and abandoned or lonely.',e:'The forlorn puppy waited by the door for hours.'},
+    {w:'Formidable',p:'adj',d:'Inspiring fear or respect through being powerful or capable.',e:'The debate team faced a formidable opponent in the finals.'},
+    {w:'Fortuitous',p:'adj',d:'Happening by chance, especially a fortunate one.',e:'Their meeting at the conference was entirely fortuitous.'}
+  ]},
+  {id:2, words:[]},
+  {id:3, words:[]},
+  {id:4, words:[]},
+  {id:5, words:[]},
+  {id:6, words:[]},
+  {id:7, words:[
+    {w:'Abnegate',p:'verb',d:'To renounce or give up a right, belief, or desire.',e:'He chose to abnegate his claim to the family fortune.'},
+    {w:'Abrogate',p:'verb',d:'To repeal or do away with a law or agreement formally.',e:'The new government moved quickly to abrogate the old treaty.'},
+    {w:'Acumen',p:'noun',d:'Keen insight or sharpness in practical matters, especially business.',e:'Her financial acumen helped the startup survive its first year.'},
+    {w:'Adamant',p:'adj',d:'Refusing to be persuaded or to change one\'s mind.',e:'He remained adamant that the deadline could not be moved.'},
+    {w:'Adulation',p:'noun',d:'Excessive or slavish admiration or praise.',e:'The pop star grew uncomfortable with the constant adulation of fans.'},
+    {w:'Aggrandize',p:'verb',d:'To increase the power, status, or reputation of something, often unjustifiably.',e:'Critics accused the mayor of using the ceremony to aggrandize himself.'},
+    {w:'Alleviate',p:'verb',d:'To make suffering or a problem less severe.',e:'The medication helped alleviate her chronic back pain.'},
+    {w:'Altruistic',p:'adj',d:'Showing selfless concern for the well-being of others.',e:'Her altruistic decision to donate a kidney surprised no one who knew her.'},
+    {w:'Anachronism',p:'noun',d:'Something placed in the wrong time period; an outdated thing.',e:'Critics called the fax machine an anachronism in a wireless office.'},
+    {w:'Anarchy',p:'noun',d:'A state of disorder due to absence of authority or control.',e:'The collapse of the government plunged the region into anarchy.'},
+    {w:'Antithesis',p:'noun',d:'The direct opposite of something.',e:'Her calm, methodical approach was the antithesis of his impulsive style.'},
+    {w:'Apocryphal',p:'adj',d:'Of doubtful authenticity, although widely circulated as true.',e:'The story of the founder\'s midnight escape is probably apocryphal.'},
+    {w:'Approbation',p:'noun',d:'Approval or praise, especially formal or official.',e:'The committee granted its approbation to the new curriculum.'},
+    {w:'Arbitrary',p:'adj',d:'Based on random choice rather than reason or system.',e:'The fines seemed arbitrary, with no clear rule behind the amounts.'},
+    {w:'Ascetic',p:'adj',d:'Practicing severe self-discipline and abstaining from worldly pleasures.',e:'The monk lived an ascetic life, owning almost nothing.'},
+    {w:'Aspersion',p:'noun',d:'A false or misleading statement meant to damage someone\'s reputation.',e:'He resented the aspersions cast on his integrity during the debate.'},
+    {w:'Assuage',p:'verb',d:'To make an unpleasant feeling less intense.',e:'Nothing could assuage her guilt after the accident.'},
+    {w:'Attrition',p:'noun',d:'A gradual reduction in numbers or strength through sustained pressure.',e:'The company reduced staff through attrition rather than layoffs.'},
+    {w:'Audacity',p:'noun',d:'A willingness to take bold risks, often seen as shockingly bold.',e:'She had the audacity to demand a refund after breaking the item herself.'},
+    {w:'Austerity',p:'noun',d:'Extreme plainness and simplicity, often due to economic hardship.',e:'The government introduced austerity measures to reduce the national debt.'},
+    {w:'Autonomous',p:'adj',d:'Having the freedom to govern itself or act independently.',e:'The region became an autonomous province with its own local parliament.'},
+    {w:'Aver',p:'verb',d:'To state or assert something confidently and firmly.',e:'The witness averred that she had seen the entire incident clearly.'},
+    {w:'Axiomatic',p:'adj',d:'Self-evident or unquestionably true without needing proof.',e:'It is axiomatic that practice improves performance over time.'},
+    {w:'Beguile',p:'verb',d:'To charm or enchant someone, sometimes in a deceptive way.',e:'The salesman\'s smooth manner beguiled even the most cautious customers.'},
+    {w:'Bombastic',p:'adj',d:'High-sounding but with little meaning; inflated in language.',e:'His bombastic speech impressed few and convinced fewer.'},
+    {w:'Boorish',p:'adj',d:'Rude and unrefined in manners or behavior.',e:'His boorish comments at dinner embarrassed the entire table.'},
+    {w:'Bravado',p:'noun',d:'A bold, swaggering manner intended to impress or intimidate.',e:'His bravado on the field masked genuine nervousness before the match.'},
+    {w:'Burgeon',p:'verb',d:'To grow or develop rapidly.',e:'The city\'s tech sector began to burgeon after the new investment.'},
+    {w:'Cacophony',p:'noun',d:'A harsh, discordant mixture of sounds.',e:'The cacophony of car horns made it impossible to concentrate.'},
+    {w:'Callous',p:'adj',d:'Showing a lack of concern for the feelings of others.',e:'His callous remark about her illness left the room silent.'},
+    {w:'Candor',p:'noun',d:'The quality of being open and honest in expression.',e:'She spoke with a candor that some found refreshing and others blunt.'},
+    {w:'Capacious',p:'adj',d:'Having a large capacity; roomy.',e:'The old library had capacious shelves that could hold thousands of volumes.'},
+    {w:'Castigate',p:'verb',d:'To reprimand someone severely.',e:'The coach castigated the team for its lack of effort in the first half.'},
+    {w:'Catalyst',p:'noun',d:'A person or event that precipitates a significant change.',e:'The strike acted as a catalyst for broader labor reforms.'},
+    {w:'Chicanery',p:'noun',d:'The use of trickery to achieve a political, financial, or legal purpose.',e:'Investors were furious to learn of the accounting chicanery behind the losses.'},
+    {w:'Circumspect',p:'adj',d:'Wary and careful to consider all circumstances before acting.',e:'She remained circumspect about the investment despite the promising figures.'},
+    {w:'Clairvoyant',p:'adj',d:'Having the supposed ability to perceive things beyond normal senses.',e:'He joked that his clairvoyant grandmother always knew when he was lying.'},
+    {w:'Clandestine',p:'adj',d:'Kept secret, especially because it is illicit or unauthorized.',e:'The two companies held a clandestine meeting to discuss the merger.'},
+    {w:'Cliché',p:'noun',d:'An overused phrase or idea that has lost its original impact.',e:'The film relied on every romantic cliché in the book.'},
+    {w:'Coherent',p:'adj',d:'Logical and consistent; forming a unified whole.',e:'Her coherent argument won over even the skeptical judges.'},
+    {w:'Collaborate',p:'verb',d:'To work jointly with others on an activity or project.',e:'The two labs decided to collaborate on the vaccine research.'},
+    {w:'Collusion',p:'noun',d:'Secret cooperation for an illegal or deceitful purpose.',e:'The firms were fined for collusion in fixing prices.'},
+    {w:'Commensurate',p:'adj',d:'Corresponding in size or degree; proportionate.',e:'Her salary was finally commensurate with her years of experience.'},
+    {w:'Compendium',p:'noun',d:'A concise collection of information on a particular subject.',e:'The book is a compendium of essays on ancient philosophy.'},
+    {w:'Complacency',p:'noun',d:'Smug self-satisfaction that prevents further effort.',e:'The champion\'s complacency cost him the next tournament.'},
+    {w:'Compunction',p:'noun',d:'A feeling of guilt or moral reluctance about an action.',e:'He felt no compunction about correcting his boss in front of others.'},
+    {w:'Conducive',p:'adj',d:'Making a certain outcome likely or possible.',e:'A quiet room is conducive to focused studying.'},
+    {w:'Confound',p:'verb',d:'To cause confusion or surprise; to fail to distinguish.',e:'The sudden reversal confounded even the experts who predicted the outcome.'},
+    {w:'Conjecture',p:'noun',d:'An opinion formed on incomplete information; a guess.',e:'Without more evidence, the theory remains pure conjecture.'},
+    {w:'Consensus',p:'noun',d:'General agreement among a group of people.',e:'After hours of debate, the committee finally reached a consensus.'},
+    {w:'Consolidate',p:'verb',d:'To combine separate things into a single, stronger whole.',e:'The two departments merged to consolidate their resources.'},
+    {w:'Conspicuous',p:'adj',d:'Standing out so as to be easily seen or noticed.',e:'His bright red jacket made him conspicuous in the crowd.'},
+    {w:'Contemplative',p:'adj',d:'Deeply thoughtful and reflective in nature.',e:'She spent the quiet afternoon in a contemplative mood, journaling by the window.'},
+    {w:'Contempt',p:'noun',d:'A feeling of scorn or disregard for someone or something.',e:'He viewed the flattery with open contempt.'},
+    {w:'Contiguous',p:'adj',d:'Sharing a common border; touching or adjacent.',e:'The two states remain contiguous, sharing a long shared border.'},
+    {w:'Contrivance',p:'noun',d:'A clever plan or device, sometimes seen as artificial.',e:'The plot twist felt like a contrivance rather than a natural development.'},
+    {w:'Conundrum',p:'noun',d:'A confusing and difficult problem or question.',e:'Deciding which offer to accept became a genuine conundrum.'},
+    {w:'Convergence',p:'noun',d:'The process of coming together toward a common point.',e:'The convergence of several industries created new business opportunities.'},
+    {w:'Corroborate',p:'verb',d:'To confirm or give support to a statement or theory.',e:'New witness testimony helped corroborate the original account.'},
+    {w:'Cosmopolitan',p:'adj',d:'Familiar with and comfortable in many different countries and cultures.',e:'The cosmopolitan city was home to residents from over eighty nations.'},
+    {w:'Credence',p:'noun',d:'Belief in or acceptance of something as true.',e:'The new evidence lent credence to her original claim.'},
+    {w:'Cryptic',p:'adj',d:'Having a meaning that is mysterious or not easily understood.',e:'His cryptic reply left everyone guessing at his true intentions.'},
+    {w:'Culminate',p:'verb',d:'To reach a climax or final result after a series of events.',e:'Years of training culminated in her selection for the national team.'},
+    {w:'Cynical',p:'adj',d:'Believing that people are motivated only by self-interest.',e:'His cynical view of politics made him distrust every promise.'},
+    {w:'Debacle',p:'noun',d:'A sudden, humiliating failure or collapse.',e:'The product launch turned into a public relations debacle.'},
+    {w:'Decorum',p:'noun',d:'Behavior in keeping with good taste and propriety.',e:'The judge insisted on strict decorum in the courtroom.'},
+    {w:'Defunct',p:'adj',d:'No longer existing, functioning, or in use.',e:'The once-popular magazine is now defunct.'},
+    {w:'Demagogue',p:'noun',d:'A leader who gains support by appealing to popular emotions.',e:'Historians warned that the demagogue\'s rhetoric relied on fear rather than fact.'},
+    {w:'Denounce',p:'verb',d:'To publicly declare something to be wrong or evil.',e:'World leaders were quick to denounce the attack.'},
+    {w:'Deplete',p:'verb',d:'To use up the supply or resources of something.',e:'Years of overfishing began to deplete the local fish population.'},
+    {w:'Deploy',p:'verb',d:'To move resources or forces into position for effective action.',e:'The company decided to deploy its sales team across three new regions.'},
+    {w:'Derivative',p:'adj',d:'Imitative of the work of someone else; not original.',e:'Critics dismissed the novel as derivative of earlier, better works.'},
+    {w:'Desiccate',p:'verb',d:'To remove moisture thoroughly; to dry out completely.',e:'The intense heat began to desiccate the once-fertile soil.'},
+    {w:'Despondent',p:'adj',d:'In low spirits from loss of hope or courage.',e:'She grew despondent after failing the exam a second time.'},
+    {w:'Diatribe',p:'noun',d:'A forceful and bitter verbal attack against someone or something.',e:'His diatribe against the new policy lasted nearly ten minutes.'},
+    {w:'Dichotomy',p:'noun',d:'A division between two things that are opposed or entirely different.',e:'The novel explores the dichotomy between duty and desire.'},
+    {w:'Didactic',p:'adj',d:'Intended to teach or instruct, often excessively so.',e:'The film\'s didactic tone left little room for the audience\'s own interpretation.'},
+    {w:'Diminutive',p:'adj',d:'Extremely small in size.',e:'Despite her diminutive stature, she was the strongest climber on the team.'},
+    {w:'Disconcert',p:'verb',d:'To disturb the composure of someone; to unsettle.',e:'The unexpected question seemed to disconcert the usually confident speaker.'},
+    {w:'Discreet',p:'adj',d:'Careful to avoid embarrassment or attention; showing good judgment in speech.',e:'She made discreet inquiries about the job before telling her employer.'},
+    {w:'Discrepancy',p:'noun',d:'A difference between things that should be the same.',e:'Auditors noticed a discrepancy between the two sets of accounts.'},
+    {w:'Disdain',p:'noun',d:'A feeling of contempt for something considered unworthy.',e:'He viewed the tabloid press with open disdain.'},
+    {w:'Disingenuous',p:'adj',d:'Not candid or sincere, typically pretending ignorance.',e:'It was disingenuous of him to claim he\'d never heard the rumor.'},
+    {w:'Disparity',p:'noun',d:'A great difference or inequality between things.',e:'The report highlighted the wide disparity in regional incomes.'},
+    {w:'Dissemble',p:'verb',d:'To conceal one\'s true feelings or intentions.',e:'He tried to dissemble his disappointment behind a polite smile.'},
+    {w:'Dissipate',p:'verb',d:'To scatter or vanish; to squander gradually.',e:'The morning fog began to dissipate as the sun rose.'},
+    {w:'Distend',p:'verb',d:'To swell or become swollen due to pressure from within.',e:'The balloon began to distend as more air was pumped in.'},
+    {w:'Diverge',p:'verb',d:'To separate and go in different directions.',e:'The two paths diverge just past the old stone bridge.'},
+    {w:'Dubious',p:'adj',d:'Not to be relied upon; of uncertain quality or honesty.',e:'The claims on the label seemed dubious at best.'},
+    {w:'Duplicity',p:'noun',d:'Deceitfulness; the act of saying one thing while doing another.',e:'His duplicity was revealed when the two conflicting stories surfaced.'},
+    {w:'Ebullient',p:'adj',d:'Cheerful and full of energy and enthusiasm.',e:'Her ebullient personality made the long meeting far more bearable.'},
+    {w:'Eccentric',p:'adj',d:'Unconventional and slightly strange in behavior or appearance.',e:'The eccentric professor kept a collection of antique clocks in his office.'},
+    {w:'Edify',p:'verb',d:'To instruct or improve someone morally or intellectually.',e:'The lecture series aimed to edify rather than merely entertain.'},
+    {w:'Effervescent',p:'adj',d:'Vivacious and enthusiastic; bubbling with energy.',e:'Her effervescent laugh could be heard across the entire room.'},
+    {w:'Effrontery',p:'noun',d:'Shameless boldness or impudence.',e:'He had the effrontery to ask for a raise after missing every deadline.'},
+    {w:'Egalitarian',p:'adj',d:'Believing in the equality of all people.',e:'The founders envisioned an egalitarian society free of hereditary titles.'},
+    {w:'Elegy',p:'noun',d:'A poem or song expressing sorrow, especially for someone who has died.',e:'The poet wrote an elegy for his late mentor.'},
+    {w:'Embellish',p:'verb',d:'To make something more attractive by adding decorative details, sometimes exaggerating.',e:'He tended to embellish his stories with each retelling.'},
+    {w:'Eminent',p:'adj',d:'Famous and respected within a particular field.',e:'The eminent scientist was invited to lead the new research center.'},
+    {w:'Empirical',p:'adj',d:'Based on observation or experience rather than theory.',e:'The study relied on empirical data gathered over a decade.'},
+    {w:'Enigmatic',p:'adj',d:'Mysterious and difficult to interpret or understand.',e:'Her enigmatic smile gave nothing away about her final decision.'},
+    {w:'Epitome',p:'noun',d:'A perfect example of a particular quality or type.',e:'The old mansion was the epitome of Victorian elegance.'},
+    {w:'Equitable',p:'adj',d:'Fair and impartial; treating all sides justly.',e:'The mediator proposed an equitable division of the family estate.'},
+    {w:'Ersatz',p:'adj',d:'Being an artificial or inferior substitute for something.',e:'The ersatz leather looked convincing but wore out within a year.'},
+    {w:'Ethereal',p:'adj',d:'Extremely delicate or light in a way that seems otherworldly.',e:'The choir\'s voices had an ethereal quality that filled the cathedral.'},
+    {w:'Euphemism',p:'noun',d:'A mild or indirect word substituted for one considered harsh.',e:'Passed away is a common euphemism for died.'},
+    {w:'Evanescent',p:'adj',d:'Quickly fading or disappearing.',e:'The evanescent beauty of the sunset lasted only a few minutes.'},
+    {w:'Exasperate',p:'verb',d:'To irritate or annoy someone intensely.',e:'The constant delays began to exasperate even the most patient passengers.'},
+    {w:'Exemplify',p:'verb',d:'To be a typical example of something; to illustrate clearly.',e:'Her dedication to the project exemplifies what true leadership looks like.'},
+    {w:'Exhaustive',p:'adj',d:'Thorough and complete; covering all elements.',e:'The report offered an exhaustive review of the company\'s finances.'},
+    {w:'Exorbitant',p:'adj',d:'Far greater than what is reasonable or appropriate, especially of a price.',e:'The hotel charged an exorbitant fee for a single night\'s stay.'},
+    {w:'Expedite',p:'verb',d:'To make a process happen more quickly.',e:'The clerk agreed to expedite the paperwork so the sale could close on time.'},
+    {w:'Expunge',p:'verb',d:'To erase or remove something completely from a record.',e:'His lawyer petitioned the court to expunge the old conviction.'},
+    {w:'Extol',p:'verb',d:'To praise enthusiastically.',e:'The reviewer extolled the novel\'s originality and emotional depth.'},
+    {w:'Extraneous',p:'adj',d:'Irrelevant or unrelated to the subject at hand.',e:'The editor cut every extraneous detail from the report.'},
+    {w:'Extrapolate',p:'verb',d:'To extend known data to estimate values beyond that range.',e:'Scientists extrapolated future sea levels from decades of measurements.'},
+    {w:'Facetious',p:'adj',d:'Treating serious matters with inappropriate humor.',e:'His facetious comment during the eulogy shocked several relatives.'},
+    {w:'Fallible',p:'adj',d:'Capable of making mistakes; not perfect.',e:'Even the most experienced surgeons are fallible.'},
+    {w:'Fervid',p:'adj',d:'Intensely enthusiastic or passionate.',e:'Her fervid defense of the policy surprised her usually reserved colleagues.'},
+    {w:'Flippant',p:'adj',d:'Not showing proper seriousness; treating a serious issue casually.',e:'His flippant remark about the layoffs upset the entire staff.'},
+    {w:'Fluctuate',p:'verb',d:'To rise and fall irregularly in number or amount.',e:'Currency values fluctuate constantly throughout the trading day.'},
+    {w:'Foment',p:'verb',d:'To instigate or stir up trouble or unrest.',e:'The pamphlets were designed to foment rebellion among the workers.'},
+    {w:'Fortitude',p:'noun',d:'Courage in facing pain, danger, or adversity.',e:'She showed remarkable fortitude throughout her long recovery.'},
+    {w:'Fractious',p:'adj',d:'Irritable and difficult to control; quarrelsome.',e:'The fractious committee could rarely agree on anything.'},
+    {w:'Fulminate',p:'verb',d:'To express vehement protest or criticism.',e:'The columnist fulminated against the new tax proposal for weeks.'},
+    {w:'Garner',p:'verb',d:'To gather or collect something, especially information or support.',e:'The proposal managed to garner support from both political parties.'},
+    {w:'Genesis',p:'noun',d:'The origin or beginning of something.',e:'The idea for the company had its genesis in a college dorm room.'},
+    {w:'Germane',p:'adj',d:'Relevant to a particular subject or matter.',e:'Please keep your comments germane to the topic being discussed.'},
+    {w:'Glib',p:'adj',d:'Fluent and voluble but insincere or superficial.',e:'His glib answers failed to satisfy the skeptical committee.'},
+    {w:'Grandiloquent',p:'adj',d:'Pompous or extravagant in language.',e:'The grandiloquent speech impressed no one who valued substance over style.'},
+    {w:'Gratuitous',p:'adj',d:'Uncalled for or unwarranted; done without good reason.',e:'The film was criticized for its gratuitous violence.'},
+    {w:'Grievance',p:'noun',d:'A real or imagined wrong regarded as grounds for complaint.',e:'Employees filed a formal grievance over the unpaid overtime.'},
+    {w:'Halcyon',p:'adj',d:'Denoting a past period regarded as idyllically happy and peaceful.',e:'She often spoke of the halcyon days of her childhood summers.'},
+    {w:'Hedonism',p:'noun',d:'The pursuit of pleasure as the most important goal in life.',e:'The resort was famous for its unapologetic culture of hedonism.'},
+    {w:'Heresy',p:'noun',d:'A belief that strongly conflicts with accepted opinion or doctrine.',e:'Questioning the theory was once considered scientific heresy.'},
+    {w:'Hermetic',p:'adj',d:'Completely sealed, especially against air; also, obscure or esoteric.',e:'The ancient scrolls were kept in a hermetic chamber to prevent decay.'},
+    {w:'Heterogeneous',p:'adj',d:'Diverse in character; consisting of dissimilar parts.',e:'The class was a heterogeneous mix of students from dozens of countries.'},
+    {w:'Hindsight',p:'noun',d:'Understanding of a situation only after it has happened.',e:'In hindsight, the warning signs had been obvious for months.'},
+    {w:'Homogeneous',p:'adj',d:'Of the same kind; uniform in composition throughout.',e:'The small town had a remarkably homogeneous population for decades.'},
+    {w:'Hubris',p:'noun',d:'Excessive pride or self-confidence, often leading to downfall.',e:'The company\'s hubris led it to ignore early signs of trouble.'},
+    {w:'Hyperbolic',p:'adj',d:'Using exaggerated language for effect, not to be taken literally.',e:'His hyperbolic praise made the modest achievement sound like a miracle.'},
+    {w:'Hypothetical',p:'adj',d:'Based on a suggested idea or theory rather than known facts.',e:'The professor posed a hypothetical scenario to test their reasoning.'},
+    {w:'Idealism',p:'noun',d:'The belief in or pursuit of ideal conditions or standards.',e:'Her youthful idealism gradually gave way to practical compromise.'},
+    {w:'Ideology',p:'noun',d:'A system of ideas and beliefs forming the basis of a political theory.',e:'The two parties differ sharply in economic ideology.'},
+    {w:'Idyllic',p:'adj',d:'Extremely happy, peaceful, or picturesque.',e:'They spent an idyllic week at a cabin by the lake.'},
+    {w:'Ignoble',p:'adj',d:'Not honorable in character or purpose.',e:'He was forced to resign under rather ignoble circumstances.'},
+    {w:'Illicit',p:'adj',d:'Forbidden by law, rules, or custom.',e:'Police shut down the illicit trade operating out of the warehouse.'},
+    {w:'Immaterial',p:'adj',d:'Unimportant or irrelevant to the matter at hand.',e:'Whether he agreed or not was immaterial; the decision had already been made.'},
+    {w:'Impeccable',p:'adj',d:'In accordance with the highest standards; flawless.',e:'Her impeccable manners impressed everyone at the formal dinner.'},
+    {w:'Imperative',p:'adj',d:'Of vital importance; absolutely necessary.',e:'It is imperative that the report be finished by Friday.'}
+  ]},
+  {id:8, words:[]},
+  {id:9, words:[]},
+  {id:10, words:[]},
 ];
 
-function renderVocab(filter='all') {
-  const grid = document.getElementById('vocab-grid');
-  if(!grid) return;
-  const words = filter==='all' ? VOCAB : VOCAB.filter(v=>v.pos.includes(filter));
-  grid.innerHTML = words.map((v,i)=>`
-    <div class="vocab-card" onclick="flipVocab(this)">
-      <div class="v-front">
-        <div class="v-word">${v.word}</div>
-        <div class="v-pos">${v.pos}</div>
-        <div class="v-hint">${v.hint}</div>
-        <div style="font-size:.72rem;color:var(--g300);margin-top:.65rem">Click to reveal →</div>
-      </div>
-      <div class="v-back">
-        <div class="v-word" style="font-size:1rem">${v.word}</div>
-        <div class="v-def">${v.def}</div>
-        <div class="v-example">"${v.ex}"</div>
-      </div>
-    </div>`
-  ).join('');
-  // filter buttons
-  const fEl = document.getElementById('vocab-filter');
-  if(fEl) fEl.innerHTML = ['all','adj','verb','noun'].map(f=>`<button class="f-chip ${filter===f?'active':''}" onclick="renderVocab('${f}')" style="color:#fff;border-color:rgba(255,255,255,.2);background:${filter===f?'var(--blue)':'rgba(255,255,255,.08)'}">
-    ${f==='all'?'All':f==='adj'?'Adjectives':f==='verb'?'Verbs':'Nouns'}
-  </button>`).join('');
+// ── VOCAB ENGINE STATE ──
+let vCurrentSet = null;      // the set object currently open
+let vQueue = [];             // words left to see this pass
+let vStillLearning = [];     // words marked still-learning this pass
+let vHistory = [];           // words already seen this pass, for Previous
+let vCurrentWord = null;
+let vSeenCount = 0;
+
+function renderVocabSets() {
+  const grid = document.getElementById('vocab-sets-grid');
+  if (!grid) return;
+  grid.innerHTML = VOCAB_SETS.map(s => {
+    const has = s.words.length > 0;
+    return `<div class="vocab-set-card ${has ? '' : 'locked'}" onclick="${has ? `openVocabSet(${s.id})` : ''}">
+      <div class="vs-num">Set ${s.id}</div>
+      <div class="vs-title">${has ? s.words.length + ' words' : 'Coming soon'}</div>
+      ${has ? `<div class="vs-count">150 words</div>
+        <div class="vs-progress-track"><div class="vs-progress-fill" style="width:0%"></div></div>`
+        : `<span class="vs-badge-soon">Not yet available</span>`}
+    </div>`;
+  }).join('');
 }
 
-function flipVocab(el) { el.classList.toggle('flipped'); }
+function openVocabSet(id) {
+  vCurrentSet = VOCAB_SETS.find(s => s.id === id);
+  if (!vCurrentSet || !vCurrentSet.words.length) return;
+  document.getElementById('vocab-sets-view').style.display = 'none';
+  document.getElementById('vocab-set-options-view').style.display = 'block';
+  document.getElementById('vso-title').textContent = `Set ${id}`;
+  document.getElementById('vso-sub').textContent = `${vCurrentSet.words.length} words — choose how you'd like to study.`;
+}
+
+function backToVocabSets() {
+  document.getElementById('vocab-set-options-view').style.display = 'none';
+  document.getElementById('vocab-sets-view').style.display = 'block';
+  vCurrentSet = null;
+}
+
+// ── FLASHCARDS ──
+function startFlashcards() {
+  if (!vCurrentSet) return;
+  vQueue = [...vCurrentSet.words];
+  vHistory = [];
+  vStillLearning = [];
+  vSeenCount = 0;
+  document.getElementById('vocab-set-options-view').style.display = 'none';
+  document.getElementById('vocab-flashcard-view').style.display = 'block';
+  document.getElementById('fc-card-area').style.display = 'block';
+  document.getElementById('fc-done-area').style.display = 'none';
+  nextFlashcard(true);
+}
+
+function restartFlashcards() {
+  startFlashcards();
+}
+
+function exitFlashcards() {
+  document.getElementById('vocab-flashcard-view').style.display = 'none';
+  document.getElementById('vocab-set-options-view').style.display = 'block';
+}
+
+function renderFlashcard() {
+  const card = document.getElementById('flashcard');
+  card.classList.remove('flipped');
+  document.getElementById('fc-word').textContent = vCurrentWord.w;
+  document.getElementById('fc-pos').textContent = vCurrentWord.p;
+  document.getElementById('fc-word-back').textContent = vCurrentWord.w;
+  document.getElementById('fc-def').textContent = vCurrentWord.d;
+  const exEl = document.getElementById('fc-example');
+  if (vCurrentWord.e && vCurrentWord.e.trim()) {
+    exEl.textContent = `"${vCurrentWord.e}"`;
+    exEl.style.display = 'block';
+  } else {
+    exEl.style.display = 'none';
+  }
+  const total = vCurrentSet.words.length;
+  document.getElementById('fc-progress-text').textContent = `${vSeenCount} / ${total}`;
+  document.getElementById('fc-progress-fill').style.width = `${(vSeenCount / total) * 100}%`;
+  document.getElementById('fc-prev-btn').disabled = vHistory.length === 0;
+}
+
+function flipFlashcard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function nextFlashcard(isFirst) {
+  if (!isFirst && vCurrentWord) vHistory.push(vCurrentWord);
+  if (!vQueue.length) {
+    if (vStillLearning.length) {
+      // start a fresh pass reviewing only the still-learning words
+      vQueue = [...vStillLearning];
+      vStillLearning = [];
+    } else {
+      showFlashcardsDone();
+      return;
+    }
+  }
+  vCurrentWord = vQueue.shift();
+  vSeenCount = Math.min(vSeenCount + 1, vCurrentSet.words.length);
+  renderFlashcard();
+}
+
+function fcNext() {
+  nextFlashcard(false);
+}
+
+function fcPrevious() {
+  if (!vHistory.length) return;
+  vQueue.unshift(vCurrentWord);
+  vCurrentWord = vHistory.pop();
+  vSeenCount = Math.max(1, vSeenCount - 1);
+  renderFlashcard();
+}
+
+function fcStillLearning() {
+  if (vCurrentWord) vStillLearning.push(vCurrentWord);
+  nextFlashcard(false);
+}
+
+function showFlashcardsDone() {
+  document.getElementById('fc-card-area').style.display = 'none';
+  document.getElementById('fc-done-area').style.display = 'block';
+  document.getElementById('fc-done-summary').textContent = `You reviewed all ${vCurrentSet.words.length} words in Set ${vCurrentSet.id}.`;
+}
+
+// ── TEST MODE (multiple choice, scoped to current set) ──
+let vlPool = [], vlCurrent = null, vlScore = 0, vlTotal = 0;
+
+function startVocabTest() {
+  if (!vCurrentSet) return;
+  vlPool = [...vCurrentSet.words].sort(() => Math.random() - .5);
+  vlScore = 0; vlTotal = 0;
+  document.getElementById('vocab-set-options-view').style.display = 'none';
+  document.getElementById('vocab-learn-view').style.display = 'block';
+  nextVocabLearnQ();
+}
+
+function exitVocabLearn() {
+  document.getElementById('vocab-learn-view').style.display = 'none';
+  document.getElementById('vocab-set-options-view').style.display = 'block';
+}
+
+function nextVocabLearnQ() {
+  const pool = vCurrentSet.words;
+  if (!vlPool.length) vlPool = [...pool].sort(() => Math.random() - .5);
+  vlCurrent = vlPool.pop();
+
+  const distractors = pool.filter(v => v.w !== vlCurrent.w)
+    .sort(() => Math.random() - .5).slice(0, 3).map(v => v.d);
+  const options = [...distractors, vlCurrent.d].sort(() => Math.random() - .5);
+
+  document.getElementById('vl-word').textContent = vlCurrent.w;
+  document.getElementById('vl-pos').textContent = vlCurrent.p;
+  document.getElementById('vl-progress').textContent = `Score: ${vlScore} / ${vlTotal}`;
+
+  const lettersEl = document.getElementById('vl-options');
+  const letters = ['A', 'B', 'C', 'D'];
+  lettersEl.innerHTML = options.map((opt, i) => `
+    <div class="qb-option" onclick="selectVocabLearnAnswer(this, ${opt === vlCurrent.d})">
+      <span class="qb-option-letter">${letters[i]}</span>
+      <span>${opt}</span>
+    </div>`).join('');
+}
+
+function selectVocabLearnAnswer(el, isCorrect) {
+  if (el.parentElement.classList.contains('answered')) return;
+  el.parentElement.classList.add('answered');
+  vlTotal++;
+  if (isCorrect) { vlScore++; el.classList.add('correct'); }
+  else {
+    el.classList.add('wrong');
+    [...el.parentElement.children].forEach(c => {
+      if (c.textContent.includes(vlCurrent.d)) c.classList.add('correct');
+    });
+  }
+  setTimeout(nextVocabLearnQ, 900);
+}
 // ── Plan gating ──
 function isPro() {
   return window.chettaPlan === 'pro' || window.chettaPlan === 'lifetime';
@@ -1781,57 +2286,6 @@ function backToExamMenuStep1() {
 }
 
 
-// ── VOCAB LEARN MODE (Quizlet-style multiple choice) ──
-let vlPool = [], vlCurrent = null, vlScore = 0, vlTotal = 0;
-
-function startVocabLearn() {
-  vlPool = [...VOCAB].sort(() => Math.random() - .5);
-  vlScore = 0; vlTotal = 0;
-  document.getElementById('vocab-cards-view').style.display = 'none';
-  document.getElementById('vocab-learn-view').style.display = 'block';
-  nextVocabLearnQ();
-}
-
-function exitVocabLearn() {
-  document.getElementById('vocab-learn-view').style.display = 'none';
-  document.getElementById('vocab-cards-view').style.display = '';
-}
-
-function nextVocabLearnQ() {
-  if (!vlPool.length) vlPool = [...VOCAB].sort(() => Math.random() - .5);
-  vlCurrent = vlPool.pop();
-
-  // 3 wrong definitions from other random words + the correct one
-  const distractors = VOCAB.filter(v => v.word !== vlCurrent.word)
-    .sort(() => Math.random() - .5).slice(0, 3).map(v => v.def);
-  const options = [...distractors, vlCurrent.def].sort(() => Math.random() - .5);
-
-  document.getElementById('vl-word').textContent = vlCurrent.word;
-  document.getElementById('vl-pos').textContent = vlCurrent.pos;
-  document.getElementById('vl-progress').textContent = `Score: ${vlScore} / ${vlTotal}`;
-
-  const lettersEl = document.getElementById('vl-options');
-  const letters = ['A', 'B', 'C', 'D'];
-  lettersEl.innerHTML = options.map((opt, i) => `
-    <div class="qb-option" onclick="selectVocabLearnAnswer(this, ${opt === vlCurrent.def})">
-      <span class="qb-option-letter">${letters[i]}</span>
-      <span>${opt}</span>
-    </div>`).join('');
-}
-
-function selectVocabLearnAnswer(el, isCorrect) {
-  if (el.parentElement.classList.contains('answered')) return;
-  el.parentElement.classList.add('answered');
-  vlTotal++;
-  if (isCorrect) { vlScore++; el.classList.add('correct'); }
-  else {
-    el.classList.add('wrong');
-    [...el.parentElement.children].forEach(c => {
-      if (c.textContent.includes(vlCurrent.def)) c.classList.add('correct');
-    });
-  }
-  setTimeout(nextVocabLearnQ, 900);
-}
 
 
 // ── STUDY PLANNER ──
@@ -2016,7 +2470,13 @@ function renderAnalyticsPreview() {
 
 function showSubPage(name) {
   showPage(name);
-  if(name === 'vocab') { renderVocab(); }
+  if(name === 'vocab') {
+    renderVocabSets();
+    document.getElementById('vocab-sets-view').style.display = 'block';
+    document.getElementById('vocab-set-options-view').style.display = 'none';
+    document.getElementById('vocab-flashcard-view').style.display = 'none';
+    document.getElementById('vocab-learn-view').style.display = 'none';
+  }
   if(name === 'calculator') { updateCalc(); updateIELTS(); }
 }
 
