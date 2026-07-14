@@ -1200,6 +1200,11 @@ document.getElementById('page-home')?.insertAdjacentHTML('beforeend','<footer></
 applyLang(currentLang);
 updateNav();
 showPage('practice'); // this file only contains the vocabulary page, so show it by default
+renderVocabSets();
+document.getElementById('vocab-sets-view').style.display = 'block';
+document.getElementById('vocab-set-options-view').style.display = 'none';
+document.getElementById('vocab-flashcard-view').style.display = 'none';
+document.getElementById('vocab-learn-view').style.display = 'none';
 
 // Dedicated page: gate access behind Pro, same as PastExams/Predictions.
 window.onChettaPlanReady = function () {
