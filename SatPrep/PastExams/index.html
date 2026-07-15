@@ -781,21 +781,48 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .exam-score-val{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--g900)}
 .exam-score-lbl{font-size:.75rem;color:var(--g400);margin-top:.2rem}
 .exam-empty-notice{text-align:center;padding:3rem 2rem;color:var(--g500)}
-/* ── REDESIGNED TOPBAR (timer centered) ── */
-.exam-topbar{display:grid;grid-template-columns:1fr auto 1fr}
+/* ── REDESIGNED TOPBAR (Bluebook-style) ── */
+.exam-topbar{display:grid;grid-template-columns:1fr auto 1fr;height:auto;padding:.85rem 1.5rem}
 .exam-topbar-left{display:flex;align-items:center;justify-content:flex-start}
-.exam-topbar-center{display:flex;align-items:center;justify-content:center}
-.exam-topbar-right{display:flex;align-items:center;justify-content:flex-end;gap:.6rem}
-.exam-timer{font-size:1.15rem;font-weight:700;background:var(--g50);border:1px solid var(--g200);border-radius:100px;padding:.35rem 1rem;display:flex;align-items:center;gap:.4rem}
-.exam-timer.warning{color:var(--red);background:#fef2f2;border-color:rgba(220,38,38,.3)}
-/* ── MARK FOR REVIEW ── */
-.exam-flag-btn{display:inline-flex;align-items:center;gap:.35rem;background:none;border:1.5px solid var(--g200);border-radius:100px;padding:.3rem .8rem;font-size:.78rem;font-weight:600;color:var(--g500);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-bottom:1rem}
-.exam-flag-btn:hover{border-color:var(--g300)}
-.exam-flag-btn.flagged{color:var(--red);border-color:rgba(220,38,38,.35);background:#fef2f2}
+.exam-directions-btn{background:none;border:none;color:var(--g500);font-size:.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.3rem;font-family:'DM Sans',sans-serif}
+.exam-directions-btn:hover{color:var(--g900)}
+.exam-topbar-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem}
+.exam-topbar-right{display:flex;align-items:center;justify-content:flex-end;gap:1.4rem}
+.exam-timer{font-family:'Instrument Serif',serif;font-size:1.7rem;font-weight:600;color:var(--g900);letter-spacing:.5px;line-height:1}
+.exam-timer.warning{color:var(--red)}
+.exam-timer-hide-btn{background:none;border:1.5px solid var(--g200);border-radius:100px;padding:.15rem .8rem;font-size:.72rem;font-weight:600;color:var(--g500);cursor:pointer;font-family:'DM Sans',sans-serif}
+.exam-timer-hide-btn:hover{border-color:var(--g300)}
+.exam-timer.hidden-time{visibility:hidden}
+.exam-tool-btn{background:none;border:none;color:var(--g600);font-size:.78rem;font-weight:500;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.2rem;font-family:'DM Sans',sans-serif}
+.exam-tool-btn:hover{color:var(--g900)}
+.exam-more-wrap{position:relative}
+.exam-more-menu{display:none;position:absolute;top:110%;right:0;background:#fff;border:1px solid var(--g200);border-radius:var(--r);box-shadow:var(--shadowlg);min-width:160px;z-index:20;overflow:hidden}
+.exam-more-menu.open{display:block}
+.exam-more-menu button{display:block;width:100%;text-align:left;background:none;border:none;padding:.7rem 1rem;font-size:.83rem;color:var(--g700);cursor:pointer;font-family:'DM Sans',sans-serif}
+.exam-more-menu button:hover{background:var(--g50)}
+/* ── BODY WITH DIVIDER ── */
+.exam-body{flex:1;max-width:1180px;margin:0 auto;width:100%;padding:1.75rem 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:0;position:relative}
+.exam-body.no-passage{grid-template-columns:1fr;max-width:680px}
+.exam-body::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--g200)}
+.exam-body.no-passage::before{display:none}
+@media(max-width:768px){.exam-body{grid-template-columns:1fr;padding:1.25rem}.exam-body::before{display:none}}
+.exam-passage-col{padding-right:2.25rem}
+.exam-q-col{padding-left:2.25rem}
+@media(max-width:768px){.exam-passage-col,.exam-q-col{padding:0}}
+.qb-passage{font-size:.9rem;color:var(--g900);line-height:1.75;background:none;border:none;padding:0;height:fit-content;position:static}
+/* ── QUESTION HEADER BAR (number badge + review + report + strike toggle) ── */
+.exam-q-header{display:flex;align-items:center;gap:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:1.5rem}
+.exam-q-badge{background:var(--g900);color:#fff;font-weight:700;font-size:.85rem;width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.exam-flag-btn{flex:1;display:flex;align-items:center;gap:.4rem;background:none;border:none;padding:.7rem .9rem;font-size:.82rem;font-weight:600;color:var(--g600);cursor:pointer;font-family:'DM Sans',sans-serif}
+.exam-flag-btn.flagged{color:var(--red)}
+.exam-report-btn{display:flex;align-items:center;gap:.3rem;background:none;border:none;padding:.7rem .8rem;font-size:.78rem;color:var(--g500);cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.exam-report-btn:hover{color:var(--g900)}
+.exam-clear-strikes-btn{width:38px;height:38px;flex-shrink:0;border:none;border-left:1px solid var(--g200);background:none;color:var(--g500);cursor:pointer;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.exam-clear-strikes-btn:hover{color:var(--g900);background:var(--g100)}
 /* ── BOTTOM NAV PILL ── */
-.exam-footer{position:sticky;bottom:0}
-.exam-nav-pill{background:var(--g900);color:#fff;border:none;border-radius:100px;padding:.55rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .15s}
-.exam-nav-pill:hover{background:#000}
+.exam-footer{position:sticky;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-top:1px solid var(--g200);background:#fff}
+.exam-nav-pill{background:#fff;color:var(--g900);border:1.5px solid var(--g300);border-radius:100px;padding:.55rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:all .15s}
+.exam-nav-pill:hover{border-color:var(--g900)}
 /* ── QUESTION NAVIGATOR MODAL ── */
 .exam-nav-ov{display:none;position:fixed;inset:0;background:rgba(15,17,23,.45);z-index:900;align-items:flex-end;justify-content:center}
 .exam-nav-ov.open{display:flex}
@@ -815,7 +842,6 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .exam-nav-cell:hover{border-color:var(--g400)}
 .exam-nav-cell.answered{border-style:solid;border-color:var(--g300)}
 .exam-nav-cell.current{background:var(--g900);border-style:solid;border-color:var(--g900);color:#fff}
-.exam-nav-cell.current-outline{border-style:solid;border-color:var(--g900);border-width:2px}
 .exam-nav-cell .flag-corner{position:absolute;top:-6px;right:-6px;width:16px;height:16px;color:var(--red)}
 /* ── TEXT HIGHLIGHTING ── */
 .qb-passage, #exam-q-text{-webkit-user-select:text;user-select:text}
@@ -839,26 +865,41 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
   <!-- MODULE HEADER -->
   <div class="exam-topbar" id="exam-topbar">
     <div class="exam-topbar-left">
-      <div>
-        <div class="exam-module-lbl" id="exam-module-lbl">SAT Exam 1 — Reading & Writing</div>
-        <div class="exam-module-sub" id="exam-module-sub">Module 1 of 2</div>
+      <div class="exam-more-wrap">
+        <button class="exam-directions-btn" onclick="toggleExamDirections(event)">Directions ⌄</button>
+        <div class="exam-more-menu" id="exam-directions-menu">
+          <div style="padding:.85rem 1rem;font-size:.8rem;color:var(--g600);line-height:1.6;max-width:220px"><b id="exam-module-lbl">SAT Exam 1 — Reading & Writing</b><br><span id="exam-module-sub">Module 1 of 2</span></div>
+        </div>
       </div>
     </div>
     <div class="exam-topbar-center">
-      <span class="exam-timer" id="exam-timer">⏱ 32:00</span>
+      <span class="exam-timer" id="exam-timer">32:00</span>
+      <button class="exam-timer-hide-btn" onclick="toggleExamTimerVisibility()" id="exam-timer-hide-btn">Hide</button>
     </div>
     <div class="exam-topbar-right">
-      <button class="qb-btn outline" onclick="exitExam()">✕ Exit</button>
+      <button class="exam-tool-btn" onclick="highlightHintFromToolbar()">🖍 <span>Highlight</span></button>
+      <div class="exam-more-wrap">
+        <button class="exam-tool-btn" onclick="toggleExamMoreMenu(event)">⋮ <span>More</span></button>
+        <div class="exam-more-menu" id="exam-more-menu">
+          <button onclick="exitExam()">✕ Exit Exam</button>
+        </div>
+      </div>
     </div>
   </div>
 
 
   <!-- QUESTION BODY -->
   <div class="exam-body" id="exam-body">
-    <div class="qb-passage" id="exam-passage"></div>
-    <div>
-      <div class="qb-q-num" id="exam-q-num">Question 1 of 27</div>
-      <button class="exam-flag-btn" id="exam-flag-btn" onclick="toggleExamFlag()">🚩 Mark for Review</button>
+    <div class="exam-passage-col">
+      <div class="qb-passage" id="exam-passage"></div>
+    </div>
+    <div class="exam-q-col">
+      <div class="exam-q-header">
+        <div class="exam-q-badge" id="exam-q-badge">1</div>
+        <button class="exam-flag-btn" id="exam-flag-btn" onclick="toggleExamFlag()">🔖 Mark for Review</button>
+        <button class="exam-report-btn" onclick="alert('Thanks — this has been flagged for our team to review.')">🚩 Report</button>
+        <button class="exam-clear-strikes-btn" onclick="clearExamCrossOuts()" title="Clear all crossed-out choices">Ⓢ</button>
+      </div>
       <div class="qb-q-text" id="exam-q-text"></div>
       <div class="qb-options" id="exam-options"></div>
     </div>
@@ -869,9 +910,9 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
   <div class="exam-footer" id="exam-footer">
     <button class="qb-btn outline" id="exam-prev-btn" onclick="examPrevQuestion()">← Previous</button>
     <button class="exam-nav-pill" onclick="openExamNav()">
-      <span id="exam-nav-pill-label">Question 1 of 27</span> ⌃
+      <span id="exam-nav-pill-label">Question 1 of 27</span> ⌄
     </button>
-    <button class="qb-btn primary" id="exam-next-btn" onclick="examNextQuestion()">Next →</button>
+    <button class="qb-btn outline" id="exam-next-btn" onclick="examNextQuestion()">Next →</button>
   </div>
 
 
@@ -1365,7 +1406,7 @@ function startExamTimer() {
   const el = document.getElementById('exam-timer');
   const render = () => {
     const m = Math.floor(examTimeLeft/60), s = examTimeLeft%60;
-    el.textContent = `⏱ ${m}:${s.toString().padStart(2,'0')}`;
+    el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
     el.classList.toggle('warning', examTimeLeft < 300);
   };
   render();
@@ -1374,6 +1415,40 @@ function startExamTimer() {
     render();
     if (examTimeLeft <= 0) { clearInterval(examTimer); finishExamModule(); }
   }, 1000);
+}
+
+// ── TOPBAR CONTROLS ──
+function toggleExamDirections(e) {
+  e.stopPropagation();
+  document.getElementById('exam-more-menu')?.classList.remove('open');
+  document.getElementById('exam-directions-menu').classList.toggle('open');
+}
+function toggleExamMoreMenu(e) {
+  e.stopPropagation();
+  document.getElementById('exam-directions-menu')?.classList.remove('open');
+  document.getElementById('exam-more-menu').classList.toggle('open');
+}
+document.addEventListener('click', () => {
+  document.getElementById('exam-directions-menu')?.classList.remove('open');
+  document.getElementById('exam-more-menu')?.classList.remove('open');
+});
+
+let examTimerHidden = false;
+function toggleExamTimerVisibility() {
+  examTimerHidden = !examTimerHidden;
+  document.getElementById('exam-timer').classList.toggle('hidden-time', examTimerHidden);
+  document.getElementById('exam-timer-hide-btn').textContent = examTimerHidden ? 'Show' : 'Hide';
+}
+
+function highlightHintFromToolbar() {
+  if (hlActiveRange) { applyHighlight(); }
+  else { alert('Select some text in the passage or question first, then click Highlight.'); }
+}
+
+function clearExamCrossOuts() {
+  const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  examCrossed[moduleKey][examCurrentQ] = {};
+  renderExamOptions();
 }
 
 
@@ -1430,7 +1505,7 @@ function updateExamFlagBtn() {
   const flagged = !!examFlags[moduleKey][examCurrentQ];
   const btn = document.getElementById('exam-flag-btn');
   btn.classList.toggle('flagged', flagged);
-  btn.textContent = flagged ? '🚩 Marked for Review' : '🚩 Mark for Review';
+  btn.textContent = flagged ? '🔖 Marked for Review' : '🔖 Mark for Review';
 }
 
 
@@ -1439,7 +1514,7 @@ function loadExamQuestion() {
   const q = examQuestions[examCurrentQ];
 
 
-  document.getElementById('exam-q-num').textContent = `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
+  document.getElementById('exam-q-badge').textContent = examCurrentQ + 1;
   document.getElementById('exam-nav-pill-label').textContent = `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
 
   const savedHl = (examHighlights[moduleKey][examCurrentQ]) || {};
@@ -1448,7 +1523,7 @@ function loadExamQuestion() {
   const bodyEl = document.getElementById('exam-body');
   if (q.passage && q.passage.trim()) {
     passageEl.style.display = '';
-    passageEl.innerHTML = savedHl.passage || `<div class="qb-passage-label">PASSAGE</div>${q.passage.replace(/\n/g,'<br>')}`;
+    passageEl.innerHTML = savedHl.passage || q.passage.replace(/\n/g,'<br>');
     bodyEl.classList.remove('no-passage');
   } else {
     passageEl.style.display = 'none';
