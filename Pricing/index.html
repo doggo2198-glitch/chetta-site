@@ -769,42 +769,13 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
                 gap: 8px;
             }
         }
-
-        /* MANUAL PAYMENT MODAL */
-        .pay-ov{display:none;position:fixed;inset:0;z-index:2000;background:rgba(15,23,41,.5);align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
-        .pay-ov.open{display:flex}
-        .pay-modal{background:#fff;border-radius:var(--rxl) var(--rxl) 0 0;width:100%;max-width:460px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.2);font-family:'DM Sans',sans-serif}
-        @media(min-width:640px){.pay-ov{align-items:center}.pay-modal{border-radius:var(--rxl);margin-bottom:2rem}}
-        .pay-hd{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.5rem 1rem}
-        .pay-hd-title{display:flex;align-items:center;gap:.65rem;font-weight:700;font-size:1.05rem;color:var(--g900)}
-        .pay-hd-icon{width:34px;height:34px;border-radius:9px;background:var(--bluepale);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-        .pay-close{background:none;border:none;color:var(--g400);cursor:pointer;font-size:1.3rem;line-height:1;padding:.2rem}
-        .pay-close:hover{color:var(--g700)}
-        .pay-body{padding:0 1.5rem 1.5rem}
-        .pay-summary{background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.1rem 1.25rem;margin-bottom:1.25rem}
-        .pay-summary-label{font-size:.75rem;color:var(--g400);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.35rem}
-        .pay-summary-plan{font-weight:700;font-size:1.05rem;color:var(--g900);margin-bottom:.6rem}
-        .pay-summary-price{font-family:'Instrument Serif',serif;font-size:1.9rem;color:var(--blue);letter-spacing:-.5px}
-        .pay-summary-period{font-size:.8rem;color:var(--g500);margin-left:.35rem}
-        .pay-step{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.85rem}
-        .pay-step-num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
-        .pay-step-text{font-size:.87rem;color:var(--g700);line-height:1.6;padding-top:.05rem}
-        .pay-card-box{background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.1rem 1.25rem;margin:.6rem 0 1.25rem 2.1rem}
-        .pay-card-label{font-size:.72rem;color:var(--g400);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.4rem}
-        .pay-card-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.9rem}
-        .pay-card-number{font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--g900);letter-spacing:1px}
-        .pay-copy-btn{background:#fff;border:1.5px solid var(--g200);color:var(--g600);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-        .pay-copy-btn:hover{border-color:var(--blue);color:var(--blue)}
-        .pay-copy-btn.copied{border-color:var(--green);color:var(--green)}
-        .pay-card-name{font-size:.9rem;color:var(--g700);font-weight:600}
-        .pay-actions{display:flex;gap:.65rem;margin-top:1.5rem}
-        .pay-btn{flex:1;padding:.8rem 1rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;border:none;display:flex;align-items:center;justify-content:center;gap:.5rem}
-        .pay-btn.outline{background:#fff;color:var(--g700);border:1.5px solid var(--g200)}
-        .pay-btn.outline:hover{border-color:var(--g300);background:var(--g50)}
-        .pay-btn.telegram{background:#27a7e7;color:#fff}
-        .pay-btn.telegram:hover{background:#1e93cf}
     </style>
     
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script>
+      Paddle.Environment.set('sandbox'); // remove this line when you go live
+      Paddle.Initialize({ token: 'test_5971d4c0fedd99a9e136c39fb6a' });
+    </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
