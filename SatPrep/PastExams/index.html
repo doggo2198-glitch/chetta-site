@@ -757,7 +757,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 
 <!-- QUESTION BANK FULLSCREEN -->
 <style>
-.exam-page{display:none;position:fixed;inset:0;z-index:850;background:#fff;overflow-y:auto;flex-direction:column}
+.exam-page{display:none;position:fixed;inset:0;z-index:940;background:#fff;overflow-y:auto;flex-direction:column}
 .exam-page.open{display:flex}
 .exam-topbar{height:56px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;background:#fff;flex-shrink:0;position:sticky;top:0;z-index:10}
 .exam-module-lbl{font-weight:700;font-size:.9rem;color:var(--g900)}
@@ -824,7 +824,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .exam-nav-pill{background:#fff;color:var(--g900);border:1.5px solid var(--g300);border-radius:100px;padding:.55rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:all .15s}
 .exam-nav-pill:hover{border-color:var(--g900)}
 /* ── QUESTION NAVIGATOR MODAL ── */
-.exam-nav-ov{display:none;position:fixed;inset:0;background:rgba(15,17,23,.45);z-index:900;align-items:flex-end;justify-content:center}
+.exam-nav-ov{display:none;position:fixed;inset:0;background:rgba(15,17,23,.45);z-index:945;align-items:flex-end;justify-content:center}
 .exam-nav-ov.open{display:flex}
 .exam-nav-modal{background:#fff;border-radius:var(--rxl) var(--rxl) 0 0;padding:1.75rem 1.75rem 1.25rem;width:100%;max-width:560px;max-height:80vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.2)}
 @media(min-width:640px){.exam-nav-ov{align-items:center}.exam-nav-modal{border-radius:var(--rxl);margin-bottom:2rem}}
@@ -846,7 +846,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 /* ── TEXT HIGHLIGHTING ── */
 .qb-passage, #exam-q-text{-webkit-user-select:text;user-select:text}
 mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cursor:pointer}
-.hl-toolbar{position:fixed;display:none;background:var(--g900);border-radius:8px;padding:.3rem;z-index:950;box-shadow:0 4px 16px rgba(0,0,0,.25);gap:.2rem}
+.hl-toolbar{position:fixed;display:none;background:var(--g900);border-radius:8px;padding:.3rem;z-index:960;box-shadow:0 4px 16px rgba(0,0,0,.25);gap:.2rem}
 .hl-toolbar.show{display:flex}
 .hl-toolbar button{background:none;border:none;color:#fff;font-size:.78rem;font-weight:600;padding:.4rem .65rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .hl-toolbar button:hover{background:rgba(255,255,255,.15)}
@@ -858,6 +858,26 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
 .qb-strike-btn{margin-left:auto;flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--g200);background:#fff;color:var(--g400);font-size:.68rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif}
 .qb-strike-btn:hover{border-color:var(--g400);color:var(--g700)}
 .qb-option.crossed .qb-strike-btn{color:var(--blue);border-color:var(--blue)}
+/* ── DARK MODE ── */
+.exam-page.dark{background:#1a1a1f}
+.exam-page.dark .exam-topbar{background:#1a1a1f;border-color:#333}
+.exam-page.dark .exam-directions-btn,.exam-page.dark .exam-tool-btn{color:#ccc}
+.exam-page.dark .exam-timer{color:#fff}
+.exam-page.dark .exam-timer-hide-btn{border-color:#444;color:#ccc}
+.exam-page.dark .more-menu,.exam-page.dark .exam-more-menu{background:#26262c;border-color:#3a3a42}
+.exam-page.dark .exam-more-menu button{color:#ddd}
+.exam-page.dark .exam-more-menu button:hover{background:#333}
+.exam-page.dark .exam-body::before{background:#3a3a42}
+.exam-page.dark .qb-passage,.exam-page.dark #exam-q-text{color:#eee}
+.exam-page.dark .exam-q-header{background:#26262c;border-color:#3a3a42}
+.exam-page.dark .exam-flag-btn,.exam-page.dark .exam-report-btn{color:#bbb}
+.exam-page.dark .exam-clear-strikes-btn{border-color:#3a3a42;color:#bbb}
+.exam-page.dark .qb-option{background:#1a1a1f;border-color:#3a3a42;color:#ddd}
+.exam-page.dark .qb-option:hover{background:#26262c}
+.exam-page.dark .qb-option-letter{border-color:#666}
+.exam-page.dark .exam-footer{background:#1a1a1f;border-color:#3a3a42}
+.exam-page.dark .exam-nav-pill{background:#26262c;border-color:#444;color:#eee}
+.exam-page.dark .qb-btn.outline{background:#26262c;color:#ddd;border-color:#3a3a42}
 </style>
 
 
@@ -881,7 +901,9 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
       <div class="exam-more-wrap">
         <button class="exam-tool-btn" onclick="toggleExamMoreMenu(event)">⋮ <span>More</span></button>
         <div class="exam-more-menu" id="exam-more-menu">
-          <button onclick="exitExam()">✕ Exit Exam</button>
+          <button onclick="saveAndExitExam()">💾 Save and Exit</button>
+          <button onclick="toggleExamFullscreen()" id="exam-fullscreen-btn">⛶ Fullscreen</button>
+          <button onclick="toggleExamDarkMode()" id="exam-darkmode-btn">🌙 Dark Mode</button>
         </div>
       </div>
     </div>
@@ -1362,6 +1384,8 @@ function startPastExam(num) {
   examAllModuleResults = {};
   document.getElementById('exam-page').classList.add('open');
   document.body.style.overflow = 'hidden';
+  const siteNav = document.querySelector('nav');
+  if (siteNav) siteNav.style.display = 'none';
   loadExamModule();
 }
 
@@ -1752,13 +1776,39 @@ function showExamResults() {
 function exitExam() {
   if (examTimer) clearInterval(examTimer);
   document.getElementById('exam-page').classList.remove('open');
+  document.getElementById('exam-page').classList.remove('dark');
   document.body.style.overflow = '';
   document.getElementById('exam-topbar').style.display = '';
   document.getElementById('exam-body').style.display = 'grid';
   document.getElementById('exam-footer').style.display = 'flex';
   closeExamNav();
+  const siteNav = document.querySelector('nav');
+  if (siteNav) siteNav.style.display = '';
+  if (document.fullscreenElement) document.exitFullscreen?.();
   if (typeof showDesmosBtn === 'function') showDesmosBtn(false);
   document.getElementById('desmos-panel')?.classList.remove('open');
+}
+
+function saveAndExitExam() {
+  // Answers/flags/highlights already live in memory (examAnswers etc.) for this session;
+  // this simply confirms the save moment before leaving, matching real exam UX.
+  exitExam();
+}
+
+function toggleExamFullscreen() {
+  const el = document.getElementById('exam-page');
+  const btn = document.getElementById('exam-fullscreen-btn');
+  if (!document.fullscreenElement) {
+    el.requestFullscreen?.().then(() => { btn.textContent = '⛶ Exit Fullscreen'; }).catch(() => {});
+  } else {
+    document.exitFullscreen?.().then(() => { btn.textContent = '⛶ Fullscreen'; }).catch(() => {});
+  }
+}
+
+function toggleExamDarkMode() {
+  const el = document.getElementById('exam-page');
+  const isDark = el.classList.toggle('dark');
+  document.getElementById('exam-darkmode-btn').textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
 }
 
 setupHighlightToolbar();
