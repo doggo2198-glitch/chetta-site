@@ -1195,41 +1195,6 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 proSavings.textContent = 'Billed monthly';
             }
         });
- 
-        // ── Paddle price IDs ──
-        // Get these from your sandbox dashboard: Catalog → Products → (your product) → Prices
-        const PADDLE_PRICE_IDS = {
-            proMonthly:  'pri_01kx5ckqe4wxgyvhtthz9vbpv3',
-            lifetime:    'pri_01kx5cq6nknj4fn2vt4kpc2583'
-        };
-
-        // Handle plan selection
-        function handlePlanSelection(plan) {
-            if (plan === 'standard') {
-                // Free plan — no payment needed, just take them to sign up / the app itself
-                window.location.href = '/';
-                return;
-            }
-
-            let priceId;
-            if (plan === 'pro') {
-                priceId = billingToggle.checked ? PADDLE_PRICE_IDS.lifetime : PADDLE_PRICE_IDS.proMonthly;
-            } else if (plan === 'lifetime') {
-                priceId = PADDLE_PRICE_IDS.lifetime;
-            }
-
-            if (!priceId || priceId.includes('REPLACE_WITH')) {
-                alert('Payment isn\'t configured yet — add your Paddle price IDs in the script.');
-                return;
-            }
-
-            if (!window.chettaUser) {
-                alert('Please sign in first so we can attach this purchase to your account.');
-                window.location.href = '/'; // send them to sign in on the main site
-                return;
-            }
-        }
-
         // Optional: Add smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
