@@ -764,7 +764,6 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .exam-module-sub{font-size:.76rem;color:var(--g400);margin-top:.1rem}
 .exam-timer{font-family:'Instrument Serif',serif;font-size:1.3rem;color:var(--g900);letter-spacing:.5px}
 .exam-timer.warning{color:var(--red)}
-.exam-nav-strip{display:flex;gap:.4rem;flex-wrap:wrap;padding:1rem 1.5rem;border-bottom:1px solid var(--g100);background:var(--g50)}
 .exam-nav-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--g200);background:#fff;color:var(--g500);font-size:.78rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .exam-nav-btn.answered{background:var(--bluepale);border-color:var(--blue);color:var(--blue)}
 .exam-nav-btn.current{background:var(--blue);border-color:var(--blue);color:#fff}
@@ -782,25 +781,76 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .exam-score-val{font-family:'Instrument Serif',serif;font-size:2rem;color:var(--g900)}
 .exam-score-lbl{font-size:.75rem;color:var(--g400);margin-top:.2rem}
 .exam-empty-notice{text-align:center;padding:3rem 2rem;color:var(--g500)}
+/* ── REDESIGNED TOPBAR (timer centered) ── */
+.exam-topbar{display:grid;grid-template-columns:1fr auto 1fr}
+.exam-topbar-left{display:flex;align-items:center;justify-content:flex-start}
+.exam-topbar-center{display:flex;align-items:center;justify-content:center}
+.exam-topbar-right{display:flex;align-items:center;justify-content:flex-end;gap:.6rem}
+.exam-timer{font-size:1.15rem;font-weight:700;background:var(--g50);border:1px solid var(--g200);border-radius:100px;padding:.35rem 1rem;display:flex;align-items:center;gap:.4rem}
+.exam-timer.warning{color:var(--red);background:#fef2f2;border-color:rgba(220,38,38,.3)}
+/* ── MARK FOR REVIEW ── */
+.exam-flag-btn{display:inline-flex;align-items:center;gap:.35rem;background:none;border:1.5px solid var(--g200);border-radius:100px;padding:.3rem .8rem;font-size:.78rem;font-weight:600;color:var(--g500);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-bottom:1rem}
+.exam-flag-btn:hover{border-color:var(--g300)}
+.exam-flag-btn.flagged{color:var(--red);border-color:rgba(220,38,38,.35);background:#fef2f2}
+/* ── BOTTOM NAV PILL ── */
+.exam-footer{position:sticky;bottom:0}
+.exam-nav-pill{background:var(--g900);color:#fff;border:none;border-radius:100px;padding:.55rem 1.3rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .15s}
+.exam-nav-pill:hover{background:#000}
+/* ── QUESTION NAVIGATOR MODAL ── */
+.exam-nav-ov{display:none;position:fixed;inset:0;background:rgba(15,17,23,.45);z-index:900;align-items:flex-end;justify-content:center}
+.exam-nav-ov.open{display:flex}
+.exam-nav-modal{background:#fff;border-radius:var(--rxl) var(--rxl) 0 0;padding:1.75rem 1.75rem 1.25rem;width:100%;max-width:560px;max-height:80vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.2)}
+@media(min-width:640px){.exam-nav-ov{align-items:center}.exam-nav-modal{border-radius:var(--rxl);margin-bottom:2rem}}
+.exam-nav-modal-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.exam-nav-modal-title{font-family:'Instrument Serif',serif;font-size:1.35rem;color:var(--g900);line-height:1.3}
+.exam-nav-close{background:none;border:none;font-size:1.3rem;color:var(--g400);cursor:pointer;line-height:1;padding:.2rem}
+.exam-nav-close:hover{color:var(--g900)}
+.exam-nav-legend{display:flex;gap:1.5rem;padding:.85rem 0;border-bottom:1px solid var(--g200);margin-bottom:1.1rem;font-size:.8rem;color:var(--g600)}
+.exam-nav-legend-item{display:flex;align-items:center;gap:.5rem}
+.exam-nav-legend-box{width:18px;height:18px;border:1.5px dashed var(--g300);border-radius:4px;flex-shrink:0}
+.exam-nav-legend-flag{width:18px;height:18px;flex-shrink:0;color:var(--red)}
+.exam-nav-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.55rem}
+@media(max-width:420px){.exam-nav-grid{grid-template-columns:repeat(5,1fr)}}
+.exam-nav-cell{position:relative;aspect-ratio:1;border:1.5px dashed var(--g300);border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600;color:var(--g700);cursor:pointer;transition:all .12s}
+.exam-nav-cell:hover{border-color:var(--g400)}
+.exam-nav-cell.answered{border-style:solid;border-color:var(--g300)}
+.exam-nav-cell.current{background:var(--g900);border-style:solid;border-color:var(--g900);color:#fff}
+.exam-nav-cell.current-outline{border-style:solid;border-color:var(--g900);border-width:2px}
+.exam-nav-cell .flag-corner{position:absolute;top:-6px;right:-6px;width:16px;height:16px;color:var(--red)}
+/* ── TEXT HIGHLIGHTING ── */
+.qb-passage, #exam-q-text{-webkit-user-select:text;user-select:text}
+mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-toolbar{position:fixed;display:none;background:var(--g900);border-radius:8px;padding:.3rem;z-index:950;box-shadow:0 4px 16px rgba(0,0,0,.25);gap:.2rem}
+.hl-toolbar.show{display:flex}
+.hl-toolbar button{background:none;border:none;color:#fff;font-size:.78rem;font-weight:600;padding:.4rem .65rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.hl-toolbar button:hover{background:rgba(255,255,255,.15)}
+/* ── CROSS-OUT OPTIONS ── */
+.qb-option{position:relative}
+.qb-option.crossed{opacity:.5}
+.qb-option.crossed .qb-option-text{text-decoration:line-through}
+.qb-option.crossed:hover{background:#fff;border-color:var(--g200)}
+.qb-strike-btn{margin-left:auto;flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--g200);background:#fff;color:var(--g400);font-size:.68rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif}
+.qb-strike-btn:hover{border-color:var(--g400);color:var(--g700)}
+.qb-option.crossed .qb-strike-btn{color:var(--blue);border-color:var(--blue)}
 </style>
 
 
 <div class="exam-page" id="exam-page">
   <!-- MODULE HEADER -->
   <div class="exam-topbar" id="exam-topbar">
-    <div>
-      <div class="exam-module-lbl" id="exam-module-lbl">SAT Exam 1 — Reading & Writing</div>
-      <div class="exam-module-sub" id="exam-module-sub">Module 1 of 2</div>
+    <div class="exam-topbar-left">
+      <div>
+        <div class="exam-module-lbl" id="exam-module-lbl">SAT Exam 1 — Reading & Writing</div>
+        <div class="exam-module-sub" id="exam-module-sub">Module 1 of 2</div>
+      </div>
     </div>
-    <div style="display:flex;align-items:center;gap:1rem">
-      <span class="exam-timer" id="exam-timer">32:00</span>
+    <div class="exam-topbar-center">
+      <span class="exam-timer" id="exam-timer">⏱ 32:00</span>
+    </div>
+    <div class="exam-topbar-right">
       <button class="qb-btn outline" onclick="exitExam()">✕ Exit</button>
     </div>
   </div>
-
-
-  <!-- QUESTION NAVIGATOR -->
-  <div class="exam-nav-strip" id="exam-nav-strip"></div>
 
 
   <!-- QUESTION BODY -->
@@ -808,6 +858,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
     <div class="qb-passage" id="exam-passage"></div>
     <div>
       <div class="qb-q-num" id="exam-q-num">Question 1 of 27</div>
+      <button class="exam-flag-btn" id="exam-flag-btn" onclick="toggleExamFlag()">🚩 Mark for Review</button>
       <div class="qb-q-text" id="exam-q-text"></div>
       <div class="qb-options" id="exam-options"></div>
     </div>
@@ -817,7 +868,33 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
   <!-- FOOTER NAV -->
   <div class="exam-footer" id="exam-footer">
     <button class="qb-btn outline" id="exam-prev-btn" onclick="examPrevQuestion()">← Previous</button>
+    <button class="exam-nav-pill" onclick="openExamNav()">
+      <span id="exam-nav-pill-label">Question 1 of 27</span> ⌃
+    </button>
     <button class="qb-btn primary" id="exam-next-btn" onclick="examNextQuestion()">Next →</button>
+  </div>
+
+
+  <!-- QUESTION NAVIGATOR MODAL -->
+  <div class="exam-nav-ov" id="exam-nav-ov" onclick="if(event.target===this)closeExamNav()">
+    <div class="exam-nav-modal">
+      <div class="exam-nav-modal-hd">
+        <div class="exam-nav-modal-title" id="exam-nav-modal-title">Section 1, Module 1:<br>Reading and Writing</div>
+        <button class="exam-nav-close" onclick="closeExamNav()">✕</button>
+      </div>
+      <div class="exam-nav-legend">
+        <div class="exam-nav-legend-item"><span class="exam-nav-legend-box"></span> Unanswered</div>
+        <div class="exam-nav-legend-item">🚩 For Review</div>
+      </div>
+      <div class="exam-nav-grid" id="exam-nav-grid"></div>
+    </div>
+  </div>
+
+
+  <!-- HIGHLIGHT TOOLBAR -->
+  <div class="hl-toolbar" id="hl-toolbar">
+    <button onclick="applyHighlight()">🖍 Highlight</button>
+    <button onclick="removeHighlightAtSelection()">Remove</button>
   </div>
 
 
@@ -1219,6 +1296,9 @@ let examNum = null;
 let examModuleIdx = 0;
 let examQuestions = [];       // current module's questions
 let examAnswers = {};         // { moduleKey: { qIndex: selectedOptionIndex } }
+let examFlags = {};           // { moduleKey: { qIndex: true } }  — "mark for review"
+let examCrossed = {};         // { moduleKey: { qIndex: { optIndex: true } } } — crossed-out options
+let examHighlights = {};      // { moduleKey: { qIndex: { passage: html, question: html } } }
 let examCurrentQ = 0;
 let examTimer = null;
 let examTimeLeft = 0;
@@ -1235,6 +1315,9 @@ function startPastExam(num) {
   }
   examModuleIdx = 0;
   examAnswers = { rw1: {}, rw2: {}, math1: {}, math2: {} };
+  examFlags = { rw1: {}, rw2: {}, math1: {}, math2: {} };
+  examCrossed = { rw1: {}, rw2: {}, math1: {}, math2: {} };
+  examHighlights = { rw1: {}, rw2: {}, math1: {}, math2: {} };
   examAllModuleResults = {};
   document.getElementById('exam-page').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1251,7 +1334,6 @@ function loadExamModule() {
   document.getElementById('exam-break-screen').classList.remove('show');
   document.getElementById('exam-results').classList.remove('show');
   document.getElementById('exam-topbar').style.display = '';
-  document.getElementById('exam-nav-strip').style.display = '';
   document.getElementById('exam-body').style.display = 'grid';
   document.getElementById('exam-footer').style.display = 'flex';
 
@@ -1274,38 +1356,81 @@ function loadExamModule() {
   examCurrentQ = 0;
   examTimeLeft = EXAM_MODULE_TIME[moduleKey];
   startExamTimer();
-  renderExamNavStrip();
   loadExamQuestion();
 }
 
 
 function startExamTimer() {
   if (examTimer) clearInterval(examTimer);
+  const el = document.getElementById('exam-timer');
+  const render = () => {
+    const m = Math.floor(examTimeLeft/60), s = examTimeLeft%60;
+    el.textContent = `⏱ ${m}:${s.toString().padStart(2,'0')}`;
+    el.classList.toggle('warning', examTimeLeft < 300);
+  };
+  render();
   examTimer = setInterval(() => {
     examTimeLeft--;
-    const m = Math.floor(examTimeLeft/60), s = examTimeLeft%60;
-    const el = document.getElementById('exam-timer');
-    el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
-    el.classList.toggle('warning', examTimeLeft < 300);
+    render();
     if (examTimeLeft <= 0) { clearInterval(examTimer); finishExamModule(); }
   }, 1000);
 }
 
 
-function renderExamNavStrip() {
-  const strip = document.getElementById('exam-nav-strip');
+// ── QUESTION NAVIGATOR MODAL ──
+function examSectionInfo() {
   const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
-  strip.innerHTML = examQuestions.map((q, i) => {
-    const answered = examAnswers[moduleKey][i] !== undefined;
-    const current = i === examCurrentQ;
-    return `<button class="exam-nav-btn ${answered ? 'answered' : ''} ${current ? 'current' : ''}" onclick="jumpToExamQuestion(${i})">${i+1}</button>`;
-  }).join('');
+  const isRW = moduleKey === 'rw1' || moduleKey === 'rw2';
+  const sectionNum = isRW ? 1 : 2;
+  const moduleNum = (moduleKey === 'rw1' || moduleKey === 'math1') ? 1 : 2;
+  const sectionName = isRW ? 'Reading and Writing' : 'Math';
+  return { sectionNum, moduleNum, sectionName };
 }
 
+function openExamNav() {
+  const { sectionNum, moduleNum, sectionName } = examSectionInfo();
+  document.getElementById('exam-nav-modal-title').innerHTML = `Section ${sectionNum}, Module ${moduleNum}:<br>${sectionName}`;
+  renderExamNavGrid();
+  document.getElementById('exam-nav-ov').classList.add('open');
+}
+
+function closeExamNav() {
+  document.getElementById('exam-nav-ov').classList.remove('open');
+}
+
+function renderExamNavGrid() {
+  const grid = document.getElementById('exam-nav-grid');
+  const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  grid.innerHTML = examQuestions.map((q, i) => {
+    const answered = examAnswers[moduleKey][i] !== undefined;
+    const flagged = !!examFlags[moduleKey][i];
+    const current = i === examCurrentQ;
+    return `<div class="exam-nav-cell ${answered ? 'answered' : ''} ${current ? 'current' : ''}" onclick="jumpToExamQuestion(${i})">
+      ${i+1}${flagged ? '<span class="flag-corner">🚩</span>' : ''}
+    </div>`;
+  }).join('');
+}
 
 function jumpToExamQuestion(i) {
   examCurrentQ = i;
   loadExamQuestion();
+  closeExamNav();
+}
+
+
+// ── MARK FOR REVIEW ──
+function toggleExamFlag() {
+  const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  examFlags[moduleKey][examCurrentQ] = !examFlags[moduleKey][examCurrentQ];
+  updateExamFlagBtn();
+}
+
+function updateExamFlagBtn() {
+  const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  const flagged = !!examFlags[moduleKey][examCurrentQ];
+  const btn = document.getElementById('exam-flag-btn');
+  btn.classList.toggle('flagged', flagged);
+  btn.textContent = flagged ? '🚩 Marked for Review' : '🚩 Mark for Review';
 }
 
 
@@ -1315,43 +1440,63 @@ function loadExamQuestion() {
 
 
   document.getElementById('exam-q-num').textContent = `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
-  document.getElementById('exam-q-text').textContent = q.question;
+  document.getElementById('exam-nav-pill-label').textContent = `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
 
+  const savedHl = (examHighlights[moduleKey][examCurrentQ]) || {};
 
   const passageEl = document.getElementById('exam-passage');
   const bodyEl = document.getElementById('exam-body');
   if (q.passage && q.passage.trim()) {
     passageEl.style.display = '';
-    passageEl.innerHTML = `<div class="qb-passage-label">PASSAGE</div>${q.passage.replace(/\n/g,'<br>')}`;
+    passageEl.innerHTML = savedHl.passage || `<div class="qb-passage-label">PASSAGE</div>${q.passage.replace(/\n/g,'<br>')}`;
     bodyEl.classList.remove('no-passage');
   } else {
     passageEl.style.display = 'none';
     bodyEl.classList.add('no-passage');
   }
 
+  document.getElementById('exam-q-text').innerHTML = savedHl.question || q.question.replace(/\n/g,'<br>');
 
-  const letters = ['A','B','C','D'];
-  const selected = examAnswers[moduleKey][examCurrentQ];
-  document.getElementById('exam-options').innerHTML = q.options.map((opt, i) => `
-    <div class="qb-option ${selected === i ? 'selected' : ''}" onclick="selectExamAnswer(${i})">
-      <span class="qb-option-letter">${letters[i]}</span>
-      <span>${opt}</span>
-    </div>`).join('');
-
+  updateExamFlagBtn();
+  renderExamOptions();
 
   document.getElementById('exam-prev-btn').style.visibility = examCurrentQ === 0 ? 'hidden' : 'visible';
   const isLast = examCurrentQ === examQuestions.length - 1;
   document.getElementById('exam-next-btn').textContent = isLast ? 'Finish Module →' : 'Next →';
-
-
-  renderExamNavStrip();
 }
 
 
+function renderExamOptions() {
+  const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  const q = examQuestions[examCurrentQ];
+  const letters = ['A','B','C','D'];
+  const selected = examAnswers[moduleKey][examCurrentQ];
+  const crossedMap = examCrossed[moduleKey][examCurrentQ] || {};
+  document.getElementById('exam-options').innerHTML = q.options.map((opt, i) => {
+    const isCrossed = !!crossedMap[i];
+    return `
+    <div class="qb-option ${selected === i ? 'selected' : ''} ${isCrossed ? 'crossed' : ''}" onclick="selectExamAnswer(${i})">
+      <span class="qb-option-letter">${letters[i]}</span>
+      <span class="qb-option-text">${opt}</span>
+      <button type="button" class="qb-strike-btn" onclick="event.stopPropagation();toggleExamCrossOut(${i})" title="Cross out this choice">${isCrossed ? '↺' : letters[i]}</button>
+    </div>`;
+  }).join('');
+}
+
+function toggleExamCrossOut(i) {
+  const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  if (!examCrossed[moduleKey][examCurrentQ]) examCrossed[moduleKey][examCurrentQ] = {};
+  const map = examCrossed[moduleKey][examCurrentQ];
+  map[i] = !map[i];
+  renderExamOptions();
+}
+
 function selectExamAnswer(i) {
   const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  const crossedMap = examCrossed[moduleKey][examCurrentQ] || {};
+  if (crossedMap[i]) return; // crossed-out choices can't be selected until restored
   examAnswers[moduleKey][examCurrentQ] = i;
-  loadExamQuestion(); // re-render to show selection + updated nav strip
+  renderExamOptions();
 }
 
 
@@ -1367,6 +1512,82 @@ function examNextQuestion() {
   } else {
     finishExamModule();
   }
+}
+
+
+// ── TEXT HIGHLIGHTING ──
+function saveExamHighlights() {
+  const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
+  if (!examHighlights[moduleKey][examCurrentQ]) examHighlights[moduleKey][examCurrentQ] = {};
+  const passageEl = document.getElementById('exam-passage');
+  const qTextEl = document.getElementById('exam-q-text');
+  if (passageEl.style.display !== 'none') {
+    examHighlights[moduleKey][examCurrentQ].passage = passageEl.innerHTML;
+  }
+  examHighlights[moduleKey][examCurrentQ].question = qTextEl.innerHTML;
+}
+
+let hlActiveRange = null;
+
+function setupHighlightToolbar() {
+  const containers = ['exam-passage', 'exam-q-text'];
+  document.addEventListener('mouseup', (e) => {
+    const toolbar = document.getElementById('hl-toolbar');
+    const withinContainer = containers.some(id => {
+      const el = document.getElementById(id);
+      return el && el.contains(e.target);
+    });
+    if (!withinContainer) {
+      if (!toolbar.contains(e.target)) toolbar.classList.remove('show');
+      return;
+    }
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') {
+      toolbar.classList.remove('show');
+      return;
+    }
+    hlActiveRange = sel.getRangeAt(0).cloneRange();
+    const rect = sel.getRangeAt(0).getBoundingClientRect();
+    toolbar.style.left = Math.max(8, rect.left) + 'px';
+    toolbar.style.top = Math.max(8, rect.top - 44) + 'px';
+    toolbar.classList.add('show');
+  });
+
+  // Clicking an existing highlight removes it directly
+  containers.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', (e) => {
+      if (e.target.tagName === 'MARK' && e.target.classList.contains('user-hl')) {
+        const parent = e.target.parentNode;
+        while (e.target.firstChild) parent.insertBefore(e.target.firstChild, e.target);
+        parent.removeChild(e.target);
+        saveExamHighlights();
+      }
+    });
+  });
+}
+
+function applyHighlight() {
+  if (!hlActiveRange) return;
+  try {
+    const mark = document.createElement('mark');
+    mark.className = 'user-hl';
+    const contents = hlActiveRange.extractContents();
+    mark.appendChild(contents);
+    hlActiveRange.insertNode(mark);
+    window.getSelection().removeAllRanges();
+    saveExamHighlights();
+  } catch (err) {
+    console.warn('Highlight failed:', err);
+  }
+  document.getElementById('hl-toolbar').classList.remove('show');
+  hlActiveRange = null;
+}
+
+function removeHighlightAtSelection() {
+  document.getElementById('hl-toolbar').classList.remove('show');
+  hlActiveRange = null;
 }
 
 
@@ -1402,7 +1623,6 @@ function advanceExamModule() {
 function showExamBreak() {
   if (examTimer) clearInterval(examTimer);
   document.getElementById('exam-topbar').style.display = 'none';
-  document.getElementById('exam-nav-strip').style.display = 'none';
   document.getElementById('exam-body').style.display = 'none';
   document.getElementById('exam-footer').style.display = 'none';
   document.getElementById('exam-break-screen').classList.add('show');
@@ -1428,7 +1648,6 @@ function skipExamBreak() {
 
 function showExamResults() {
   document.getElementById('exam-topbar').style.display = 'none';
-  document.getElementById('exam-nav-strip').style.display = 'none';
   document.getElementById('exam-body').style.display = 'none';
   document.getElementById('exam-footer').style.display = 'none';
   document.getElementById('exam-results').classList.add('show');
@@ -1460,12 +1679,14 @@ function exitExam() {
   document.getElementById('exam-page').classList.remove('open');
   document.body.style.overflow = '';
   document.getElementById('exam-topbar').style.display = '';
-  document.getElementById('exam-nav-strip').style.display = '';
   document.getElementById('exam-body').style.display = 'grid';
   document.getElementById('exam-footer').style.display = 'flex';
+  closeExamNav();
   if (typeof showDesmosBtn === 'function') showDesmosBtn(false);
   document.getElementById('desmos-panel')?.classList.remove('open');
 }
+
+setupHighlightToolbar();
 </script>
 
 
