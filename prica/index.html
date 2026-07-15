@@ -1228,18 +1228,8 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 window.location.href = '/'; // send them to sign in on the main site
                 return;
             }
-
-            Paddle.Checkout.open({
-                items: [{ priceId, quantity: 1 }],
-                customData: { firebaseUid: window.chettaUser.uid },
-                settings: {
-                    displayMode: 'overlay',
-                    theme: 'light',
-                    successUrl: 'https://chetta.xyz/payment-success/'
-                }
-            });
         }
- 
+
         // Optional: Add smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
