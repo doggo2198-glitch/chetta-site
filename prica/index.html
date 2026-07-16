@@ -1119,10 +1119,7 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                     <li>Detailed application guidance</li>
                 </ul>
  
-               <button class="cta-button primary"
-        onclick="handlePlanSelection('pro')">
-    Start Free Trial
-</button>
+                <button class="cta-button primary" onclick="handlePlanSelection('pro')">Start Free Trial</button>
             </div>
  
             <!-- Lifetime Plan -->
@@ -1198,6 +1195,74 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 proSavings.textContent = 'Billed monthly';
             }
         });
+ 
+        // ── Manual payment config ──
+        const PAYMENT_CARD_NUMBER = '4916 9903 3303 5407';
+        const PAYMENT_CARD_NAME   = 'XUJAYEVA MUATTAR';
+        const PAYMENT_TELEGRAM    = 'mb1ney'; // t.me/mb1ney — no @
+
+        // Handle plan selection
+        function handlePlanSelection(plan) {
+            if (plan === 'standard') {
+                // Free plan — no payment needed, just take them to sign up / the app itself
+                window.location.href = '/';
+                return;
+            }
+
+            if (!window.chettaUser) {
+                alert('Please sign in first so we can attach this purchase to your account.');
+                window.location.href = '/'; // send them to sign in on the main site
+                return;
+            }
+
+            let planLabel, priceText, periodText;
+            if (plan === 'pro') {
+                if (billingToggle.checked) {
+                    planLabel = 'Pro (Lifetime)'; priceText = '$39.99'; periodText = 'One-time payment';
+                } else {
+                    planLabel = 'Pro (Monthly)'; priceText = '$3.99'; periodText = 'per month';
+                }
+            } else if (plan === 'lifetime') {
+                planLabel = 'Lifetime'; priceText = '$39.99'; periodText = 'One-time payment';
+            }
+
+            openPaymentModal(planLabel, priceText, periodText);
+        }
+
+        // ── Manual payment modal ──
+        function openPaymentModal(planLabel, priceText, periodText) {
+            document.getElementById('pay-plan-name').textContent = planLabel;
+            document.getElementById('pay-plan-price').textContent = priceText;
+            document.getElementById('pay-plan-period').textContent = periodText;
+            document.getElementById('pay-overlay').classList.add('open');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('pay-overlay').classList.remove('open');
+        }
+
+        function copyCardNumber() {
+            const digits = PAYMENT_CARD_NUMBER.replace(/\s/g, '');
+            navigator.clipboard.writeText(digits).then(() => {
+                const btn = document.getElementById('pay-copy-btn');
+                btn.classList.add('copied');
+                btn.innerHTML = '✓';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '⧉';
+                }, 1500);
+            });
+        }
+
+        function sendPaymentToTelegram() {
+            const planLabel = document.getElementById('pay-plan-name').textContent;
+            const priceText = document.getElementById('pay-plan-price').textContent;
+            const uid = window.chettaUser ? window.chettaUser.uid : 'not signed in';
+            const email = window.chettaUser && window.chettaUser.email ? window.chettaUser.email : '';
+            const msg = `Chetta payment: ${planLabel} (${priceText})\nAccount: ${email}\nUID: ${uid}\n\n(Attach your payment screenshot here)`;
+            window.open(`https://t.me/${PAYMENT_TELEGRAM}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+ 
         // Optional: Add smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1210,6 +1275,55 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
         });
     </script>
    </div>
+</div>
+
+<!-- MANUAL PAYMENT MODAL -->
+<div class="pay-ov" id="pay-overlay">
+  <div class="pay-modal">
+    <div class="pay-hd">
+      <div class="pay-hd-title">
+        <span class="pay-hd-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+        </span>
+        Payment
+      </div>
+      <button class="pay-close" onclick="closePaymentModal()">×</button>
+    </div>
+    <div class="pay-body">
+      <div class="pay-summary">
+        <div class="pay-summary-label">Plan</div>
+        <div class="pay-summary-plan" id="pay-plan-name">Pro</div>
+        <span class="pay-summary-price" id="pay-plan-price">$3.99</span><span class="pay-summary-period" id="pay-plan-period">per month</span>
+      </div>
+
+      <div class="pay-step">
+        <span class="pay-step-num">1</span>
+        <span class="pay-step-text">Transfer the amount above to the card below</span>
+      </div>
+      <div class="pay-card-box">
+        <div class="pay-card-label">Card number</div>
+        <div class="pay-card-row">
+          <span class="pay-card-number" id="pay-card-number">4916 9903 3303 5407</span>
+          <button class="pay-copy-btn" id="pay-copy-btn" onclick="copyCardNumber()">⧉</button>
+        </div>
+        <div class="pay-card-label">Cardholder</div>
+        <div class="pay-card-name">XUJAYEVA MUATTAR</div>
+      </div>
+
+      <div class="pay-step">
+        <span class="pay-step-num">2</span>
+        <span class="pay-step-text">Send a screenshot of the transfer to us on Telegram — we'll activate your plan shortly after.</span>
+      </div>
+
+      <div class="pay-actions">
+        <button class="pay-btn outline" onclick="closePaymentModal()">Cancel</button>
+        <button class="pay-btn telegram" onclick="sendPaymentToTelegram()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.05 2.1L19.6 21.4c-.26 1.15-.94 1.43-1.9.9l-5.25-3.87-2.53 2.44c-.28.28-.52.52-1.06.52l.38-5.4L18.8 7.1c.42-.37-.09-.58-.65-.2L6.65 13.7 1.4 12.06c-1.14-.36-1.16-1.14.24-1.68L21.6.72c.95-.36 1.78.22 1.45 1.38z"/></svg>
+          Send via Telegram
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
