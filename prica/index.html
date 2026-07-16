@@ -1106,8 +1106,8 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 <p class="plan-description">All features for serious applicants</p>
                 
                 <div class="price-section">
-                    <div class="price">$<span id="proPrice">3.99</span><span>/month</span></div>
-                    <div class="billing-period" id="proSavings"></div>
+                    <div class="price"><span id="proPrice">49 000 so'm</span></div>
+                    <div class="billing-period" id="proSavings">$3.99/month</div>
                 </div>
  
                 <ul class="features-list">
@@ -1128,8 +1128,8 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 <p class="plan-description">One-time payment, forever access</p>
                 
                 <div class="price-section">
-                    <div class="price">$39.99</div>
-                    <div class="billing-period">Pay once, use forever</div>
+                    <div class="price">480 000 <span style="font-size:.5em;font-weight:600">so'm</span></div>
+                    <div class="billing-period">$39.99 · Pay once, use forever</div>
                 </div>
  
                 <ul class="features-list">
@@ -1182,17 +1182,16 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
         const billingToggle = document.getElementById('billingToggle');
         const proPrice = document.getElementById('proPrice');
         const proSavings = document.getElementById('proSavings');
- 
+
         billingToggle.addEventListener('change', function() {
             if (this.checked) {
                 // Lifetime selected
-                proPrice.textContent = '39.99';
-                document.querySelector('.billing-period').textContent = 'One-time payment';
-                proSavings.textContent = 'Equivalent to 10 months of Pro';
+                proPrice.textContent = '480 000 so\'m';
+                proSavings.textContent = '$39.99 · One-time payment';
             } else {
                 // Monthly selected
-                proPrice.textContent = '3.99';
-                proSavings.textContent = 'Billed monthly';
+                proPrice.textContent = '49 000 so\'m';
+                proSavings.textContent = '$3.99/month · Billed monthly';
             }
         });
  
@@ -1218,12 +1217,12 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
             let planLabel, priceText, periodText;
             if (plan === 'pro') {
                 if (billingToggle.checked) {
-                    planLabel = 'Pro (Lifetime)'; priceText = '$39.99'; periodText = 'One-time payment';
+                    planLabel = 'Pro (Lifetime)'; priceText = "480 000 so'm"; periodText = '$39.99 · One-time payment';
                 } else {
-                    planLabel = 'Pro (Monthly)'; priceText = '$3.99'; periodText = 'per month';
+                    planLabel = 'Pro (Monthly)'; priceText = "49 000 so'm"; periodText = '$3.99/month';
                 }
             } else if (plan === 'lifetime') {
-                planLabel = 'Lifetime'; priceText = '$39.99'; periodText = 'One-time payment';
+                planLabel = 'Lifetime'; priceText = "480 000 so'm"; periodText = '$39.99 · One-time payment';
             }
 
             openPaymentModal(planLabel, priceText, periodText);
@@ -1293,7 +1292,7 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
       <div class="pay-summary">
         <div class="pay-summary-label">Plan</div>
         <div class="pay-summary-plan" id="pay-plan-name">Pro</div>
-        <span class="pay-summary-price" id="pay-plan-price">$3.99</span><span class="pay-summary-period" id="pay-plan-period">per month</span>
+        <span class="pay-summary-price" id="pay-plan-price">49 000 so'm</span><span class="pay-summary-period" id="pay-plan-period">$3.99/month</span>
       </div>
 
       <div class="pay-step">
