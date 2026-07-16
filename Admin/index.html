@@ -86,6 +86,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--g50);color:var(--g900);mi
   </div>
 
   <div class="stat-row">
+    <div class="stat-box"><div class="stat-num" id="stat-alltotal">0</div><div class="stat-lbl">Total users</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-pro">0</div><div class="stat-lbl">Pro (Monthly)</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-lifetime">0</div><div class="stat-lbl">Lifetime</div></div>
+  </div>
+
+  <div class="stat-row">
     <div class="stat-box"><div class="stat-num overdue" id="stat-overdue">0</div><div class="stat-lbl">Overdue</div></div>
     <div class="stat-box"><div class="stat-num soon" id="stat-soon">0</div><div class="stat-lbl">Due within 7 days</div></div>
     <div class="stat-box"><div class="stat-num" id="stat-total">0</div><div class="stat-lbl">Total Pro Monthly</div></div>
@@ -111,7 +117,7 @@ import {
   getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import {
-  getFirestore, collection, query, where, getDocs
+  getFirestore, collection, getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // ── Same Firebase project as the rest of Chetta ──
@@ -169,20 +175,32 @@ window.loadUsers = async function() {
   body.innerHTML = '<div class="loading">Loading…</div>';
 
   try {
-    const q = query(collection(db, 'users'), where('plan', '==', 'pro'));
-    const snap = await getDocs(q);
+    const snap = await getDocs(collection(db, 'users'));
 
     const now = Date.now();
     const rows = [];
+    let allTotal = 0, proTotal = 0, lifetimeTotal = 0;
+
     snap.forEach(d => {
       const data = d.data();
-      const expiresAt = data.planExpiresAt ? data.planExpiresAt.toMillis() : null;
-      rows.push({
-        uid: d.id,
-        email: data.email || null,
-        expiresAt
-      });
+      allTotal++;
+
+      if (data.plan === 'lifetime') lifetimeTotal++;
+
+      if (data.plan === 'pro') {
+        proTotal++;
+        const expiresAt = data.planExpiresAt ? data.planExpiresAt.toMillis() : null;
+        rows.push({
+          uid: d.id,
+          email: data.email || null,
+          expiresAt
+        });
+      }
     });
+
+    document.getElementById('stat-alltotal').textContent = allTotal;
+    document.getElementById('stat-pro').textContent = proTotal;
+    document.getElementById('stat-lifetime').textContent = lifetimeTotal;
 
     // Sort: soonest due first, entries with no due date go last
     rows.sort((a, b) => {
