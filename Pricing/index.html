@@ -769,13 +769,42 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
                 gap: 8px;
             }
         }
+
+        /* MANUAL PAYMENT MODAL */
+        .pay-ov{display:none;position:fixed;inset:0;z-index:2000;background:rgba(15,23,41,.5);align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
+        .pay-ov.open{display:flex}
+        .pay-modal{background:#fff;border-radius:var(--rxl) var(--rxl) 0 0;width:100%;max-width:460px;max-height:88vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.2);font-family:'DM Sans',sans-serif}
+        @media(min-width:640px){.pay-ov{align-items:center}.pay-modal{border-radius:var(--rxl);margin-bottom:2rem}}
+        .pay-hd{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.5rem 1rem}
+        .pay-hd-title{display:flex;align-items:center;gap:.65rem;font-weight:700;font-size:1.05rem;color:var(--g900)}
+        .pay-hd-icon{width:34px;height:34px;border-radius:9px;background:var(--bluepale);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .pay-close{background:none;border:none;color:var(--g400);cursor:pointer;font-size:1.3rem;line-height:1;padding:.2rem}
+        .pay-close:hover{color:var(--g700)}
+        .pay-body{padding:0 1.5rem 1.5rem}
+        .pay-summary{background:var(--g50);border:1px solid var(--g200);border-radius:var(--rl);padding:1.1rem 1.25rem;margin-bottom:1.25rem}
+        .pay-summary-label{font-size:.75rem;color:var(--g400);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.35rem}
+        .pay-summary-plan{font-weight:700;font-size:1.05rem;color:var(--g900);margin-bottom:.6rem}
+        .pay-summary-price{font-family:'Instrument Serif',serif;font-size:1.9rem;color:var(--blue);letter-spacing:-.5px}
+        .pay-summary-period{font-size:.8rem;color:var(--g500);margin-left:.35rem}
+        .pay-step{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.85rem}
+        .pay-step-num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+        .pay-step-text{font-size:.87rem;color:var(--g700);line-height:1.6;padding-top:.05rem}
+        .pay-card-box{background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.1rem 1.25rem;margin:.6rem 0 1.25rem 2.1rem}
+        .pay-card-label{font-size:.72rem;color:var(--g400);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.4rem}
+        .pay-card-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.9rem}
+        .pay-card-number{font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--g900);letter-spacing:1px}
+        .pay-copy-btn{background:#fff;border:1.5px solid var(--g200);color:var(--g600);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+        .pay-copy-btn:hover{border-color:var(--blue);color:var(--blue)}
+        .pay-copy-btn.copied{border-color:var(--green);color:var(--green)}
+        .pay-card-name{font-size:.9rem;color:var(--g700);font-weight:600}
+        .pay-actions{display:flex;gap:.65rem;margin-top:1.5rem}
+        .pay-btn{flex:1;padding:.8rem 1rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;border:none;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .pay-btn.outline{background:#fff;color:var(--g700);border:1.5px solid var(--g200)}
+        .pay-btn.outline:hover{border-color:var(--g300);background:var(--g50)}
+        .pay-btn.telegram{background:#27a7e7;color:#fff}
+        .pay-btn.telegram:hover{background:#1e93cf}
     </style>
     
-    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-    <script>
-      Paddle.Environment.set('sandbox'); // remove this line when you go live
-      Paddle.Initialize({ token: 'test_5971d4c0fedd99a9e136c39fb6a' });
-    </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
@@ -1077,8 +1106,8 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 <p class="plan-description">All features for serious applicants</p>
                 
                 <div class="price-section">
-                    <div class="price">$<span id="proPrice">3.99</span><span>/month</span></div>
-                    <div class="billing-period" id="proSavings"></div>
+                    <div class="price"><span id="proPrice">49 000 so'm</span></div>
+                    <div class="billing-period" id="proSavings">$3.99/month</div>
                 </div>
  
                 <ul class="features-list">
@@ -1099,8 +1128,8 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 <p class="plan-description">One-time payment, forever access</p>
                 
                 <div class="price-section">
-                    <div class="price">$39.99</div>
-                    <div class="billing-period">Pay once, use forever</div>
+                    <div class="price">480 000 <span style="font-size:.5em;font-weight:600">so'm</span></div>
+                    <div class="billing-period">$39.99 · Pay once, use forever</div>
                 </div>
  
                 <ul class="features-list">
@@ -1153,26 +1182,23 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
         const billingToggle = document.getElementById('billingToggle');
         const proPrice = document.getElementById('proPrice');
         const proSavings = document.getElementById('proSavings');
- 
+
         billingToggle.addEventListener('change', function() {
             if (this.checked) {
                 // Lifetime selected
-                proPrice.textContent = '39.99';
-                document.querySelector('.billing-period').textContent = 'One-time payment';
-                proSavings.textContent = 'Equivalent to 10 months of Pro';
+                proPrice.textContent = '480 000 so\'m';
+                proSavings.textContent = '$39.99 · One-time payment';
             } else {
                 // Monthly selected
-                proPrice.textContent = '3.99';
-                proSavings.textContent = 'Billed monthly';
+                proPrice.textContent = '49 000 so\'m';
+                proSavings.textContent = '$3.99/month · Billed monthly';
             }
         });
  
-        // ── Paddle price IDs ──
-        // Get these from your sandbox dashboard: Catalog → Products → (your product) → Prices
-        const PADDLE_PRICE_IDS = {
-            proMonthly:  'pri_01kx5ckqe4wxgyvhtthz9vbpv3',
-            lifetime:    'pri_01kx5cq6nknj4fn2vt4kpc2583'
-        };
+        // ── Manual payment config ──
+        const PAYMENT_CARD_NUMBER = '4916 9903 3303 5407';
+        const PAYMENT_CARD_NAME   = 'XUJAYEVA MUATTAR';
+        const PAYMENT_TELEGRAM    = 'mb1ney'; // t.me/mb1ney — no @
 
         // Handle plan selection
         function handlePlanSelection(plan) {
@@ -1182,33 +1208,58 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
                 return;
             }
 
-            let priceId;
-            if (plan === 'pro') {
-                priceId = billingToggle.checked ? PADDLE_PRICE_IDS.lifetime : PADDLE_PRICE_IDS.proMonthly;
-            } else if (plan === 'lifetime') {
-                priceId = PADDLE_PRICE_IDS.lifetime;
-            }
-
-            if (!priceId || priceId.includes('REPLACE_WITH')) {
-                alert('Payment isn\'t configured yet — add your Paddle price IDs in the script.');
-                return;
-            }
-
             if (!window.chettaUser) {
                 alert('Please sign in first so we can attach this purchase to your account.');
                 window.location.href = '/'; // send them to sign in on the main site
                 return;
             }
 
-            Paddle.Checkout.open({
-                items: [{ priceId, quantity: 1 }],
-                customData: { firebaseUid: window.chettaUser.uid },
-                settings: {
-                    displayMode: 'overlay',
-                    theme: 'light',
-                    successUrl: 'https://chetta.xyz/payment-success/'
+            let planLabel, priceText, periodText;
+            if (plan === 'pro') {
+                if (billingToggle.checked) {
+                    planLabel = 'Pro (Lifetime)'; priceText = "480 000 so'm"; periodText = '$39.99 · One-time payment';
+                } else {
+                    planLabel = 'Pro (Monthly)'; priceText = "49 000 so'm"; periodText = '$3.99/month';
                 }
+            } else if (plan === 'lifetime') {
+                planLabel = 'Lifetime'; priceText = "480 000 so'm"; periodText = '$39.99 · One-time payment';
+            }
+
+            openPaymentModal(planLabel, priceText, periodText);
+        }
+
+        // ── Manual payment modal ──
+        function openPaymentModal(planLabel, priceText, periodText) {
+            document.getElementById('pay-plan-name').textContent = planLabel;
+            document.getElementById('pay-plan-price').textContent = priceText;
+            document.getElementById('pay-plan-period').textContent = periodText;
+            document.getElementById('pay-overlay').classList.add('open');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('pay-overlay').classList.remove('open');
+        }
+
+        function copyCardNumber() {
+            const digits = PAYMENT_CARD_NUMBER.replace(/\s/g, '');
+            navigator.clipboard.writeText(digits).then(() => {
+                const btn = document.getElementById('pay-copy-btn');
+                btn.classList.add('copied');
+                btn.innerHTML = '✓';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '⧉';
+                }, 1500);
             });
+        }
+
+        function sendPaymentToTelegram() {
+            const planLabel = document.getElementById('pay-plan-name').textContent;
+            const priceText = document.getElementById('pay-plan-price').textContent;
+            const uid = window.chettaUser ? window.chettaUser.uid : 'not signed in';
+            const email = window.chettaUser && window.chettaUser.email ? window.chettaUser.email : '';
+            const msg = `Chetta payment: ${planLabel} (${priceText})\nAccount: ${email}\nUID: ${uid}\n\n(Attach your payment screenshot here)`;
+            window.open(`https://t.me/${PAYMENT_TELEGRAM}?text=${encodeURIComponent(msg)}`, '_blank');
         }
  
         // Optional: Add smooth scroll for navigation
@@ -1223,6 +1274,55 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
         });
     </script>
    </div>
+</div>
+
+<!-- MANUAL PAYMENT MODAL -->
+<div class="pay-ov" id="pay-overlay">
+  <div class="pay-modal">
+    <div class="pay-hd">
+      <div class="pay-hd-title">
+        <span class="pay-hd-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+        </span>
+        Payment
+      </div>
+      <button class="pay-close" onclick="closePaymentModal()">×</button>
+    </div>
+    <div class="pay-body">
+      <div class="pay-summary">
+        <div class="pay-summary-label">Plan</div>
+        <div class="pay-summary-plan" id="pay-plan-name">Pro</div>
+        <span class="pay-summary-price" id="pay-plan-price">49 000 so'm</span><span class="pay-summary-period" id="pay-plan-period">$3.99/month</span>
+      </div>
+
+      <div class="pay-step">
+        <span class="pay-step-num">1</span>
+        <span class="pay-step-text">Transfer the amount above to the card below</span>
+      </div>
+      <div class="pay-card-box">
+        <div class="pay-card-label">Card number</div>
+        <div class="pay-card-row">
+          <span class="pay-card-number" id="pay-card-number">4916 9903 3303 5407</span>
+          <button class="pay-copy-btn" id="pay-copy-btn" onclick="copyCardNumber()">⧉</button>
+        </div>
+        <div class="pay-card-label">Cardholder</div>
+        <div class="pay-card-name">XUJAYEVA MUATTAR</div>
+      </div>
+
+      <div class="pay-step">
+        <span class="pay-step-num">2</span>
+        <span class="pay-step-text">Send a screenshot of the transfer to us on Telegram — we'll activate your plan shortly after.</span>
+      </div>
+
+      <div class="pay-actions">
+        <button class="pay-btn outline" onclick="closePaymentModal()">Cancel</button>
+        <button class="pay-btn telegram" onclick="sendPaymentToTelegram()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.05 2.1L19.6 21.4c-.26 1.15-.94 1.43-1.9.9l-5.25-3.87-2.53 2.44c-.28.28-.52.52-1.06.52l.38-5.4L18.8 7.1c.42-.37-.09-.58-.65-.2L6.65 13.7 1.4 12.06c-1.14-.36-1.16-1.14.24-1.68L21.6.72c.95-.36 1.78.22 1.45 1.38z"/></svg>
+          Send via Telegram
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
