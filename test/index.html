@@ -2923,7 +2923,10 @@ onAuthStateChanged(auth, (user) => {
 @media(max-width:768px){.exam-passage-col,.exam-q-col{padding:0}}
 .qb-passage{font-size:.9rem;color:var(--g900);line-height:1.75;background:none;border:none;padding:0;height:fit-content;position:static}
 /* ── QUESTION HEADER BAR (number badge + review + report + strike toggle) ── */
-.exam-q-header{display:flex;align-items:center;gap:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:1.5rem}
+.exam-q-header{display:flex;align-items:center;gap:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:1.5rem;margin-top:1.35rem}
+.exam-qnum-wrap{position:relative;flex-shrink:0}
+.exam-level-badge{position:absolute;top:-1.35rem;left:0;background:#fdf2f8;color:#db2777;border:1px solid #f9a8d4;font-size:.6rem;font-weight:700;letter-spacing:.3px;padding:.16rem .55rem;border-radius:100px;white-space:nowrap}
+.exam-page.dark .exam-level-badge{background:#3a1530;border-color:#831843;color:#f9a8d4}
 .exam-q-badge{background:var(--g900);color:#fff;font-weight:700;font-size:.85rem;width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .exam-flag-btn{flex:1;display:flex;align-items:center;gap:.4rem;background:none;border:none;padding:.7rem .9rem;font-size:.82rem;font-weight:600;color:var(--g600);cursor:pointer;font-family:'DM Sans',sans-serif}
 .exam-flag-btn.flagged{color:var(--red)}
@@ -3036,13 +3039,21 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
     </div>
     <div class="exam-q-col">
       <div class="exam-q-header">
-        <div class="exam-q-badge" id="exam-q-badge">1</div>
+        <div class="exam-qnum-wrap">
+          <div class="exam-level-badge">Exam-Level</div>
+          <div class="exam-q-badge" id="exam-q-badge">1</div>
+        </div>
         <button class="exam-flag-btn" id="exam-flag-btn" onclick="toggleExamFlag()">🔖 Mark for Review</button>
         <button class="exam-report-btn" onclick="alert('Thanks — this has been flagged for our team to review.')">🚩 Report</button>
         <button class="exam-clear-strikes-btn" onclick="clearExamCrossOuts()" title="Clear all crossed-out choices">Ⓢ</button>
       </div>
       <div class="qb-q-text" id="exam-q-text"></div>
       <div class="qb-options" id="exam-options"></div>
+      <div class="qb-explanation" id="exam-explanation">
+        <div class="qb-exp-title">Explanation</div>
+        <div id="exam-exp-verdict"></div>
+        <div id="exam-exp-text"></div>
+      </div>
     </div>
   </div>
 
@@ -3050,10 +3061,10 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
   <!-- FOOTER NAV -->
   <div class="exam-footer" id="exam-footer">
     <button class="qb-btn outline" id="exam-prev-btn" onclick="examPrevQuestion()">← Previous</button>
-    <button class="exam-nav-pill" onclick="openExamNav()">
-      <span id="exam-nav-pill-label">Question 1 of 27</span> ⌄
+    <button class="exam-nav-pill" id="exam-nav-pill" onclick="openExamNav()">
+      <span id="exam-nav-pill-label">Question 1 of 27</span> <span id="exam-nav-pill-chevron">⌄</span>
     </button>
-    <button class="qb-btn outline" id="exam-next-btn" onclick="examNextQuestion()">Next →</button>
+    <button class="qb-btn outline" id="exam-next-btn" onclick="examNextBtnClick()">Next →</button>
   </div>
 
 
@@ -3485,6 +3496,15 @@ let examTimer = null;
 let examTimeLeft = 0;
 let examAllModuleResults = {}; // { moduleKey: {correct, total} }
 
+// ── UNLIMITED PRACTICE state (stopwatch, endless shuffled pool, Check-then-Next flow) ──
+let unlimitedMode = false;
+let unlimitedPool = [];
+let unlimitedIdx = 0;
+let unlimitedAnswered = false;
+let unlimitedStats = { correct: 0, total: 0 };
+let stopwatchTimer = null;
+let stopwatchElapsed = 0;
+
 
 function startPastExam(num) {
   examNum = num;
@@ -3510,31 +3530,115 @@ function startPastExam(num) {
 }
 
 
-// ── SINGLE-SECTION TIMED EXAM (launched from the Math / Reading & Writing practice cards) ──
-function startSectionExam(subject) {
+// ── UNLIMITED PRACTICE (launched from the Math / Reading & Writing practice cards, Standard plan) ──
+function startUnlimitedPractice(subject) {
+  unlimitedMode = true;
   sectionExamSubject = subject; // 'reading' or 'math'
-  EXAM_MODULE_ORDER = subject === 'math' ? ['math1', 'math2'] : ['rw1', 'rw2'];
+  EXAM_MODULE_ORDER = ['u'];
+  examModuleIdx = 0;
 
-  const eligible = Object.keys(PAST_EXAMS).filter(n => {
+  let pool = [];
+  Object.keys(PAST_EXAMS).forEach(n => {
     const e = PAST_EXAMS[n];
-    return subject === 'math' ? (e.math1.length + e.math2.length > 0) : (e.rw1.length + e.rw2.length > 0);
+    pool = pool.concat(subject === 'math' ? [...e.math1, ...e.math2] : [...e.rw1, ...e.rw2]);
   });
-  if (!eligible.length) {
-    alert("No timed section exam content is available yet.");
+  if (!pool.length) {
+    alert("No practice questions are available yet.");
     return;
   }
-  examNum = eligible[Math.floor(Math.random() * eligible.length)];
+  unlimitedPool = pool.sort(() => Math.random() - .5);
+  unlimitedIdx = 0;
+  unlimitedStats = { correct: 0, total: 0 };
+  unlimitedAnswered = false;
 
-  examModuleIdx = 0;
-  examAnswers = {}; examFlags = {}; examCrossed = {}; examHighlights = {};
-  EXAM_MODULE_ORDER.forEach(k => { examAnswers[k] = {}; examFlags[k] = {}; examCrossed[k] = {}; examHighlights[k] = {}; });
-  examAllModuleResults = {};
+  examQuestions = [unlimitedPool[0]];
+  examCurrentQ = 0;
+  examAnswers = { u: {} };
+  examFlags = { u: {} };
+  examCrossed = { u: {} };
+  examHighlights = { u: {} };
 
   document.getElementById('exam-page').classList.add('open');
   document.body.style.overflow = 'hidden';
   const siteNav = document.querySelector('nav');
   if (siteNav) siteNav.style.display = 'none';
-  loadExamModule();
+  loadExamQuestion();
+}
+
+function resetStopwatch() {
+  if (stopwatchTimer) clearInterval(stopwatchTimer);
+  stopwatchElapsed = 0;
+  updateStopwatchDisplay();
+  stopwatchTimer = setInterval(() => {
+    stopwatchElapsed++;
+    updateStopwatchDisplay();
+  }, 1000);
+}
+
+function stopStopwatch() {
+  if (stopwatchTimer) clearInterval(stopwatchTimer);
+}
+
+function updateStopwatchDisplay() {
+  const el = document.getElementById('exam-timer');
+  if (!el) return;
+  const m = Math.floor(stopwatchElapsed / 60), s = stopwatchElapsed % 60;
+  el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+  el.classList.remove('warning');
+}
+
+function checkUnlimitedAnswer() {
+  const q = examQuestions[0];
+  const selected = examAnswers.u[0];
+  if (selected === undefined) return;
+  stopStopwatch();
+
+  const letters = ['A', 'B', 'C', 'D'];
+  document.querySelectorAll('#exam-options .qb-option').forEach((el, i) => {
+    el.classList.remove('selected');
+    el.style.pointerEvents = 'none';
+    if (i === q.answer) el.classList.add('correct');
+    if (i === selected && i !== q.answer) el.classList.add('wrong');
+  });
+
+  const isCorrect = selected === q.answer;
+  unlimitedStats.total++;
+  if (isCorrect) unlimitedStats.correct++;
+  document.getElementById('exam-nav-pill-label').textContent = `${unlimitedStats.total} answered • ${unlimitedStats.correct} correct`;
+
+  const expBox = document.getElementById('exam-explanation');
+  document.getElementById('exam-exp-verdict').innerHTML = isCorrect
+    ? `<div class="qb-exp-correct">✓ Correct!</div>`
+    : `<div class="qb-exp-wrong">✗ Incorrect — The correct answer is ${letters[q.answer]}</div>`;
+  document.getElementById('exam-exp-text').innerHTML = (q.explanation || '').replace(/\n/g, '<br>');
+  expBox.classList.add('show');
+
+  unlimitedAnswered = true;
+  document.getElementById('exam-next-btn').textContent = 'Next Question →';
+}
+
+function nextUnlimitedQuestion() {
+  unlimitedIdx++;
+  if (unlimitedIdx >= unlimitedPool.length) {
+    unlimitedPool = unlimitedPool.sort(() => Math.random() - .5);
+    unlimitedIdx = 0;
+  }
+  examQuestions = [unlimitedPool[unlimitedIdx]];
+  examCurrentQ = 0;
+  examAnswers.u = {};
+  examCrossed.u = {};
+  examHighlights.u = {};
+  unlimitedAnswered = false;
+  loadExamQuestion();
+}
+
+function examNextBtnClick() {
+  if (unlimitedMode) {
+    if (!unlimitedAnswered) checkUnlimitedAnswer();
+    else nextUnlimitedQuestion();
+  } else {
+    examNextQuestion();
+  }
 }
 
 
@@ -3559,9 +3663,7 @@ function loadExamModule() {
 
 
   const lbl = EXAM_MODULE_LABELS[moduleKey];
-  document.getElementById('exam-module-lbl').textContent = sectionExamSubject
-    ? `Timed Section Exam — ${lbl.section}`
-    : `SAT Exam ${examNum} — ${lbl.section}`;
+  document.getElementById('exam-module-lbl').textContent = `SAT Exam ${examNum} — ${lbl.section}`;
   document.getElementById('exam-module-sub').textContent = lbl.sub;
 
   if (typeof showDesmosBtn === 'function') {
@@ -3637,6 +3739,7 @@ function examSectionInfo() {
 }
 
 function openExamNav() {
+  if (unlimitedMode) return; // no fixed set of questions to navigate in unlimited practice
   const { sectionNum, moduleNum, sectionName } = examSectionInfo();
   document.getElementById('exam-nav-modal-title').innerHTML = `Section ${sectionNum}, Module ${moduleNum}:<br>${sectionName}`;
   renderExamNavGrid();
@@ -3688,8 +3791,7 @@ function loadExamQuestion() {
   const q = examQuestions[examCurrentQ];
 
 
-  document.getElementById('exam-q-badge').textContent = examCurrentQ + 1;
-  document.getElementById('exam-nav-pill-label').textContent = `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
+  document.getElementById('exam-q-badge').textContent = unlimitedMode ? (unlimitedIdx + 1) : (examCurrentQ + 1);
 
   const savedHl = (examHighlights[moduleKey][examCurrentQ]) || {};
 
@@ -3705,13 +3807,29 @@ function loadExamQuestion() {
   }
 
   document.getElementById('exam-q-text').innerHTML = savedHl.question || q.question.replace(/\n/g,'<br>');
+  document.getElementById('exam-explanation').classList.remove('show');
 
   updateExamFlagBtn();
   renderExamOptions();
 
-  document.getElementById('exam-prev-btn').style.visibility = examCurrentQ === 0 ? 'hidden' : 'visible';
-  const isLast = examCurrentQ === examQuestions.length - 1;
-  document.getElementById('exam-next-btn').textContent = isLast ? 'Finish Module →' : 'Next →';
+  if (unlimitedMode) {
+    document.getElementById('exam-module-lbl').textContent = `Unlimited Practice — ${sectionExamSubject === 'math' ? 'Math' : 'Reading & Writing'}`;
+    document.getElementById('exam-module-sub').textContent = 'Untimed pool — practice at your own pace';
+    document.getElementById('exam-prev-btn').style.visibility = 'hidden';
+    document.getElementById('exam-nav-pill-chevron').style.display = 'none';
+    document.getElementById('exam-nav-pill-label').textContent = `${unlimitedStats.total} answered • ${unlimitedStats.correct} correct`;
+    const nextBtn = document.getElementById('exam-next-btn');
+    nextBtn.textContent = 'Check';
+    nextBtn.style.display = 'none'; // reveals once an option is picked
+    resetStopwatch();
+  } else {
+    document.getElementById('exam-nav-pill-label').textContent = `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
+    document.getElementById('exam-prev-btn').style.visibility = examCurrentQ === 0 ? 'hidden' : 'visible';
+    const isLast = examCurrentQ === examQuestions.length - 1;
+    const nextBtn = document.getElementById('exam-next-btn');
+    nextBtn.style.display = '';
+    nextBtn.textContent = isLast ? 'Finish Module →' : 'Next →';
+  }
 }
 
 
@@ -3733,6 +3851,7 @@ function renderExamOptions() {
 }
 
 function toggleExamCrossOut(i) {
+  if (unlimitedMode && unlimitedAnswered) return;
   const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
   if (!examCrossed[moduleKey][examCurrentQ]) examCrossed[moduleKey][examCurrentQ] = {};
   const map = examCrossed[moduleKey][examCurrentQ];
@@ -3741,11 +3860,13 @@ function toggleExamCrossOut(i) {
 }
 
 function selectExamAnswer(i) {
+  if (unlimitedMode && unlimitedAnswered) return;
   const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
   const crossedMap = examCrossed[moduleKey][examCurrentQ] || {};
   if (crossedMap[i]) return; // crossed-out choices can't be selected until restored
   examAnswers[moduleKey][examCurrentQ] = i;
   renderExamOptions();
+  if (unlimitedMode) document.getElementById('exam-next-btn').style.display = '';
 }
 
 
@@ -3947,7 +4068,10 @@ function showExamResults() {
 
 function exitExam() {
   if (examTimer) clearInterval(examTimer);
+  if (stopwatchTimer) clearInterval(stopwatchTimer);
   sectionExamSubject = null;
+  unlimitedMode = false;
+  document.getElementById('exam-nav-pill-chevron').style.display = '';
   document.getElementById('exam-page').classList.remove('open');
   document.getElementById('exam-page').classList.remove('dark');
   document.body.style.overflow = '';
@@ -3986,7 +4110,7 @@ function toggleExamDarkMode() {
 
 setupHighlightToolbar();
 
-// ── MODE CHOOSER (Untimed Practice vs Timed Section Exam) for the Math / R&W practice cards ──
+// ── MODE CHOOSER (Question Bank vs Unlimited Practice) for the Math / R&W practice cards ──
 let sectionModeSubject = 'reading';
 function openSectionMode(subject) {
   sectionModeSubject = subject;
@@ -3998,7 +4122,7 @@ function closeSectionMode() {
 }
 </script>
 
-<!-- SECTION MODE CHOOSER: Untimed Practice vs Timed Section Exam -->
+<!-- SECTION MODE CHOOSER: Question Bank vs Unlimited Practice -->
 <div class="m-ov" id="sectionModeOv">
   <div class="m-box" style="max-width:420px">
     <div class="m-head" style="border-radius:var(--rxl) var(--rxl) 0 0">
@@ -4009,14 +4133,13 @@ function closeSectionMode() {
     <div class="m-content" style="display:flex;flex-direction:column;gap:.8rem">
       <div class="prac-card blue" style="cursor:pointer" onclick="closeSectionMode();openQBank(sectionModeSubject)">
         <div class="prac-icon blue">📖</div>
-        <h3>Untimed Practice</h3>
+        <h3>Question Bank</h3>
         <p>Work through questions at your own pace with full AI explanations.</p>
       </div>
-      <div class="prac-card amber" style="cursor:pointer" onclick="closeSectionMode();if(requirePro())startSectionExam(sectionModeSubject)">
-        <span class="pro-badge">PRO</span>
-        <div class="prac-icon amber">⏱️</div>
-        <h3>Timed Section Exam</h3>
-        <p>Two timed modules, Bluebook-style — just like the real Digital SAT.</p>
+      <div class="prac-card amber" style="cursor:pointer" onclick="closeSectionMode();startUnlimitedPractice(sectionModeSubject)">
+        <div class="prac-icon amber">♾️</div>
+        <h3>Unlimited Practice</h3>
+        <p>Real exam-style questions, one at a time — Bluebook look, your own pace, no limit.</p>
       </div>
     </div>
   </div>
