@@ -433,7 +433,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 
 /* ── DESMOS CALCULATOR ── */
 .desmos-toggle{
-  display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:960;
+  display:none;position:fixed;bottom:6.5rem;right:1.5rem;z-index:960;
   background:var(--blue);color:#fff;border:none;
   width:52px;height:52px;border-radius:50%;
   font-size:1.3rem;cursor:pointer;
@@ -443,7 +443,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-toggle:hover{background:#1d4ed8;transform:scale(1.08)}
 .desmos-toggle.visible{display:flex}
 .desmos-panel{
-  display:none;position:fixed;bottom:5rem;right:1.5rem;z-index:959;
+  display:none;position:fixed;bottom:10rem;right:1.5rem;z-index:959;
   width:380px;height:500px;
   background:#fff;border:1.5px solid var(--g200);
   border-radius:var(--rxl);
@@ -465,7 +465,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
 #desmos-graph,#desmos-sci{flex:1;width:100%;background:#fff;min-height:0}
 @media(max-width:480px){
-  .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:5rem}
+  .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:10rem}
 }
 
 </style>
@@ -3508,6 +3508,7 @@ let practiceDrawIdx = 0;
 let practiceStats = { correct: 0, total: 0 };
 let examChecked = {};  // { p: { [qIndex]: true } } — has this question been checked yet
 let examCorrect = {};  // { p: { [qIndex]: true|false } } — was it answered correctly
+const QBANK_SET_SIZE = { reading: 27, math: 22 }; // mirrors real Digital SAT module sizes
 let stopwatchTimer = null;
 let stopwatchElapsed = 0;
 
@@ -3547,7 +3548,7 @@ function startPastExam(num) {
 
 // ── Question Bank (Standard plan) / Unlimited Practice (Pro) — launched from the Math / R&W practice cards ──
 function practiceStorageKey(subject, unlimited) {
-  return `chetta_practice_v1_${subject}_${unlimited ? 'unlimited' : 'bank'}`;
+  return `chetta_practice_v2_${subject}_${unlimited ? 'unlimited' : 'bank'}`;
 }
 
 function savePracticeState() {
@@ -3607,10 +3608,17 @@ function startPracticeMode(subject, unlimited) {
       return;
     }
     practicePool = pool.sort(() => Math.random() - .5);
-    practiceDrawIdx = 1;
     practiceStats = { correct: 0, total: 0 };
 
-    examQuestions = [practicePool[0]];
+    if (practiceUnlimited) {
+      examQuestions = [practicePool[0]];
+      practiceDrawIdx = 1;
+    } else {
+      // Question Bank: a fixed, fully-navigable set — mirrors a real module size
+      const setSize = Math.min(QBANK_SET_SIZE[subject] || 20, practicePool.length);
+      examQuestions = practicePool.slice(0, setSize);
+      practiceDrawIdx = setSize;
+    }
     examCurrentQ = 0;
     examAnswers = { p: {} };
     examFlags = { p: {} };
@@ -3666,7 +3674,7 @@ function checkPracticeAnswer() {
   renderExamOptions();
   document.getElementById('exam-nav-pill-label').textContent = `${practiceStats.total} answered • ${practiceStats.correct} correct`;
 
-  const isLast = !practiceUnlimited && idx === practicePool.length - 1;
+  const isLast = !practiceUnlimited && idx === examQuestions.length - 1;
   document.getElementById('exam-next-btn').textContent = isLast ? 'Finish →' : 'Next Question →';
   savePracticeState();
 }
@@ -3674,8 +3682,12 @@ function checkPracticeAnswer() {
 function goToNextPracticeQuestion() {
   examCurrentQ++;
   if (examCurrentQ >= examQuestions.length) {
+    if (!practiceUnlimited) {
+      examCurrentQ = examQuestions.length - 1; // stay put — the set is complete
+      showPracticeResults();
+      return;
+    }
     if (practiceDrawIdx >= practicePool.length) {
-      if (!practiceUnlimited) { showPracticeResults(); return; }
       practicePool = practicePool.sort(() => Math.random() - .5);
       practiceDrawIdx = 0;
     }
@@ -3803,7 +3815,11 @@ function clearExamCrossOuts() {
 function examSectionInfo() {
   const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
   if (moduleKey === 'p') {
-    return { sectionNum: '', moduleNum: '', sectionName: `${practiceUnlimited ? 'Unlimited Practice' : 'Question Bank'} — ${sectionExamSubject === 'math' ? 'Math' : 'Reading and Writing'}` };
+    const label = `${practiceUnlimited ? 'Unlimited Practice' : 'Question Bank'} — ${sectionExamSubject === 'math' ? 'Math' : 'Reading and Writing'}`;
+    const countLine = practiceUnlimited
+      ? `<span style="font-size:.8rem;color:var(--g400);font-family:'DM Sans',sans-serif;font-weight:600">${practiceStats.total} answered so far</span>`
+      : `<span style="font-size:.8rem;color:var(--g400);font-family:'DM Sans',sans-serif;font-weight:600">${examQuestions.length} questions total</span>`;
+    return { sectionNum: '', moduleNum: '', sectionName: `${label}<br>${countLine}` };
   }
   const isRW = moduleKey === 'rw1' || moduleKey === 'rw2';
   const sectionNum = isRW ? 1 : 2;
@@ -3897,14 +3913,14 @@ function loadExamQuestion() {
     const hasSelection = examAnswers.p[examCurrentQ] !== undefined;
 
     document.getElementById('exam-module-lbl').textContent = `${practiceUnlimited ? 'Unlimited Practice' : 'Question Bank'} — ${sectionExamSubject === 'math' ? 'Math' : 'Reading & Writing'}`;
-    document.getElementById('exam-module-sub').textContent = practiceUnlimited ? 'Untimed pool — practice at your own pace' : `Question ${examCurrentQ + 1} of ${practicePool.length}`;
+    document.getElementById('exam-module-sub').textContent = practiceUnlimited ? 'Untimed pool — practice at your own pace' : `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
     document.getElementById('exam-nav-pill-chevron').style.display = '';
     document.getElementById('exam-nav-pill-label').textContent = `${practiceStats.total} answered • ${practiceStats.correct} correct`;
 
     const nextBtn = document.getElementById('exam-next-btn');
     nextBtn.style.display = (checked || hasSelection) ? '' : 'none';
     if (checked) {
-      const isLast = !practiceUnlimited && examCurrentQ === practicePool.length - 1;
+      const isLast = !practiceUnlimited && examCurrentQ === examQuestions.length - 1;
       nextBtn.textContent = isLast ? 'Finish →' : 'Next Question →';
       stopStopwatch();
       stopwatchElapsed = 0;
