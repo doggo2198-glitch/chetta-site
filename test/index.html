@@ -450,7 +450,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
   box-shadow:0 16px 60px rgba(0,0,0,.18);
   overflow:hidden;flex-direction:column
 }
-.desmos-panel.open{display:flex;resize:vertical;overflow:auto}
+.desmos-panel.open{display:flex;resize:both;overflow:auto;min-width:320px;max-width:70vw}
 .desmos-panel-head{
   padding:.65rem 1rem;background:#fff;
   border-bottom:1px solid var(--g200);
@@ -467,7 +467,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-panel, .desmos-panel *{box-sizing:content-box}
 #exam-body{transition:padding-right .25s ease}
 body.desmos-open #exam-body{padding-right:440px}
-body.desmos-open .exam-body.no-passage{max-width:800px}
+body.desmos-open .exam-body.no-passage{max-width:780px}
 @media(max-width:900px){
   body.desmos-open #exam-body{padding-right:1.5rem}
 }
@@ -508,16 +508,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const panel = document.getElementById('desmosPanel');
   const toggle = document.getElementById('desmosToggle');
   const closeBtn = document.getElementById('desmosClose');
+  const examBody = document.getElementById('exam-body');
+
+  function updateDesmosClearance() {
+    if (!document.body.classList.contains('desmos-open') || !examBody) return;
+    examBody.style.paddingRight = (panel.offsetWidth + 40) + 'px';
+  }
 
   toggle.addEventListener('click', () => {
     const isOpen = panel.classList.toggle('open');
     document.body.classList.toggle('desmos-open', isOpen);
+    if (isOpen) updateDesmosClearance();
+    else if (examBody) examBody.style.paddingRight = '';
   });
 
   closeBtn.addEventListener('click', () => {
     panel.classList.remove('open');
     document.body.classList.remove('desmos-open');
+    if (examBody) examBody.style.paddingRight = '';
   });
+
+  if (window.ResizeObserver) {
+    new ResizeObserver(updateDesmosClearance).observe(panel);
+  }
 
   const elt = document.getElementById('desmos-graph');
 
@@ -3529,6 +3542,8 @@ function showDesmosBtn(show) {
     const panel = document.getElementById('desmosPanel');
     if (panel) panel.classList.remove('open');
     document.body.classList.remove('desmos-open');
+    const examBody = document.getElementById('exam-body');
+    if (examBody) examBody.style.paddingRight = '';
   }
 }
 
