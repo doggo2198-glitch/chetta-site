@@ -443,14 +443,13 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-toggle:hover{background:#1d4ed8;transform:scale(1.08)}
 .desmos-toggle.visible{display:flex}
 .desmos-panel{
-  display:none;position:fixed;bottom:10rem;right:1.5rem;z-index:959;
-  width:400px;height:680px;min-height:340px;max-height:calc(100vh - 11rem);
-  background:#fff;border:1.5px solid var(--g200);
-  border-radius:var(--rxl);
-  box-shadow:0 16px 60px rgba(0,0,0,.18);
+  display:none;position:fixed;right:0;z-index:959;
+  width:400px;
+  background:#fff;border-left:1.5px solid var(--g200);
+  box-shadow:-10px 0 32px rgba(0,0,0,.12);
   overflow:hidden;flex-direction:column
 }
-.desmos-panel.open{display:flex;resize:both;overflow:auto;min-width:320px;max-width:70vw}
+.desmos-panel.open{display:flex;resize:horizontal;overflow:auto;min-width:320px;max-width:70vw}
 .desmos-panel-head{
   padding:.65rem 1rem;background:#fff;
   border-bottom:1px solid var(--g200);
@@ -472,7 +471,8 @@ body.desmos-open .exam-body.no-passage{max-width:780px}
   body.desmos-open #exam-body{padding-right:1.5rem}
 }
 @media(max-width:480px){
-  .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:10rem}
+  .desmos-panel{width:100vw;right:0;border-left:none}
+  .desmos-panel.open{min-width:0;max-width:100vw}
 }
 
 </style>
@@ -515,21 +515,38 @@ document.addEventListener('DOMContentLoaded', () => {
     examBody.style.paddingRight = (panel.offsetWidth + 40) + 'px';
   }
 
+  function updateDesmosDock() {
+    if (!document.body.classList.contains('desmos-open')) return;
+    const topbarEl = document.getElementById('exam-topbar');
+    const footerEl = document.getElementById('exam-footer');
+    const topH = (topbarEl && topbarEl.offsetParent !== null) ? topbarEl.getBoundingClientRect().height : 0;
+    const botH = (footerEl && footerEl.offsetParent !== null) ? footerEl.getBoundingClientRect().height : 0;
+    panel.style.top = topH + 'px';
+    panel.style.bottom = botH + 'px';
+    updateDesmosClearance();
+  }
+
   toggle.addEventListener('click', () => {
     const isOpen = panel.classList.toggle('open');
     document.body.classList.toggle('desmos-open', isOpen);
-    if (isOpen) updateDesmosClearance();
-    else if (examBody) examBody.style.paddingRight = '';
+    if (isOpen) {
+      toggle.style.display = 'none'; // avoid sitting on top of the calculator's own controls
+      updateDesmosDock();
+    } else if (examBody) {
+      examBody.style.paddingRight = '';
+    }
   });
 
   closeBtn.addEventListener('click', () => {
     panel.classList.remove('open');
     document.body.classList.remove('desmos-open');
     if (examBody) examBody.style.paddingRight = '';
+    toggle.style.display = '';
   });
 
+  window.addEventListener('resize', updateDesmosDock);
   if (window.ResizeObserver) {
-    new ResizeObserver(updateDesmosClearance).observe(panel);
+    new ResizeObserver(updateDesmosDock).observe(panel);
   }
 
   const elt = document.getElementById('desmos-graph');
@@ -3544,6 +3561,7 @@ function showDesmosBtn(show) {
     document.body.classList.remove('desmos-open');
     const examBody = document.getElementById('exam-body');
     if (examBody) examBody.style.paddingRight = '';
+    if (btn) btn.style.display = '';
   }
 }
 
