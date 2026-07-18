@@ -433,7 +433,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 
 /* ── DESMOS CALCULATOR ── */
 .desmos-toggle{
-  display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:850;
+  display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:960;
   background:var(--blue);color:#fff;border:none;
   width:52px;height:52px;border-radius:50%;
   font-size:1.3rem;cursor:pointer;
@@ -443,7 +443,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-toggle:hover{background:#1d4ed8;transform:scale(1.08)}
 .desmos-toggle.visible{display:flex}
 .desmos-panel{
-  display:none;position:fixed;bottom:5rem;right:1.5rem;z-index:849;
+  display:none;position:fixed;bottom:5rem;right:1.5rem;z-index:959;
   width:380px;height:500px;
   background:#fff;border:1.5px solid var(--g200);
   border-radius:var(--rxl);
@@ -3546,6 +3546,35 @@ function startPastExam(num) {
 
 
 // ── Question Bank (Standard plan) / Unlimited Practice (Pro) — launched from the Math / R&W practice cards ──
+function practiceStorageKey(subject, unlimited) {
+  return `chetta_practice_v1_${subject}_${unlimited ? 'unlimited' : 'bank'}`;
+}
+
+function savePracticeState() {
+  if (!practiceMode) return;
+  try {
+    const key = practiceStorageKey(sectionExamSubject, practiceUnlimited);
+    const state = {
+      practicePool, practiceDrawIdx, practiceStats,
+      examQuestions, examCurrentQ,
+      answers: examAnswers.p, flags: examFlags.p, crossed: examCrossed.p, highlights: examHighlights.p,
+      checked: examChecked.p, correct: examCorrect.p
+    };
+    localStorage.setItem(key, JSON.stringify(state));
+  } catch (e) { /* storage full/unavailable — practice still works, it just won't resume next time */ }
+}
+
+function clearPracticeState(subject, unlimited) {
+  try { localStorage.removeItem(practiceStorageKey(subject, unlimited)); } catch (e) {}
+}
+
+function loadPracticeState(subject, unlimited) {
+  try {
+    const raw = localStorage.getItem(practiceStorageKey(subject, unlimited));
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
 function startPracticeMode(subject, unlimited) {
   practiceMode = true;
   practiceUnlimited = !!unlimited;
@@ -3553,27 +3582,43 @@ function startPracticeMode(subject, unlimited) {
   EXAM_MODULE_ORDER = ['p'];
   examModuleIdx = 0;
 
-  let pool = [];
-  Object.keys(PAST_EXAMS).forEach(n => {
-    const e = PAST_EXAMS[n];
-    pool = pool.concat(subject === 'math' ? [...e.math1, ...e.math2] : [...e.rw1, ...e.rw2]);
-  });
-  if (!pool.length) {
-    alert("No practice questions are available yet.");
-    return;
-  }
-  practicePool = pool.sort(() => Math.random() - .5);
-  practiceDrawIdx = 1;
-  practiceStats = { correct: 0, total: 0 };
+  const saved = loadPracticeState(subject, practiceUnlimited);
+  if (saved && Array.isArray(saved.examQuestions) && saved.examQuestions.length) {
+    practicePool = saved.practicePool || [];
+    practiceDrawIdx = saved.practiceDrawIdx || 0;
+    practiceStats = saved.practiceStats || { correct: 0, total: 0 };
+    examQuestions = saved.examQuestions;
+    examCurrentQ = Math.min(saved.examCurrentQ || 0, examQuestions.length - 1);
+    examAnswers = { p: saved.answers || {} };
+    examFlags = { p: saved.flags || {} };
+    examCrossed = { p: saved.crossed || {} };
+    examHighlights = { p: saved.highlights || {} };
+    examChecked = { p: saved.checked || {} };
+    examCorrect = { p: saved.correct || {} };
+  } else {
+    let pool = [];
+    Object.keys(PAST_EXAMS).forEach(n => {
+      const e = PAST_EXAMS[n];
+      pool = pool.concat(subject === 'math' ? [...e.math1, ...e.math2] : [...e.rw1, ...e.rw2]);
+    });
+    if (!pool.length) {
+      alert("No practice questions are available yet.");
+      practiceMode = false;
+      return;
+    }
+    practicePool = pool.sort(() => Math.random() - .5);
+    practiceDrawIdx = 1;
+    practiceStats = { correct: 0, total: 0 };
 
-  examQuestions = [practicePool[0]];
-  examCurrentQ = 0;
-  examAnswers = { p: {} };
-  examFlags = { p: {} };
-  examCrossed = { p: {} };
-  examHighlights = { p: {} };
-  examChecked = { p: {} };
-  examCorrect = { p: {} };
+    examQuestions = [practicePool[0]];
+    examCurrentQ = 0;
+    examAnswers = { p: {} };
+    examFlags = { p: {} };
+    examCrossed = { p: {} };
+    examHighlights = { p: {} };
+    examChecked = { p: {} };
+    examCorrect = { p: {} };
+  }
 
   document.getElementById('exam-page').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -3623,6 +3668,7 @@ function checkPracticeAnswer() {
 
   const isLast = !practiceUnlimited && idx === practicePool.length - 1;
   document.getElementById('exam-next-btn').textContent = isLast ? 'Finish →' : 'Next Question →';
+  savePracticeState();
 }
 
 function goToNextPracticeQuestion() {
@@ -3654,6 +3700,7 @@ function showPracticeResults() {
   document.getElementById('exam-res-total-row').style.display = 'none';
   document.getElementById('exam-res-title').textContent = 'Question bank complete!';
   document.getElementById('exam-res-back-btn').textContent = 'Back to Practice';
+  clearPracticeState(sectionExamSubject, practiceUnlimited);
 }
 
 function examNextBtnClick() {
@@ -3866,6 +3913,7 @@ function loadExamQuestion() {
       nextBtn.textContent = 'Check';
       resetStopwatch();
     }
+    savePracticeState();
   } else {
     document.getElementById('exam-nav-pill-label').textContent = `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
     const isLast = examCurrentQ === examQuestions.length - 1;
@@ -3931,7 +3979,10 @@ function selectExamAnswer(i) {
   if (crossedMap[i]) return; // crossed-out choices can't be selected until restored
   examAnswers[moduleKey][examCurrentQ] = i;
   renderExamOptions();
-  if (practiceMode) document.getElementById('exam-next-btn').style.display = '';
+  if (practiceMode) {
+    document.getElementById('exam-next-btn').style.display = '';
+    savePracticeState();
+  }
 }
 
 
@@ -4132,6 +4183,7 @@ function showExamResults() {
 
 
 function exitExam() {
+  if (practiceMode) savePracticeState();
   if (examTimer) clearInterval(examTimer);
   if (stopwatchTimer) clearInterval(stopwatchTimer);
   sectionExamSubject = null;
@@ -4173,6 +4225,8 @@ function toggleExamDarkMode() {
   const isDark = el.classList.toggle('dark');
   document.getElementById('exam-darkmode-btn').textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
 }
+
+window.addEventListener('beforeunload', () => { if (practiceMode) savePracticeState(); });
 
 setupHighlightToolbar();
 
