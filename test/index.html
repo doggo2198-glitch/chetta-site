@@ -464,8 +464,10 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-tab{flex:1;padding:.5rem;text-align:center;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--g400);border-bottom:2px solid transparent;transition:all .15s}
 .desmos-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
 #desmos-graph,#desmos-sci{flex:1;width:100%;background:#fff;min-height:0}
+.desmos-panel, .desmos-panel *{box-sizing:content-box}
 #exam-body{transition:padding-right .25s ease}
 body.desmos-open #exam-body{padding-right:440px}
+body.desmos-open .exam-body.no-passage{max-width:740px}
 @media(max-width:900px){
   body.desmos-open #exam-body{padding-right:1.5rem}
 }
