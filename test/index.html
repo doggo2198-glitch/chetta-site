@@ -2930,9 +2930,9 @@ onAuthStateChanged(auth, (user) => {
 @media(max-width:768px){.exam-passage-col,.exam-q-col{padding:0}}
 .qb-passage{font-size:.9rem;color:var(--g900);line-height:1.75;background:none;border:none;padding:0;height:fit-content;position:static}
 /* ── QUESTION HEADER BAR (number badge + review + report + strike toggle) ── */
-.exam-q-header{display:flex;align-items:center;gap:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:1.5rem;margin-top:1.35rem}
+.exam-q-header{display:flex;align-items:center;gap:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px 8px 0 0;overflow:visible;margin-bottom:1.5rem;margin-top:1.35rem}
 .exam-qnum-wrap{position:relative;flex-shrink:0}
-.exam-level-badge{position:absolute;top:-1.35rem;left:0;background:#fdf2f8;color:#db2777;border:1px solid #f9a8d4;font-size:.6rem;font-weight:700;letter-spacing:.3px;padding:.16rem .55rem;border-radius:100px;white-space:nowrap}
+.exam-level-badge{position:absolute;top:-1.35rem;left:0;background:#fdf2f8;color:#db2777;border:1px solid #f9a8d4;font-size:.6rem;font-weight:700;letter-spacing:.3px;padding:.16rem .55rem;border-radius:100px;white-space:nowrap;z-index:2}
 .exam-page.dark .exam-level-badge{background:#3a1530;border-color:#831843;color:#f9a8d4}
 .exam-q-badge{background:var(--g900);color:#fff;font-weight:700;font-size:.85rem;width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .exam-flag-btn{flex:1;display:flex;align-items:center;gap:.4rem;background:none;border:none;padding:.7rem .9rem;font-size:.82rem;font-weight:600;color:var(--g600);cursor:pointer;font-family:'DM Sans',sans-serif}
