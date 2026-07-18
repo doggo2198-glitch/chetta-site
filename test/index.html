@@ -444,13 +444,13 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-toggle.visible{display:flex}
 .desmos-panel{
   display:none;position:fixed;bottom:10rem;right:1.5rem;z-index:959;
-  width:380px;height:500px;
+  width:380px;height:500px;min-height:280px;max-height:82vh;
   background:#fff;border:1.5px solid var(--g200);
   border-radius:var(--rxl);
   box-shadow:0 16px 60px rgba(0,0,0,.18);
   overflow:hidden;flex-direction:column
 }
-.desmos-panel.open{display:flex}
+.desmos-panel.open{display:flex;resize:vertical;overflow:auto}
 .desmos-panel-head{
   padding:.65rem 1rem;background:#fff;
   border-bottom:1px solid var(--g200);
@@ -464,6 +464,11 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 .desmos-tab{flex:1;padding:.5rem;text-align:center;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--g400);border-bottom:2px solid transparent;transition:all .15s}
 .desmos-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
 #desmos-graph,#desmos-sci{flex:1;width:100%;background:#fff;min-height:0}
+#exam-body{transition:padding-right .25s ease}
+body.desmos-open #exam-body{padding-right:420px}
+@media(max-width:900px){
+  body.desmos-open #exam-body{padding-right:1.5rem}
+}
 @media(max-width:480px){
   .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:10rem}
 }
@@ -503,11 +508,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.getElementById('desmosClose');
 
   toggle.addEventListener('click', () => {
-    panel.classList.toggle('open');
+    const isOpen = panel.classList.toggle('open');
+    document.body.classList.toggle('desmos-open', isOpen);
   });
 
   closeBtn.addEventListener('click', () => {
     panel.classList.remove('open');
+    document.body.classList.remove('desmos-open');
   });
 
   const elt = document.getElementById('desmos-graph');
@@ -3519,6 +3526,7 @@ function showDesmosBtn(show) {
   if (!show) {
     const panel = document.getElementById('desmosPanel');
     if (panel) panel.classList.remove('open');
+    document.body.classList.remove('desmos-open');
   }
 }
 
