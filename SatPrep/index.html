@@ -2991,7 +2991,7 @@ onAuthStateChanged(auth, (user) => {
 .exam-nav-legend-item{display:flex;align-items:center;gap:.5rem}
 .exam-nav-legend-box{width:18px;height:18px;border:1.5px dashed var(--g300);border-radius:4px;flex-shrink:0}
 .exam-nav-legend-flag{width:18px;height:18px;flex-shrink:0;color:var(--red)}
-.exam-nav-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.55rem}
+.exam-nav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(42px,1fr));gap:.5rem}
 @media(max-width:420px){.exam-nav-grid{grid-template-columns:repeat(5,1fr)}}
 .exam-nav-cell{position:relative;aspect-ratio:1;border:1.5px dashed var(--g300);border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600;color:var(--g700);cursor:pointer;transition:all .12s}
 .exam-nav-cell:hover{border-color:var(--g400)}
@@ -3543,12 +3543,3337 @@ let examAllModuleResults = {}; // { moduleKey: {correct, total} }
 // ── PRACTICE MODE state (Question Bank + Unlimited Practice share this engine) ──
 let practiceMode = false;       // true whenever Question Bank or Unlimited Practice is running
 let practiceUnlimited = false;  // false = Question Bank (finite pool, ends with a results screen), true = Unlimited Practice (loops forever)
+let practiceSection = 'all';    // 'all' or a specific domain name from RW_DOMAINS / MATH_DOMAINS
 let practicePool = [];
 let practiceDrawIdx = 0;
 let practiceStats = { correct: 0, total: 0 };
 let examChecked = {};  // { p: { [qIndex]: true } } — has this question been checked yet
 let examCorrect = {};  // { p: { [qIndex]: true|false } } — was it answered correctly
 const QBANK_SET_SIZE = { reading: 27, math: 22 }; // mirrors real Digital SAT module sizes
+
+const RW_DOMAINS = ['Information and Ideas', 'Craft and Structure', 'Expression of Ideas', 'Standard English Conventions'];
+const MATH_DOMAINS = ['Algebra', 'Advanced Math', 'Problem-Solving and Data Analysis', 'Geometry and Trigonometry'];
+
+const QBANK_QUESTIONS = {
+  reading: {
+    'Information and Ideas': [
+      {
+        passage: "Marine biologists have long debated why some species of octopus display vivid color-changing abilities even though they are colorblind. Recent studies suggest that specialized photoreceptor cells in their skin may allow them to perceive light directly, bypassing the need for color vision through the eyes alone.",
+        question: "Which choice best states the main idea of the text?",
+        options: ["Octopuses use color-changing skin exclusively to communicate with other octopuses.","Octopuses may be able to sense light through their skin, which could explain their color-changing behavior despite lacking color vision.","Marine biologists have concluded that octopuses possess normal color vision through their eyes.","The debate over octopus color-changing abilities has been fully resolved by new photoreceptor research."],
+        answer: 1,
+        explanation: "The text presents research suggesting skin photoreceptors may explain color-changing despite colorblindness, matching choice B. Choice A is unsupported since communication isn't mentioned. Choice C contradicts \"colorblind.\" Choice D overstates certainty — the text says \"suggest,\" not \"proved.\""
+      },
+      {
+        passage: "In 1969, urban planner Jane Jacobs argued that a city's vitality depends less on grand architectural design and more on the small-scale, mixed-use interactions among residents, shopkeepers, and pedestrians on any given block.",
+        question: "According to the text, what did Jacobs argue was most important to a city's vitality?",
+        options: ["Large-scale architectural planning by professional designers","The height and grandeur of a city's buildings","Everyday interactions among people at the neighborhood level","Strict separation of residential and commercial zones"],
+        answer: 2,
+        explanation: "The text states vitality depends on \"small-scale, mixed-use interactions,\" matching choice C. Choices A and B are explicitly downplayed by \"less on grand architectural design.\" Choice D contradicts \"mixed-use.\""
+      },
+      {
+        passage: "A 2019 survey of independent bookstores found that despite the rise of e-books, print sales at small, community-based shops increased by nearly 8 percent, a trend researchers attribute to renewed interest in local shopping and the tactile experience of reading.",
+        question: "What can reasonably be inferred from the text?",
+        options: ["E-books have become less popular than print books overall.","Community bookstores' print sales grew partly because consumers value local shopping and physical books.","All bookstores, regardless of size, saw an 8 percent increase in sales.","Researchers are uncertain why print sales at small bookstores increased."],
+        answer: 1,
+        explanation: "The text attributes the increase to \"renewed interest in local shopping and the tactile experience,\" matching choice B. Choice A overgeneralizes beyond the text's scope. Choice C misapplies the statistic to all bookstores. Choice D contradicts \"researchers attribute,\" which shows they do have an explanation."
+      },
+      {
+        passage: "While ancient Roman concrete has been shown to last for millennia, owing largely to a self-healing property caused by rare mineral formations, modern concrete typically degrades within decades due to the corrosion of steel reinforcement bars embedded within it.",
+        question: "The text is primarily concerned with:",
+        options: ["proving that ancient construction techniques are universally superior to modern ones","explaining why steel reinforcement should be removed from all future construction","contrasting a durability advantage of ancient Roman concrete with a weakness in modern concrete","describing the mineral composition of volcanic ash used by Roman engineers"],
+        answer: 2,
+        explanation: "The text compares Roman concrete's longevity to modern concrete's vulnerability to rebar corrosion, matching choice C. Choice A overgeneralizes with \"universally superior.\" Choice B is not stated. Choice D is too narrow to be the primary focus."
+      },
+      {
+        passage: "A 2022 analysis of coral reefs near the Philippines found that reefs adjacent to strictly enforced no-fishing zones had nearly triple the fish biomass of unprotected reefs, even though water temperature and quality were similar across both areas.",
+        question: "Which choice best states the main finding of the text?",
+        options: ["Water temperature is the primary factor determining fish biomass on coral reefs.","No-fishing zones appear to substantially increase fish biomass independent of water conditions.","Fishing has no measurable effect on coral reef ecosystems.","All coral reefs near the Philippines are currently protected by no-fishing zones."],
+        answer: 1,
+        explanation: "The text credits the biomass difference to the no-fishing zones, explicitly noting that temperature and quality were similar, matching choice B. Choice A contradicts this. Choice C is the opposite of the finding. Choice D overstates the claim."
+      },
+      {
+        passage: "Historians studying medieval trade routes have noted that the spread of certain diseases closely mirrored the paths of merchant caravans, suggesting that economic exchange, not just military conquest, played a major role in the transmission of epidemics across Eurasia.",
+        question: "According to the text, what did historians observe about disease transmission?",
+        options: ["Diseases spread exclusively through military campaigns.","Trade routes had no relationship to the spread of disease.","The pattern of disease spread closely followed merchant trade paths.","Merchant caravans were immune to the diseases they encountered."],
+        answer: 2,
+        explanation: "The text states disease spread \"mirrored the paths of merchant caravans,\" matching choice C. Choice A is contradicted by \"not just military conquest.\" Choices B and D aren't supported."
+      },
+      {
+        passage: "Although the new vaccine showed a 40 percent reduction in infection rates during clinical trials, researchers caution that the trial population was concentrated in a single age group, limiting how broadly the results can be applied.",
+        question: "What is the main purpose of the text?",
+        options: ["To argue that the vaccine should not be approved for any use","To report a promising result while noting a limitation in how widely it can be generalized","To prove that the vaccine works equally well in every age group","To criticize the researchers for conducting the trial"],
+        answer: 1,
+        explanation: "The text reports a positive result (\"40 percent reduction\") alongside a caveat about limited generalizability, matching choice B. The other choices misrepresent the balanced, cautious tone."
+      },
+      {
+        passage: "Economists have observed that cities investing heavily in public transit infrastructure tend to see downtown commercial vacancy rates fall over the following decade, even after controlling for broader economic trends.",
+        question: "Which choice best describes the relationship suggested by the text?",
+        options: ["Public transit investment and falling commercial vacancy rates appear to be linked, independent of general economic trends.","Commercial vacancy rates are unrelated to any form of city infrastructure investment.","Public transit investment causes cities to experience broader economic downturns.","Only cities with already-low vacancy rates invest in public transit."],
+        answer: 0,
+        explanation: "The text notes the relationship holds \"even after controlling for broader economic trends,\" supporting choice A as the best description of the observed link."
+      }
+    ],
+    'Craft and Structure': [
+      {
+        passage: "Smartphones have become ubiquitous in modern classrooms, appearing in nearly every subject from science labs to language arts.",
+        question: "As used in the text, \"ubiquitous\" most nearly means:",
+        options: ["rare","omnipresent","forbidden","expensive"],
+        answer: 1,
+        explanation: "\"Ubiquitous\" means present everywhere, which matches \"omnipresent.\" The surrounding context (\"in nearly every subject\") supports this meaning."
+      },
+      {
+        passage: "A critic wrote that the novel's pacing was \"glacial,\" noting that entire chapters passed with no meaningful plot development.",
+        question: "As used in the text, \"glacial\" most nearly means:",
+        options: ["icy","extremely slow","beautiful","unpredictable"],
+        answer: 1,
+        explanation: "The context — chapters passing with no plot development — signals extreme slowness, not a literal reference to ice."
+      },
+      {
+        passage: "Passage 1 argues that remote work increases productivity by reducing office distractions and commute-related stress. Passage 2 concedes that individual output may rise but argues that remote work weakens the informal collaboration and mentorship that happens in shared office spaces.",
+        question: "How would the author of Passage 2 most likely respond to the claim in Passage 1 that remote work increases productivity?",
+        options: ["By agreeing entirely and citing additional productivity data","By conceding the productivity point but arguing it comes at the cost of team collaboration","By denying that remote work exists in most industries","By claiming Passage 1's author has no evidence at all"],
+        answer: 1,
+        explanation: "Passage 2 explicitly \"concedes that individual output may rise\" while emphasizing collaboration costs, matching choice B — a common structure in paired-passage rebuttals."
+      },
+      {
+        passage: "The author describes the abandoned factory as \"a skeleton of industry, its rusted bones creaking in the wind.\"",
+        question: "The tone of this description is best characterized as:",
+        options: ["celebratory","melancholic","comedic","indifferent"],
+        answer: 1,
+        explanation: "Imagery like \"skeleton,\" \"rusted bones,\" and decay evokes a mournful, melancholic tone rather than celebration or humor."
+      },
+      {
+        passage: "The negotiations were described as 'protracted,' dragging on for nearly eighteen months without a clear resolution.",
+        question: "As used in the text, \"protracted\" most nearly means:",
+        options: ["brief","prolonged","secretive","hostile"],
+        answer: 1,
+        explanation: "Context (\"dragging on for nearly eighteen months\") signals a prolonged, drawn-out process."
+      },
+      {
+        passage: "One reviewer called the architect's design 'audacious,' praising its willingness to defy the conventions of the surrounding historic district.",
+        question: "As used in the text, \"audacious\" most nearly means:",
+        options: ["cautious","boldly unconventional","outdated","unremarkable"],
+        answer: 1,
+        explanation: "The phrase \"defy the conventions\" signals boldness and unconventionality, matching \"audacious.\""
+      },
+      {
+        passage: "Passage 1 contends that standardized testing offers an objective, comparable measure of student achievement across schools. Passage 2 argues that such tests fail to capture creativity and critical thinking, and that they can disadvantage students from under-resourced schools.",
+        question: "How would the author of Passage 2 most likely respond to Passage 1's claim that standardized tests provide an objective measure of achievement?",
+        options: ["By agreeing fully and adding further objective evidence","By arguing that objectivity in scoring does not mean the tests fairly capture every student's abilities or circumstances","By denying that any school uses standardized tests","By claiming Passage 1's author fabricated the data"],
+        answer: 1,
+        explanation: "Passage 2's concerns about creativity, critical thinking, and disadvantaged students directly challenge the fairness of \"objective\" scores, matching choice B."
+      }
+    ],
+    'Expression of Ideas': [
+      {
+        passage: "",
+        question: "Which choice most effectively combines the following two sentences?\n\"The museum acquired a rare manuscript. The manuscript dates back to the 14th century.\"",
+        options: ["The museum acquired a rare manuscript, and it is old.","The museum acquired a rare manuscript dating back to the 14th century.","The museum acquired a rare manuscript; the 14th century is when it dates back to.","Dating back to the 14th century, a rare manuscript, the museum acquired it."],
+        answer: 1,
+        explanation: "Choice B combines the ideas concisely and grammatically. The others are vague, redundant, or awkwardly constructed."
+      },
+      {
+        passage: "",
+        question: "The writer wants to add a sentence that provides specific evidence supporting the claim that urban gardens improve community well-being. Which choice best accomplishes this goal?",
+        options: ["Many people enjoy gardening as a hobby.","A 2021 study found that neighborhoods with community gardens reported 15 percent higher resident satisfaction scores.","Gardens require regular watering and sunlight.","Urban areas often lack green space."],
+        answer: 1,
+        explanation: "Choice B provides specific, quantifiable evidence that directly supports the claim. The other choices are generic or off-topic."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The bridge had stood for over a century. ___, engineers recommended its immediate closure after inspection revealed structural fatigue.\"",
+        options: ["For example,","However,","Similarly,","In addition,"],
+        answer: 1,
+        explanation: "\"However\" correctly signals the contrast between the bridge's long history and the sudden recommendation for closure."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"Due to the fact that the weather was cold, the game was postponed.\"",
+        options: ["Due to the fact that it was cold weather, the game was postponed.","Because the weather was cold, the game was postponed.","The weather being cold was the reason the game was postponed due to.","The game, postponed due to the fact of cold weather, occurred later."],
+        answer: 1,
+        explanation: "\"Because\" is more concise than \"due to the fact that,\" and choice B is the clearest, most grammatically sound option."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The researcher collected soil samples. The samples came from twelve different farms.\"",
+        options: ["The researcher collected soil samples, and it is related to the fact that the samples came from twelve different farms.","The samples came from twelve different farms, which is why the researcher collected soil samples, occurred.","The researcher collected soil samples from twelve different farms.","The researcher collected soil samples; the samples came from twelve different farms."],
+        answer: 2,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The choir performed at the festival. The performance included three original compositions.\"",
+        options: ["The performance included three original compositions, which is why the choir performed at the festival, occurred.","The choir performed at the festival; the performance included three original compositions.","The choir performed at the festival, and it is related to the fact that the performance included three original compositions.","The choir's performance at the festival included three original compositions."],
+        answer: 3,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The clinic opened a new wing. The wing is dedicated to pediatric care.\"",
+        options: ["The wing is dedicated to pediatric care, which is why the clinic opened a new wing, occurred.","The clinic opened a new wing; the wing is dedicated to pediatric care.","The clinic opened a new wing dedicated to pediatric care.","The clinic opened a new wing, and it is related to the fact that the wing is dedicated to pediatric care."],
+        answer: 2,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The city built a new bike lane. The lane connects downtown to the riverfront park.\"",
+        options: ["The city built a new bike lane; the lane connects downtown to the riverfront park.","The city built a new bike lane, and it is related to the fact that the lane connects downtown to the riverfront park.","The lane connects downtown to the riverfront park, which is why the city built a new bike lane, occurred.","The city built a new bike lane connecting downtown to the riverfront park."],
+        answer: 3,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The factory installed solar panels. The panels cut energy costs by twenty percent.\"",
+        options: ["The factory installed solar panels, and it is related to the fact that the panels cut energy costs by twenty percent.","The factory installed solar panels that cut energy costs by twenty percent.","The factory installed solar panels; the panels cut energy costs by twenty percent.","The panels cut energy costs by twenty percent, which is why the factory installed solar panels, occurred."],
+        answer: 1,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The engineer redesigned the bridge. The redesign reduced construction costs by a third.\"",
+        options: ["The engineer redesigned the bridge, reducing construction costs by a third.","The redesign reduced construction costs by a third, which is why the engineer redesigned the bridge, occurred.","The engineer redesigned the bridge; the redesign reduced construction costs by a third.","The engineer redesigned the bridge, and it is related to the fact that the redesign reduced construction costs by a third."],
+        answer: 0,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The professor published a study. The study examined sleep patterns in teenagers.\"",
+        options: ["The professor published a study; the study examined sleep patterns in teenagers.","The study examined sleep patterns in teenagers, which is why the professor published a study, occurred.","The professor published a study, and it is related to the fact that the study examined sleep patterns in teenagers.","The professor published a study examining sleep patterns in teenagers."],
+        answer: 3,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The author revised the manuscript. The revisions addressed the editor's concerns about pacing.\"",
+        options: ["The author revised the manuscript; the revisions addressed the editor's concerns about pacing.","The revisions addressed the editor's concerns about pacing, which is why the author revised the manuscript, occurred.","The author revised the manuscript to address the editor's concerns about pacing.","The author revised the manuscript, and it is related to the fact that the revisions addressed the editor's concerns about pacing."],
+        answer: 2,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The museum acquired a rare manuscript. The manuscript dates back to the 14th century.\"",
+        options: ["The museum acquired a rare manuscript; the manuscript dates back to the 14th century.","The manuscript dates back to the 14th century, which is why the museum acquired a rare manuscript, occurred.","The museum acquired a rare manuscript, and it is related to the fact that the manuscript dates back to the 14th century.","The museum acquired a rare manuscript dating back to the 14th century."],
+        answer: 3,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The team analyzed the survey data. The analysis revealed a shift in customer preferences.\"",
+        options: ["The team analyzed the survey data, and it is related to the fact that the analysis revealed a shift in customer preferences.","The team analyzed the survey data; the analysis revealed a shift in customer preferences.","The analysis revealed a shift in customer preferences, which is why the team analyzed the survey data, occurred.","The team's analysis of the survey data revealed a shift in customer preferences."],
+        answer: 3,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The company launched a new app. The app tracks users' daily water intake.\"",
+        options: ["The app tracks users' daily water intake, which is why the company launched a new app, occurred.","The company launched a new app; the app tracks users' daily water intake.","The company launched a new app that tracks users' daily water intake.","The company launched a new app, and it is related to the fact that the app tracks users' daily water intake."],
+        answer: 2,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which choice most effectively combines the two sentences?\n\"The architect designed the pavilion. The pavilion uses only recycled materials.\"",
+        options: ["The architect designed the pavilion, and it is related to the fact that the pavilion uses only recycled materials.","The architect designed the pavilion; the pavilion uses only recycled materials.","The architect designed the pavilion using only recycled materials.","The pavilion uses only recycled materials, which is why the architect designed the pavilion, occurred."],
+        answer: 2,
+        explanation: "The correct choice combines both ideas into a single, concise, grammatically clear sentence without redundancy or awkward construction."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"At this point in time, the results have not yet been confirmed.\"",
+        options: ["At this point in time, the results have not yet been confirmed, which happened as a result.","At this point in time, the results have not yet been confirmed.","Currently, the results have not yet been confirmed.","Currently, the results have not yet been confirmed, due to circumstances."],
+        answer: 2,
+        explanation: "\"Currently, the results have not yet been confirmed.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"In spite of the fact that she was tired, she finished the marathon.\"",
+        options: ["In spite of the fact that she was tired, she finished the marathon, which happened as a result.","Although she was tired, she finished the marathon.","In spite of the fact that she was tired, she finished the marathon.","Although she was tired, she finished the marathon, due to circumstances."],
+        answer: 1,
+        explanation: "\"Although she was tired, she finished the marathon.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"Owing to the fact that the flight was delayed, passengers missed their connections.\"",
+        options: ["Owing to the fact that the flight was delayed, passengers missed their connections.","Because the flight was delayed, passengers missed their connections.","Because the flight was delayed, passengers missed their connections, due to circumstances.","Owing to the fact that the flight was delayed, passengers missed their connections, which happened as a result."],
+        answer: 1,
+        explanation: "\"Because the flight was delayed, passengers missed their connections.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"Despite the fact that sales declined, profits increased.\"",
+        options: ["Despite the fact that sales declined, profits increased.","Although sales declined, profits increased, due to circumstances.","Despite the fact that sales declined, profits increased, which happened as a result.","Although sales declined, profits increased."],
+        answer: 3,
+        explanation: "\"Although sales declined, profits increased.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"For the reason that attendance was low, the event was canceled.\"",
+        options: ["For the reason that attendance was low, the event was canceled.","Because attendance was low, the event was canceled.","For the reason that attendance was low, the event was canceled, which happened as a result.","Because attendance was low, the event was canceled, due to circumstances."],
+        answer: 1,
+        explanation: "\"Because attendance was low, the event was canceled.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"In light of the fact that costs rose, the budget was revised.\"",
+        options: ["In light of the fact that costs rose, the budget was revised.","Because costs rose, the budget was revised, due to circumstances.","In light of the fact that costs rose, the budget was revised, which happened as a result.","Because costs rose, the budget was revised."],
+        answer: 3,
+        explanation: "\"Because costs rose, the budget was revised.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"In the event that it rains, the ceremony will be moved indoors.\"",
+        options: ["In the event that it rains, the ceremony will be moved indoors.","If it rains, the ceremony will be moved indoors, due to circumstances.","If it rains, the ceremony will be moved indoors.","In the event that it rains, the ceremony will be moved indoors, which happened as a result."],
+        answer: 2,
+        explanation: "\"If it rains, the ceremony will be moved indoors.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"The reason why the bridge closed was because of storm damage.\"",
+        options: ["The bridge closed because of storm damage.","The reason why the bridge closed was because of storm damage.","The reason why the bridge closed was because of storm damage, which happened as a result.","The bridge closed because of storm damage, due to circumstances."],
+        answer: 0,
+        explanation: "\"The bridge closed because of storm damage.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which revision most improves the concision of this sentence?\n\"It is important to note that the deadline was extended by the committee.\"",
+        options: ["The committee extended the deadline.","The committee extended the deadline, due to circumstances.","It is important to note that the deadline was extended by the committee.","It is important to note that the deadline was extended by the committee, which happened as a result."],
+        answer: 0,
+        explanation: "\"The committee extended the deadline.\" removes unnecessary wordiness while preserving the original meaning."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The team lost its top scorer to injury. ___ it went on to win the championship.\"",
+        options: ["Nonetheless,","For example,","Likewise,","Meanwhile,"],
+        answer: 0,
+        explanation: "\"Nonetheless,\" correctly signals the contrast between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The city expanded its recycling program. ___ waste sent to landfills dropped by a third.\"",
+        options: ["As a result,","For example,","In contrast,","Meanwhile,"],
+        answer: 0,
+        explanation: "\"As a result,\" correctly signals the cause-and-effect relationship between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The novel is set in the 1920s. ___ many of its themes remain strikingly relevant today.\"",
+        options: ["Meanwhile,","For example,","Even so,","For instance,"],
+        answer: 2,
+        explanation: "\"Even so,\" correctly signals the contrast between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The drought reduced the region's crop yield. ___ farmers received emergency government subsidies.\"",
+        options: ["Otherwise,","Similarly,","Consequently,","For instance,"],
+        answer: 2,
+        explanation: "\"Consequently,\" correctly signals the cause-and-effect relationship between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The bridge had stood for over a century. ___ engineers recommended its immediate closure after inspection revealed structural fatigue.\"",
+        options: ["In contrast,","Likewise,","Meanwhile,","However,"],
+        answer: 3,
+        explanation: "\"However,\" correctly signals the contrast between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The experiment produced inconsistent results. ___ the researchers repeated it under stricter controls.\"",
+        options: ["As a result,","For instance,","Likewise,","Otherwise,"],
+        answer: 0,
+        explanation: "\"As a result,\" correctly signals the cause-and-effect relationship between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The two paintings share a similar color palette. ___ their brushwork techniques differ significantly.\"",
+        options: ["For instance,","Meanwhile,","However,","For example,"],
+        answer: 2,
+        explanation: "\"However,\" correctly signals the contrast between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"Sales in the region dropped sharply last quarter. ___ the company decided to open two new storefronts there.\"",
+        options: ["Otherwise,","Nevertheless,","For example,","Meanwhile,"],
+        answer: 1,
+        explanation: "\"Nevertheless,\" correctly signals the contrast between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The battery holds less charge in cold weather. ___ engineers redesigned its insulation.\"",
+        options: ["Therefore,","Meanwhile,","Otherwise,","In contrast,"],
+        answer: 0,
+        explanation: "\"Therefore,\" correctly signals the cause-and-effect relationship between the two ideas."
+      },
+      {
+        passage: "",
+        question: "Which choice provides the most logical transition?\n\"The lecture covered the history of jazz. ___ it also touched on its influence on modern pop music.\"",
+        options: ["In addition,","Likewise,","Meanwhile,","For example,"],
+        answer: 0,
+        explanation: "\"In addition,\" correctly signals the additional supporting point between the two ideas."
+      }
+    ],
+    'Standard English Conventions': [
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Neither the coach nor the players ___ satisfied with the referee's call.\"",
+        options: ["was","were","is","has been"],
+        answer: 1,
+        explanation: "With \"neither/nor,\" the verb agrees with the nearer subject, \"players\" (plural), so \"were\" is correct."
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"The committee reviewed three proposals ___ each one addressed a different budget concern.\"",
+        options: [", and","; and","and,",", and,"],
+        answer: 0,
+        explanation: "A comma before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Each of the students ___ responsible for submitting their own essay.\"",
+        options: ["are","is","were","have been"],
+        answer: 1,
+        explanation: "\"Each\" is a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun that follows it in the prepositional phrase."
+      },
+      {
+        passage: "",
+        question: "Which choice correctly punctuates the sentence?\n\"My favorite subjects are ___.\"",
+        options: ["biology, chemistry, and physics","biology chemistry, and physics","biology, chemistry and, physics","biology; chemistry; and physics"],
+        answer: 0,
+        explanation: "Items in a series should be separated by commas, with a comma before the final \"and\": \"biology, chemistry, and physics.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"My neighbor ___ already reviewed the proposal twice.\"",
+        options: ["was","has","is","were"],
+        answer: 1,
+        explanation: "The subject \"my neighbor\" is singular, so it takes the singular verb form \"has.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The store managers ___ already submitted the final report.\"",
+        options: ["have","was","were","are"],
+        answer: 0,
+        explanation: "The subject \"the store managers\" is plural, so it takes the plural verb form \"have.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The graduate student ___ unaware of the schedule change until this morning.\"",
+        options: ["is","has been","was","are"],
+        answer: 2,
+        explanation: "The subject \"the graduate student\" is singular, so it takes the singular verb form \"was.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"My neighbors ___ expected to arrive before the ceremony begins.\"",
+        options: ["were","was","are","have been"],
+        answer: 2,
+        explanation: "The subject \"my neighbors\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The young athlete ___ scheduled to present at the workshop next week.\"",
+        options: ["is","were","was","has been"],
+        answer: 0,
+        explanation: "The subject \"the young athlete\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"My neighbor ___ already submitted the final report.\"",
+        options: ["is","has","was","were"],
+        answer: 1,
+        explanation: "The subject \"my neighbor\" is singular, so it takes the singular verb form \"has.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"My neighbors ___ unaware of the schedule change until this morning.\"",
+        options: ["have been","were","is","are"],
+        answer: 1,
+        explanation: "The subject \"my neighbors\" is plural, so it takes the plural verb form \"were.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The violinists ___ expected to arrive before the ceremony begins.\"",
+        options: ["are","have been","were","was"],
+        answer: 0,
+        explanation: "The subject \"the violinists\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Each employee ___ confident that the results would improve.\"",
+        options: ["is","has been","are","was"],
+        answer: 3,
+        explanation: "The subject \"each employee\" is singular, so it takes the singular verb form \"was.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The employees ___ unaware of the schedule change until this morning.\"",
+        options: ["is","were","are","have been"],
+        answer: 1,
+        explanation: "The subject \"the employees\" is plural, so it takes the plural verb form \"were.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The scientists ___ responsible for organizing the annual conference.\"",
+        options: ["are","have been","was","were"],
+        answer: 0,
+        explanation: "The subject \"the scientists\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The scientist ___ scheduled to present at the workshop next week.\"",
+        options: ["is","were","has been","was"],
+        answer: 0,
+        explanation: "The subject \"the scientist\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The young athletes ___ already submitted the final report.\"",
+        options: ["have","was","were","are"],
+        answer: 0,
+        explanation: "The subject \"the young athletes\" is plural, so it takes the plural verb form \"have.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The head chefs ___ already submitted the final report.\"",
+        options: ["was","are","have","were"],
+        answer: 2,
+        explanation: "The subject \"the head chefs\" is plural, so it takes the plural verb form \"have.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The graduate student ___ confident that the results would improve.\"",
+        options: ["is","has been","was","are"],
+        answer: 2,
+        explanation: "The subject \"the graduate student\" is singular, so it takes the singular verb form \"was.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The software engineer ___ already submitted the final report.\"",
+        options: ["was","is","were","has"],
+        answer: 3,
+        explanation: "The subject \"the software engineer\" is singular, so it takes the singular verb form \"has.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The employees ___ confident that the results would improve.\"",
+        options: ["are","is","were","have been"],
+        answer: 2,
+        explanation: "The subject \"the employees\" is plural, so it takes the plural verb form \"were.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The museum curator ___ already reviewed the proposal twice.\"",
+        options: ["has","is","was","were"],
+        answer: 0,
+        explanation: "The subject \"the museum curator\" is singular, so it takes the singular verb form \"has.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The violinist ___ expected to arrive before the ceremony begins.\"",
+        options: ["were","was","is","has been"],
+        answer: 2,
+        explanation: "The subject \"the violinist\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The museum curators ___ pleased with the results of the experiment.\"",
+        options: ["was","have been","are","were"],
+        answer: 2,
+        explanation: "The subject \"the museum curators\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Several volunteers ___ expected to arrive before the ceremony begins.\"",
+        options: ["were","was","are","have been"],
+        answer: 2,
+        explanation: "The subject \"several volunteers\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The scientists ___ expected to arrive before the ceremony begins.\"",
+        options: ["are","were","was","have been"],
+        answer: 0,
+        explanation: "The subject \"the scientists\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Every student ___ confident that the results would improve.\"",
+        options: ["has been","is","are","was"],
+        answer: 3,
+        explanation: "The subject \"every student\" is singular, so it takes the singular verb form \"was.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The young athletes ___ unaware of the schedule change until this morning.\"",
+        options: ["are","have been","were","is"],
+        answer: 2,
+        explanation: "The subject \"the young athletes\" is plural, so it takes the plural verb form \"were.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The store managers ___ scheduled to present at the workshop next week.\"",
+        options: ["are","were","have been","was"],
+        answer: 0,
+        explanation: "The subject \"the store managers\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The graduate students ___ expected to arrive before the ceremony begins.\"",
+        options: ["are","was","have been","were"],
+        answer: 0,
+        explanation: "The subject \"the graduate students\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Every student ___ pleased with the results of the experiment.\"",
+        options: ["has been","were","is","was"],
+        answer: 2,
+        explanation: "The subject \"every student\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"One of the volunteers ___ responsible for organizing the annual conference.\"",
+        options: ["were","has been","is","was"],
+        answer: 2,
+        explanation: "The subject \"one of the volunteers\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The scientists ___ scheduled to present at the workshop next week.\"",
+        options: ["are","have been","were","was"],
+        answer: 0,
+        explanation: "The subject \"the scientists\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The store manager ___ unaware of the schedule change until this morning.\"",
+        options: ["has been","was","are","is"],
+        answer: 1,
+        explanation: "The subject \"the store manager\" is singular, so it takes the singular verb form \"was.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The software engineer ___ already reviewed the proposal twice.\"",
+        options: ["has","is","was","were"],
+        answer: 0,
+        explanation: "The subject \"the software engineer\" is singular, so it takes the singular verb form \"has.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The museum curator ___ confident that the results would improve.\"",
+        options: ["was","has been","are","is"],
+        answer: 0,
+        explanation: "The subject \"the museum curator\" is singular, so it takes the singular verb form \"was.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The young athlete ___ confident that the results would improve.\"",
+        options: ["has been","is","are","was"],
+        answer: 3,
+        explanation: "The subject \"the young athlete\" is singular, so it takes the singular verb form \"was.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The store manager ___ scheduled to present at the workshop next week.\"",
+        options: ["was","has been","is","were"],
+        answer: 2,
+        explanation: "The subject \"the store manager\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The students ___ expected to arrive before the ceremony begins.\"",
+        options: ["was","have been","are","were"],
+        answer: 2,
+        explanation: "The subject \"the students\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The violinists ___ unaware of the schedule change until this morning.\"",
+        options: ["were","is","are","have been"],
+        answer: 0,
+        explanation: "The subject \"the violinists\" is plural, so it takes the plural verb form \"were.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The museum curators ___ scheduled to present at the workshop next week.\"",
+        options: ["have been","was","are","were"],
+        answer: 2,
+        explanation: "The subject \"the museum curators\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The software engineers ___ already submitted the final report.\"",
+        options: ["are","was","were","have"],
+        answer: 3,
+        explanation: "The subject \"the software engineers\" is plural, so it takes the plural verb form \"have.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The head chef ___ expected to arrive before the ceremony begins.\"",
+        options: ["was","is","has been","were"],
+        answer: 1,
+        explanation: "The subject \"the head chef\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"The graduate students ___ responsible for organizing the annual conference.\"",
+        options: ["have been","was","were","are"],
+        answer: 3,
+        explanation: "The subject \"the graduate students\" is plural, so it takes the plural verb form \"are.\""
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Every student ___ scheduled to present at the workshop next week.\"",
+        options: ["has been","is","was","were"],
+        answer: 1,
+        explanation: "The subject \"every student\" is singular, so it takes the singular verb form \"is.\""
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"Rainfall in the region has declined sharply ___ farmers have had to adjust their irrigation schedules.\"",
+        options: ["; and",", and","and,",", and,"],
+        answer: 1,
+        explanation: "A comma placed directly before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"The satellite completed its final orbit ___ engineers began preparing it for reentry.\"",
+        options: [", and","and,","; and",", and,"],
+        answer: 0,
+        explanation: "A comma placed directly before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"The startup doubled its workforce last year ___ revenue grew by only a modest margin.\"",
+        options: [", and,","; and",", and","and,"],
+        answer: 2,
+        explanation: "A comma placed directly before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"The orchestra rehearsed for six hours ___ the conductor was still unsatisfied with the tempo.\"",
+        options: [", and,",", and","and,","; and"],
+        answer: 1,
+        explanation: "A comma placed directly before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"The trail was closed after the storm ___ hikers were redirected to a longer alternate route.\"",
+        options: ["and,","; and",", and,",", and"],
+        answer: 3,
+        explanation: "A comma placed directly before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"The bridge had stood for over a century ___ engineers recommended its closure after inspection revealed structural fatigue.\"",
+        options: [", and,",", and","and,","; and"],
+        answer: 1,
+        explanation: "A comma placed directly before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Which choice completes the sentence with correct punctuation?\n\"The novel received mixed reviews ___ several critics praised its ambitious structure.\"",
+        options: ["and,",", and",", and,","; and"],
+        answer: 1,
+        explanation: "A comma placed directly before the coordinating conjunction \"and\" correctly joins the two independent clauses."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Every one of the interns ___ expected to complete training by June.\"",
+        options: ["were","are","is","have been"],
+        answer: 2,
+        explanation: "\"Every\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Every member of the audience ___ handed a printed program.\"",
+        options: ["are","have been","is","were"],
+        answer: 2,
+        explanation: "\"Every\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Each of the volunteers ___ assigned a specific shift.\"",
+        options: ["have been","are","were","is"],
+        answer: 3,
+        explanation: "\"Each\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Each of the applicants ___ asked to provide two references.\"",
+        options: ["have been","are","were","is"],
+        answer: 3,
+        explanation: "\"Each\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Each of the committee members ___ required to submit a report separately.\"",
+        options: ["were","are","is","have been"],
+        answer: 2,
+        explanation: "\"Each\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Every one of the finalists ___ given a chance to present.\"",
+        options: ["is","have been","were","are"],
+        answer: 0,
+        explanation: "\"Every\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Every member of the team ___ responsible for tracking their own hours.\"",
+        options: ["were","are","have been","is"],
+        answer: 3,
+        explanation: "\"Every\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Select the choice that correctly completes the sentence.\n\"Each of the students ___ responsible for submitting an essay by Friday.\"",
+        options: ["are","is","have been","were"],
+        answer: 1,
+        explanation: "\"Each\" functions as a singular subject, so it takes the singular verb \"is,\" regardless of the plural noun in the phrase that follows."
+      },
+      {
+        passage: "",
+        question: "Which choice correctly punctuates the sentence?\n\"My top skills are ___.\"",
+        options: ["pottery, weaving and, woodworking","pottery weaving, and woodworking","pottery, weaving, and woodworking","pottery; weaving; and woodworking"],
+        answer: 2,
+        explanation: "Items in a series should be separated by commas, with a comma before the final \"and\": \"pottery, weaving, and woodworking.\""
+      },
+      {
+        passage: "",
+        question: "Which choice correctly punctuates the sentence?\n\"My areas of study are ___.\"",
+        options: ["basketball, soccer and, tennis","basketball soccer, and tennis","basketball; soccer; and tennis","basketball, soccer, and tennis"],
+        answer: 3,
+        explanation: "Items in a series should be separated by commas, with a comma before the final \"and\": \"basketball, soccer, and tennis.\""
+      },
+      {
+        passage: "",
+        question: "Which choice correctly punctuates the sentence?\n\"My favorite instruments are ___.\"",
+        options: ["Spanish French, and Mandarin","Spanish, French, and Mandarin","Spanish, French and, Mandarin","Spanish; French; and Mandarin"],
+        answer: 1,
+        explanation: "Items in a series should be separated by commas, with a comma before the final \"and\": \"Spanish, French, and Mandarin.\""
+      },
+      {
+        passage: "",
+        question: "Which choice correctly punctuates the sentence?\n\"My preferred activities are ___.\"",
+        options: ["marketing; finance; and operations","marketing, finance and, operations","marketing, finance, and operations","marketing finance, and operations"],
+        answer: 2,
+        explanation: "Items in a series should be separated by commas, with a comma before the final \"and\": \"marketing, finance, and operations.\""
+      }
+    ]
+  },
+  math: {
+    'Algebra': [
+      {
+        passage: "",
+        question: "If 3x + 7 = 22, what is the value of x?",
+        options: ["3","5","7","9"],
+        answer: 1,
+        explanation: "Subtract 7 from both sides: 3x = 15. Divide by 3: x = 5."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 2(x − 4) = 3x + 1?",
+        options: ["−9","−3","3","9"],
+        answer: 0,
+        explanation: "Distribute: 2x − 8 = 3x + 1. Subtract 2x: −8 = x + 1. Subtract 1: x = −9."
+      },
+      {
+        passage: "",
+        question: "The equation y = 4x − 5 is graphed in the xy-plane. What is the x-intercept?",
+        options: ["(0, −5)","(5/4, 0)","(−5/4, 0)","(4, 0)"],
+        answer: 1,
+        explanation: "At the x-intercept, y = 0: 0 = 4x − 5, so x = 5/4. The x-intercept is (5/4, 0)."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 2x + 3 and f(a) = 11, what is the value of a?",
+        options: ["3","4","5","7"],
+        answer: 1,
+        explanation: "2a + 3 = 11, so 2a = 8, and a = 4."
+      },
+      {
+        passage: "",
+        question: "If 2x - 3 = -15, what is the value of x?",
+        options: ["-9","-8","-3","-6"],
+        answer: 3,
+        explanation: "Subtract -3 from both sides: 2x = -12. Divide by 2: x = -6."
+      },
+      {
+        passage: "",
+        question: "If 2x - 15 = -31, what is the value of x?",
+        options: ["-8","-10","-11","-6"],
+        answer: 0,
+        explanation: "Subtract -15 from both sides: 2x = -16. Divide by 2: x = -8."
+      },
+      {
+        passage: "",
+        question: "If 9x + 17 = -1, what is the value of x?",
+        options: ["-2","-4","-5","-3"],
+        answer: 0,
+        explanation: "Subtract 17 from both sides: 9x = -18. Divide by 9: x = -2."
+      },
+      {
+        passage: "",
+        question: "If 5x + 1 = -24, what is the value of x?",
+        options: ["-5","-8","-4","-6"],
+        answer: 0,
+        explanation: "Subtract 1 from both sides: 5x = -25. Divide by 5: x = -5."
+      },
+      {
+        passage: "",
+        question: "If 9x + 14 = -58, what is the value of x?",
+        options: ["-8","-7","-11","-6"],
+        answer: 0,
+        explanation: "Subtract 14 from both sides: 9x = -72. Divide by 9: x = -8."
+      },
+      {
+        passage: "",
+        question: "If 3x - 18 = -27, what is the value of x?",
+        options: ["0","-5","-4","-3"],
+        answer: 3,
+        explanation: "Subtract -18 from both sides: 3x = -9. Divide by 3: x = -3."
+      },
+      {
+        passage: "",
+        question: "If 6x + 9 = 33, what is the value of x?",
+        options: ["7","4","2","3"],
+        answer: 1,
+        explanation: "Subtract 9 from both sides: 6x = 24. Divide by 6: x = 4."
+      },
+      {
+        passage: "",
+        question: "If 3x + 18 = 15, what is the value of x?",
+        options: ["2","-3","-1","1"],
+        answer: 2,
+        explanation: "Subtract 18 from both sides: 3x = -3. Divide by 3: x = -1."
+      },
+      {
+        passage: "",
+        question: "If 6x + 20 = 44, what is the value of x?",
+        options: ["2","7","4","6"],
+        answer: 2,
+        explanation: "Subtract 20 from both sides: 6x = 24. Divide by 6: x = 4."
+      },
+      {
+        passage: "",
+        question: "If 7x + 5 = -51, what is the value of x?",
+        options: ["-9","-11","-8","-10"],
+        answer: 2,
+        explanation: "Subtract 5 from both sides: 7x = -56. Divide by 7: x = -8."
+      },
+      {
+        passage: "",
+        question: "If 9x - 11 = 25, what is the value of x?",
+        options: ["4","2","7","3"],
+        answer: 0,
+        explanation: "Subtract -11 from both sides: 9x = 36. Divide by 9: x = 4."
+      },
+      {
+        passage: "",
+        question: "If 7x - 6 = 22, what is the value of x?",
+        options: ["2","5","6","4"],
+        answer: 3,
+        explanation: "Subtract -6 from both sides: 7x = 28. Divide by 7: x = 4."
+      },
+      {
+        passage: "",
+        question: "If 4x + 7 = -13, what is the value of x?",
+        options: ["-5","-8","-4","-3"],
+        answer: 0,
+        explanation: "Subtract 7 from both sides: 4x = -20. Divide by 4: x = -5."
+      },
+      {
+        passage: "",
+        question: "If 6x + 15 = 63, what is the value of x?",
+        options: ["8","10","5","11"],
+        answer: 0,
+        explanation: "Subtract 15 from both sides: 6x = 48. Divide by 6: x = 8."
+      },
+      {
+        passage: "",
+        question: "If 6x + 7 = -29, what is the value of x?",
+        options: ["-8","-6","-9","-5"],
+        answer: 1,
+        explanation: "Subtract 7 from both sides: 6x = -36. Divide by 6: x = -6."
+      },
+      {
+        passage: "",
+        question: "If 3x + 20 = 44, what is the value of x?",
+        options: ["11","7","8","10"],
+        answer: 2,
+        explanation: "Subtract 20 from both sides: 3x = 24. Divide by 3: x = 8."
+      },
+      {
+        passage: "",
+        question: "If 2x + 18 = 10, what is the value of x?",
+        options: ["-3","-5","-7","-4"],
+        answer: 3,
+        explanation: "Subtract 18 from both sides: 2x = -8. Divide by 2: x = -4."
+      },
+      {
+        passage: "",
+        question: "If 2x - 5 = -9, what is the value of x?",
+        options: ["0","1","-2","-5"],
+        answer: 2,
+        explanation: "Subtract -5 from both sides: 2x = -4. Divide by 2: x = -2."
+      },
+      {
+        passage: "",
+        question: "If 9x + 15 = -30, what is the value of x?",
+        options: ["-7","-6","-5","-3"],
+        answer: 2,
+        explanation: "Subtract 15 from both sides: 9x = -45. Divide by 9: x = -5."
+      },
+      {
+        passage: "",
+        question: "If 8x + 3 = 11, what is the value of x?",
+        options: ["-2","3","1","2"],
+        answer: 2,
+        explanation: "Subtract 3 from both sides: 8x = 8. Divide by 8: x = 1."
+      },
+      {
+        passage: "",
+        question: "If 2x + 17 = 21, what is the value of x?",
+        options: ["0","-1","4","2"],
+        answer: 3,
+        explanation: "Subtract 17 from both sides: 2x = 4. Divide by 2: x = 2."
+      },
+      {
+        passage: "",
+        question: "If 3x - 18 = -24, what is the value of x?",
+        options: ["-2","-5","-3","0"],
+        answer: 0,
+        explanation: "Subtract -18 from both sides: 3x = -6. Divide by 3: x = -2."
+      },
+      {
+        passage: "",
+        question: "If 4x + 16 = 4, what is the value of x?",
+        options: ["-1","-3","-5","-2"],
+        answer: 1,
+        explanation: "Subtract 16 from both sides: 4x = -12. Divide by 4: x = -3."
+      },
+      {
+        passage: "",
+        question: "If 3x + 7 = -11, what is the value of x?",
+        options: ["-7","-3","-5","-6"],
+        answer: 3,
+        explanation: "Subtract 7 from both sides: 3x = -18. Divide by 3: x = -6."
+      },
+      {
+        passage: "",
+        question: "If 8x + 1 = -63, what is the value of x?",
+        options: ["-11","-6","-8","-10"],
+        answer: 2,
+        explanation: "Subtract 1 from both sides: 8x = -64. Divide by 8: x = -8."
+      },
+      {
+        passage: "",
+        question: "If 6x + 9 = -15, what is the value of x?",
+        options: ["-7","-6","-3","-4"],
+        answer: 3,
+        explanation: "Subtract 9 from both sides: 6x = -24. Divide by 6: x = -4."
+      },
+      {
+        passage: "",
+        question: "If 5x - 10 = -45, what is the value of x?",
+        options: ["-10","-7","-9","-6"],
+        answer: 1,
+        explanation: "Subtract -10 from both sides: 5x = -35. Divide by 5: x = -7."
+      },
+      {
+        passage: "",
+        question: "If 5x - 17 = -12, what is the value of x?",
+        options: ["3","-2","1","4"],
+        answer: 2,
+        explanation: "Subtract -17 from both sides: 5x = 5. Divide by 5: x = 1."
+      },
+      {
+        passage: "",
+        question: "If 4x - 17 = 11, what is the value of x?",
+        options: ["9","5","4","7"],
+        answer: 3,
+        explanation: "Subtract -17 from both sides: 4x = 28. Divide by 4: x = 7."
+      },
+      {
+        passage: "",
+        question: "If 8x - 13 = -29, what is the value of x?",
+        options: ["-4","-5","0","-2"],
+        answer: 3,
+        explanation: "Subtract -13 from both sides: 8x = -16. Divide by 8: x = -2."
+      },
+      {
+        passage: "",
+        question: "If 5x = -5, what is the value of x?",
+        options: ["-1","-2","-3","0"],
+        answer: 0,
+        explanation: "Subtract 0 from both sides: 5x = -5. Divide by 5: x = -1."
+      },
+      {
+        passage: "",
+        question: "If 7x - 16 = 26, what is the value of x?",
+        options: ["8","3","7","6"],
+        answer: 3,
+        explanation: "Subtract -16 from both sides: 7x = 42. Divide by 7: x = 6."
+      },
+      {
+        passage: "",
+        question: "If 6x - 12 = 36, what is the value of x?",
+        options: ["7","8","5","6"],
+        answer: 1,
+        explanation: "Subtract -12 from both sides: 6x = 48. Divide by 6: x = 8."
+      },
+      {
+        passage: "",
+        question: "If 6x + 19 = 55, what is the value of x?",
+        options: ["8","6","3","9"],
+        answer: 1,
+        explanation: "Subtract 19 from both sides: 6x = 36. Divide by 6: x = 6."
+      },
+      {
+        passage: "",
+        question: "If 6x - 13 = -43, what is the value of x?",
+        options: ["-5","-3","-2","-8"],
+        answer: 0,
+        explanation: "Subtract -13 from both sides: 6x = -30. Divide by 6: x = -5."
+      },
+      {
+        passage: "",
+        question: "If 7x - 7 = -28, what is the value of x?",
+        options: ["-4","-3","0","-1"],
+        answer: 1,
+        explanation: "Subtract -7 from both sides: 7x = -21. Divide by 7: x = -3."
+      },
+      {
+        passage: "",
+        question: "If 8x - 3 = -59, what is the value of x?",
+        options: ["-9","-8","-7","-10"],
+        answer: 2,
+        explanation: "Subtract -3 from both sides: 8x = -56. Divide by 8: x = -7."
+      },
+      {
+        passage: "",
+        question: "If 8x + 15 = 87, what is the value of x?",
+        options: ["6","7","12","9"],
+        answer: 3,
+        explanation: "Subtract 15 from both sides: 8x = 72. Divide by 8: x = 9."
+      },
+      {
+        passage: "",
+        question: "If 4x - 18 = 2, what is the value of x?",
+        options: ["4","5","3","2"],
+        answer: 1,
+        explanation: "Subtract -18 from both sides: 4x = 20. Divide by 4: x = 5."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 6(x - 4) = 5x - 20?",
+        options: ["2","8","5","4"],
+        answer: 3,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 4."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 3(x + 1) = 2x + 9?",
+        options: ["2","7","10","6"],
+        answer: 3,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 6."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 5(x - 2) = 3x - 14?",
+        options: ["-2","2","-4","-6"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -2."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 2(x + 1) = 3x + 1?",
+        options: ["2","5","1","3"],
+        answer: 2,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 1."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 3(x - 9) = 1x - 25?",
+        options: ["1","2","-3","3"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 1."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 6(x - 7) = 1x - 12?",
+        options: ["7","8","6","4"],
+        answer: 2,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 6."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 6(x - 8) = 2x - 80?",
+        options: ["-8","-7","-9","-12"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -8."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x - 7) = 3x - 33?",
+        options: ["-5","-6","-4","-1"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -5."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 3(x - 4) = 4x - 8?",
+        options: ["-2","-4","0","-6"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -4."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x + 3) = 5x + 10?",
+        options: ["2","4","1","6"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 2."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 6(x - 6) = 2x - 44?",
+        options: ["2","-3","-2","-6"],
+        answer: 2,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -2."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 3(x + 3) = 2x + 11?",
+        options: ["-2","3","0","2"],
+        answer: 3,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 2."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 5(x - 6) = 4x - 32?",
+        options: ["-6","-4","2","-2"],
+        answer: 3,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -2."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 6(x - 5) = 1x - 45?",
+        options: ["-5","-7","-3","-1"],
+        answer: 2,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -3."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 5(x - 7) = 4x - 32?",
+        options: ["3","4","1","5"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 3."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x - 7) = 2x - 30?",
+        options: ["-2","0","-1","-5"],
+        answer: 2,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -1."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x - 8) = 1x - 23?",
+        options: ["7","3","4","1"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 3."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 5(x - 4) = 3x - 32?",
+        options: ["-6","-4","-10","-5"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -6."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 6(x - 3) = 4x - 34?",
+        options: ["-7","-8","-12","-9"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -8."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 3(x + 1) = 4x - 5?",
+        options: ["9","8","4","7"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 8."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 3(x - 8) = 1x - 10?",
+        options: ["9","8","11","7"],
+        answer: 3,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 7."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 5(x + 4) = 1x + 4?",
+        options: ["-4","-5","-6","-3"],
+        answer: 0,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -4."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x - 4) = 3x - 11?",
+        options: ["6","9","1","5"],
+        answer: 3,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 5."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 2(x + 9) = 1x + 12?",
+        options: ["-8","-4","-5","-6"],
+        answer: 3,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -6."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x - 2) = 2x + 6?",
+        options: ["9","7","11","3"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 7."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x - 9) = 2x - 52?",
+        options: ["-12","-4","-8","-6"],
+        answer: 2,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -8."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 6(x + 8) = 3x + 33?",
+        options: ["-1","-4","-5","-3"],
+        answer: 2,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -5."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 5(x - 6) = 1x - 62?",
+        options: ["-7","-8","-4","-9"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -8."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 3(x - 7) = 5x - 33?",
+        options: ["7","6","8","10"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = 6."
+      },
+      {
+        passage: "",
+        question: "Which value of x satisfies 4(x - 5) = 2x - 32?",
+        options: ["-4","-6","-5","-2"],
+        answer: 1,
+        explanation: "Distribute and collect like terms to isolate x, which gives x = -6."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 8x - 5 and f(p) = 51, what is the value of p?",
+        options: ["7","6","8","5"],
+        answer: 0,
+        explanation: "Set 8p - 5 = 51 and solve: p = 7."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 6x - 15 and f(p) = -21, what is the value of p?",
+        options: ["-1","-3","-4","1"],
+        answer: 0,
+        explanation: "Set 6p - 15 = -21 and solve: p = -1."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 6x + 9 and f(p) = 51, what is the value of p?",
+        options: ["10","7","8","5"],
+        answer: 1,
+        explanation: "Set 6p + 9 = 51 and solve: p = 7."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 4x - 8 and f(p) = -36, what is the value of p?",
+        options: ["-7","-6","-9","-4"],
+        answer: 0,
+        explanation: "Set 4p - 8 = -36 and solve: p = -7."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 6x + 1 and f(p) = 43, what is the value of p?",
+        options: ["7","6","8","10"],
+        answer: 0,
+        explanation: "Set 6p + 1 = 43 and solve: p = 7."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 4x - 7 and f(p) = -11, what is the value of p?",
+        options: ["-4","-1","-3","2"],
+        answer: 1,
+        explanation: "Set 4p - 7 = -11 and solve: p = -1."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 8x + 7 and f(p) = 79, what is the value of p?",
+        options: ["9","10","7","12"],
+        answer: 0,
+        explanation: "Set 8p + 7 = 79 and solve: p = 9."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 8x - 9 and f(p) = -57, what is the value of p?",
+        options: ["-7","-6","-9","-8"],
+        answer: 1,
+        explanation: "Set 8p - 9 = -57 and solve: p = -6."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 6x - 6 and f(p) = -54, what is the value of p?",
+        options: ["-5","-7","-10","-8"],
+        answer: 3,
+        explanation: "Set 6p - 6 = -54 and solve: p = -8."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 5x - 1 and f(p) = 34, what is the value of p?",
+        options: ["6","7","4","5"],
+        answer: 1,
+        explanation: "Set 5p - 1 = 34 and solve: p = 7."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 5x and f(p) = -35, what is the value of p?",
+        options: ["-5","-4","-10","-7"],
+        answer: 3,
+        explanation: "Set 5p = -35 and solve: p = -7."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 2x - 8 and f(p) = -6, what is the value of p?",
+        options: ["1","-2","3","2"],
+        answer: 0,
+        explanation: "Set 2p - 8 = -6 and solve: p = 1."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 5x - 6 and f(p) = 24, what is the value of p?",
+        options: ["8","7","5","6"],
+        answer: 3,
+        explanation: "Set 5p - 6 = 24 and solve: p = 6."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 7x - 9 and f(p) = -30, what is the value of p?",
+        options: ["-4","-6","-3","0"],
+        answer: 2,
+        explanation: "Set 7p - 9 = -30 and solve: p = -3."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 2x - 10 and f(p) = 8, what is the value of p?",
+        options: ["12","9","10","6"],
+        answer: 1,
+        explanation: "Set 2p - 10 = 8 and solve: p = 9."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 4x + 7 and f(p) = -1, what is the value of p?",
+        options: ["1","-1","-3","-2"],
+        answer: 3,
+        explanation: "Set 4p + 7 = -1 and solve: p = -2."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 8x + 10 and f(p) = 2, what is the value of p?",
+        options: ["1","2","-1","-3"],
+        answer: 2,
+        explanation: "Set 8p + 10 = 2 and solve: p = -1."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 4x + 11 and f(p) = -9, what is the value of p?",
+        options: ["-6","-5","-8","-7"],
+        answer: 1,
+        explanation: "Set 4p + 11 = -9 and solve: p = -5."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 7x - 6 and f(p) = 36, what is the value of p?",
+        options: ["5","6","9","7"],
+        answer: 1,
+        explanation: "Set 7p - 6 = 36 and solve: p = 6."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 5x + 8 and f(p) = -32, what is the value of p?",
+        options: ["-6","-11","-9","-8"],
+        answer: 3,
+        explanation: "Set 5p + 8 = -32 and solve: p = -8."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 6x - 14 and f(p) = -20, what is the value of p?",
+        options: ["1","-1","0","-3"],
+        answer: 1,
+        explanation: "Set 6p - 14 = -20 and solve: p = -1."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 7x + 11 and f(p) = 46, what is the value of p?",
+        options: ["5","4","2","6"],
+        answer: 0,
+        explanation: "Set 7p + 11 = 46 and solve: p = 5."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 8x - 10 and f(p) = -58, what is the value of p?",
+        options: ["-6","-5","-7","-3"],
+        answer: 0,
+        explanation: "Set 8p - 10 = -58 and solve: p = -6."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 2x - 1 and f(p) = 17, what is the value of p?",
+        options: ["6","8","10","9"],
+        answer: 3,
+        explanation: "Set 2p - 1 = 17 and solve: p = 9."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 2x - 9 and f(p) = 1, what is the value of p?",
+        options: ["4","6","5","7"],
+        answer: 2,
+        explanation: "Set 2p - 9 = 1 and solve: p = 5."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 6x - 11 and f(p) = -17, what is the value of p?",
+        options: ["0","2","-1","-2"],
+        answer: 2,
+        explanation: "Set 6p - 11 = -17 and solve: p = -1."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 7x - 10 and f(p) = -24, what is the value of p?",
+        options: ["0","-5","-2","-3"],
+        answer: 2,
+        explanation: "Set 7p - 10 = -24 and solve: p = -2."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 5x + 15 and f(p) = -15, what is the value of p?",
+        options: ["-6","-8","-3","-9"],
+        answer: 0,
+        explanation: "Set 5p + 15 = -15 and solve: p = -6."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 7x - 7 and f(p) = 49, what is the value of p?",
+        options: ["10","8","6","9"],
+        answer: 1,
+        explanation: "Set 7p - 7 = 49 and solve: p = 8."
+      },
+      {
+        passage: "",
+        question: "If f(x) = 7x + 13 and f(p) = 69, what is the value of p?",
+        options: ["8","6","5","7"],
+        answer: 0,
+        explanation: "Set 7p + 13 = 69 and solve: p = 8."
+      }
+    ],
+    'Advanced Math': [
+      {
+        passage: "",
+        question: "If g(x) = x² − 6x + 9, what is g(3)?",
+        options: ["0","3","6","9"],
+        answer: 0,
+        explanation: "g(3) = 9 − 18 + 9 = 0. (Note that x² − 6x + 9 factors as (x − 3)², which is 0 when x = 3.)"
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 9)/(x − 3), for x ≠ 3?",
+        options: ["x − 3","x + 3","x² + 3","x − 9"],
+        answer: 1,
+        explanation: "x² − 9 factors as (x − 3)(x + 3). Dividing by (x − 3) leaves x + 3."
+      },
+      {
+        passage: "",
+        question: "The function h(x) = 3(2)^x models exponential growth. What is the value of h(2)?",
+        options: ["6","9","12","18"],
+        answer: 2,
+        explanation: "h(2) = 3(2)² = 3(4) = 12."
+      },
+      {
+        passage: "",
+        question: "If 5^(3x) = 25^(x+2), what is the value of x?",
+        options: ["2","4","6","8"],
+        answer: 1,
+        explanation: "Since 25 = 5², rewrite the right side as 5^(2x+4). Setting exponents equal: 3x = 2x + 4, so x = 4."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 8x - 3, what is the value of g(5)?",
+        options: ["-20","-22","-16","-18"],
+        answer: 3,
+        explanation: "Substitute x = 5: (5)² - 40 - 3 = 25 - 40 - 3 = -18."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 9x + 4, what is the value of g(0)?",
+        options: ["8","2","4","6"],
+        answer: 2,
+        explanation: "Substitute x = 0: (0)² + 4 = 0 + 4 = 4."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 6x - 9, what is the value of g(0)?",
+        options: ["-13","-15","-9","-5"],
+        answer: 2,
+        explanation: "Substitute x = 0: (0)² - 9 = 0 - 9 = -9."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 7x - 4, what is the value of g(3)?",
+        options: ["28","22","20","26"],
+        answer: 3,
+        explanation: "Substitute x = 3: (3)² + 21 - 4 = 9 + 21 - 4 = 26."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 4x - 11, what is the value of g(-4)?",
+        options: ["25","15","19","21"],
+        answer: 3,
+        explanation: "Substitute x = -4: (-4)² + 16 - 11 = 16 + 16 - 11 = 21."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 6x + 7, what is the value of g(1)?",
+        options: ["8","0","2","6"],
+        answer: 2,
+        explanation: "Substitute x = 1: (1)² - 6 + 7 = 1 - 6 + 7 = 2."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 7x + 12, what is the value of g(-1)?",
+        options: ["24","20","14","18"],
+        answer: 1,
+        explanation: "Substitute x = -1: (-1)² + 7 + 12 = 1 + 7 + 12 = 20."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 7x + 5, what is the value of g(4)?",
+        options: ["-7","-5","-9","-13"],
+        answer: 0,
+        explanation: "Substitute x = 4: (4)² - 28 + 5 = 16 - 28 + 5 = -7."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 8x + 3, what is the value of g(0)?",
+        options: ["7","3","-3","1"],
+        answer: 1,
+        explanation: "Substitute x = 0: (0)² + 3 = 0 + 3 = 3."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 5x + 6, what is the value of g(6)?",
+        options: ["18","12","10","6"],
+        answer: 1,
+        explanation: "Substitute x = 6: (6)² - 30 + 6 = 36 - 30 + 6 = 12."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 5x - 12, what is the value of g(-5)?",
+        options: ["34","44","32","38"],
+        answer: 3,
+        explanation: "Substitute x = -5: (-5)² + 25 - 12 = 25 + 25 - 12 = 38."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 8x + 3, what is the value of g(-2)?",
+        options: ["-7","-11","-9","-3"],
+        answer: 2,
+        explanation: "Substitute x = -2: (-2)² - 16 + 3 = 4 - 16 + 3 = -9."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 7x + 10, what is the value of g(-3)?",
+        options: ["40","36","42","46"],
+        answer: 0,
+        explanation: "Substitute x = -3: (-3)² + 21 + 10 = 9 + 21 + 10 = 40."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 1x, what is the value of g(-1)?",
+        options: ["4","-4","0","-6"],
+        answer: 2,
+        explanation: "Substitute x = -1: (-1)² - 1 = 1 - 1 = 0."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 2x - 3, what is the value of g(-3)?",
+        options: ["8","10","12","14"],
+        answer: 2,
+        explanation: "Substitute x = -3: (-3)² + 6 - 3 = 9 + 6 - 3 = 12."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 5x + 4, what is the value of g(-6)?",
+        options: ["8","14","10","4"],
+        answer: 2,
+        explanation: "Substitute x = -6: (-6)² - 30 + 4 = 36 - 30 + 4 = 10."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 5x + 12, what is the value of g(0)?",
+        options: ["18","6","12","8"],
+        answer: 2,
+        explanation: "Substitute x = 0: (0)² + 12 = 0 + 12 = 12."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 3x, what is the value of g(0)?",
+        options: ["-4","2","-6","0"],
+        answer: 3,
+        explanation: "Substitute x = 0: (0)² = 0 = 0."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 1x + 5, what is the value of g(-4)?",
+        options: ["31","29","25","21"],
+        answer: 2,
+        explanation: "Substitute x = -4: (-4)² + 4 + 5 = 16 + 4 + 5 = 25."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 8x - 10, what is the value of g(-2)?",
+        options: ["12","8","16","10"],
+        answer: 3,
+        explanation: "Substitute x = -2: (-2)² + 16 - 10 = 4 + 16 - 10 = 10."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 5x - 2, what is the value of g(-3)?",
+        options: ["16","22","18","28"],
+        answer: 1,
+        explanation: "Substitute x = -3: (-3)² + 15 - 2 = 9 + 15 - 2 = 22."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x²x + 6, what is the value of g(4)?",
+        options: ["22","20","24","28"],
+        answer: 0,
+        explanation: "Substitute x = 4: (4)² + 6 = 16 + 6 = 22."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 8x + 3, what is the value of g(2)?",
+        options: ["25","23","27","29"],
+        answer: 1,
+        explanation: "Substitute x = 2: (2)² + 16 + 3 = 4 + 16 + 3 = 23."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 3x + 7, what is the value of g(5)?",
+        options: ["21","23","13","17"],
+        answer: 3,
+        explanation: "Substitute x = 5: (5)² - 15 + 7 = 25 - 15 + 7 = 17."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 7x + 12, what is the value of g(4)?",
+        options: ["4","6","-4","0"],
+        answer: 3,
+        explanation: "Substitute x = 4: (4)² - 28 + 12 = 16 - 28 + 12 = 0."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 6x + 2, what is the value of g(0)?",
+        options: ["2","0","-4","4"],
+        answer: 0,
+        explanation: "Substitute x = 0: (0)² + 2 = 0 + 2 = 2."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 6x - 8, what is the value of g(-5)?",
+        options: ["-13","-11","-15","-19"],
+        answer: 0,
+        explanation: "Substitute x = -5: (-5)² - 30 - 8 = 25 - 30 - 8 = -13."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 3x - 5, what is the value of g(6)?",
+        options: ["15","13","9","11"],
+        answer: 1,
+        explanation: "Substitute x = 6: (6)² - 18 - 5 = 36 - 18 - 5 = 13."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 9x - 3, what is the value of g(2)?",
+        options: ["25","15","19","13"],
+        answer: 2,
+        explanation: "Substitute x = 2: (2)² + 18 - 3 = 4 + 18 - 3 = 19."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² - 3x - 8, what is the value of g(-4)?",
+        options: ["20","26","24","16"],
+        answer: 0,
+        explanation: "Substitute x = -4: (-4)² + 12 - 8 = 16 + 12 - 8 = 20."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 7x - 7, what is the value of g(-2)?",
+        options: ["-23","-11","-17","-13"],
+        answer: 2,
+        explanation: "Substitute x = -2: (-2)² - 14 - 7 = 4 - 14 - 7 = -17."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 4x - 3, what is the value of g(2)?",
+        options: ["5","3","9","7"],
+        answer: 2,
+        explanation: "Substitute x = 2: (2)² + 8 - 3 = 4 + 8 - 3 = 9."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 9x + 2, what is the value of g(4)?",
+        options: ["58","56","60","54"],
+        answer: 3,
+        explanation: "Substitute x = 4: (4)² + 36 + 2 = 16 + 36 + 2 = 54."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 6x - 10, what is the value of g(-2)?",
+        options: ["-24","-18","-22","-12"],
+        answer: 1,
+        explanation: "Substitute x = -2: (-2)² - 12 - 10 = 4 - 12 - 10 = -18."
+      },
+      {
+        passage: "",
+        question: "If g(x) = x² + 8x + 1, what is the value of g(1)?",
+        options: ["6","4","8","10"],
+        answer: 3,
+        explanation: "Substitute x = 1: (1)² + 8 + 1 = 1 + 8 + 1 = 10."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 4)/(x − 2), for x ≠ 2?",
+        options: ["x + 4","x² + 2","x + 2","x - 2"],
+        answer: 2,
+        explanation: "x² − 4 factors as (x − 2)(x + 2). Dividing by (x − 2) leaves x + 2."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 25)/(x − 5), for x ≠ 5?",
+        options: ["x + 10","x - 5","x + 5","x² + 5"],
+        answer: 2,
+        explanation: "x² − 25 factors as (x − 5)(x + 5). Dividing by (x − 5) leaves x + 5."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 144)/(x − 12), for x ≠ 12?",
+        options: ["x + 24","x + 12","x - 24","x - 12"],
+        answer: 1,
+        explanation: "x² − 144 factors as (x − 12)(x + 12). Dividing by (x − 12) leaves x + 12."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 121)/(x − 11), for x ≠ 11?",
+        options: ["x + 11","x² + 11","x - 11","x - 22"],
+        answer: 0,
+        explanation: "x² − 121 factors as (x − 11)(x + 11). Dividing by (x − 11) leaves x + 11."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 81)/(x − 9), for x ≠ 9?",
+        options: ["x - 18","x² + 9","x + 18","x + 9"],
+        answer: 3,
+        explanation: "x² − 81 factors as (x − 9)(x + 9). Dividing by (x − 9) leaves x + 9."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 169)/(x − 13), for x ≠ 13?",
+        options: ["x - 13","x - 26","x² + 13","x + 13"],
+        answer: 3,
+        explanation: "x² − 169 factors as (x − 13)(x + 13). Dividing by (x − 13) leaves x + 13."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 49)/(x − 7), for x ≠ 7?",
+        options: ["x - 14","x² + 7","x + 7","x - 7"],
+        answer: 2,
+        explanation: "x² − 49 factors as (x − 7)(x + 7). Dividing by (x − 7) leaves x + 7."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 100)/(x − 10), for x ≠ 10?",
+        options: ["x + 10","x - 20","x - 10","x + 20"],
+        answer: 0,
+        explanation: "x² − 100 factors as (x − 10)(x + 10). Dividing by (x − 10) leaves x + 10."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 225)/(x − 15), for x ≠ 15?",
+        options: ["x - 15","x + 15","x + 30","x² + 15"],
+        answer: 1,
+        explanation: "x² − 225 factors as (x − 15)(x + 15). Dividing by (x − 15) leaves x + 15."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 196)/(x − 14), for x ≠ 14?",
+        options: ["x - 28","x - 14","x² + 14","x + 14"],
+        answer: 3,
+        explanation: "x² − 196 factors as (x − 14)(x + 14). Dividing by (x − 14) leaves x + 14."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 16)/(x − 4), for x ≠ 4?",
+        options: ["x² + 4","x + 8","x + 4","x - 4"],
+        answer: 2,
+        explanation: "x² − 16 factors as (x − 4)(x + 4). Dividing by (x − 4) leaves x + 4."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 64)/(x − 8), for x ≠ 8?",
+        options: ["x - 16","x + 8","x - 8","x² + 8"],
+        answer: 1,
+        explanation: "x² − 64 factors as (x − 8)(x + 8). Dividing by (x − 8) leaves x + 8."
+      },
+      {
+        passage: "",
+        question: "Which expression is equivalent to (x² − 36)/(x − 6), for x ≠ 6?",
+        options: ["x + 12","x - 6","x² + 6","x + 6"],
+        answer: 3,
+        explanation: "x² − 36 factors as (x − 6)(x + 6). Dividing by (x − 6) leaves x + 6."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 3) = 2^12, what is the value of x?",
+        options: ["11","9","10","7"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 3 = 12, so x = 9."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 6) = 2^10, what is the value of x?",
+        options: ["5","3","2","4"],
+        answer: 3,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 6 = 10, so x = 4."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 1) = 2^9, what is the value of x?",
+        options: ["11","5","8","7"],
+        answer: 2,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 1 = 9, so x = 8."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 3) = 2^9, what is the value of x?",
+        options: ["3","6","4","5"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 3 = 9, so x = 6."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 6) = 2^16, what is the value of x?",
+        options: ["9","11","10","7"],
+        answer: 2,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 6 = 16, so x = 10."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 6) = 2^9, what is the value of x?",
+        options: ["5","3","0","6"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 6 = 9, so x = 3."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 5) = 2^9, what is the value of x?",
+        options: ["3","1","5","4"],
+        answer: 3,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 5 = 9, so x = 4."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 6) = 2^18, what is the value of x?",
+        options: ["12","13","15","14"],
+        answer: 0,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 6 = 18, so x = 12."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 1) = 2^8, what is the value of x?",
+        options: ["5","7","9","6"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 1 = 8, so x = 7."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 4) = 2^7, what is the value of x?",
+        options: ["0","3","6","5"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 4 = 7, so x = 3."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 2) = 2^10, what is the value of x?",
+        options: ["10","9","6","8"],
+        answer: 3,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 2 = 10, so x = 8."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 6) = 2^7, what is the value of x?",
+        options: ["1","2","-2","4"],
+        answer: 0,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 6 = 7, so x = 1."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 3) = 2^6, what is the value of x?",
+        options: ["3","1","4","2"],
+        answer: 0,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 3 = 6, so x = 3."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 1) = 2^7, what is the value of x?",
+        options: ["6","9","5","4"],
+        answer: 0,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 1 = 7, so x = 6."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 4) = 2^13, what is the value of x?",
+        options: ["7","11","6","9"],
+        answer: 3,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 4 = 13, so x = 9."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 1) = 2^2, what is the value of x?",
+        options: ["-2","1","3","0"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 1 = 2, so x = 1."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 4) = 2^8, what is the value of x?",
+        options: ["4","6","5","2"],
+        answer: 0,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 4 = 8, so x = 4."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 2) = 2^7, what is the value of x?",
+        options: ["8","5","6","4"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 2 = 7, so x = 5."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 4) = 2^10, what is the value of x?",
+        options: ["9","5","3","6"],
+        answer: 3,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 4 = 10, so x = 6."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 3) = 2^13, what is the value of x?",
+        options: ["9","13","10","7"],
+        answer: 2,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 3 = 13, so x = 10."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 1) = 2^5, what is the value of x?",
+        options: ["4","6","5","3"],
+        answer: 0,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 1 = 5, so x = 4."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 3) = 2^4, what is the value of x?",
+        options: ["2","0","-2","1"],
+        answer: 3,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 3 = 4, so x = 1."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 4) = 2^9, what is the value of x?",
+        options: ["2","8","6","5"],
+        answer: 3,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 4 = 9, so x = 5."
+      },
+      {
+        passage: "",
+        question: "If 2^(x + 4) = 2^16, what is the value of x?",
+        options: ["11","12","15","10"],
+        answer: 1,
+        explanation: "Since the bases are equal, the exponents must be equal: x + 4 = 16, so x = 12."
+      }
+    ],
+    'Problem-Solving and Data Analysis': [
+      {
+        passage: "",
+        question: "A survey of 200 students found that 120 prefer online classes. What percentage of students prefer online classes?",
+        options: ["40%","50%","60%","70%"],
+        answer: 2,
+        explanation: "120/200 = 0.6 = 60%."
+      },
+      {
+        passage: "",
+        question: "A car travels 150 miles using 6 gallons of gas. At this rate, how many miles can it travel on 10 gallons?",
+        options: ["200","225","250","275"],
+        answer: 2,
+        explanation: "150/6 = 25 miles per gallon. 25 × 10 = 250 miles."
+      },
+      {
+        passage: "",
+        question: "In a class of 30 students, the ratio of boys to girls is 2:3. How many girls are there?",
+        options: ["12","15","18","20"],
+        answer: 2,
+        explanation: "The ratio parts total 2 + 3 = 5. Each part represents 30/5 = 6 students. Girls = 3 × 6 = 18."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $80,000 to $92,000. What is the percent increase?",
+        options: ["10%","12%","15%","20%"],
+        answer: 2,
+        explanation: "(92,000 − 80,000)/80,000 = 12,000/80,000 = 0.15 = 15%."
+      },
+      {
+        passage: "",
+        question: "A survey of 250 students found that 25 prefer online classes. What percentage of students prefer online classes?",
+        options: ["15%","70%","10%","55%"],
+        answer: 2,
+        explanation: "25/250 = 0.1 = 10%."
+      },
+      {
+        passage: "",
+        question: "A survey of 160 students found that 96 prefer online classes. What percentage of students prefer online classes?",
+        options: ["10%","80%","40%","60%"],
+        answer: 3,
+        explanation: "96/160 = 0.6 = 60%."
+      },
+      {
+        passage: "",
+        question: "A survey of 80 students found that 8 prefer online classes. What percentage of students prefer online classes?",
+        options: ["40%","10%","60%","90%"],
+        answer: 1,
+        explanation: "8/80 = 0.1 = 10%."
+      },
+      {
+        passage: "",
+        question: "A survey of 400 students found that 300 prefer online classes. What percentage of students prefer online classes?",
+        options: ["50%","5%","90%","75%"],
+        answer: 3,
+        explanation: "300/400 = 0.75 = 75%."
+      },
+      {
+        passage: "",
+        question: "A survey of 300 students found that 90 prefer online classes. What percentage of students prefer online classes?",
+        options: ["30%","55%","25%","15%"],
+        answer: 0,
+        explanation: "90/300 = 0.3 = 30%."
+      },
+      {
+        passage: "",
+        question: "A survey of 300 students found that 210 prefer online classes. What percentage of students prefer online classes?",
+        options: ["75%","20%","70%","5%"],
+        answer: 2,
+        explanation: "210/300 = 0.7 = 70%."
+      },
+      {
+        passage: "",
+        question: "A survey of 300 students found that 135 prefer online classes. What percentage of students prefer online classes?",
+        options: ["45%","90%","50%","65%"],
+        answer: 0,
+        explanation: "135/300 = 0.45 = 45%."
+      },
+      {
+        passage: "",
+        question: "A survey of 160 students found that 16 prefer online classes. What percentage of students prefer online classes?",
+        options: ["90%","10%","85%","5%"],
+        answer: 1,
+        explanation: "16/160 = 0.1 = 10%."
+      },
+      {
+        passage: "",
+        question: "A survey of 150 students found that 22 prefer online classes. What percentage of students prefer online classes?",
+        options: ["90%","60%","65%","15%"],
+        answer: 3,
+        explanation: "22/150 = 0.15 = 15%."
+      },
+      {
+        passage: "",
+        question: "A survey of 50 students found that 40 prefer online classes. What percentage of students prefer online classes?",
+        options: ["30%","85%","80%","60%"],
+        answer: 2,
+        explanation: "40/50 = 0.8 = 80%."
+      },
+      {
+        passage: "",
+        question: "A survey of 200 students found that 150 prefer online classes. What percentage of students prefer online classes?",
+        options: ["10%","5%","95%","75%"],
+        answer: 3,
+        explanation: "150/200 = 0.75 = 75%."
+      },
+      {
+        passage: "",
+        question: "A survey of 400 students found that 60 prefer online classes. What percentage of students prefer online classes?",
+        options: ["40%","15%","50%","20%"],
+        answer: 1,
+        explanation: "60/400 = 0.15 = 15%."
+      },
+      {
+        passage: "",
+        question: "A survey of 50 students found that 37 prefer online classes. What percentage of students prefer online classes?",
+        options: ["35%","95%","75%","70%"],
+        answer: 2,
+        explanation: "37/50 = 0.75 = 75%."
+      },
+      {
+        passage: "",
+        question: "A survey of 160 students found that 80 prefer online classes. What percentage of students prefer online classes?",
+        options: ["70%","75%","50%","15%"],
+        answer: 2,
+        explanation: "80/160 = 0.5 = 50%."
+      },
+      {
+        passage: "",
+        question: "A survey of 80 students found that 36 prefer online classes. What percentage of students prefer online classes?",
+        options: ["20%","15%","30%","45%"],
+        answer: 3,
+        explanation: "36/80 = 0.45 = 45%."
+      },
+      {
+        passage: "",
+        question: "A survey of 150 students found that 105 prefer online classes. What percentage of students prefer online classes?",
+        options: ["20%","5%","70%","10%"],
+        answer: 2,
+        explanation: "105/150 = 0.7 = 70%."
+      },
+      {
+        passage: "",
+        question: "A survey of 150 students found that 112 prefer online classes. What percentage of students prefer online classes?",
+        options: ["75%","45%","30%","95%"],
+        answer: 0,
+        explanation: "112/150 = 0.75 = 75%."
+      },
+      {
+        passage: "",
+        question: "A survey of 80 students found that 60 prefer online classes. What percentage of students prefer online classes?",
+        options: ["75%","45%","80%","60%"],
+        answer: 0,
+        explanation: "60/80 = 0.75 = 75%."
+      },
+      {
+        passage: "",
+        question: "A survey of 250 students found that 162 prefer online classes. What percentage of students prefer online classes?",
+        options: ["70%","45%","50%","65%"],
+        answer: 3,
+        explanation: "162/250 = 0.65 = 65%."
+      },
+      {
+        passage: "",
+        question: "A survey of 300 students found that 105 prefer online classes. What percentage of students prefer online classes?",
+        options: ["80%","35%","10%","20%"],
+        answer: 1,
+        explanation: "105/300 = 0.35 = 35%."
+      },
+      {
+        passage: "",
+        question: "A survey of 300 students found that 165 prefer online classes. What percentage of students prefer online classes?",
+        options: ["65%","80%","10%","55%"],
+        answer: 3,
+        explanation: "165/300 = 0.55 = 55%."
+      },
+      {
+        passage: "",
+        question: "A survey of 160 students found that 88 prefer online classes. What percentage of students prefer online classes?",
+        options: ["25%","5%","35%","55%"],
+        answer: 3,
+        explanation: "88/160 = 0.55 = 55%."
+      },
+      {
+        passage: "",
+        question: "A car travels 240 miles using 8 gallons of gas. At this rate, how many miles can it travel on 8 gallons?",
+        options: ["210","250","220","240"],
+        answer: 3,
+        explanation: "240/8 = 30 miles per gallon. 30 × 8 = 240 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 200 miles using 10 gallons of gas. At this rate, how many miles can it travel on 10 gallons?",
+        options: ["210","180","170","200"],
+        answer: 3,
+        explanation: "200/10 = 20 miles per gallon. 20 × 10 = 200 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 168 miles using 6 gallons of gas. At this rate, how many miles can it travel on 8 gallons?",
+        options: ["204","224","194","254"],
+        answer: 1,
+        explanation: "168/6 = 28 miles per gallon. 28 × 8 = 224 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 112 miles using 4 gallons of gas. At this rate, how many miles can it travel on 12 gallons?",
+        options: ["336","326","306","346"],
+        answer: 0,
+        explanation: "112/4 = 28 miles per gallon. 28 × 12 = 336 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 192 miles using 8 gallons of gas. At this rate, how many miles can it travel on 15 gallons?",
+        options: ["350","370","380","360"],
+        answer: 3,
+        explanation: "192/8 = 24 miles per gallon. 24 × 15 = 360 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 144 miles using 6 gallons of gas. At this rate, how many miles can it travel on 12 gallons?",
+        options: ["278","298","288","258"],
+        answer: 2,
+        explanation: "144/6 = 24 miles per gallon. 24 × 12 = 288 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 132 miles using 6 gallons of gas. At this rate, how many miles can it travel on 15 gallons?",
+        options: ["300","330","320","310"],
+        answer: 1,
+        explanation: "132/6 = 22 miles per gallon. 22 × 15 = 330 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 200 miles using 8 gallons of gas. At this rate, how many miles can it travel on 20 gallons?",
+        options: ["490","500","520","510"],
+        answer: 1,
+        explanation: "200/8 = 25 miles per gallon. 25 × 20 = 500 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 280 miles using 10 gallons of gas. At this rate, how many miles can it travel on 20 gallons?",
+        options: ["570","550","560","530"],
+        answer: 2,
+        explanation: "280/10 = 28 miles per gallon. 28 × 20 = 560 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 220 miles using 10 gallons of gas. At this rate, how many miles can it travel on 15 gallons?",
+        options: ["320","330","340","300"],
+        answer: 1,
+        explanation: "220/10 = 22 miles per gallon. 22 × 15 = 330 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 125 miles using 5 gallons of gas. At this rate, how many miles can it travel on 15 gallons?",
+        options: ["375","385","365","405"],
+        answer: 0,
+        explanation: "125/5 = 25 miles per gallon. 25 × 15 = 375 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 80 miles using 4 gallons of gas. At this rate, how many miles can it travel on 15 gallons?",
+        options: ["310","300","320","330"],
+        answer: 1,
+        explanation: "80/4 = 20 miles per gallon. 20 × 15 = 300 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 112 miles using 4 gallons of gas. At this rate, how many miles can it travel on 8 gallons?",
+        options: ["244","204","194","224"],
+        answer: 3,
+        explanation: "112/4 = 28 miles per gallon. 28 × 8 = 224 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 200 miles using 10 gallons of gas. At this rate, how many miles can it travel on 8 gallons?",
+        options: ["130","170","160","190"],
+        answer: 2,
+        explanation: "200/10 = 20 miles per gallon. 20 × 8 = 160 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 240 miles using 10 gallons of gas. At this rate, how many miles can it travel on 10 gallons?",
+        options: ["270","240","220","230"],
+        answer: 1,
+        explanation: "240/10 = 24 miles per gallon. 24 × 10 = 240 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 80 miles using 4 gallons of gas. At this rate, how many miles can it travel on 8 gallons?",
+        options: ["170","140","150","160"],
+        answer: 3,
+        explanation: "80/4 = 20 miles per gallon. 20 × 8 = 160 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 160 miles using 5 gallons of gas. At this rate, how many miles can it travel on 15 gallons?",
+        options: ["480","460","500","470"],
+        answer: 0,
+        explanation: "160/5 = 32 miles per gallon. 32 × 15 = 480 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 350 miles using 10 gallons of gas. At this rate, how many miles can it travel on 20 gallons?",
+        options: ["700","710","720","690"],
+        answer: 0,
+        explanation: "350/10 = 35 miles per gallon. 35 × 20 = 700 miles."
+      },
+      {
+        passage: "",
+        question: "A car travels 280 miles using 10 gallons of gas. At this rate, how many miles can it travel on 12 gallons?",
+        options: ["336","366","346","316"],
+        answer: 0,
+        explanation: "280/10 = 28 miles per gallon. 28 × 12 = 336 miles."
+      },
+      {
+        passage: "",
+        question: "In a class of 16 students, the ratio of boys to girls is 1:3. How many girls are there?",
+        options: ["20","4","12","8"],
+        answer: 2,
+        explanation: "The ratio parts total 1 + 3 = 4. Each part represents 16/4 = 4 students. Girls = 3 × 4 = 12."
+      },
+      {
+        passage: "",
+        question: "In a class of 28 students, the ratio of boys to girls is 3:4. How many girls are there?",
+        options: ["12","16","20","24"],
+        answer: 1,
+        explanation: "The ratio parts total 3 + 4 = 7. Each part represents 28/7 = 4 students. Girls = 4 × 4 = 16."
+      },
+      {
+        passage: "",
+        question: "In a class of 88 students, the ratio of boys to girls is 5:6. How many girls are there?",
+        options: ["48","56","64","32"],
+        answer: 0,
+        explanation: "The ratio parts total 5 + 6 = 11. Each part represents 88/11 = 8 students. Girls = 6 × 8 = 48."
+      },
+      {
+        passage: "",
+        question: "In a class of 35 students, the ratio of boys to girls is 3:4. How many girls are there?",
+        options: ["20","25","15","10"],
+        answer: 0,
+        explanation: "The ratio parts total 3 + 4 = 7. Each part represents 35/7 = 5 students. Girls = 4 × 5 = 20."
+      },
+      {
+        passage: "",
+        question: "In a class of 49 students, the ratio of boys to girls is 3:4. How many girls are there?",
+        options: ["35","42","21","28"],
+        answer: 3,
+        explanation: "The ratio parts total 3 + 4 = 7. Each part represents 49/7 = 7 students. Girls = 4 × 7 = 28."
+      },
+      {
+        passage: "",
+        question: "In a class of 72 students, the ratio of boys to girls is 4:5. How many girls are there?",
+        options: ["40","24","32","48"],
+        answer: 0,
+        explanation: "The ratio parts total 4 + 5 = 9. Each part represents 72/9 = 8 students. Girls = 5 × 8 = 40."
+      },
+      {
+        passage: "",
+        question: "In a class of 28 students, the ratio of boys to girls is 2:5. How many girls are there?",
+        options: ["28","16","20","24"],
+        answer: 2,
+        explanation: "The ratio parts total 2 + 5 = 7. Each part represents 28/7 = 4 students. Girls = 5 × 4 = 20."
+      },
+      {
+        passage: "",
+        question: "In a class of 40 students, the ratio of boys to girls is 3:5. How many girls are there?",
+        options: ["15","20","25","35"],
+        answer: 2,
+        explanation: "The ratio parts total 3 + 5 = 8. Each part represents 40/8 = 5 students. Girls = 5 × 5 = 25."
+      },
+      {
+        passage: "",
+        question: "In a class of 32 students, the ratio of boys to girls is 3:5. How many girls are there?",
+        options: ["24","20","28","12"],
+        answer: 1,
+        explanation: "The ratio parts total 3 + 5 = 8. Each part represents 32/8 = 4 students. Girls = 5 × 4 = 20."
+      },
+      {
+        passage: "",
+        question: "In a class of 20 students, the ratio of boys to girls is 1:3. How many girls are there?",
+        options: ["20","10","15","25"],
+        answer: 2,
+        explanation: "The ratio parts total 1 + 3 = 4. Each part represents 20/4 = 5 students. Girls = 3 × 5 = 15."
+      },
+      {
+        passage: "",
+        question: "In a class of 55 students, the ratio of boys to girls is 5:6. How many girls are there?",
+        options: ["30","25","40","20"],
+        answer: 0,
+        explanation: "The ratio parts total 5 + 6 = 11. Each part represents 55/11 = 5 students. Girls = 6 × 5 = 30."
+      },
+      {
+        passage: "",
+        question: "In a class of 56 students, the ratio of boys to girls is 3:4. How many girls are there?",
+        options: ["48","16","32","24"],
+        answer: 2,
+        explanation: "The ratio parts total 3 + 4 = 7. Each part represents 56/7 = 8 students. Girls = 4 × 8 = 32."
+      },
+      {
+        passage: "",
+        question: "In a class of 25 students, the ratio of boys to girls is 2:3. How many girls are there?",
+        options: ["15","10","25","5"],
+        answer: 0,
+        explanation: "The ratio parts total 2 + 3 = 5. Each part represents 25/5 = 5 students. Girls = 3 × 5 = 15."
+      },
+      {
+        passage: "",
+        question: "In a class of 66 students, the ratio of boys to girls is 5:6. How many girls are there?",
+        options: ["24","30","36","48"],
+        answer: 2,
+        explanation: "The ratio parts total 5 + 6 = 11. Each part represents 66/11 = 6 students. Girls = 6 × 6 = 36."
+      },
+      {
+        passage: "",
+        question: "In a class of 56 students, the ratio of boys to girls is 3:5. How many girls are there?",
+        options: ["35","42","49","28"],
+        answer: 0,
+        explanation: "The ratio parts total 3 + 5 = 8. Each part represents 56/8 = 7 students. Girls = 5 × 7 = 35."
+      },
+      {
+        passage: "",
+        question: "In a class of 44 students, the ratio of boys to girls is 5:6. How many girls are there?",
+        options: ["24","32","20","16"],
+        answer: 0,
+        explanation: "The ratio parts total 5 + 6 = 11. Each part represents 44/11 = 4 students. Girls = 6 × 4 = 24."
+      },
+      {
+        passage: "",
+        question: "In a class of 24 students, the ratio of boys to girls is 1:3. How many girls are there?",
+        options: ["30","12","24","18"],
+        answer: 3,
+        explanation: "The ratio parts total 1 + 3 = 4. Each part represents 24/4 = 6 students. Girls = 3 × 6 = 18."
+      },
+      {
+        passage: "",
+        question: "In a class of 42 students, the ratio of boys to girls is 3:4. How many girls are there?",
+        options: ["24","30","36","12"],
+        answer: 0,
+        explanation: "The ratio parts total 3 + 4 = 7. Each part represents 42/7 = 6 students. Girls = 4 × 6 = 24."
+      },
+      {
+        passage: "",
+        question: "In a class of 35 students, the ratio of boys to girls is 2:3. How many girls are there?",
+        options: ["14","35","21","28"],
+        answer: 2,
+        explanation: "The ratio parts total 2 + 3 = 5. Each part represents 35/5 = 7 students. Girls = 3 × 7 = 21."
+      },
+      {
+        passage: "",
+        question: "In a class of 36 students, the ratio of boys to girls is 4:5. How many girls are there?",
+        options: ["20","28","24","12"],
+        answer: 0,
+        explanation: "The ratio parts total 4 + 5 = 9. Each part represents 36/9 = 4 students. Girls = 5 × 4 = 20."
+      },
+      {
+        passage: "",
+        question: "In a class of 49 students, the ratio of boys to girls is 2:5. How many girls are there?",
+        options: ["42","35","49","28"],
+        answer: 1,
+        explanation: "The ratio parts total 2 + 5 = 7. Each part represents 49/7 = 7 students. Girls = 5 × 7 = 35."
+      },
+      {
+        passage: "",
+        question: "In a class of 32 students, the ratio of boys to girls is 1:3. How many girls are there?",
+        options: ["24","8","40","16"],
+        answer: 0,
+        explanation: "The ratio parts total 1 + 3 = 4. Each part represents 32/4 = 8 students. Girls = 3 × 8 = 24."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $60,000 to $72,000. What is the percent increase?",
+        options: ["20%","33%","12%","27%"],
+        answer: 0,
+        explanation: "(72,000 − 60,000)/60,000 = 0.2 = 20%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $100,000 to $112,000. What is the percent increase?",
+        options: ["39%","25%","12%","27%"],
+        answer: 2,
+        explanation: "(112,000 − 100,000)/100,000 = 0.12 = 12%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $60,000 to $66,000. What is the percent increase?",
+        options: ["15%","39%","10%","7%"],
+        answer: 2,
+        explanation: "(66,000 − 60,000)/60,000 = 0.1 = 10%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $150,000 to $157,500. What is the percent increase?",
+        options: ["39%","10%","5%","25%"],
+        answer: 2,
+        explanation: "(157,500 − 150,000)/150,000 = 0.05 = 5%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $80,000 to $86,400. What is the percent increase?",
+        options: ["8%","4%","33%","10%"],
+        answer: 0,
+        explanation: "(86,400 − 80,000)/80,000 = 0.08 = 8%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $50,000 to $57,500. What is the percent increase?",
+        options: ["8%","9%","15%","7%"],
+        answer: 2,
+        explanation: "(57,500 − 50,000)/50,000 = 0.15 = 15%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $60,000 to $63,000. What is the percent increase?",
+        options: ["14%","7%","8%","5%"],
+        answer: 3,
+        explanation: "(63,000 − 60,000)/60,000 = 0.05 = 5%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $80,000 to $100,000. What is the percent increase?",
+        options: ["27%","25%","18%","22%"],
+        answer: 1,
+        explanation: "(100,000 − 80,000)/80,000 = 0.25 = 25%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $150,000 to $187,500. What is the percent increase?",
+        options: ["3%","9%","36%","25%"],
+        answer: 3,
+        explanation: "(187,500 − 150,000)/150,000 = 0.25 = 25%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $40,000 to $50,000. What is the percent increase?",
+        options: ["19%","25%","34%","22%"],
+        answer: 1,
+        explanation: "(50,000 − 40,000)/40,000 = 0.25 = 25%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $60,000 to $69,000. What is the percent increase?",
+        options: ["15%","33%","12%","16%"],
+        answer: 0,
+        explanation: "(69,000 − 60,000)/60,000 = 0.15 = 15%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $120,000 to $132,000. What is the percent increase?",
+        options: ["10%","31%","2%","26%"],
+        answer: 0,
+        explanation: "(132,000 − 120,000)/120,000 = 0.1 = 10%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $40,000 to $43,200. What is the percent increase?",
+        options: ["5%","8%","25%","36%"],
+        answer: 1,
+        explanation: "(43,200 − 40,000)/40,000 = 0.08 = 8%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $120,000 to $134,400. What is the percent increase?",
+        options: ["35%","12%","16%","40%"],
+        answer: 1,
+        explanation: "(134,400 − 120,000)/120,000 = 0.12 = 12%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $80,000 to $88,000. What is the percent increase?",
+        options: ["10%","11%","24%","22%"],
+        answer: 0,
+        explanation: "(88,000 − 80,000)/80,000 = 0.1 = 10%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $120,000 to $129,600. What is the percent increase?",
+        options: ["26%","2%","4%","8%"],
+        answer: 3,
+        explanation: "(129,600 − 120,000)/120,000 = 0.08 = 8%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $150,000 to $172,500. What is the percent increase?",
+        options: ["40%","26%","28%","15%"],
+        answer: 3,
+        explanation: "(172,500 − 150,000)/150,000 = 0.15 = 15%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $50,000 to $56,000. What is the percent increase?",
+        options: ["39%","31%","7%","12%"],
+        answer: 3,
+        explanation: "(56,000 − 50,000)/50,000 = 0.12 = 12%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $120,000 to $150,000. What is the percent increase?",
+        options: ["28%","25%","11%","23%"],
+        answer: 1,
+        explanation: "(150,000 − 120,000)/120,000 = 0.25 = 25%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $50,000 to $55,000. What is the percent increase?",
+        options: ["27%","2%","3%","10%"],
+        answer: 3,
+        explanation: "(55,000 − 50,000)/50,000 = 0.1 = 10%."
+      },
+      {
+        passage: "",
+        question: "A company's revenue increased from $120,000 to $138,000. What is the percent increase?",
+        options: ["14%","15%","30%","17%"],
+        answer: 1,
+        explanation: "(138,000 − 120,000)/120,000 = 0.15 = 15%."
+      }
+    ],
+    'Geometry and Trigonometry': [
+      {
+        passage: "",
+        question: "A right triangle has legs of length 6 and 8. What is the length of the hypotenuse?",
+        options: ["9","10","12","14"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(6² + 8²) = √(36 + 64) = √100 = 10."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 49π. What is the radius?",
+        options: ["6","7","8","9"],
+        answer: 1,
+        explanation: "πr² = 49π, so r² = 49, and r = 7."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the hypotenuse has length 10. What is the length of the side opposite the 30° angle?",
+        options: ["5","5√3","10","8.66"],
+        answer: 0,
+        explanation: "The side opposite a 30° angle equals hypotenuse × sin(30°) = 10 × 0.5 = 5."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 12 and a width of 5. What is the length of its diagonal?",
+        options: ["11","12","13","14"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(12² + 5²) = √(144 + 25) = √169 = 13."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 30 and 40. What is the length of the hypotenuse?",
+        options: ["50","48","47","52"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(30² + 40²) = √2500 = 50."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 45 and 108. What is the length of the hypotenuse?",
+        options: ["118","117","119","114"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(45² + 108²) = √13689 = 117."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 22 and 120. What is the length of the hypotenuse?",
+        options: ["122","125","123","120"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(22² + 120²) = √14884 = 122."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 15 and 36. What is the length of the hypotenuse?",
+        options: ["36","39","40","42"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(15² + 36²) = √1521 = 39."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 27 and 120. What is the length of the hypotenuse?",
+        options: ["120","123","124","121"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(27² + 120²) = √15129 = 123."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 48 and 90. What is the length of the hypotenuse?",
+        options: ["100","103","104","102"],
+        answer: 3,
+        explanation: "By the Pythagorean theorem: √(48² + 90²) = √10404 = 102."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 10 and 24. What is the length of the hypotenuse?",
+        options: ["29","26","28","27"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(10² + 24²) = √676 = 26."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 5 and 12. What is the length of the hypotenuse?",
+        options: ["12","13","10","15"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(5² + 12²) = √169 = 13."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 30 and 72. What is the length of the hypotenuse?",
+        options: ["78","75","76","81"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(30² + 72²) = √6084 = 78."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 20 and 48. What is the length of the hypotenuse?",
+        options: ["50","51","52","55"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(20² + 48²) = √2704 = 52."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 24 and 45. What is the length of the hypotenuse?",
+        options: ["48","52","51","49"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(24² + 45²) = √2601 = 51."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 18 and 24. What is the length of the hypotenuse?",
+        options: ["28","32","30","29"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(18² + 24²) = √900 = 30."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 9 and 12. What is the length of the hypotenuse?",
+        options: ["18","13","15","12"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(9² + 12²) = √225 = 15."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 12 and 35. What is the length of the hypotenuse?",
+        options: ["36","38","39","37"],
+        answer: 3,
+        explanation: "By the Pythagorean theorem: √(12² + 35²) = √1369 = 37."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 32 and 60. What is the length of the hypotenuse?",
+        options: ["68","65","70","67"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(32² + 60²) = √4624 = 68."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 63 and 84. What is the length of the hypotenuse?",
+        options: ["103","105","104","106"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(63² + 84²) = √11025 = 105."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 40 and 42. What is the length of the hypotenuse?",
+        options: ["58","60","61","59"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(40² + 42²) = √3364 = 58."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 18 and 80. What is the length of the hypotenuse?",
+        options: ["82","80","85","83"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(18² + 80²) = √6724 = 82."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 3 and 4. What is the length of the hypotenuse?",
+        options: ["2","5","7","3"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(3² + 4²) = √25 = 5."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 20 and 21. What is the length of the hypotenuse?",
+        options: ["28","31","29","32"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(20² + 21²) = √841 = 29."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 15 and 20. What is the length of the hypotenuse?",
+        options: ["25","26","23","24"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(15² + 20²) = √625 = 25."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 54 and 72. What is the length of the hypotenuse?",
+        options: ["93","88","90","89"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(54² + 72²) = √8100 = 90."
+      },
+      {
+        passage: "",
+        question: "A right triangle has legs of length 7 and 24. What is the length of the hypotenuse?",
+        options: ["27","26","23","25"],
+        answer: 3,
+        explanation: "By the Pythagorean theorem: √(7² + 24²) = √625 = 25."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 324π. What is the radius?",
+        options: ["15","17","21","18"],
+        answer: 3,
+        explanation: "πr² = 324π, so r² = 324, and r = 18."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 9π. What is the radius?",
+        options: ["2","5","3","4"],
+        answer: 2,
+        explanation: "πr² = 9π, so r² = 9, and r = 3."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 16π. What is the radius?",
+        options: ["4","5","3","1"],
+        answer: 0,
+        explanation: "πr² = 16π, so r² = 16, and r = 4."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 64π. What is the radius?",
+        options: ["9","11","8","5"],
+        answer: 2,
+        explanation: "πr² = 64π, so r² = 64, and r = 8."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 36π. What is the radius?",
+        options: ["6","4","7","5"],
+        answer: 0,
+        explanation: "πr² = 36π, so r² = 36, and r = 6."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 25π. What is the radius?",
+        options: ["8","5","7","3"],
+        answer: 1,
+        explanation: "πr² = 25π, so r² = 25, and r = 5."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 169π. What is the radius?",
+        options: ["16","14","13","11"],
+        answer: 2,
+        explanation: "πr² = 169π, so r² = 169, and r = 13."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 289π. What is the radius?",
+        options: ["19","16","17","14"],
+        answer: 2,
+        explanation: "πr² = 289π, so r² = 289, and r = 17."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 400π. What is the radius?",
+        options: ["20","17","23","18"],
+        answer: 0,
+        explanation: "πr² = 400π, so r² = 400, and r = 20."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 256π. What is the radius?",
+        options: ["16","14","19","18"],
+        answer: 0,
+        explanation: "πr² = 256π, so r² = 256, and r = 16."
+      },
+      {
+        passage: "",
+        question: "The area of a circle is 100π. What is the radius?",
+        options: ["13","10","12","11"],
+        answer: 1,
+        explanation: "πr² = 100π, so r² = 100, and r = 10."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 32π. What is the diameter of the circle?",
+        options: ["32","30","36","28"],
+        answer: 0,
+        explanation: "Circumference = πd, so 32π = πd, and d = 32."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 36π. What is the diameter of the circle?",
+        options: ["34","40","32","36"],
+        answer: 3,
+        explanation: "Circumference = πd, so 36π = πd, and d = 36."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 8π. What is the diameter of the circle?",
+        options: ["6","10","8","4"],
+        answer: 2,
+        explanation: "Circumference = πd, so 8π = πd, and d = 8."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 12π. What is the diameter of the circle?",
+        options: ["12","14","10","16"],
+        answer: 0,
+        explanation: "Circumference = πd, so 12π = πd, and d = 12."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 38π. What is the diameter of the circle?",
+        options: ["42","40","36","38"],
+        answer: 3,
+        explanation: "Circumference = πd, so 38π = πd, and d = 38."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 20π. What is the diameter of the circle?",
+        options: ["18","24","16","20"],
+        answer: 3,
+        explanation: "Circumference = πd, so 20π = πd, and d = 20."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 30π. What is the diameter of the circle?",
+        options: ["32","28","30","26"],
+        answer: 2,
+        explanation: "Circumference = πd, so 30π = πd, and d = 30."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 40π. What is the diameter of the circle?",
+        options: ["42","36","38","40"],
+        answer: 3,
+        explanation: "Circumference = πd, so 40π = πd, and d = 40."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 22π. What is the diameter of the circle?",
+        options: ["22","18","20","24"],
+        answer: 0,
+        explanation: "Circumference = πd, so 22π = πd, and d = 22."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 24π. What is the diameter of the circle?",
+        options: ["22","28","26","24"],
+        answer: 3,
+        explanation: "Circumference = πd, so 24π = πd, and d = 24."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 18π. What is the diameter of the circle?",
+        options: ["14","18","20","22"],
+        answer: 1,
+        explanation: "Circumference = πd, so 18π = πd, and d = 18."
+      },
+      {
+        passage: "",
+        question: "The circumference of a circle is 6π. What is the diameter of the circle?",
+        options: ["10","6","4","2"],
+        answer: 1,
+        explanation: "Circumference = πd, so 6π = πd, and d = 6."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the hypotenuse has length 4. What is the length of the side opposite the 30° angle?",
+        options: ["2","4","3","1"],
+        answer: 0,
+        explanation: "The side opposite a 30° angle equals hypotenuse × sin(30°) = 4 × 0.5 = 2."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the hypotenuse has length 8. What is the length of the side opposite the 30° angle?",
+        options: ["4","5","6","2"],
+        answer: 0,
+        explanation: "The side opposite a 30° angle equals hypotenuse × sin(30°) = 8 × 0.5 = 4."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the hypotenuse has length 6. What is the length of the side opposite the 30° angle?",
+        options: ["1","3","4","2"],
+        answer: 1,
+        explanation: "The side opposite a 30° angle equals hypotenuse × sin(30°) = 6 × 0.5 = 3."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the hypotenuse has length 24. What is the length of the side opposite the 30° angle?",
+        options: ["12","13","11","14"],
+        answer: 0,
+        explanation: "The side opposite a 30° angle equals hypotenuse × sin(30°) = 24 × 0.5 = 12."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the hypotenuse has length 22. What is the length of the side opposite the 30° angle?",
+        options: ["11","12","10","9"],
+        answer: 0,
+        explanation: "The side opposite a 30° angle equals hypotenuse × sin(30°) = 22 × 0.5 = 11."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 4. What is the length of the hypotenuse?",
+        options: ["7","8","10","11"],
+        answer: 1,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 4 × 2 = 8."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 11. What is the length of the hypotenuse?",
+        options: ["21","25","22","19"],
+        answer: 2,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 11 × 2 = 22."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 9. What is the length of the hypotenuse?",
+        options: ["15","18","21","16"],
+        answer: 1,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 9 × 2 = 18."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 10. What is the length of the hypotenuse?",
+        options: ["21","20","19","22"],
+        answer: 1,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 10 × 2 = 20."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 6. What is the length of the hypotenuse?",
+        options: ["9","12","11","10"],
+        answer: 1,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 6 × 2 = 12."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 3. What is the length of the hypotenuse?",
+        options: ["7","6","5","8"],
+        answer: 1,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 3 × 2 = 6."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 12. What is the length of the hypotenuse?",
+        options: ["23","27","24","25"],
+        answer: 2,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 12 × 2 = 24."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, one angle measures 30°, and the side opposite that angle has length 7. What is the length of the hypotenuse?",
+        options: ["16","11","14","17"],
+        answer: 2,
+        explanation: "The side opposite a 30° angle equals half the hypotenuse, so the hypotenuse = 7 × 2 = 14."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 20 and a width of 21. What is the length of its diagonal?",
+        options: ["32","28","26","29"],
+        answer: 3,
+        explanation: "By the Pythagorean theorem: √(20² + 21²) = √841 = 29."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 36 and a width of 48. What is the length of its diagonal?",
+        options: ["60","58","61","59"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(36² + 48²) = √3600 = 60."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 8 and a width of 15. What is the length of its diagonal?",
+        options: ["17","16","19","15"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(8² + 15²) = √289 = 17."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 14 and a width of 48. What is the length of its diagonal?",
+        options: ["50","51","53","47"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(14² + 48²) = √2500 = 50."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 60 and a width of 63. What is the length of its diagonal?",
+        options: ["85","89","84","87"],
+        answer: 3,
+        explanation: "By the Pythagorean theorem: √(60² + 63²) = √7569 = 87."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 12 and a width of 16. What is the length of its diagonal?",
+        options: ["20","18","23","17"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(12² + 16²) = √400 = 20."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 36 and a width of 105. What is the length of its diagonal?",
+        options: ["110","111","112","109"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(36² + 105²) = √12321 = 111."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 3 and a width of 4. What is the length of its diagonal?",
+        options: ["5","4","6","7"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(3² + 4²) = √25 = 5."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 10 and a width of 24. What is the length of its diagonal?",
+        options: ["28","24","27","26"],
+        answer: 3,
+        explanation: "By the Pythagorean theorem: √(10² + 24²) = √676 = 26."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 7 and a width of 24. What is the length of its diagonal?",
+        options: ["28","26","25","22"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(7² + 24²) = √625 = 25."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 32 and a width of 60. What is the length of its diagonal?",
+        options: ["68","65","66","70"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(32² + 60²) = √4624 = 68."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 24 and a width of 70. What is the length of its diagonal?",
+        options: ["74","76","77","72"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(24² + 70²) = √5476 = 74."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 24 and a width of 45. What is the length of its diagonal?",
+        options: ["51","49","52","54"],
+        answer: 0,
+        explanation: "By the Pythagorean theorem: √(24² + 45²) = √2601 = 51."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 30 and a width of 72. What is the length of its diagonal?",
+        options: ["75","80","78","79"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(30² + 72²) = √6084 = 78."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 6 and a width of 8. What is the length of its diagonal?",
+        options: ["8","10","12","7"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(6² + 8²) = √100 = 10."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 9 and a width of 12. What is the length of its diagonal?",
+        options: ["18","13","15","17"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(9² + 12²) = √225 = 15."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 22 and a width of 120. What is the length of its diagonal?",
+        options: ["120","121","122","119"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(22² + 120²) = √14884 = 122."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 24 and a width of 32. What is the length of its diagonal?",
+        options: ["39","40","41","38"],
+        answer: 1,
+        explanation: "By the Pythagorean theorem: √(24² + 32²) = √1600 = 40."
+      },
+      {
+        passage: "",
+        question: "A rectangle has a length of 42 and a width of 56. What is the length of its diagonal?",
+        options: ["69","73","70","71"],
+        answer: 2,
+        explanation: "By the Pythagorean theorem: √(42² + 56²) = √4900 = 70."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 2, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["1","3","5","4"],
+        answer: 1,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 2 × 1.414 ≈ 3."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 4, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["6","7","5","8"],
+        answer: 0,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 4 × 1.414 ≈ 6."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 10, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["13","12","16","14"],
+        answer: 3,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 10 × 1.414 ≈ 14."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 7, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["8","9","10","11"],
+        answer: 2,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 7 × 1.414 ≈ 10."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 3, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["4","3","2","5"],
+        answer: 0,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 3 × 1.414 ≈ 4."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 5, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["6","7","8","5"],
+        answer: 1,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 5 × 1.414 ≈ 7."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 9, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["12","11","13","15"],
+        answer: 2,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 9 × 1.414 ≈ 13."
+      },
+      {
+        passage: "",
+        question: "In a right triangle, both legs have length 12, and the two acute angles each measure 45°. What is the approximate length of the hypotenuse?",
+        options: ["17","15","18","16"],
+        answer: 0,
+        explanation: "In a 45-45-90 triangle, the hypotenuse equals a leg times √2: 12 × 1.414 ≈ 17."
+      }
+    ]
+  }
+};
+
 let stopwatchTimer = null;
 let stopwatchElapsed = 0;
 
@@ -3591,14 +6916,15 @@ function startPastExam(num) {
 
 
 // ── Question Bank (Standard plan) / Unlimited Practice (Pro) — launched from the Math / R&W practice cards ──
-function practiceStorageKey(subject, unlimited) {
-  return `chetta_practice_v2_${subject}_${unlimited ? 'unlimited' : 'bank'}`;
+function practiceStorageKey(subject, unlimited, section) {
+  const sec = (section || 'all').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+  return `chetta_practice_v3_${subject}_${unlimited ? 'unlimited' : 'bank'}_${sec}`;
 }
 
 function savePracticeState() {
   if (!practiceMode) return;
   try {
-    const key = practiceStorageKey(sectionExamSubject, practiceUnlimited);
+    const key = practiceStorageKey(sectionExamSubject, practiceUnlimited, practiceSection);
     const state = {
       practicePool, practiceDrawIdx, practiceStats,
       examQuestions, examCurrentQ,
@@ -3609,25 +6935,26 @@ function savePracticeState() {
   } catch (e) { /* storage full/unavailable — practice still works, it just won't resume next time */ }
 }
 
-function clearPracticeState(subject, unlimited) {
-  try { localStorage.removeItem(practiceStorageKey(subject, unlimited)); } catch (e) {}
+function clearPracticeState(subject, unlimited, section) {
+  try { localStorage.removeItem(practiceStorageKey(subject, unlimited, section)); } catch (e) {}
 }
 
-function loadPracticeState(subject, unlimited) {
+function loadPracticeState(subject, unlimited, section) {
   try {
-    const raw = localStorage.getItem(practiceStorageKey(subject, unlimited));
+    const raw = localStorage.getItem(practiceStorageKey(subject, unlimited, section));
     return raw ? JSON.parse(raw) : null;
   } catch (e) { return null; }
 }
 
-function startPracticeMode(subject, unlimited) {
+function startPracticeMode(subject, unlimited, section) {
   practiceMode = true;
   practiceUnlimited = !!unlimited;
+  practiceSection = section || 'all';
   sectionExamSubject = subject; // 'reading' or 'math'
   EXAM_MODULE_ORDER = ['p'];
   examModuleIdx = 0;
 
-  const saved = loadPracticeState(subject, practiceUnlimited);
+  const saved = loadPracticeState(subject, practiceUnlimited, practiceSection);
   if (saved && Array.isArray(saved.examQuestions) && saved.examQuestions.length) {
     practicePool = saved.practicePool || [];
     practiceDrawIdx = saved.practiceDrawIdx || 0;
@@ -3641,13 +6968,15 @@ function startPracticeMode(subject, unlimited) {
     examChecked = { p: saved.checked || {} };
     examCorrect = { p: saved.correct || {} };
   } else {
+    const domainBank = QBANK_QUESTIONS[subject] || {};
     let pool = [];
-    Object.keys(PAST_EXAMS).forEach(n => {
-      const e = PAST_EXAMS[n];
-      pool = pool.concat(subject === 'math' ? [...e.math1, ...e.math2] : [...e.rw1, ...e.rw2]);
-    });
+    if (practiceSection === 'all') {
+      Object.keys(domainBank).forEach(domain => { pool = pool.concat(domainBank[domain]); });
+    } else {
+      pool = (domainBank[practiceSection] || []).slice();
+    }
     if (!pool.length) {
-      alert("No practice questions are available yet.");
+      alert("No practice questions are available yet for this section.");
       practiceMode = false;
       return;
     }
@@ -3658,10 +6987,9 @@ function startPracticeMode(subject, unlimited) {
       examQuestions = [practicePool[0]];
       practiceDrawIdx = 1;
     } else {
-      // Question Bank: a fixed, fully-navigable set — mirrors a real module size
-      const setSize = Math.min(QBANK_SET_SIZE[subject] || 20, practicePool.length);
-      examQuestions = practicePool.slice(0, setSize);
-      practiceDrawIdx = setSize;
+      // Question Bank: work through every question in this pool (matches the count shown on the picker card)
+      examQuestions = practicePool.slice();
+      practiceDrawIdx = practicePool.length;
     }
     examCurrentQ = 0;
     examAnswers = { p: {} };
@@ -3756,7 +7084,7 @@ function showPracticeResults() {
   document.getElementById('exam-res-total-row').style.display = 'none';
   document.getElementById('exam-res-title').textContent = 'Question bank complete!';
   document.getElementById('exam-res-back-btn').textContent = 'Back to Practice';
-  clearPracticeState(sectionExamSubject, practiceUnlimited);
+  clearPracticeState(sectionExamSubject, practiceUnlimited, practiceSection);
 }
 
 function examNextBtnClick() {
@@ -3859,7 +7187,7 @@ function clearExamCrossOuts() {
 function examSectionInfo() {
   const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
   if (moduleKey === 'p') {
-    const label = `${practiceUnlimited ? 'Unlimited Practice' : 'Question Bank'} — ${sectionExamSubject === 'math' ? 'Math' : 'Reading and Writing'}`;
+    const label = `${practiceUnlimited ? 'Unlimited Practice' : 'Question Bank'} — ${sectionExamSubject === 'math' ? 'Math' : 'Reading and Writing'}${practiceSection !== 'all' ? ' · ' + practiceSection : ''}`;
     const countLine = practiceUnlimited
       ? `<span style="font-size:.8rem;color:var(--g400);font-family:'DM Sans',sans-serif;font-weight:600">${practiceStats.total} answered so far</span>`
       : `<span style="font-size:.8rem;color:var(--g400);font-family:'DM Sans',sans-serif;font-weight:600">${examQuestions.length} questions total</span>`;
@@ -3956,7 +7284,7 @@ function loadExamQuestion() {
     const checked = !!(examChecked.p && examChecked.p[examCurrentQ]);
     const hasSelection = examAnswers.p[examCurrentQ] !== undefined;
 
-    document.getElementById('exam-module-lbl').textContent = `${practiceUnlimited ? 'Unlimited Practice' : 'Question Bank'} — ${sectionExamSubject === 'math' ? 'Math' : 'Reading & Writing'}`;
+    document.getElementById('exam-module-lbl').textContent = `${practiceUnlimited ? 'Unlimited Practice' : 'Question Bank'} — ${sectionExamSubject === 'math' ? 'Math' : 'Reading & Writing'}${practiceSection !== 'all' ? ' · ' + practiceSection : ''}`;
     document.getElementById('exam-module-sub').textContent = practiceUnlimited ? 'Untimed pool — practice at your own pace' : `Question ${examCurrentQ + 1} of ${examQuestions.length}`;
     document.getElementById('exam-nav-pill-chevron').style.display = '';
     document.getElementById('exam-nav-pill-label').textContent = `${practiceStats.total} answered • ${practiceStats.correct} correct`;
@@ -4249,6 +7577,7 @@ function exitExam() {
   sectionExamSubject = null;
   practiceMode = false;
   practiceUnlimited = false;
+  practiceSection = 'all';
   document.getElementById('exam-nav-pill-chevron').style.display = '';
   document.getElementById('exam-page').classList.remove('open');
   document.getElementById('exam-page').classList.remove('dark');
@@ -4290,38 +7619,72 @@ window.addEventListener('beforeunload', () => { if (practiceMode) savePracticeSt
 
 setupHighlightToolbar();
 
-// ── MODE CHOOSER (Question Bank vs Unlimited Practice) for the Math / R&W practice cards ──
+// ── MODE CHOOSER (Question Bank vs Unlimited Practice) + SECTION PICKER for the Math / R&W practice cards ──
 let sectionModeSubject = 'reading';
 function openSectionMode(subject) {
   sectionModeSubject = subject;
   document.getElementById('sectionModeTitle').textContent = subject === 'math' ? 'Math' : 'Reading & Writing';
+  document.getElementById('sectionModeStep1').style.display = '';
+  document.getElementById('sectionModeStep2').style.display = 'none';
   document.getElementById('sectionModeOv').classList.add('open');
 }
 function closeSectionMode() {
   document.getElementById('sectionModeOv').classList.remove('open');
 }
+function chooseMode(unlimited) {
+  if (unlimited && !requirePro()) return;
+  document.getElementById('sectionModeStep1').style.display = 'none';
+  document.getElementById('sectionModeStep2').style.display = '';
+  const domains = sectionModeSubject === 'math' ? MATH_DOMAINS : RW_DOMAINS;
+  const color = sectionModeSubject === 'math' ? 'green' : 'blue';
+  const bank = QBANK_QUESTIONS[sectionModeSubject] || {};
+  const totalCount = domains.reduce((sum, d) => sum + ((bank[d] || []).length), 0);
+  const grid = document.getElementById('sectionPickerGrid');
+  grid.innerHTML = `
+    <div class="prac-card ${color}" style="cursor:pointer;padding:.9rem 1.1rem" onclick="closeSectionMode();startPracticeMode(sectionModeSubject,${unlimited},'all')">
+      <h3 style="font-size:.95rem">All Sections</h3>
+      <p style="margin:0">Mix of every domain in ${sectionModeSubject === 'math' ? 'Math' : 'Reading & Writing'}</p>
+      <span class="prac-badge" style="margin-top:.5rem">${totalCount} questions</span>
+    </div>
+  ` + domains.map(d => {
+    const n = (bank[d] || []).length;
+    return `
+    <div class="prac-card ${color}" style="cursor:pointer;padding:.9rem 1.1rem" onclick="closeSectionMode();startPracticeMode(sectionModeSubject,${unlimited},'${d.replace(/'/g, "\\'")}')">
+      <h3 style="font-size:.95rem">${d}</h3>
+      <span class="prac-badge" style="margin-top:.5rem">${n} question${n === 1 ? '' : 's'}</span>
+    </div>`;
+  }).join('');
+}
+function backToModeStep() {
+  document.getElementById('sectionModeStep1').style.display = '';
+  document.getElementById('sectionModeStep2').style.display = 'none';
+}
 </script>
 
-<!-- SECTION MODE CHOOSER: Question Bank vs Unlimited Practice -->
+<!-- SECTION MODE CHOOSER: Question Bank vs Unlimited Practice, then domain picker -->
 <div class="m-ov" id="sectionModeOv">
-  <div class="m-box" style="max-width:420px">
+  <div class="m-box" style="max-width:440px">
     <div class="m-head" style="border-radius:var(--rxl) var(--rxl) 0 0">
       <button class="m-close" onclick="closeSectionMode()">✕</button>
       <div class="m-title" style="font-size:1.3rem" id="sectionModeTitle">Reading & Writing</div>
-      <div class="m-loc">Choose how you'd like to practice</div>
+      <div class="m-loc" id="sectionModeSubtitle">Choose how you'd like to practice</div>
     </div>
-    <div class="m-content" style="display:flex;flex-direction:column;gap:.8rem">
-      <div class="prac-card blue" style="cursor:pointer" onclick="closeSectionMode();startPracticeMode(sectionModeSubject,false)">
+    <div class="m-content" id="sectionModeStep1" style="display:flex;flex-direction:column;gap:.8rem">
+      <div class="prac-card blue" style="cursor:pointer" onclick="chooseMode(false)">
         <div class="prac-icon blue">📖</div>
         <h3>Question Bank</h3>
         <p>Work through questions at your own pace, Bluebook-style, with full explanations.</p>
       </div>
-      <div class="prac-card amber" style="cursor:pointer" onclick="closeSectionMode();if(requirePro())startPracticeMode(sectionModeSubject,true)">
+      <div class="prac-card amber" style="cursor:pointer" onclick="chooseMode(true)">
         <span class="pro-badge">PRO</span>
         <div class="prac-icon amber">♾️</div>
         <h3>Unlimited Practice</h3>
         <p>Same interface, endless questions — never run out, never repeat a session.</p>
       </div>
+    </div>
+    <div class="m-content" id="sectionModeStep2" style="display:none;flex-direction:column;gap:.6rem">
+      <button class="qb-btn outline" style="align-self:flex-start;margin-bottom:.2rem" onclick="backToModeStep()">← Back</button>
+      <div id="sectionPickerGrid" style="display:flex;flex-direction:column;gap:.6rem"></div>
     </div>
   </div>
 </div>
