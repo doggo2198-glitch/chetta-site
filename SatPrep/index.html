@@ -2946,6 +2946,10 @@ onAuthStateChanged(auth, (user) => {
 .exam-timer-hide-btn:hover{border-color:var(--g300)}
 .exam-timer.hidden-time{visibility:hidden}
 .exam-tool-btn{background:none;border:none;color:var(--g600);font-size:.78rem;font-weight:500;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.2rem;font-family:'DM Sans',sans-serif}
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem}
+.ref-card{border:1px solid var(--g200);border-radius:10px;padding:.85rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.4rem;background:#fafafa}
+.ref-formula{font-size:.85rem;color:var(--g900);font-weight:600;line-height:1.5}
+@media(max-width:480px){.ref-grid{grid-template-columns:repeat(2,1fr)}}
 .exam-tool-btn:hover{color:var(--g900)}
 .exam-more-wrap{position:relative}
 .exam-more-menu{display:none;position:absolute;top:110%;right:0;background:#fff;border:1px solid var(--g200);border-radius:var(--r);box-shadow:var(--shadowlg);min-width:160px;z-index:20;overflow:hidden}
@@ -3063,6 +3067,7 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
       <button class="exam-timer-hide-btn" onclick="toggleExamTimerVisibility()" id="exam-timer-hide-btn">Hide</button>
     </div>
     <div class="exam-topbar-right">
+      <button class="exam-tool-btn" id="examRefBtn" onclick="openRefSheet()" style="display:none">📄 <span>Reference</span></button>
       <button class="exam-tool-btn" onclick="highlightHintFromToolbar()">🖍 <span>Highlight</span></button>
       <div class="exam-more-wrap">
         <button class="exam-tool-btn" onclick="toggleExamMoreMenu(event)">⋮ <span>More</span></button>
@@ -7872,168 +7877,168 @@ const QBANK_QUESTIONS = {
         explanation: "By the Pythagorean theorem: \u221a(9\u00b2 + 40\u00b2) = \u221a1681 = 41."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 81\u03c0. What is the radius?",
         options: ["8", "9", "6", "11"],
         answer: 1,
         explanation: "\u03c0r\u00b2 = 81\u03c0, so r\u00b2 = 81, and r = 9."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 25\u03c0. What is the radius?",
         options: ["7", "5", "8", "3"],
         answer: 1,
         explanation: "\u03c0r\u00b2 = 25\u03c0, so r\u00b2 = 25, and r = 5."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 196\u03c0. What is the radius?",
         options: ["14", "16", "12", "13"],
         answer: 0,
         explanation: "\u03c0r\u00b2 = 196\u03c0, so r\u00b2 = 196, and r = 14."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 324\u03c0. What is the radius?",
         options: ["19", "16", "15", "18"],
         answer: 3,
         explanation: "\u03c0r\u00b2 = 324\u03c0, so r\u00b2 = 324, and r = 18."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 225\u03c0. What is the radius?",
         options: ["14", "17", "15", "13"],
         answer: 2,
         explanation: "\u03c0r\u00b2 = 225\u03c0, so r\u00b2 = 225, and r = 15."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 100\u03c0. What is the radius?",
         options: ["8", "10", "9", "7"],
         answer: 1,
         explanation: "\u03c0r\u00b2 = 100\u03c0, so r\u00b2 = 100, and r = 10."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 361\u03c0. What is the radius?",
         options: ["17", "18", "19", "22"],
         answer: 2,
         explanation: "\u03c0r\u00b2 = 361\u03c0, so r\u00b2 = 361, and r = 19."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 9\u03c0. What is the radius?",
         options: ["3", "1", "5", "0"],
         answer: 0,
         explanation: "\u03c0r\u00b2 = 9\u03c0, so r\u00b2 = 9, and r = 3."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 400\u03c0. What is the radius?",
         options: ["20", "23", "19", "22"],
         answer: 0,
         explanation: "\u03c0r\u00b2 = 400\u03c0, so r\u00b2 = 400, and r = 20."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 121\u03c0. What is the radius?",
         options: ["8", "11", "10", "9"],
         answer: 1,
         explanation: "\u03c0r\u00b2 = 121\u03c0, so r\u00b2 = 121, and r = 11."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 49\u03c0. What is the radius?",
         options: ["5", "8", "7", "10"],
         answer: 2,
         explanation: "\u03c0r\u00b2 = 49\u03c0, so r\u00b2 = 49, and r = 7."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 16\u03c0. What is the radius?",
         options: ["1", "4", "3", "6"],
         answer: 1,
         explanation: "\u03c0r\u00b2 = 16\u03c0, so r\u00b2 = 16, and r = 4."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 256\u03c0. What is the radius?",
         options: ["16", "18", "13", "14"],
         answer: 0,
         explanation: "\u03c0r\u00b2 = 256\u03c0, so r\u00b2 = 256, and r = 16."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"120\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"152.5\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">r = ?</text></svg></div>",
+        passage: "",
         question: "The area of a circle is 144\u03c0. What is the radius?",
         options: ["11", "10", "15", "12"],
         answer: 3,
         explanation: "\u03c0r\u00b2 = 144\u03c0, so r\u00b2 = 144, and r = 12."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 8\u03c0. What is the diameter of the circle?",
         options: ["8", "4", "12", "10"],
         answer: 0,
         explanation: "Circumference = \u03c0d, so 8\u03c0 = \u03c0d, and d = 8."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 24\u03c0. What is the diameter of the circle?",
         options: ["28", "26", "24", "20"],
         answer: 2,
         explanation: "Circumference = \u03c0d, so 24\u03c0 = \u03c0d, and d = 24."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 12\u03c0. What is the diameter of the circle?",
         options: ["12", "10", "16", "14"],
         answer: 0,
         explanation: "Circumference = \u03c0d, so 12\u03c0 = \u03c0d, and d = 12."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 28\u03c0. What is the diameter of the circle?",
         options: ["32", "28", "26", "24"],
         answer: 1,
         explanation: "Circumference = \u03c0d, so 28\u03c0 = \u03c0d, and d = 28."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 32\u03c0. What is the diameter of the circle?",
         options: ["36", "28", "32", "34"],
         answer: 2,
         explanation: "Circumference = \u03c0d, so 32\u03c0 = \u03c0d, and d = 32."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 18\u03c0. What is the diameter of the circle?",
         options: ["16", "20", "18", "22"],
         answer: 2,
         explanation: "Circumference = \u03c0d, so 18\u03c0 = \u03c0d, and d = 18."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 16\u03c0. What is the diameter of the circle?",
         options: ["20", "18", "16", "14"],
         answer: 2,
         explanation: "Circumference = \u03c0d, so 16\u03c0 = \u03c0d, and d = 16."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 36\u03c0. What is the diameter of the circle?",
         options: ["36", "32", "40", "34"],
         answer: 0,
         explanation: "Circumference = \u03c0d, so 36\u03c0 = \u03c0d, and d = 36."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 6\u03c0. What is the diameter of the circle?",
         options: ["8", "6", "10", "2"],
         answer: 1,
         explanation: "Circumference = \u03c0d, so 6\u03c0 = \u03c0d, and d = 6."
       },
       {
-        passage: "<div style=\"display:flex;justify-content:center;padding:1.25rem 0 .5rem\"><svg viewBox=\"0 0 240 200\" width=\"240\" height=\"200\" style=\"font-family:'DM Sans',sans-serif\"><circle cx=\"120\" cy=\"100\" r=\"65\" fill=\"none\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><line x1=\"55\" y1=\"100\" x2=\"185\" y2=\"100\" stroke=\"#1a1a1a\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"100\" r=\"2.5\" fill=\"#1a1a1a\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1a1a1a\" font-weight=\"700\">d = ?</text></svg></div>",
+        passage: "",
         question: "The circumference of a circle is 26\u03c0. What is the diameter of the circle?",
         options: ["24", "28", "26", "30"],
         answer: 2,
@@ -8382,6 +8387,17 @@ function showDesmosBtn(show) {
   }
 }
 
+function showRefBtn(show) {
+  const btn = document.getElementById('examRefBtn');
+  if (btn) btn.style.display = show ? '' : 'none';
+}
+function openRefSheet() {
+  document.getElementById('examRefOv').classList.add('open');
+}
+function closeRefSheet() {
+  document.getElementById('examRefOv').classList.remove('open');
+}
+
 function startPastExam(num) {
   examNum = num;
   sectionExamSubject = null;
@@ -8496,6 +8512,7 @@ function startPracticeMode(subject, unlimited, section) {
   const siteNav = document.querySelector('nav');
   if (siteNav) siteNav.style.display = 'none';
   showDesmosBtn(subject === 'math');
+  showRefBtn(subject === 'math');
   loadExamQuestion();
 }
 
@@ -8614,6 +8631,9 @@ function loadExamModule() {
 
   if (typeof showDesmosBtn === 'function') {
     showDesmosBtn(moduleKey === 'math1' || moduleKey === 'math2');
+  }
+  if (typeof showRefBtn === 'function') {
+    showRefBtn(moduleKey === 'math1' || moduleKey === 'math2');
   }
 
   examCurrentQ = 0;
@@ -9070,6 +9090,8 @@ function exitExam() {
   practiceMode = false;
   practiceUnlimited = false;
   practiceSection = 'all';
+  showRefBtn(false);
+  closeRefSheet();
   document.getElementById('exam-nav-pill-chevron').style.display = '';
   document.getElementById('exam-page').classList.remove('open');
   document.getElementById('exam-page').classList.remove('dark');
@@ -9177,6 +9199,70 @@ function backToModeStep() {
     <div class="m-content" id="sectionModeStep2" style="display:none;flex-direction:column;gap:.6rem">
       <button class="qb-btn outline" style="align-self:flex-start;margin-bottom:.2rem" onclick="backToModeStep()">← Back</button>
       <div id="sectionPickerGrid" style="display:flex;flex-direction:column;gap:.6rem"></div>
+    </div>
+  </div>
+</div>
+
+<!-- REFERENCE SHEET: standard Digital SAT math formulas -->
+<div class="m-ov" id="examRefOv">
+  <div class="m-box" style="max-width:640px">
+    <div class="m-head" style="border-radius:var(--rxl) var(--rxl) 0 0">
+      <button class="m-close" onclick="closeRefSheet()">✕</button>
+      <div class="m-title" style="font-size:1.3rem">Reference</div>
+      <div class="m-loc">Formulas provided for the Math section</div>
+    </div>
+    <div class="m-content" style="max-height:70vh;overflow-y:auto">
+      <div class="ref-grid">
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="80" height="64"><circle cx="50" cy="40" r="28" fill="none" stroke="#1a1a1a" stroke-width="2"/><line x1="50" y1="40" x2="78" y2="40" stroke="#1a1a1a" stroke-width="1.5"/><text x="62" y="35" font-size="11" fill="#1a1a1a">r</text></svg>
+          <div class="ref-formula">A = πr²<br>C = 2πr</div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="60"><rect x="18" y="18" width="64" height="42" fill="none" stroke="#1a1a1a" stroke-width="2"/><text x="50" y="72" text-anchor="middle" font-size="11" fill="#1a1a1a">w</text><text x="10" y="43" font-size="11" fill="#1a1a1a">l</text></svg>
+          <div class="ref-formula">A = lw</div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="60"><polygon points="20,60 80,60 50,15" fill="none" stroke="#1a1a1a" stroke-width="2"/><line x1="50" y1="15" x2="50" y2="60" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/><text x="50" y="72" text-anchor="middle" font-size="11" fill="#1a1a1a">b</text><text x="56" y="40" font-size="11" fill="#1a1a1a">h</text></svg>
+          <div class="ref-formula">A = <sup>1</sup>&frasl;<sub>2</sub>bh</div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><polygon points="20,65 85,65 20,15" fill="none" stroke="#1a1a1a" stroke-width="2"/><rect x="20" y="51" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="1.3"/><text x="10" y="42" font-size="11" fill="#1a1a1a">a</text><text x="48" y="78" font-size="11" fill="#1a1a1a">b</text><text x="55" y="38" font-size="11" fill="#1a1a1a">c</text></svg>
+          <div class="ref-formula">c² = a² + b²<br><span style="color:var(--g500);font-size:.72rem">Pythagorean theorem</span></div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><polygon points="20,65 85,65 20,15" fill="none" stroke="#1a1a1a" stroke-width="2"/><rect x="20" y="51" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="1.3"/><text x="24" y="45" font-size="10" fill="#1a1a1a">30°</text><text x="45" y="78" font-size="10" fill="#1a1a1a">60°</text></svg>
+          <div class="ref-formula">30°-60°-90°<br><span style="color:var(--g500);font-size:.72rem">sides: x, x√3, 2x</span></div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><polygon points="20,65 85,65 20,15" fill="none" stroke="#1a1a1a" stroke-width="2"/><rect x="20" y="51" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="1.3"/><text x="24" y="45" font-size="10" fill="#1a1a1a">45°</text><text x="42" y="78" font-size="10" fill="#1a1a1a">45°</text></svg>
+          <div class="ref-formula">45°-45°-90°<br><span style="color:var(--g500);font-size:.72rem">sides: x, x, x√2</span></div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><path d="M20,55 L20,25 A30,10 0 0 1 80,25 L80,55 A30,10 0 0 1 20,55" fill="none" stroke="#1a1a1a" stroke-width="2"/><ellipse cx="50" cy="25" rx="30" ry="10" fill="none" stroke="#1a1a1a" stroke-width="2"/></svg>
+          <div class="ref-formula">V = πr²h<br><span style="color:var(--g500);font-size:.72rem">Cylinder</span></div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><circle cx="50" cy="40" r="26" fill="none" stroke="#1a1a1a" stroke-width="2"/><ellipse cx="50" cy="40" rx="26" ry="9" fill="none" stroke="#1a1a1a" stroke-width="1.3" stroke-dasharray="3,3"/></svg>
+          <div class="ref-formula">V = <sup>4</sup>&frasl;<sub>3</sub>πr³<br><span style="color:var(--g500);font-size:.72rem">Sphere</span></div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><polygon points="50,15 85,55 15,55" fill="none" stroke="#1a1a1a" stroke-width="2"/><ellipse cx="50" cy="55" rx="35" ry="8" fill="none" stroke="#1a1a1a" stroke-width="1.3"/></svg>
+          <div class="ref-formula">V = &#8531;πr²h<br><span style="color:var(--g500);font-size:.72rem">Cone</span></div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><polygon points="50,12 85,35 68,62 25,62 15,35" fill="none" stroke="#1a1a1a" stroke-width="1.6"/><line x1="15" y1="35" x2="50" y2="55" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/><line x1="50" y1="55" x2="85" y2="35" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/><line x1="50" y1="55" x2="50" y2="12" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/></svg>
+          <div class="ref-formula">V = &#8531;lwh<br><span style="color:var(--g500);font-size:.72rem">Pyramid</span></div>
+        </div>
+        <div class="ref-card">
+          <svg viewBox="0 0 100 80" width="90" height="66"><polygon points="20,20 65,20 80,35 80,60 35,60 20,45" fill="none" stroke="#1a1a1a" stroke-width="1.6"/><line x1="20" y1="20" x2="35" y2="35" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/><line x1="35" y1="35" x2="80" y2="35" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/><line x1="35" y1="35" x2="35" y2="60" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/></svg>
+          <div class="ref-formula">V = lwh<br><span style="color:var(--g500);font-size:.72rem">Rectangular solid</span></div>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--g200);font-size:.85rem;color:var(--g700);line-height:1.8">
+        <p>The number of degrees of arc in a circle is 360.</p>
+        <p>The number of radians of arc in a circle is 2π.</p>
+        <p>The sum of the measures in degrees of the angles of a triangle is 180.</p>
+      </div>
     </div>
   </div>
 </div>
