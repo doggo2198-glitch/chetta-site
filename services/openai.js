@@ -57,6 +57,11 @@ Return JSON like:
   });
 
 
-  return response.choices[0].message.content;
+let text = response.choices[0].message.content;
+
+text = text.replace(/```json/g, "");
+text = text.replace(/```/g, "");
+
+return text.trim();
 
 }
