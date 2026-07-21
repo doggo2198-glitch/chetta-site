@@ -12,71 +12,90 @@ app.use(express.json());
 
 
 app.get("/", (req, res) => {
-  res.send("Backend is running!");
+    res.send("Backend is running!");
 });
 
 
 app.post("/api/opportunities", async (req, res) => {
 
-  try {
+    try {
 
-    const { major, interests, city, country } = req.body;
-
-    const query = `
-    extracurricular activities for ${major}
-    students interested in ${interests.join(", ")}
-    in ${city}, ${country}
-    `;
+        const { major, interests, city, country } = req.body;
 
 
-    const response = await fetch("https://api.tavily.com/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        api_key: process.env.TAVILY_API_KEY,
-        query: query,
-        search_depth: "advanced",
-        max_results: 5
-      })
-    });
+        const query = `
+        extracurricular activities for ${major}
+        students interested in ${interests.join(", ")}
+        in ${city}, ${country}
+        `;
 
 
-    const data = await response.json();
+        const response = await fetch("https://api.tavily.com/search", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                api_key: process.env.TAVILY_API_KEY,
+
+                query: query,
+
+                search_depth: "advanced",
+
+                max_results: 5
+
+            })
+
+        });
 
 
-    const recommendations = await analyzeOpportunities(
-      data.results,
-      {
-        major,
-        interests,
-        city,
-        country
-      }
-    );
+        const data = await response.json();
 
 
-    res.json({
-      recommendations: JSON.parse(recommendations)
-    });
+        const recommendations = await analyzeOpportunities(
+            data.results,
+            {
+                major,
+                interests,
+                city,
+                country
+            }
+        );
 
 
-  } catch(error) {
+        const parsed = JSON.parse(recommendations);
 
-    console.error(error);
 
-    res.status(500).json({
-      error: "Something went wrong"
-    });
+        res.json({
+            recommendations: parsed.opportunities
+        });
 
-  }
+
+    } catch(error) {
+
+        console.error(error);
+
+
+        res.status(500).json({
+
+            error: "Something went wrong"
+
+        });
+
+    }
 
 });
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+
+    console.log(`Server running on port ${PORT}`);
+
 });
