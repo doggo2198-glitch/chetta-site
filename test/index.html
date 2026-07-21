@@ -1,5 +1,13 @@
-<html>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Extracurricular Activities</title>
+</head>
+
+<body>
+
 <section>
 
     <h2>Find Extracurricular Activities</h2>
@@ -46,16 +54,19 @@
 
 </section>
 
+
 <script>
+
 async function findActivities() {
 
     const container = document.getElementById("results");
+
     container.innerHTML = "<p>Searching...</p>";
 
     try {
 
         const response = await fetch(
-            "http://localhost:3000/api/opportunities",
+            "https://sat-backend-n13d.onrender.com/api/opportunities",
             {
                 method: "POST",
                 headers: {
@@ -63,54 +74,149 @@ async function findActivities() {
                 },
                 body: JSON.stringify({
                     major: document.getElementById("major").value,
-                    interests: document.getElementById("interests").value
+
+                    interests: document
+                        .getElementById("interests")
+                        .value
                         .split(",")
-                        .map(i => i.trim()),
+                        .map(i => i.trim())
+                        .filter(i => i !== ""),
+
                     city: document.getElementById("city").value,
+
                     country: document.getElementById("country").value
                 })
             }
         );
 
+
         const data = await response.json();
 
-        console.log(data);
+        console.log("Backend response:", data);
+
 
         if (!response.ok) {
-            container.innerHTML = `<p>${data.error || "Unknown error"}</p>`;
+
+            container.innerHTML =
+                `<p>${data.error || "Server error"}</p>`;
+
             return;
+
         }
 
-        if (!data.recommendations || data.recommendations.length === 0) {
-            container.innerHTML = "<p>No recommendations found.</p>";
+
+        if (!data.recommendations) {
+
+            container.innerHTML =
+                "<p>No recommendations found.</p>";
+
             return;
+
         }
+
+
+        const recommendations = Array.isArray(data.recommendations)
+            ? data.recommendations
+            : Object.values(data.recommendations);
+
+
+
+        if (recommendations.length === 0) {
+
+            container.innerHTML =
+                "<p>No opportunities found.</p>";
+
+            return;
+
+        }
+
+
 
         container.innerHTML = "";
 
-        data.recommendations.forEach(activity => {
+
+
+        recommendations.forEach(activity => {
 
             container.innerHTML += `
-                <div>
-                    <h3>${activity.name}</h3>
-                    <p>${activity.description}</p>
-                    <p><strong>College Impact:</strong> ${activity.collegeImpact}/10</p>
-                    <p><strong>Skills:</strong> ${activity.skills.join(", ")}</p>
-                    <a href="${activity.website}" target="_blank">Visit Website</a>
+
+                <div style="margin-bottom:25px;">
+
+                    <h3>
+                        ${
+                            activity.name ||
+                            activity.title ||
+                            activity.activityName ||
+                            "Unnamed Activity"
+                        }
+                    </h3>
+
+
+                    <p>
+                        ${
+                            activity.description ||
+                            activity.details ||
+                            activity.summary ||
+                            "No description available."
+                        }
+                    </p>
+
+
+                    <p>
+                        <strong>College Impact:</strong>
+                        ${
+                            activity.collegeImpact ||
+                            activity.impact ||
+                            activity.score ||
+                            "N/A"
+                        }/10
+                    </p>
+
+
+                    <p>
+                        <strong>Skills:</strong>
+                        ${
+                            Array.isArray(activity.skills)
+                            ? activity.skills.join(", ")
+                            : activity.skills || "N/A"
+                        }
+                    </p>
+
+
+                    ${
+                        activity.website || activity.url
+                        ?
+                        `
+                        <a href="${activity.website || activity.url}" target="_blank">
+                            Visit Website
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+
                     <hr>
+
                 </div>
+
             `;
 
         });
 
-    } catch (err) {
 
-        console.error(err);
-        container.innerHTML = `<p>Error: ${err.message}</p>`;
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            `<p>Error: ${error.message}</p>`;
 
     }
 
 }
+
 </script>
-  </body>
+
+</body>
 </html>
