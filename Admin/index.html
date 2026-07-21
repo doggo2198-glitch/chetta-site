@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chetta — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#09090b;--navy:#0f1729;--blue:#2563eb;--blue2:#3b82f6;--bluepale:#eff6ff;
+  --white:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
+  --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
+  --green:#16a34a;--gpale:#f0fdf4;--amber:#d97706;--apale:#fffbeb;--red:#dc2626;--rpale:#fef2f2;
+  --shadow:0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.04);
+  --shadowlg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
+  --r:10px;--rl:16px;--rxl:22px
+}
+body{font-family:'DM Sans',sans-serif;background:var(--g50);color:var(--g900);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* GATE */
+.gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+.gate-card{background:#fff;border:1px solid var(--g200);border-radius:var(--rxl);padding:2.5rem 2rem;max-width:360px;width:100%;text-align:center;box-shadow:var(--shadowlg)}
+.gate-logo{font-family:'Instrument Serif',serif;font-size:1.6rem;margin-bottom:.4rem}
+.gate-logo em{color:var(--blue);font-style:normal}
+.gate-sub{font-size:.85rem;color:var(--g500);margin-bottom:1.75rem}
+.gate-btn{width:100%;background:var(--g900);color:#fff;border:none;padding:.75rem 1rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.6rem;transition:background .15s}
+.gate-btn:hover{background:#000}
+.gate-err{color:var(--red);font-size:.82rem;margin-top:1rem;display:none}
+.gate-err.show{display:block}
+
+/* DASHBOARD */
+.dash{display:none;max-width:960px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.dash.open{display:block}
+.dash-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:1rem}
+.dash-title{font-family:'Instrument Serif',serif;font-size:1.9rem;letter-spacing:-.5px}
+.dash-title em{color:var(--blue);font-style:normal}
+.dash-actions{display:flex;gap:.6rem;align-items:center}
+.dash-btn{background:#fff;border:1.5px solid var(--g200);color:var(--g700);padding:.5rem .9rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s}
+.dash-btn:hover{border-color:var(--g300);background:var(--g50)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-bottom:1.75rem}
+.stat-box{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.1rem 1.25rem}
+.stat-num{font-family:'Instrument Serif',serif;font-size:1.9rem;letter-spacing:-.5px}
+.stat-num.overdue{color:var(--red)}
+.stat-num.soon{color:var(--amber)}
+.stat-lbl{font-size:.78rem;color:var(--g500);margin-top:.15rem}
+.tbl-wrap{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);overflow:hidden}
+.tbl-row{display:grid;grid-template-columns:1fr 130px 110px;gap:1rem;align-items:center;padding:.9rem 1.25rem;border-bottom:1px solid var(--g100);font-size:.86rem}
+.tbl-row:last-child{border-bottom:none}
+.tbl-row.hd{background:var(--g50);font-size:.72rem;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.5px}
+.tbl-user{overflow:hidden}
+.tbl-email{font-weight:600;color:var(--g900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbl-uid{font-size:.72rem;color:var(--g400);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbl-due{color:var(--g700)}
+.badge{display:inline-block;padding:.22rem .65rem;border-radius:100px;font-size:.72rem;font-weight:700}
+.badge.overdue{background:var(--rpale);color:var(--red)}
+.badge.soon{background:var(--apale);color:var(--amber)}
+.badge.ok{background:var(--gpale);color:var(--green)}
+.empty{padding:3rem 1.5rem;text-align:center;color:var(--g400);font-size:.9rem}
+.note{background:var(--bluepale);border:1px solid rgba(37,99,235,.2);border-radius:var(--rl);padding:1.1rem 1.25rem;margin-top:1.75rem;font-size:.82rem;color:var(--g700);line-height:1.65}
+.note code{background:rgba(37,99,235,.1);padding:.1rem .35rem;border-radius:5px;font-size:.78rem}
+.loading{text-align:center;padding:3rem;color:var(--g400);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<!-- SIGN-IN GATE -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">chett<em>a</em></div>
+    <div class="gate-sub">Admin — sign in with your Chetta owner account</div>
+    <button class="gate-btn" onclick="doAdminSignIn()">🌐 Continue with Google</button>
+    <div class="gate-err" id="gate-err">Not authorized for this account.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dash">
+  <div class="dash-hd">
+    <div class="dash-title">Pro <em>Monthly</em> renewals due</div>
+    <div class="dash-actions">
+      <button class="dash-btn" onclick="loadUsers()">Refresh</button>
+      <button class="dash-btn" onclick="doSignOut()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num" id="stat-alltotal">0</div><div class="stat-lbl">Total users</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-pro">0</div><div class="stat-lbl">Pro (Monthly)</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-lifetime">0</div><div class="stat-lbl">Lifetime</div></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num overdue" id="stat-overdue">0</div><div class="stat-lbl">Overdue</div></div>
+    <div class="stat-box"><div class="stat-num soon" id="stat-soon">0</div><div class="stat-lbl">Due within 7 days</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-total">0</div><div class="stat-lbl">Total Pro Monthly</div></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <div class="tbl-row hd">
+      <div>User</div><div>Due date</div><div>Status</div>
+    </div>
+    <div id="tbl-body">
+      <div class="loading">Loading…</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>How this works:</strong> when you manually confirm a Pro Monthly payment via Telegram, go to Firebase Console → Firestore Database → <code>users</code> collection → the user's document, and set <code>planExpiresAt</code> to a Timestamp 30 days from today (alongside <code>plan: "pro"</code>). This page reads that field and flags anyone overdue or due within 7 days. Lifetime users don't need this field — they never expire. Adding an <code>email</code> field to the same document (copied from Firebase Auth) will also make them easier to identify here instead of just their UID.
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {
+  getFirestore, collection, getDocs
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+// ── Same Firebase project as the rest of Chetta ──
+const firebaseConfig = {
+  apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
+  authDomain: "chetta-81630.firebaseapp.com",
+  projectId: "chetta-81630",
+  storageBucket: "chetta-81630.firebasestorage.app",
+  messagingSenderId: "504724785390",
+  appId: "1:504724785390:web:3e0abeaec0cd16a2ea8bff"
+};
+
+// ── EDIT THIS: only this email can access the dashboard ──
+const ADMIN_EMAIL = "oybekxakimjanov9@gmail.com";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+window.doAdminSignIn = async function() {
+  document.getElementById('gate-err').classList.remove('show');
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+window.doSignOut = function() {
+  signOut(auth);
+};
+
+onAuthStateChanged(auth, (user) => {
+  const gate = document.getElementById('gate');
+  const dash = document.getElementById('dash');
+  const err = document.getElementById('gate-err');
+
+  if (user && user.email === ADMIN_EMAIL) {
+    gate.style.display = 'none';
+    dash.classList.add('open');
+    loadUsers();
+  } else {
+    dash.classList.remove('open');
+    gate.style.display = 'flex';
+    if (user && user.email !== ADMIN_EMAIL) {
+      err.classList.add('show');
+      signOut(auth);
+    }
+  }
+});
+
+window.loadUsers = async function() {
+  const body = document.getElementById('tbl-body');
+  body.innerHTML = '<div class="loading">Loading…</div>';
+
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+
+    const now = Date.now();
+    const rows = [];
+    let allTotal = 0, proTotal = 0, lifetimeTotal = 0;
+
+    snap.forEach(d => {
+      const data = d.data();
+      allTotal++;
+
+      if (data.plan === 'lifetime') lifetimeTotal++;
+
+      if (data.plan === 'pro') {
+        proTotal++;
+        const expiresAt = data.planExpiresAt ? data.planExpiresAt.toMillis() : null;
+        rows.push({
+          uid: d.id,
+          email: data.email || null,
+          expiresAt
+        });
+      }
+    });
+
+    document.getElementById('stat-alltotal').textContent = allTotal;
+    document.getElementById('stat-pro').textContent = proTotal;
+    document.getElementById('stat-lifetime').textContent = lifetimeTotal;
+
+    // Sort: soonest due first, entries with no due date go last
+    rows.sort((a, b) => {
+      if (a.expiresAt === null) return 1;
+      if (b.expiresAt === null) return -1;
+      return a.expiresAt - b.expiresAt;
+    });
+
+    let overdueCount = 0, soonCount = 0;
+    body.innerHTML = '';
+
+    if (rows.length === 0) {
+      body.innerHTML = '<div class="empty">No Pro Monthly users yet.</div>';
+    }
+
+    rows.forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'tbl-row';
+
+      let dueText = 'Not set', badgeHtml = '<span class="badge ok">OK</span>';
+      if (r.expiresAt !== null) {
+        const daysLeft = Math.ceil((r.expiresAt - now) / 86400000);
+        const dueDate = new Date(r.expiresAt);
+        dueText = dueDate.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+
+        if (daysLeft < 0) {
+          badgeHtml = `<span class="badge overdue">${Math.abs(daysLeft)}d overdue</span>`;
+          overdueCount++;
+        } else if (daysLeft <= 7) {
+          badgeHtml = `<span class="badge soon">${daysLeft}d left</span>`;
+          soonCount++;
+        } else {
+          badgeHtml = `<span class="badge ok">${daysLeft}d left</span>`;
+        }
+      } else {
+        badgeHtml = '<span class="badge soon">No due date</span>';
+      }
+
+      row.innerHTML = `
+        <div class="tbl-user">
+          <div class="tbl-email">${r.email ? r.email : 'No email on file'}</div>
+          <div class="tbl-uid">${r.uid}</div>
+        </div>
+        <div class="tbl-due">${dueText}</div>
+        <div>${badgeHtml}</div>
+      `;
+      body.appendChild(row);
+    });
+
+    document.getElementById('stat-overdue').textContent = overdueCount;
+    document.getElementById('stat-soon').textContent = soonCount;
+    document.getElementById('stat-total').textContent = rows.length;
+
+  } catch (e) {
+    console.error(e);
+    body.innerHTML = `<div class="empty">Couldn't load users. Check the console for details.<br>${e.message}</div>`;
+  }
+};
+</script>
+</body>
+</html>
