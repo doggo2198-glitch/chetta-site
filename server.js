@@ -55,18 +55,23 @@ app.post("/api/opportunities", async (req, res) => {
 
         const data = await response.json();
 
+const recommendations = await analyzeOpportunities(
+    data.results,
+    {
+        major,
+        interests,
+        city,
+        country
+    }
+);
 
-        const recommendations = await analyzeOpportunities(
-            data.results,
-            {
-                major,
-                interests,
-                city,
-                country
-            }
-        );
+
+const parsed = JSON.parse(recommendations);
 
 
+res.json({
+    recommendations: parsed.opportunities
+});
         const parsed = JSON.parse(recommendations);
 
 
