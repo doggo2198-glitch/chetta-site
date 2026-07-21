@@ -48,43 +48,7 @@
 
 <script>
 
-async function findActivities(){
 
-    const major =
-    document.getElementById("major").value;
-
-    const interests =
-    document.getElementById("interests")
-    .value
-    .split(",")
-    .map(i=>i.trim());
-
-    const city =
-    document.getElementById("city").value;
-
-    const country =
-    document.getElementById("country").value;
-
-
-    const response = await fetch(
-        "http://localhost:3000/api/opportunities",
-        {
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify({
-
-                major,
-                interests,
-                city,
-                country
-
-            })
-
-        }
     );
 
 
@@ -147,7 +111,65 @@ async function findActivities(){
         `;
 
         container.appendChild(div);
+async function findActivities() {
 
+    const container = document.getElementById("results");
+    container.innerHTML = "<p>Searching...</p>";
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/api/opportunities",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    major: document.getElementById("major").value,
+                    interests: document.getElementById("interests").value
+                        .split(",")
+                        .map(i => i.trim()),
+                    city: document.getElementById("city").value,
+                    country: document.getElementById("country").value
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        if (!response.ok) {
+            container.innerHTML = `<p>Error: ${data.error || "Unknown error"}</p>`;
+            return;
+        }
+
+        container.innerHTML = "";
+
+        data.recommendations.forEach(activity => {
+
+            container.innerHTML += `
+                <div>
+                    <h3>${activity.name}</h3>
+                    <p>${activity.description}</p>
+                    <p><strong>Impact:</strong> ${activity.collegeImpact}/10</p>
+                    <p><strong>Skills:</strong> ${activity.skills.join(", ")}</p>
+                    <a href="${activity.website}" target="_blank">Visit Website</a>
+                    <hr>
+                </div>
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.error(err);
+        container.innerHTML = `<p>${err.message}</p>`;
+
+    }
+
+}
     });
 
 }
