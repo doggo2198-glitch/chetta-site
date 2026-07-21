@@ -80,7 +80,7 @@ async function findActivities() {
                         .value
                         .split(",")
                         .map(i => i.trim())
-                        .filter(i => i),
+                        .filter(i => i !== ""),
 
                     city: document.getElementById("city").value,
 
@@ -101,15 +101,17 @@ async function findActivities() {
                 `<p>${data.error || "Server error"}</p>`;
 
             return;
+
         }
 
 
         if (!data.recommendations) {
 
             container.innerHTML =
-                "<p>No recommendations returned.</p>";
+                "<p>No recommendations found.</p>";
 
             return;
+
         }
 
 
@@ -125,6 +127,7 @@ async function findActivities() {
                 "<p>No opportunities found.</p>";
 
             return;
+
         }
 
 
@@ -132,26 +135,41 @@ async function findActivities() {
         container.innerHTML = "";
 
 
-        recommendations.forEach(activity => {
 
+        recommendations.forEach(activity => {
 
             container.innerHTML += `
 
                 <div style="margin-bottom:25px;">
 
                     <h3>
-                        ${activity.name || "Unnamed Activity"}
+                        ${
+                            activity.name ||
+                            activity.title ||
+                            activity.activityName ||
+                            "Unnamed Activity"
+                        }
                     </h3>
 
 
                     <p>
-                        ${activity.description || ""}
+                        ${
+                            activity.description ||
+                            activity.details ||
+                            activity.summary ||
+                            "No description available."
+                        }
                     </p>
 
 
                     <p>
                         <strong>College Impact:</strong>
-                        ${activity.collegeImpact || "N/A"}/10
+                        ${
+                            activity.collegeImpact ||
+                            activity.impact ||
+                            activity.score ||
+                            "N/A"
+                        }/10
                     </p>
 
 
@@ -166,11 +184,13 @@ async function findActivities() {
 
 
                     ${
-                        activity.website
+                        activity.website || activity.url
                         ?
-                        `<a href="${activity.website}" target="_blank">
+                        `
+                        <a href="${activity.website || activity.url}" target="_blank">
                             Visit Website
-                        </a>`
+                        </a>
+                        `
                         :
                         ""
                     }
@@ -185,19 +205,18 @@ async function findActivities() {
         });
 
 
-    } catch (err) {
+    } catch (error) {
 
-        console.error(err);
+        console.error(error);
 
         container.innerHTML =
-            `<p>Error: ${err.message}</p>`;
+            `<p>Error: ${error.message}</p>`;
 
     }
 
 }
 
 </script>
-
 
 </body>
 </html>
