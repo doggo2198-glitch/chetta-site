@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Extracurricular Activities</title>
 </head>
+
 <body>
 
 <section>
@@ -53,10 +54,13 @@
 
 </section>
 
+
 <script>
+
 async function findActivities() {
 
     const container = document.getElementById("results");
+
     container.innerHTML = "<p>Searching...</p>";
 
     try {
@@ -70,60 +74,130 @@ async function findActivities() {
                 },
                 body: JSON.stringify({
                     major: document.getElementById("major").value,
-                    interests: document.getElementById("interests").value
+
+                    interests: document
+                        .getElementById("interests")
+                        .value
                         .split(",")
                         .map(i => i.trim())
-                        .filter(i => i !== ""),
+                        .filter(i => i),
+
                     city: document.getElementById("city").value,
+
                     country: document.getElementById("country").value
                 })
             }
         );
 
+
         const data = await response.json();
 
-        console.log(data);
+        console.log("Backend response:", data);
+
 
         if (!response.ok) {
-            container.innerHTML = `<p>${data.error || "Unknown error"}</p>`;
+
+            container.innerHTML =
+                `<p>${data.error || "Server error"}</p>`;
+
             return;
         }
 
-        if (!data.recommendations || data.recommendations.length === 0) {
-            container.innerHTML = "<p>No recommendations found.</p>";
+
+        if (!data.recommendations) {
+
+            container.innerHTML =
+                "<p>No recommendations returned.</p>";
+
             return;
         }
+
+
+        const recommendations = Array.isArray(data.recommendations)
+            ? data.recommendations
+            : Object.values(data.recommendations);
+
+
+
+        if (recommendations.length === 0) {
+
+            container.innerHTML =
+                "<p>No opportunities found.</p>";
+
+            return;
+        }
+
+
 
         container.innerHTML = "";
 
-        data.recommendations.forEach(activity => {
+
+        recommendations.forEach(activity => {
+
 
             container.innerHTML += `
-                <div style="margin-bottom:20px;">
-                    <h3>${activity.name}</h3>
-                    <p>${activity.description}</p>
-                    <p><strong>College Impact:</strong> ${activity.collegeImpact}/10</p>
-                    <p><strong>Skills:</strong> ${activity.skills.join(", ")}</p>
+
+                <div style="margin-bottom:25px;">
+
+                    <h3>
+                        ${activity.name || "Unnamed Activity"}
+                    </h3>
+
+
                     <p>
-                        <a href="${activity.website}" target="_blank">
-                            Visit Website
-                        </a>
+                        ${activity.description || ""}
                     </p>
+
+
+                    <p>
+                        <strong>College Impact:</strong>
+                        ${activity.collegeImpact || "N/A"}/10
+                    </p>
+
+
+                    <p>
+                        <strong>Skills:</strong>
+                        ${
+                            Array.isArray(activity.skills)
+                            ? activity.skills.join(", ")
+                            : activity.skills || "N/A"
+                        }
+                    </p>
+
+
+                    ${
+                        activity.website
+                        ?
+                        `<a href="${activity.website}" target="_blank">
+                            Visit Website
+                        </a>`
+                        :
+                        ""
+                    }
+
+
                     <hr>
+
                 </div>
+
             `;
 
         });
 
+
     } catch (err) {
 
         console.error(err);
-        container.innerHTML = `<p>Error: ${err.message}</p>`;
+
+        container.innerHTML =
+            `<p>Error: ${err.message}</p>`;
 
     }
 
 }
+
 </script>
+
 
 </body>
 </html>
