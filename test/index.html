@@ -1,5 +1,12 @@
-<html>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Extracurricular Activities</title>
+</head>
+<body>
+
 <section>
 
     <h2>Find Extracurricular Activities</h2>
@@ -54,7 +61,8 @@ async function findActivities() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/api/opportunities"),
+        const response = await fetch(
+            "https://sat-backend-n13d.onrender.com/api/opportunities",
             {
                 method: "POST",
                 headers: {
@@ -64,7 +72,8 @@ async function findActivities() {
                     major: document.getElementById("major").value,
                     interests: document.getElementById("interests").value
                         .split(",")
-                        .map(i => i.trim()),
+                        .map(i => i.trim())
+                        .filter(i => i !== ""),
                     city: document.getElementById("city").value,
                     country: document.getElementById("country").value
                 })
@@ -90,12 +99,16 @@ async function findActivities() {
         data.recommendations.forEach(activity => {
 
             container.innerHTML += `
-                <div>
+                <div style="margin-bottom:20px;">
                     <h3>${activity.name}</h3>
                     <p>${activity.description}</p>
                     <p><strong>College Impact:</strong> ${activity.collegeImpact}/10</p>
                     <p><strong>Skills:</strong> ${activity.skills.join(", ")}</p>
-                    <a href="${activity.website}" target="_blank">Visit Website</a>
+                    <p>
+                        <a href="${activity.website}" target="_blank">
+                            Visit Website
+                        </a>
+                    </p>
                     <hr>
                 </div>
             `;
@@ -111,5 +124,6 @@ async function findActivities() {
 
 }
 </script>
-  </body>
+
+</body>
 </html>
