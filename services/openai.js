@@ -1,41 +1,62 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
-const genAI = new GoogleGenerativeAI(
-  process.env.GEMINI_API_KEY
-);
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY
+});
 
 export async function analyzeOpportunities(results, userInfo) {
 
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash"
-  });
+  const response = await groq.chat.completions.create({
 
-  const prompt = `
+    model: "llama-3.1-8b-instant",
+
+    messages: [
+      {
+        role: "system",
+        content: `
 You are a helpful university extracurricular advisor.
+Return ONLY valid JSON.
+`
+      },
 
+      {
+        role: "user",
+        content: `
 Student information:
-Major: ${userInfo.major}
-Interests: ${userInfo.interests.join(", ")}
-Location: ${userInfo.city}, ${userInfo.country}
 
-Based on these search results:
+Major:
+${userInfo.major}
+
+Interests:
+${userInfo.interests.join(", ")}
+
+Location:
+${userInfo.city}, ${userInfo.country}
+
+
+Find the best opportunities from these results:
 
 ${JSON.stringify(results)}
 
-Return ONLY valid JSON in this format:
+
+Return JSON like:
 
 {
   "opportunities": [
     {
-      "name": "Opportunity name",
-      "description": "Short description",
-      "why": "Why this fits the student"
+      "name": "",
+      "description": "",
+      "why": ""
     }
   ]
 }
-`;
+`
+      }
+    ]
 
-  const response = await model.generateContent(prompt);
+  });
 
-  return response.response.text();
+
+  return response.choices[0].message.content;
+
 }
