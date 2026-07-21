@@ -70,78 +70,19 @@ async function findActivities() {
                     country: document.getElementById("country").value
                 })
             }
-
-    );
-
-
-    const data = await response.json();
-
-    console.log(data);
-
-    const container =
-    document.getElementById("results");
-
-    container.innerHTML = "";
-
-
-    if(!data.recommendations){
-
-        container.innerHTML =
-        "<p>No recommendations found.</p>";
-
-        return;
-
-    }
-
-
-    data.recommendations.forEach(activity=>{
-
-        const div =
-        document.createElement("div");
-
-        div.innerHTML = `
-
-            <h3>${activity.name}</h3>
-
-            <p>${activity.description}</p>
-
-            <p>
-
-                <strong>College Impact:</strong>
-
-                ${activity.collegeImpact}/10
-
-            </p>
-
-            <p>
-
-                <strong>Skills:</strong>
-
-                ${activity.skills.join(", ")}
-
-            </p>
-
-            <a
-                href="${activity.website}"
-                target="_blank"
-            >
-                Visit Website
-            </a>
-
-            <hr>
-
-        `;
-
-        container.appendChild(div);
-
-      
+        );
 
         const data = await response.json();
 
         console.log(data);
 
         if (!response.ok) {
-            container.innerHTML = `<p>Error: ${data.error || "Unknown error"}</p>`;
+            container.innerHTML = `<p>${data.error || "Unknown error"}</p>`;
+            return;
+        }
+
+        if (!data.recommendations || data.recommendations.length === 0) {
+            container.innerHTML = "<p>No recommendations found.</p>";
             return;
         }
 
@@ -153,7 +94,7 @@ async function findActivities() {
                 <div>
                     <h3>${activity.name}</h3>
                     <p>${activity.description}</p>
-                    <p><strong>Impact:</strong> ${activity.collegeImpact}/10</p>
+                    <p><strong>College Impact:</strong> ${activity.collegeImpact}/10</p>
                     <p><strong>Skills:</strong> ${activity.skills.join(", ")}</p>
                     <a href="${activity.website}" target="_blank">Visit Website</a>
                     <hr>
@@ -165,15 +106,11 @@ async function findActivities() {
     } catch (err) {
 
         console.error(err);
-        container.innerHTML = `<p>${err.message}</p>`;
+        container.innerHTML = `<p>Error: ${err.message}</p>`;
 
     }
 
 }
-    });
-
-}
-
 </script>
   </body>
 </html>
