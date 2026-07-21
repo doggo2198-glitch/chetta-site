@@ -54,8 +54,7 @@ async function findActivities() {
 
     try {
 
-        const response = await fetch(
-            "http://localhost:3000/api/opportunities",
+        const response = await fetch("http://localhost:3000/api/opportunities"),
             {
                 method: "POST",
                 headers: {
