@@ -1,55 +1,41 @@
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export async function analyzeOpportunities(results, student) {
+const genAI = new GoogleGenerativeAI(
+  process.env.GEMINI_API_KEY
+);
 
-  const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+export async function analyzeOpportunities(results, userInfo) {
+
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash"
   });
 
-  const response = await client.chat.completions.create({
-    model: "gpt-4.1-mini",
-    messages: [
-      {
-        role: "system",
-        content: "You are a college admissions counselor who recommends extracurricular activities."
-      },
-      {
-        role: "user",
-        content: `
+  const prompt = `
+You are a helpful university extracurricular advisor.
+
 Student information:
+Major: ${userInfo.major}
+Interests: ${userInfo.interests.join(", ")}
+Location: ${userInfo.city}, ${userInfo.country}
 
-Major: ${student.major}
-
-Interests: ${student.interests.join(", ")}
-
-Location:
-${student.city}, ${student.country}
-
-
-Here are the opportunities found:
+Based on these search results:
 
 ${JSON.stringify(results)}
 
+Return ONLY valid JSON in this format:
 
-Analyze these opportunities and return ONLY JSON.
+{
+  "opportunities": [
+    {
+      "name": "Opportunity name",
+      "description": "Short description",
+      "why": "Why this fits the student"
+    }
+  ]
+}
+`;
 
-Format:
+  const response = await model.generateContent(prompt);
 
-[
-  {
-    "name": "",
-    "website": "",
-    "description": "",
-    "collegeImpact": 1,
-    "skills": []
-  }
-]
-
-Rank the best opportunities first.
-`
-      }
-    ]
-  });
-
-  return response.choices[0].message.content;
+  return response.response.text();
 }
