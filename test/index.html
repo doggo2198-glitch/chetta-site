@@ -707,13 +707,14 @@ function startECSearch(){
 // Handle whatever shape the backend actually returns, rather than assuming one.
 // Find a real website URL on a result, tolerating different field names and placeholder "empty" values
 function ecWebsiteUrl(r){
+  if (!r || typeof r !== 'object') return '';
   const raw = r.website || r.url || r.link || r.site || '';
   const val = String(raw).trim();
   if (!val || /^(n\/a|na|none|null|-)$/i.test(val)) return '';
   return /^https?:\/\//i.test(val) ? val : 'https://' + val;
 }
 function ecHasWebsite(r){
-  return !!ecWebsiteUrl(r);
+  try { return !!ecWebsiteUrl(r); } catch (e) { return false; }
 }
 
 function extractECList(data){
@@ -757,7 +758,10 @@ function renderECResults(results, rawData){
   }
 
   countEl.textContent = `${results.length} opportunit${results.length === 1 ? 'y' : 'ies'} found`;
-  listEl.innerHTML = results.map(r => `
+  listEl.innerHTML = results.map(r => {
+    try {
+      if (!r || typeof r !== 'object') return '';
+      return `
     <div class="ec-card">
       <div class="ec-card-top">
         <div>
@@ -767,11 +771,16 @@ function renderECResults(results, rawData){
       </div>
       ${r.description ? `<div class="ec-card-desc">${r.description}</div>` : ''}
       <div class="ec-card-meta">
-        ${(r.category ? [r.category] : (r.tags || [])).map(tag => `<span class="ec-tag">${tag}</span>`).join('')}
+        ${(r.category ? [r.category] : (Array.isArray(r.tags) ? r.tags : [])).map(tag => `<span class="ec-tag">${tag}</span>`).join('')}
         ${ecHasWebsite(r) ? `<a class="ec-card-link" href="${ecWebsiteUrl(r)}" target="_blank" rel="noopener">Visit website →</a>` : ''}
       </div>
     </div>
-  `).join('');
+  `;
+    } catch (e) {
+      console.error('Skipped a malformed result:', r, e);
+      return '';
+    }
+  }).join('');
   resultsEl.style.display = 'block';
 }
 
