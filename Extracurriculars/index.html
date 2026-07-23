@@ -849,6 +849,19 @@ function renderECResults(results, rawData){
       const category = r.category || (Array.isArray(r.tags) && r.tags[0]) || name;
       const { accent, pale } = ecAccentFor(String(category));
       const initial = (org || name || '?').trim().charAt(0).toUpperCase();
+
+      const contactIcons = { email: '✉️', phone: '📞', tel: '📞', instagram: '📷', telegram: '💬', whatsapp: '💬', linkedin: '💼', facebook: '📘', twitter: '🐦', x: '🐦' };
+      let contactHtml = '';
+      if (r.contact && typeof r.contact === 'object' && r.contact.value) {
+        const cType = String(r.contact.type || 'contact').toLowerCase();
+        const icon = contactIcons[cType] || '📇';
+        const isEmail = cType === 'email' || /@/.test(r.contact.value);
+        const isPhone = cType === 'phone' || cType === 'tel';
+        const href = isEmail ? `mailto:${r.contact.value}` : isPhone ? `tel:${r.contact.value}` : ecWebsiteUrl({ website: r.contact.value }) || null;
+        contactHtml = `<div class="ec-card-contact">${icon} <span class="ec-contact-type">${cType}:</span> ${href ? `<a href="${href}" target="_blank" rel="noopener">${r.contact.value}</a>` : r.contact.value}</div>`;
+      }
+      const sourceHtml = r.source ? `<div class="ec-card-source">Source: ${r.source}</div>` : '';
+
       return `
     <div class="ec-card" style="--ec-accent:${accent};--ec-accent-pale:${pale}">
       <div class="ec-card-top">
@@ -859,6 +872,8 @@ function renderECResults(results, rawData){
         </div>
       </div>
       ${r.description ? `<div class="ec-card-desc">${r.description}</div>` : ''}
+      ${contactHtml}
+      ${sourceHtml}
       <div class="ec-card-meta">
         ${(r.category ? [r.category] : (Array.isArray(r.tags) ? r.tags : [])).map(tag => `<span class="ec-tag">${tag}</span>`).join('')}
         ${ecHasWebsite(r) ? `<a class="ec-card-link" href="${ecWebsiteUrl(r)}" target="_blank" rel="noopener">Visit site →</a>` : ''}
