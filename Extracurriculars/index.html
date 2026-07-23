@@ -63,6 +63,11 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .ec-card-name{font-weight:700;font-size:.98rem;color:var(--g900);line-height:1.35}
 .ec-card-org{font-size:.78rem;color:var(--g500);margin-top:.1rem;display:flex;align-items:center;gap:.3rem;flex-wrap:wrap}
 .ec-card-desc{font-size:.85rem;color:var(--g700);line-height:1.65;margin-bottom:.85rem}
+.ec-card-contact{font-size:.8rem;color:var(--g700);margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem}
+.ec-card-contact a{color:var(--ec-accent,var(--blue));font-weight:600;text-decoration:none}
+.ec-card-contact a:hover{text-decoration:underline}
+.ec-contact-type{text-transform:capitalize;color:var(--g500);font-weight:600}
+.ec-card-source{font-size:.72rem;color:var(--g400);margin-bottom:.7rem;font-style:italic}
 .ec-card-meta{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
 .ec-tag{background:var(--ec-accent-pale,var(--bluepale));color:var(--ec-accent,var(--blue));font-size:.7rem;font-weight:700;padding:.25rem .65rem;border-radius:100px;letter-spacing:.1px}
 .ec-card-link{margin-left:auto;display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:700;color:#fff;background:var(--ec-accent,var(--blue));text-decoration:none;padding:.4rem .8rem;border-radius:100px;transition:all .15s}
@@ -71,6 +76,31 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 /* ── Empty / error states ── */
 .ec-state-card{text-align:center;padding:2.75rem 1.75rem;border-radius:var(--rxl)}
 .ec-state-icon{font-size:2.1rem;margin-bottom:.6rem}
+
+/* ── Major / Interest selection cards ── */
+.ec-step-title{font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--g900);margin-bottom:.3rem}
+.ec-step-sub{font-size:.85rem;color:var(--g500);margin-bottom:1.4rem}
+.ec-major-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+@media(max-width:640px){.ec-major-grid{grid-template-columns:repeat(2,1fr)}}
+.ec-major-card{display:flex;align-items:center;gap:.65rem;padding:.85rem .9rem;border:1.5px solid var(--g200);border-radius:12px;cursor:pointer;transition:all .15s;background:#fff}
+.ec-major-card:hover{border-color:rgba(37,99,235,.4);background:var(--bluepale)}
+.ec-major-card.selected{border-color:var(--blue);border-width:2px;background:var(--bluepale);box-shadow:0 4px 14px rgba(37,99,235,.12)}
+.ec-major-ico{font-size:1.15rem;flex-shrink:0}
+.ec-major-label{font-size:.85rem;font-weight:600;color:var(--g900);line-height:1.3}
+.ec-major-radio{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--g300);flex-shrink:0;margin-left:auto;transition:all .15s}
+.ec-major-card.selected .ec-major-radio{border-color:var(--blue);border-width:5px}
+
+.ec-interest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+@media(max-width:640px){.ec-interest-grid{grid-template-columns:repeat(2,1fr)}}
+.ec-interest-card{position:relative;padding:1.1rem 1rem;border:1.5px solid var(--g200);border-radius:14px;cursor:pointer;transition:all .15s;background:#fff;text-align:left}
+.ec-interest-card:hover{border-color:rgba(37,99,235,.4);box-shadow:var(--shadow)}
+.ec-interest-card.selected{border-color:var(--blue);border-width:2px;background:var(--bluepale);box-shadow:0 4px 14px rgba(37,99,235,.14)}
+.ec-interest-check{position:absolute;top:.8rem;right:.8rem;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--g300);background:#fff;transition:all .15s;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#fff}
+.ec-interest-card.selected .ec-interest-check{border-color:var(--blue);background:var(--blue)}
+.ec-interest-card.selected .ec-interest-check::after{content:'✓'}
+.ec-interest-icon-wrap{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;margin-bottom:.6rem}
+.ec-interest-title{font-size:.88rem;font-weight:700;color:var(--g900);margin-bottom:.25rem}
+.ec-interest-desc{font-size:.74rem;color:var(--g500);line-height:1.5}
 .nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
 
 /* LANG */
@@ -561,23 +591,27 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 
     <!-- SEARCH FORM -->
     <div id="ec-form-wrap">
-      <div class="ec-form-card" id="ec-form-inner">
+      <div class="ec-form-card" id="ec-form-inner" style="max-width:760px">
 
         <!-- STEP 1: MAJOR -->
         <div id="ec-step-major">
-          <div class="ec-field-lbl"><span class="ec-ico">🎓</span> What's your intended major?</div>
-          <input type="text" id="ec-major" class="plan-input ec-input" placeholder="e.g. Computer Science, Biology, Economics" onkeydown="if(event.key==='Enter')ecGoToStep2()">
-          <div id="ec-step1-err" style="display:none;color:var(--red);font-size:.8rem;margin-top:.6rem"></div>
-          <button class="btn-blue ec-submit-btn" style="width:100%;padding:.75rem;font-size:.9rem;margin-top:1.4rem" onclick="ecGoToStep2()">Next →</button>
+          <div class="ec-step-title">What's your intended major?</div>
+          <div class="ec-step-sub">Pick the one that's closest — you can fine-tune later.</div>
+          <div class="ec-major-grid" id="ec-major-grid"></div>
+          <div id="ec-major-other-wrap" style="display:none;margin-top:.9rem">
+            <input type="text" id="ec-major-other" class="plan-input ec-input" placeholder="Type your major">
+          </div>
+          <div id="ec-step1-err" style="display:none;color:var(--red);font-size:.8rem;margin-top:.9rem"></div>
+          <button class="btn-blue ec-submit-btn" style="width:100%;padding:.75rem;font-size:.9rem;margin-top:1.5rem" onclick="ecGoToStep2()">Next →</button>
         </div>
 
         <!-- STEP 2: INTERESTS + LOCATION -->
         <div id="ec-step-details" style="display:none">
-          <div class="ec-field-lbl"><span class="ec-ico">✨</span> What are your interests?</div>
-          <input type="text" id="ec-interests" class="plan-input ec-input" placeholder="e.g. robotics, debate, community service, music" onkeydown="if(event.key==='Enter')document.getElementById('ec-city').focus()">
-          <div style="font-size:.75rem;color:var(--g400);margin:.4rem 0 1.2rem">Separate multiple interests with commas</div>
+          <div class="ec-step-title">What are you interested in?</div>
+          <div class="ec-step-sub">Choose as many as fit you.</div>
+          <div class="ec-interest-grid" id="ec-interest-grid"></div>
 
-          <div style="display:flex;gap:.8rem;margin-bottom:1.4rem">
+          <div style="display:flex;gap:.8rem;margin:1.6rem 0 1.4rem">
             <div style="flex:1">
               <div class="ec-field-lbl"><span class="ec-ico">📍</span> City</div>
               <input type="text" id="ec-city" class="plan-input ec-input" placeholder="e.g. Tashkent" onkeydown="if(event.key==='Enter')document.getElementById('ec-country').focus()">
@@ -663,12 +697,90 @@ function requirePro() {
 // ── EXTRACURRICULARS ──
 const EC_BACKEND_URL = 'https://sat-backend-n13d.onrender.com/api/opportunities';
 let ecProgressTimer = null;
+let ecSelectedMajor = null;
+let ecSelectedInterests = new Set();
+
+const EC_MAJORS = [
+  { label: 'Computer Science', icon: '💻' },
+  { label: 'Pre-Med', icon: '⚕️' },
+  { label: 'Economics', icon: '📊' },
+  { label: 'Public Policy', icon: '🏛️' },
+  { label: 'Engineering', icon: '⚙️' },
+  { label: 'Biology', icon: '🧬' },
+  { label: 'Mathematics', icon: '➗' },
+  { label: 'Psychology', icon: '🧠' },
+  { label: 'Business', icon: '💼' },
+  { label: 'Law', icon: '⚖️' },
+  { label: 'Linguistics', icon: '🗣️' },
+  { label: 'Political Science', icon: '🌐' },
+  { label: 'Environmental Science', icon: '🌱' },
+  { label: 'Physics', icon: '⚛️' },
+  { label: 'Other', icon: '✏️' },
+];
+
+const EC_INTEREST_COLORS = {
+  blue: ['#2563eb', '#eff6ff'], green: ['#16a34a', '#f0fdf4'],
+  amber: ['#d97706', '#fffbeb'], purple: ['#7c3aed', '#f5f3ff'], pink: ['#db2777', '#fdf2f8'],
+};
+const EC_INTERESTS = [
+  { label: 'Coding & Robotics', icon: '💻', color: 'blue', desc: 'Building apps, robots, or software projects.' },
+  { label: 'Debate & Public Speaking', icon: '🎤', color: 'purple', desc: 'Arguing, persuading, and speaking on stage.' },
+  { label: 'Research', icon: '🔬', color: 'green', desc: 'Digging into a topic and writing it up.' },
+  { label: 'Community Service', icon: '🤝', color: 'amber', desc: 'Volunteering and giving back locally.' },
+  { label: 'Music & Performing Arts', icon: '🎵', color: 'pink', desc: 'Singing, playing an instrument, or acting.' },
+  { label: 'Visual Arts', icon: '🎨', color: 'purple', desc: 'Drawing, painting, photography, design.' },
+  { label: 'Entrepreneurship', icon: '🚀', color: 'amber', desc: 'Starting projects, pitching ideas, running a club.' },
+  { label: 'Sports & Athletics', icon: '🏅', color: 'green', desc: 'Team sports, individual training, competition.' },
+  { label: 'Environmental Action', icon: '🌍', color: 'green', desc: 'Sustainability projects and climate initiatives.' },
+  { label: 'Writing & Journalism', icon: '✍️', color: 'pink', desc: 'Reporting, blogging, or creative writing.' },
+  { label: 'Leadership', icon: '🧭', color: 'blue', desc: 'Running clubs, organizing events, mentoring others.' },
+  { label: 'Competitions', icon: '🏆', color: 'amber', desc: 'Olympiads, hackathons, case competitions.' },
+];
+
+function renderECMajorGrid(){
+  const grid = document.getElementById('ec-major-grid');
+  grid.innerHTML = EC_MAJORS.map(m => `
+    <div class="ec-major-card${ecSelectedMajor === m.label ? ' selected' : ''}" data-major="${m.label}" onclick="ecSelectMajor('${m.label.replace(/'/g, "\\'")}')">
+      <span class="ec-major-ico">${m.icon}</span>
+      <span class="ec-major-label">${m.label}</span>
+      <span class="ec-major-radio"></span>
+    </div>
+  `).join('');
+}
+function ecSelectMajor(label){
+  ecSelectedMajor = label;
+  document.querySelectorAll('.ec-major-card').forEach(c => c.classList.toggle('selected', c.dataset.major === label));
+  const otherWrap = document.getElementById('ec-major-other-wrap');
+  otherWrap.style.display = label === 'Other' ? 'block' : 'none';
+  if (label === 'Other') document.getElementById('ec-major-other').focus();
+}
+
+function renderECInterestGrid(){
+  const grid = document.getElementById('ec-interest-grid');
+  grid.innerHTML = EC_INTERESTS.map(it => {
+    const [accent, pale] = EC_INTEREST_COLORS[it.color] || EC_INTEREST_COLORS.blue;
+    return `
+    <div class="ec-interest-card${ecSelectedInterests.has(it.label) ? ' selected' : ''}" data-interest="${it.label}" style="--ec-accent:${accent};--ec-accent-pale:${pale}" onclick="ecToggleInterest('${it.label.replace(/'/g, "\\'")}')">
+      <div class="ec-interest-check"></div>
+      <div class="ec-interest-icon-wrap" style="background:${pale};color:${accent}">${it.icon}</div>
+      <div class="ec-interest-title">${it.label}</div>
+      <div class="ec-interest-desc">${it.desc}</div>
+    </div>`;
+  }).join('');
+}
+function ecToggleInterest(label){
+  if (ecSelectedInterests.has(label)) ecSelectedInterests.delete(label);
+  else ecSelectedInterests.add(label);
+  document.querySelectorAll('.ec-interest-card').forEach(c => c.classList.toggle('selected', ecSelectedInterests.has(c.dataset.interest)));
+}
 
 function initECPage(){
   const formWrap = document.getElementById('ec-form-wrap');
   if (isPro()) {
     formWrap.style.display = '';
     document.getElementById('upgradeOv').classList.remove('open');
+    renderECMajorGrid();
+    renderECInterestGrid();
   } else {
     formWrap.style.display = 'none';
     const maybeLaterBtn = document.getElementById('upgrade-maybe-later-btn');
@@ -679,18 +791,22 @@ function initECPage(){
 // Re-check once the real plan has loaded from Firestore (it starts as "standard" by default)
 window.onChettaPlanReady = initECPage;
 
+function ecResolvedMajor(){
+  if (ecSelectedMajor === 'Other') return document.getElementById('ec-major-other').value.trim();
+  return ecSelectedMajor || '';
+}
+
 function ecGoToStep2(){
-  const major = document.getElementById('ec-major').value.trim();
   const errEl = document.getElementById('ec-step1-err');
+  const major = ecResolvedMajor();
   if (!major) {
-    errEl.textContent = 'Please enter your intended major.';
+    errEl.textContent = 'Please select (or type) your intended major.';
     errEl.style.display = 'block';
     return;
   }
   errEl.style.display = 'none';
   document.getElementById('ec-step-major').style.display = 'none';
   document.getElementById('ec-step-details').style.display = 'block';
-  document.getElementById('ec-interests').focus();
 }
 
 function ecBackToStep1(){
@@ -712,14 +828,14 @@ function resetECForm(){
 function startECSearch(){
   if (!requirePro()) return;
 
-  const major = document.getElementById('ec-major').value.trim();
-  const interests = document.getElementById('ec-interests').value.trim();
+  const major = ecResolvedMajor();
+  const interests = [...ecSelectedInterests];
   const city = document.getElementById('ec-city').value.trim();
   const country = document.getElementById('ec-country').value.trim();
   const errEl = document.getElementById('ec-form-err');
 
-  if (!major || !interests || !city || !country) {
-    errEl.textContent = 'Please fill in your interests, city, and country.';
+  if (!major || !interests.length || !city || !country) {
+    errEl.textContent = 'Please choose at least one interest, and fill in city and country.';
     errEl.style.display = 'block';
     return;
   }
@@ -748,7 +864,7 @@ function startECSearch(){
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       major: major,
-      interests: interests.split(',').map(s => s.trim()).filter(Boolean),
+      interests: interests,
       city: city,
       country: country
     })
