@@ -968,15 +968,20 @@ function renderECResults(results, rawData){
 
       const contactIcons = { email: '✉️', phone: '📞', tel: '📞', instagram: '📷', telegram: '💬', whatsapp: '💬', linkedin: '💼', facebook: '📘', twitter: '🐦', x: '🐦' };
       let contactHtml = '';
-      if (r.contact && typeof r.contact === 'object' && r.contact.value) {
-        const cType = String(r.contact.type || 'contact').toLowerCase();
+      // Support several possible shapes: { contact: {type, value} }, or flat contact_type/contact_value, or contactType/contactValue
+      const contactObj = (r.contact && typeof r.contact === 'object') ? r.contact
+        : (r.contact_value || r.contactValue) ? { type: r.contact_type || r.contactType, value: r.contact_value || r.contactValue }
+        : null;
+      if (contactObj && contactObj.value) {
+        const cType = String(contactObj.type || 'contact').toLowerCase();
         const icon = contactIcons[cType] || '📇';
-        const isEmail = cType === 'email' || /@/.test(r.contact.value);
+        const isEmail = cType === 'email' || /@/.test(contactObj.value);
         const isPhone = cType === 'phone' || cType === 'tel';
-        const href = isEmail ? `mailto:${r.contact.value}` : isPhone ? `tel:${r.contact.value}` : ecWebsiteUrl({ website: r.contact.value }) || null;
-        contactHtml = `<div class="ec-card-contact">${icon} <span class="ec-contact-type">${cType}:</span> ${href ? `<a href="${href}" target="_blank" rel="noopener">${r.contact.value}</a>` : r.contact.value}</div>`;
+        const href = isEmail ? `mailto:${contactObj.value}` : isPhone ? `tel:${contactObj.value}` : ecWebsiteUrl({ website: contactObj.value }) || null;
+        contactHtml = `<div class="ec-card-contact">${icon} <span class="ec-contact-type">${cType}:</span> ${href ? `<a href="${href}" target="_blank" rel="noopener">${contactObj.value}</a>` : contactObj.value}</div>`;
       }
-      const sourceHtml = r.source ? `<div class="ec-card-source">Source: ${r.source}</div>` : '';
+      const sourceVal = r.source || r.data_source || r.dataSource || r.origin || '';
+      const sourceHtml = sourceVal ? `<div class="ec-card-source">Source: ${sourceVal}</div>` : '';
 
       return `
     <div class="ec-card" style="--ec-accent:${accent};--ec-accent-pale:${pale}">
