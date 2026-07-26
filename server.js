@@ -41,7 +41,7 @@ research internships competitions hackathons volunteering programs
                 api_key: process.env.TAVILY_API_KEY,
                 query,
                 search_depth: "advanced",
-                max_results: 20
+                max_results: 8
             })
         });
 
@@ -60,16 +60,22 @@ console.log("=== TAVILY RESULTS ===");
 console.log(JSON.stringify(data.results, null, 2));
 console.log("======================");
 
-        const recommendations = await analyzeOpportunities(
-            data.results,
-            {
-                major,
-                interests,
-                workStyles,
-                city,
-                country
-            }
-        );
+const cleanedResults = data.results.map(result => ({
+    title: result.title,
+    url: result.url,
+    content: result.content?.slice(0, 500)
+}));
+
+const recommendations = await analyzeOpportunities(
+    cleanedResults,
+    {
+        major,
+        interests,
+        workStyles,
+        city,
+        country
+    }
+);
 
         const parsed = JSON.parse(recommendations);
 
