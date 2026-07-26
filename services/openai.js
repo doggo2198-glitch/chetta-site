@@ -4,7 +4,6 @@ const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
 
-
 export async function analyzeOpportunities(results, userInfo) {
 
     const response = await groq.chat.completions.create({
@@ -16,85 +15,133 @@ export async function analyzeOpportunities(results, userInfo) {
             {
                 role: "system",
                 content: `
-You are an extracurricular activity finder for high school students applying to universities.
+You are an AI extracurricular opportunity advisor for high school students.
 
-Your ONLY job is to recommend extracurricular opportunities.
+Your ONLY task is to recommend extracurricular opportunities.
 
-DO NOT recommend:
-- universities
-- colleges
-- degrees
-- majors
-- courses
-- scholarships
-Never return:
-- high schools
-- private schools
-- public schools
-- universities offering programs
+Never recommend:
+- Universities
+- Colleges
+- Schools
+- Degree programs
+- Scholarships
+- Academic courses
 
-Only return activities that a student can JOIN, APPLY TO, or PARTICIPATE IN.
+Recommend ONLY activities that students can JOIN or APPLY TO.
 
-Recommend ONLY:
-- research opportunities
-- research internships
-- student research programs
-- science competitions
-- programming competitions
-- hackathons
-- olympiads
-- volunteering opportunities
-- student clubs
-- community projects
-- leadership programs
-- summer programs
-- internships
-- online projects
+Examples:
+- Research programs
+- Research internships
+- Internships
+- Hackathons
+- Programming competitions
+- Robotics competitions
+- Science fairs
+- Math competitions
+- Olympiads
+- Volunteering
+- NGOs
+- Student clubs
+- Leadership programs
+- Community projects
+- Workshops
+- Conferences
+- Summer programs
+
+Prioritize:
+1. Same city
+2. Same country
+3. International (only if necessary)
+
+Each opportunity MUST have BOTH:
+
+1. A valid source URL.
+2. At least ONE verified contact method.
+
+Accepted contact methods:
+- Email
+- Phone
+- Telegram
+- Instagram
+- Facebook
+- LinkedIn
+
+DO NOT use a website as the contact.
+
+If an opportunity has NO verified contact method,
+DO NOT include it.
+
+If an opportunity has NO source URL,
+DO NOT include it.
+
+Never invent:
+- organizations
+- contact information
+- source URLs
+
+Only use information that exists in the provided search results.
 
 Return ONLY valid JSON.
-No markdown.
-No explanations.
 
-Return exactly this format:
+Return EXACTLY this format:
 
 {
   "opportunities": [
     {
-      "name": "Activity name",
-      "description": "What the student does in this activity",
-      "category": "Research / Competition / Internship / Club / Volunteering / Project",
-      "skills": ["skill1", "skill2"],
-      "website": "https://example.com"
+      "name": "",
+      "description": "",
+      "category": "",
+      "location": "",
+      "whyRecommended": "",
+      "skills": [],
+      "contact": {
+        "type": "",
+        "value": ""
+      },
+      "source": ""
     }
   ]
 }
+
+Maximum 6 opportunities.
+
+No markdown.
+No explanations.
+No extra text.
 `
             },
-
 
             {
                 role: "user",
                 content: `
+Student Profile
 
-Student profile:
-
-Major interest:
+Major:
 ${userInfo.major}
 
-Interests:
+Academic Interests:
 ${userInfo.interests.join(", ")}
+
+Preferred Work Styles:
+${(userInfo.workStyles || []).join(", ")}
 
 Location:
 ${userInfo.city}, ${userInfo.country}
 
+Search Results:
 
-Find extracurricular activities suitable for this student.
-
-Search results:
 ${JSON.stringify(results)}
 
-Only return activities from the categories above.
+Requirements:
 
+- Recommend ONLY extracurricular opportunities.
+- Use ONLY the provided search results.
+- Prefer opportunities in ${userInfo.city}.
+- Otherwise recommend opportunities elsewhere in ${userInfo.country}.
+- Recommend international opportunities ONLY if no local ones exist.
+- Exclude any opportunity that lacks BOTH:
+  - a source URL
+  - a verified contact method (Email, Phone, Telegram, Instagram, Facebook, or LinkedIn).
 `
             }
 
@@ -102,14 +149,10 @@ Only return activities from the categories above.
 
     });
 
-
     let text = response.choices[0].message.content;
-
 
     text = text.replace(/```json/g, "");
     text = text.replace(/```/g, "");
 
-
     return text.trim();
-
 }

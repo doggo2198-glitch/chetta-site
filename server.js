@@ -16,27 +16,62 @@ app.get("/", (req, res) => {
 
 app.post("/api/opportunities", async (req, res) => {
     try {
-        const { major, interests, city, country } = req.body;
+
+        const {
+            major,
+            interests,
+            workStyles,
+            city,
+            country
+        } = req.body;
 
         const query = `
-high school student extracurricular opportunities:
-research programs,
-student internships,
-science competitions,
-hackathons,
-olympiads,
-volunteer projects,
-student organizations,
-summer programs,
-independent research opportunities
+Find extracurricular opportunities for HIGH SCHOOL STUDENTS.
 
-for a student interested in ${interests.join(", ")}
-with a focus on ${major}
+Student Profile:
+- Intended Major: ${major}
+- Academic Interests: ${interests.join(", ")}
+- Preferred Work Styles: ${(workStyles || []).join(", ")}
+- Location: ${city}, ${country}
 
-location:
-${city}, ${country}
+Look ONLY for opportunities located in or near ${city}, ${country}.
 
-Do not include universities, colleges, schools, or degree programs.
+Examples:
+- research programs
+- research internships
+- internships
+- hackathons
+- science competitions
+- robotics competitions
+- programming competitions
+- engineering competitions
+- math competitions
+- volunteering
+- NGOs
+- youth organizations
+- leadership programs
+- STEM clubs
+- community projects
+- startup events
+- workshops
+- conferences
+- summer programs
+
+DO NOT include:
+- universities
+- colleges
+- schools
+- degree programs
+- scholarships
+- admissions information
+
+Prefer organizations that provide contact information such as:
+- email
+- phone
+- Telegram
+- Instagram
+- Facebook
+- LinkedIn
 `;
 
         const response = await fetch("https://api.tavily.com/search", {
@@ -48,17 +83,26 @@ Do not include universities, colleges, schools, or degree programs.
                 api_key: process.env.TAVILY_API_KEY,
                 query,
                 search_depth: "advanced",
-                max_results: 10
+                max_results: 20
             })
         });
 
+        if (!response.ok) {
+            throw new Error(`Tavily API Error: ${response.status}`);
+        }
+
         const data = await response.json();
+
+console.log("=== TAVILY RESULTS ===");
+console.log(JSON.stringify(data.results, null, 2));
+console.log("======================");
 
         const recommendations = await analyzeOpportunities(
             data.results,
             {
                 major,
                 interests,
+                workStyles,
                 city,
                 country
             }
@@ -66,16 +110,35 @@ Do not include universities, colleges, schools, or degree programs.
 
         const parsed = JSON.parse(recommendations);
 
+        const filtered = parsed.opportunities.filter(opportunity => {
+
+            const hasSource =
+                opportunity.source &&
+                opportunity.source.trim() !== "";
+
+            const hasContact =
+                opportunity.contact &&
+                opportunity.contact.type &&
+                opportunity.contact.value &&
+                opportunity.contact.type !== "Not available" &&
+                opportunity.contact.value !== "Not available";
+
+            return hasSource && hasContact;
+
+        });
+
         res.json({
-            recommendations: parsed.opportunities
+            recommendations: filtered
         });
 
     } catch (error) {
+
         console.error(error);
 
         res.status(500).json({
             error: "Something went wrong"
         });
+
     }
 });
 
