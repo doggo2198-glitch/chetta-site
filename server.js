@@ -87,10 +87,15 @@ Prefer organizations that provide contact information such as:
             })
         });
 
-        if (!response.ok) {
-            throw new Error(`Tavily API Error: ${response.status}`);
-        }
+      if (!response.ok) {
+    const errorText = await response.text();
 
+    console.log("=== TAVILY ERROR ===");
+    console.log(errorText);
+    console.log("====================");
+
+    throw new Error(`Tavily API Error: ${response.status}`);
+}
         const data = await response.json();
 
 console.log("=== TAVILY RESULTS ===");
