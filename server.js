@@ -25,55 +25,13 @@ app.post("/api/opportunities", async (req, res) => {
             country
         } = req.body;
 
-        const query = `
-Find extracurricular opportunities for HIGH SCHOOL STUDENTS.
-
-Student Profile:
-- Intended Major: ${major}
-- Academic Interests: ${interests.join(", ")}
-- Preferred Work Styles: ${(workStyles || []).join(", ")}
-- Location: ${city}, ${country}
-
-Look ONLY for opportunities located in or near ${city}, ${country}.
-
-Examples:
-- research programs
-- research internships
-- internships
-- hackathons
-- science competitions
-- robotics competitions
-- programming competitions
-- engineering competitions
-- math competitions
-- volunteering
-- NGOs
-- youth organizations
-- leadership programs
-- STEM clubs
-- community projects
-- startup events
-- workshops
-- conferences
-- summer programs
-
-DO NOT include:
-- universities
-- colleges
-- schools
-- degree programs
-- scholarships
-- admissions information
-
-Prefer organizations that provide contact information such as:
-- email
-- phone
-- Telegram
-- Instagram
-- Facebook
-- LinkedIn
+const query = `
+${major} extracurricular opportunities
+${interests.join(" ")}
+${city}, ${country}
+high school students
+research internships competitions hackathons volunteering programs
 `;
-
         const response = await fetch("https://api.tavily.com/search", {
             method: "POST",
             headers: {
