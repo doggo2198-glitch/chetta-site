@@ -30,7 +30,7 @@
             font-weight: bold;
         }
 
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 12px;
             margin-top: 8px;
@@ -61,11 +61,21 @@
         }
 
         #result {
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 25px;
+            padding: 20px;
             background: #eef2ff;
-            border-radius: 8px;
+            border-radius: 10px;
         }
+
+        .score {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
     </style>
 </head>
 
@@ -75,16 +85,17 @@
 
 <h1>AI Admission Profile Analyzer</h1>
 
+
 <label>GPA</label>
-<input id="gpa" placeholder="Example: 3.8 / 4.0">
+<input id="gpa" placeholder="Example: 3.9">
 
 
 <label>SAT Score</label>
 <input id="sat" placeholder="Example: 1500">
 
 
-<label>IELTS / TOEFL Score</label>
-<input id="ielts" placeholder="Example: IELTS 8.0">
+<label>IELTS Score</label>
+<input id="ielts" placeholder="Example: 8.0">
 
 
 <label>Intended Major</label>
@@ -92,29 +103,25 @@
 
 
 <label>Extracurricular Activities</label>
-<textarea id="activities" placeholder="
-Example:
+<textarea id="activities"
+placeholder="Example:
+- Built a website
 - Coding club president
-- Built a website with 500 users
-- Volunteer tutor
-"></textarea>
+- Volunteer tutor"></textarea>
 
 
 <label>Awards & Achievements</label>
-<textarea id="awards" placeholder="
-Example:
+<textarea id="awards"
+placeholder="Example:
 - Math Olympiad finalist
-- Hackathon winner
-"></textarea>
+- Hackathon winner"></textarea>
 
 
 <label>Research / Projects</label>
-<textarea id="research" placeholder="
-Example:
-- AI research project
-- Published article
-- Personal software project
-"></textarea>
+<textarea id="research"
+placeholder="Example:
+- AI project
+- Published research paper"></textarea>
 
 
 <button onclick="analyzeProfile()">
@@ -145,12 +152,14 @@ async function analyzeProfile(){
         activities: document
             .getElementById("activities")
             .value
-            .split("\n"),
+            .split("\n")
+            .filter(x => x.trim() !== ""),
 
         awards: document
             .getElementById("awards")
             .value
-            .split("\n"),
+            .split("\n")
+            .filter(x => x.trim() !== ""),
 
         research: document
             .getElementById("research")
@@ -176,16 +185,80 @@ async function analyzeProfile(){
     const data = await response.json();
 
 
+    if(!data.success){
+
+        document.getElementById("result").innerHTML =
+        `
+        <h3>Error</h3>
+        <p>${data.error}</p>
+        `;
+
+        return;
+
+    }
+
+
+    const analysis = data.analysis;
+
+
     document.getElementById("result").innerHTML =
     `
-    <h3>${data.message}</h3>
-    <pre>${JSON.stringify(data, null, 2)}</pre>
+
+    <h2>Admission Analysis</h2>
+
+    <div class="score">
+        Overall Score: ${analysis.overallScore}/100
+    </div>
+
+
+    <h3>Categories</h3>
+
+    <ul>
+        <li>Academics: ${analysis.categories.academics}/10</li>
+        <li>Extracurriculars: ${analysis.categories.extracurriculars}/10</li>
+        <li>Leadership: ${analysis.categories.leadership}/10</li>
+        <li>Achievements: ${analysis.categories.achievements}/10</li>
+        <li>Uniqueness: ${analysis.categories.uniqueness}/10</li>
+    </ul>
+
+
+    <h3>Strengths</h3>
+
+    <ul>
+        ${
+            analysis.strengths
+            .map(item => `<li>${item}</li>`)
+            .join("")
+        }
+    </ul>
+
+
+    <h3>Weaknesses</h3>
+
+    <ul>
+        ${
+            analysis.weaknesses
+            .map(item => `<li>${item}</li>`)
+            .join("")
+        }
+    </ul>
+
+
+    <h3>Recommendations</h3>
+
+    <ul>
+        ${
+            analysis.recommendations
+            .map(item => `<li>${item}</li>`)
+            .join("")
+        }
+    </ul>
+
     `;
 
 }
 
 </script>
-
 
 </body>
 </html>
