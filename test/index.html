@@ -2,92 +2,90 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Admission Profile Analyzer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #f5f7fb;
-        }
+<title>AI Admission Profile Analyzer</title>
 
-        h1 {
-            text-align: center;
-            color: #1f2937;
-        }
+<style>
 
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
+body {
+    font-family: Arial, sans-serif;
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f5f7fb;
+}
 
-        label {
-            display: block;
-            margin-top: 18px;
-            font-weight: bold;
-        }
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+}
 
-        input,
-        textarea {
-            width: 100%;
-            margin-top: 8px;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-            box-sizing: border-box;
-        }
+h1 {
+    text-align: center;
+}
 
-        textarea {
-            height: 120px;
-            resize: vertical;
-        }
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
 
-        button {
-            margin-top: 25px;
-            width: 100%;
-            padding: 15px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            cursor: pointer;
-        }
+input,
+textarea {
 
-        button:hover {
-            background: #1d4ed8;
-        }
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 
-        #result {
-            margin-top: 30px;
-            background: #eef2ff;
-            padding: 25px;
-            border-radius: 12px;
-        }
+}
 
-        .score {
-            font-size: 30px;
-            font-weight: bold;
-            margin: 15px 0;
-            color: #2563eb;
-        }
+textarea {
+    height: 120px;
+}
 
-        h2, h3 {
-            color: #1f2937;
-        }
+button {
 
-        li {
-            margin: 8px 0;
-        }
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
 
-    </style>
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+
+#result {
+
+    margin-top: 25px;
+    background: #eef2ff;
+    padding: 20px;
+    border-radius: 12px;
+
+}
+
+
+.score {
+
+    font-size: 28px;
+    font-weight: bold;
+
+}
+
+</style>
 
 </head>
 
@@ -97,100 +95,95 @@
 
 <div class="container">
 
+
 <h1>
-    AI Admission Profile Analyzer
+AI Admission Profile Analyzer
 </h1>
 
 
 <label>
-    GPA
+GPA
 </label>
 
-<input 
-    id="gpa"
-    placeholder="Example: 4.0"
->
+<input id="gpa" placeholder="Example: 4.0">
+
 
 
 <label>
-    SAT Score
+SAT Score
 </label>
 
-<input 
-    id="sat"
-    placeholder="Example: 1410"
->
+<input id="sat" placeholder="Example: 1410">
+
 
 
 <label>
-    IELTS Score
+IELTS Score
 </label>
 
-<input 
-    id="ielts"
-    placeholder="Example: 7.0"
->
+<input id="ielts" placeholder="Example: 7.0">
+
 
 
 <label>
-    Intended Major
+Intended Major
 </label>
 
-<input 
-    id="major"
-    placeholder="Example: Computer Science"
->
+<input id="major" placeholder="Example: Computer Science">
+
 
 
 <label>
-    Extracurricular Activities
+Extracurricular Activities
 </label>
 
 <textarea 
-    id="activities"
-    placeholder="Example:
+id="activities"
+placeholder="Example:
 Built a website
-Coding club member
-Volunteer tutor">
+Olympiad participant
+Volunteer work">
 </textarea>
 
 
+
 <label>
-    Awards and Achievements
+Awards and Achievements
 </label>
 
-<textarea 
-    id="awards"
-    placeholder="Example:
-Olympiad finalist
-Hackathon participant">
+<textarea
+id="awards"
+placeholder="Example:
+Olympiad 3rd place
+Hackathon finalist">
 </textarea>
 
 
+
 <label>
-    Research / Projects
+Projects / Research
 </label>
 
-<textarea 
-    id="research"
-    placeholder="Example:
+<textarea
+id="research"
+placeholder="Example:
 AI project
-Research paper
-Engineering project">
+Research project">
 </textarea>
+
 
 
 <button onclick="analyzeProfile()">
-    Analyze My Profile
+Analyze My Profile
 </button>
 
 
-<div id="result">
-    
-</div>
+
+<div id="result"></div>
 
 
 </div>
+
 
 
 
@@ -200,255 +193,233 @@ Engineering project">
 async function analyzeProfile(){
 
 
-    const profile = {
+const profile = {
 
 
-        gpa: document
-            .getElementById("gpa")
-            .value,
+gpa:
+document.getElementById("gpa").value,
 
 
-        sat: document
-            .getElementById("sat")
-            .value,
+sat:
+document.getElementById("sat").value,
 
 
-        ielts: document
-            .getElementById("ielts")
-            .value,
+ielts:
+document.getElementById("ielts").value,
 
 
-        major: document
-            .getElementById("major")
-            .value,
+major:
+document.getElementById("major").value,
 
 
-        activities: document
-            .getElementById("activities")
-            .value
-            .split("\n")
-            .filter(item => item.trim() !== ""),
+activities:
+document.getElementById("activities").value
+.split("\n")
+.filter(x => x.trim() !== ""),
 
 
-        awards: document
-            .getElementById("awards")
-            .value
-            .split("\n")
-            .filter(item => item.trim() !== ""),
+awards:
+document.getElementById("awards").value
+.split("\n")
+.filter(x => x.trim() !== ""),
 
 
-        research: document
-            .getElementById("research")
-            .value
+research:
+document.getElementById("research").value
 
-    };
 
+};
 
 
-    try {
 
+try {
 
-        const response = await fetch(
 
-            "https://chetta-site.onrender.com/api/profile",
+const response = await fetch(
 
-            {
+"https://chetta-site.onrender.com/api/profile",
 
-                method: "POST",
+{
 
-                headers: {
+method: "POST",
 
-                    "Content-Type": "application/json"
+headers: {
 
-                },
+"Content-Type": "application/json"
 
+},
 
-                body: JSON.stringify(profile)
+body: JSON.stringify(profile)
 
-            }
+}
 
-        );
+);
 
 
 
-        const data = await response.json();
+const data = await response.json();
 
 
+console.log("BACKEND RESPONSE:", data);
 
-        if(!data.success){
 
 
-            document.getElementById("result").innerHTML =
+// FIX: Convert analysis string into object
 
-            `
+const analysis =
+typeof data.analysis === "string"
+? JSON.parse(data.analysis)
+: data.analysis;
 
-            <h3>Error</h3>
 
-            <p>
-                ${data.error}
-            </p>
 
-            `;
+document.getElementById("result").innerHTML = `
 
 
-            return;
+<h2>
+Admission Analysis
+</h2>
 
-        }
 
 
+<div class="score">
 
-        const analysis = data.analysis;
+Overall Score:
+${analysis.overallScore}/100
 
+</div>
 
 
-        document.getElementById("result").innerHTML =
 
+<h3>
+Categories
+</h3>
 
-        `
 
+<ul>
 
-        <h2>
-            Admission Analysis
-        </h2>
+<li>
+Academics:
+${analysis.categories.academics}/100
+</li>
 
 
-        <div class="score">
+<li>
+Extracurriculars:
+${analysis.categories.extracurriculars}/100
+</li>
 
-            Overall Score:
-            ${analysis.overallScore}/100
 
-        </div>
+<li>
+Leadership:
+${analysis.categories.leadership}/100
+</li>
 
 
+<li>
+Achievements:
+${analysis.categories.achievements}/100
+</li>
 
-        <h3>
-            Categories
-        </h3>
 
+<li>
+Uniqueness:
+${analysis.categories.uniqueness}/100
+</li>
 
-        <ul>
 
-            <li>
-                Academics:
-                ${analysis.categories.academics}/100
-            </li>
+</ul>
 
 
-            <li>
-                Extracurriculars:
-                ${analysis.categories.extracurriculars}/100
-            </li>
 
 
-            <li>
-                Leadership:
-                ${analysis.categories.leadership}/100
-            </li>
 
+<h3>
+Strengths
+</h3>
 
-            <li>
-                Achievements:
-                ${analysis.categories.achievements}/100
-            </li>
 
+<ul>
 
-            <li>
-                Uniqueness:
-                ${analysis.categories.uniqueness}/100
-            </li>
+${
+analysis.strengths
+.map(item => `<li>${item}</li>`)
+.join("")
+}
 
-        </ul>
+</ul>
 
 
 
-        <h3>
-            Strengths
-        </h3>
 
 
-        <ul>
+<h3>
+Weaknesses
+</h3>
 
-            ${
-                analysis.strengths
-                .map(item => `<li>${item}</li>`)
-                .join("")
-            }
 
-        </ul>
+<ul>
 
+${
+analysis.weaknesses
+.map(item => `<li>${item}</li>`)
+.join("")
+}
 
+</ul>
 
 
-        <h3>
-            Weaknesses
-        </h3>
 
 
-        <ul>
 
-            ${
-                analysis.weaknesses
-                .map(item => `<li>${item}</li>`)
-                .join("")
-            }
+<h3>
+Recommendations
+</h3>
 
-        </ul>
 
+<ul>
 
+${
+analysis.recommendations
+.map(item => `<li>${item}</li>`)
+.join("")
+}
 
+</ul>
 
-        <h3>
-            Recommendations
-        </h3>
 
-
-        <ul>
-
-            ${
-                analysis.recommendations
-                .map(item => `<li>${item}</li>`)
-                .join("")
-            }
-
-        </ul>
-
-
-        `;
-
-
-
-    }
-
-    catch(error){
-
-
-        console.error(error);
-
-
-        document.getElementById("result").innerHTML =
-
-        `
-
-        <h3>
-            Connection Error
-        </h3>
-
-        <p>
-            Could not connect to the server.
-        </p>
-
-        `;
-
-
-    }
+`;
 
 
 
 }
 
+catch(error){
+
+
+console.error(error);
+
+
+document.getElementById("result").innerHTML = `
+
+<h3>
+Error
+</h3>
+
+<p>
+${error.message}
+</p>
+
+`;
+
+}
+
+
+}
+
+
 
 </script>
-
 
 
 </body>
