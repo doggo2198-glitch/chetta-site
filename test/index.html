@@ -248,26 +248,18 @@ async function analyzeProfile(){
     try {
 
 
-        const response = await fetch(
+     const response = await fetch(
+    "https://chetta-site.onrender.com/api/profile",
+    {
+        method: "POST",
 
-            "https://chetta-site.onrender.com/api/profile",
+        headers: {
+            "Content-Type": "application/json"
+        },
 
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type": "application/json"
-
-                },
-
-
-                body: JSON.stringify(profile)
-
-            }
-
-        );
+        body: JSON.stringify(profile)
+    }
+);
 
 
 
