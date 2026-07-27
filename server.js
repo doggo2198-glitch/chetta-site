@@ -4,7 +4,7 @@ import cors from "cors";
 
 import { analyzeOpportunities } from "./services/openai.js";
 import { analyzeProfile } from "./services/profileAnalyzer.js";
-
+import { analyzeUniversities } from "./services/universityAnalyzer.js";
 
 dotenv.config();
 
@@ -297,7 +297,43 @@ app.post("/api/profile", async (req,res)=>{
 });
 
 
+app.post("/api/universities", async (req,res)=>{
 
+
+    try{
+
+
+        const universities = await analyzeUniversities(req.body);
+
+
+        res.json({
+
+            success:true,
+
+            universities
+
+        });
+
+
+    }catch(error){
+
+
+        console.error(error);
+
+
+        res.status(500).json({
+
+            success:false,
+
+            error:"University recommendation failed"
+
+        });
+
+
+    }
+
+
+});
 
 
 
