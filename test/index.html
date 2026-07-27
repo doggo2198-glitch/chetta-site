@@ -2,90 +2,123 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AI Admission Profile Analyzer</title>
+<title>AI Admission Helper</title>
+
 
 <style>
 
 body {
+
     font-family: Arial, sans-serif;
-    max-width: 850px;
+    max-width: 900px;
     margin: 40px auto;
     padding: 20px;
-    background: #f5f7fb;
+    background:#f5f7fb;
+
 }
+
 
 .container {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
+
+    background:white;
+    padding:30px;
+    border-radius:15px;
+
 }
 
-h1 {
-    text-align: center;
+
+h1,h2 {
+
+    text-align:center;
+
 }
+
 
 label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
+
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+
 }
 
-input,
+
+input, textarea {
+
+
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+
+}
+
+
 textarea {
 
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    height:120px;
 
 }
 
-textarea {
-    height: 120px;
-}
 
 button {
 
-    width: 100%;
-    margin-top: 20px;
-    padding: 15px;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
+
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
 
 }
+
 
 button:hover {
-    background: #1d4ed8;
+
+    background:#1d4ed8;
+
 }
+
 
 
 #result {
 
-    margin-top: 25px;
-    background: #eef2ff;
-    padding: 20px;
-    border-radius: 12px;
+
+    margin-top:25px;
+    background:#eef2ff;
+    padding:20px;
+    border-radius:12px;
 
 }
 
 
 .score {
 
-    font-size: 28px;
-    font-weight: bold;
+    font-size:28px;
+    font-weight:bold;
 
 }
 
+
+li {
+
+    margin-bottom:15px;
+
+}
+
+
 </style>
+
 
 </head>
 
@@ -97,8 +130,9 @@ button:hover {
 
 
 <h1>
-AI Admission Profile Analyzer
+AI Admission Helper
 </h1>
+
 
 
 <label>
@@ -134,16 +168,30 @@ Intended Major
 
 
 <label>
+Preferred Country
+</label>
+
+<input id="country" placeholder="Example: USA">
+
+
+
+<label>
+Budget / Scholarship Need
+</label>
+
+<input id="budget" placeholder="Example: Need full scholarship">
+
+
+
+<label>
 Extracurricular Activities
 </label>
 
-<textarea 
-id="activities"
+<textarea id="activities"
 placeholder="Example:
-Built a website
+Built website
 Olympiad participant
-Volunteer work">
-</textarea>
+Volunteer work"></textarea>
 
 
 
@@ -151,12 +199,10 @@ Volunteer work">
 Awards and Achievements
 </label>
 
-<textarea
-id="awards"
+<textarea id="awards"
 placeholder="Example:
-Olympiad 3rd place
-Hackathon finalist">
-</textarea>
+Math Olympiad 3rd place
+Hackathon finalist"></textarea>
 
 
 
@@ -164,22 +210,35 @@ Hackathon finalist">
 Projects / Research
 </label>
 
-<textarea
-id="research"
+<textarea id="research"
 placeholder="Example:
 AI project
-Research project">
-</textarea>
+Research project"></textarea>
+
 
 
 
 <button onclick="analyzeProfile()">
+
 Analyze My Profile
+
 </button>
 
 
 
-<div id="result"></div>
+<button onclick="findUniversities()">
+
+Find Universities
+
+</button>
+
+
+
+
+<div id="result">
+
+</div>
+
 
 
 </div>
@@ -187,48 +246,24 @@ Analyze My Profile
 
 
 
+
 <script>
+
+
+const API = "https://chetta-site.onrender.com";
+
+
+
+
+// ==========================
+// PROFILE ANALYSIS
+// ==========================
 
 
 async function analyzeProfile(){
 
 
-const profile = {
-
-
-gpa:
-document.getElementById("gpa").value,
-
-
-sat:
-document.getElementById("sat").value,
-
-
-ielts:
-document.getElementById("ielts").value,
-
-
-major:
-document.getElementById("major").value,
-
-
-activities:
-document.getElementById("activities").value
-.split("\n")
-.filter(x => x.trim() !== ""),
-
-
-awards:
-document.getElementById("awards").value
-.split("\n")
-.filter(x => x.trim() !== ""),
-
-
-research:
-document.getElementById("research").value
-
-
-};
+const profile = getProfile();
 
 
 
@@ -237,19 +272,19 @@ try {
 
 const response = await fetch(
 
-"https://chetta-site.onrender.com/api/profile",
+API + "/api/profile",
 
 {
 
-method: "POST",
+method:"POST",
 
-headers: {
+headers:{
 
-"Content-Type": "application/json"
+"Content-Type":"application/json"
 
 },
 
-body: JSON.stringify(profile)
+body:JSON.stringify(profile)
 
 }
 
@@ -260,20 +295,27 @@ body: JSON.stringify(profile)
 const data = await response.json();
 
 
-console.log("BACKEND RESPONSE:", data);
+console.log("PROFILE RESPONSE:", data);
 
 
-
-// FIX: Convert analysis string into object
 
 const analysis =
+
 typeof data.analysis === "string"
-? JSON.parse(data.analysis)
-: data.analysis;
+
+?
+
+JSON.parse(data.analysis)
+
+:
+
+data.analysis;
+
 
 
 
 document.getElementById("result").innerHTML = `
+
 
 
 <h2>
@@ -333,7 +375,6 @@ ${analysis.categories.uniqueness}/100
 
 
 
-
 <h3>
 Strengths
 </h3>
@@ -341,14 +382,11 @@ Strengths
 
 <ul>
 
-${
-analysis.strengths
-.map(item => `<li>${item}</li>`)
-.join("")
-}
+${analysis.strengths
+.map(x=>`<li>${x}</li>`)
+.join("")}
 
 </ul>
-
 
 
 
@@ -360,14 +398,11 @@ Weaknesses
 
 <ul>
 
-${
-analysis.weaknesses
-.map(item => `<li>${item}</li>`)
-.join("")
-}
+${analysis.weaknesses
+.map(x=>`<li>${x}</li>`)
+.join("")}
 
 </ul>
-
 
 
 
@@ -379,11 +414,9 @@ Recommendations
 
 <ul>
 
-${
-analysis.recommendations
-.map(item => `<li>${item}</li>`)
-.join("")
-}
+${analysis.recommendations
+.map(x=>`<li>${x}</li>`)
+.join("")}
 
 </ul>
 
@@ -396,27 +429,244 @@ analysis.recommendations
 
 catch(error){
 
-
 console.error(error);
 
+alert("Profile analysis failed");
 
-document.getElementById("result").innerHTML = `
+}
+
+
+}
+
+
+
+
+
+
+
+// ==========================
+// UNIVERSITY RECOMMENDATION
+// ==========================
+
+
+async function findUniversities(){
+
+
+const profile = getProfile();
+
+
+
+try{
+
+
+const response = await fetch(
+
+API + "/api/universities",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify(profile)
+
+}
+
+);
+
+
+
+const data = await response.json();
+
+
+console.log("UNIVERSITY RESPONSE:",data);
+
+
+
+const universities = data.universities;
+
+
+
+document.getElementById("result").innerHTML += `
+
+
+
+<h2>
+University Recommendations
+</h2>
+
+
+
 
 <h3>
-Error
+With Scholarship
 </h3>
 
-<p>
-${error.message}
-</p>
+
+<ul>
+
+${universities.withScholarship.map(u=>`
+
+<li>
+
+<b>${u.university}</b>
+
+<br>
+
+Country:
+${u.country}
+
+<br>
+
+Chance:
+${u.chance}
+
+<br>
+
+Scholarship:
+${u.scholarship}
+
+<br>
+
+${u.reason}
+
+</li>
+
+
+`).join("")}
+
+
+</ul>
+
+
+
+
+
+<h3>
+Without Scholarship
+</h3>
+
+
+<ul>
+
+
+${universities.withoutScholarship.map(u=>`
+
+<li>
+
+<b>${u.university}</b>
+
+<br>
+
+Country:
+${u.country}
+
+<br>
+
+Chance:
+${u.chance}
+
+<br>
+
+${u.reason}
+
+</li>
+
+
+`).join("")}
+
+
+</ul>
+
+
 
 `;
 
+
+
+}
+
+
+catch(error){
+
+
+console.error(error);
+
+alert("University recommendation failed");
+
+
 }
 
 
 }
 
+
+
+
+
+
+// ==========================
+// GET USER DATA
+// ==========================
+
+
+function getProfile(){
+
+
+return {
+
+
+gpa:
+document.getElementById("gpa").value,
+
+
+sat:
+document.getElementById("sat").value,
+
+
+ielts:
+document.getElementById("ielts").value,
+
+
+major:
+document.getElementById("major").value,
+
+
+country:
+document.getElementById("country").value,
+
+
+budget:
+document.getElementById("budget").value,
+
+
+activities:
+document.getElementById("activities")
+.value
+.split("\n")
+.filter(x=>x.trim()),
+
+
+awards:
+document.getElementById("awards")
+.value
+.split("\n")
+.filter(x=>x.trim()),
+
+
+research:
+document.getElementById("research").value
+
+
+};
+
+
+}
 
 
 </script>
