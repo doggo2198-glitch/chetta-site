@@ -1,6 +1,191 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Admission Profile Analyzer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f7fb;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef2ff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
 <body>
-  <input type="file" id="documents" multiple>
-<button id="analyzeBtn">Analyze My Profile</button>
+
+<div class="container">
+
+<h1>AI Admission Profile Analyzer</h1>
+
+<label>GPA</label>
+<input id="gpa" placeholder="Example: 3.8 / 4.0">
+
+
+<label>SAT Score</label>
+<input id="sat" placeholder="Example: 1500">
+
+
+<label>IELTS / TOEFL Score</label>
+<input id="ielts" placeholder="Example: IELTS 8.0">
+
+
+<label>Intended Major</label>
+<input id="major" placeholder="Example: Computer Science">
+
+
+<label>Extracurricular Activities</label>
+<textarea id="activities" placeholder="
+Example:
+- Coding club president
+- Built a website with 500 users
+- Volunteer tutor
+"></textarea>
+
+
+<label>Awards & Achievements</label>
+<textarea id="awards" placeholder="
+Example:
+- Math Olympiad finalist
+- Hackathon winner
+"></textarea>
+
+
+<label>Research / Projects</label>
+<textarea id="research" placeholder="
+Example:
+- AI research project
+- Published article
+- Personal software project
+"></textarea>
+
+
+<button onclick="analyzeProfile()">
+Analyze My Profile
+</button>
+
+
+<div id="result"></div>
+
+
+</div>
+
+
+<script>
+
+async function analyzeProfile(){
+
+    const profile = {
+
+        gpa: document.getElementById("gpa").value,
+
+        sat: document.getElementById("sat").value,
+
+        ielts: document.getElementById("ielts").value,
+
+        major: document.getElementById("major").value,
+
+        activities: document
+            .getElementById("activities")
+            .value
+            .split("\n"),
+
+        awards: document
+            .getElementById("awards")
+            .value
+            .split("\n"),
+
+        research: document
+            .getElementById("research")
+            .value
+
+    };
+
+
+    const response = await fetch(
+        "http://localhost:3000/api/profile",
+        {
+            method: "POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body: JSON.stringify(profile)
+        }
+    );
+
+
+    const data = await response.json();
+
+
+    document.getElementById("result").innerHTML =
+    `
+    <h3>${data.message}</h3>
+    <pre>${JSON.stringify(data, null, 2)}</pre>
+    `;
+
+}
+
+</script>
+
+
 </body>
 </html>
