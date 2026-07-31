@@ -139,7 +139,7 @@ ul.plain.recs li{border-left:3px solid var(--blue)}
 .loading-box{text-align:center;padding:2.5rem;color:var(--g400);font-size:.85rem;background:var(--g50);border:1.5px dashed var(--g200);border-radius:var(--rl)}
 
 /* ===== BLUR PAYWALL ===== */
-/* Wraps any section that should stay locked after the free trial.
+/* Wraps any section that should stay locked for non-Pro users.
    The overall score box is placed OUTSIDE this wrapper so it's never blurred. */
 .blur-wrap{position:relative}
 .blur-inner{filter:blur(7px);pointer-events:none;user-select:none}
@@ -285,7 +285,7 @@ ul.plain.recs li{border-left:3px solid var(--blue)}
     <div class="page-hd-eye">✦ AI Profile Analyzer</div>
     <h2>Your <em>admission chances</em>, instantly.</h2>
     <p>Fill in your profile and Chetta's AI will score your application and match you with universities and scholarships.</p>
-    <div class="trial-note" id="trialNote">🎁 1 free full analysis included</div>
+    <div class="trial-note" id="trialNote">🔒 Full details are a Pro feature</div>
   </div>
 </div>
 
@@ -419,36 +419,26 @@ function setLoggedInUser(name, email, plan){
 }
 
 // ==========================
-// PLAN / TRIAL GATING
+// PLAN GATING
 // ==========================
-// Tracked per-browser via localStorage (easiest option, no backend needed).
+// No free trial — every non-Pro user sees the overall score/summary only.
 // window.chettaPlan mirrors the flag your site already sets for signed-in
 // Pro/Lifetime users — if it's "pro" or "lifetime" nothing is ever blurred.
-
-const TRIAL_KEY = "chetta_ai_helper_trial_used";
 
 function isPro(){
   return window.chettaPlan === "pro" || window.chettaPlan === "lifetime";
 }
-function trialUsed(){
-  return localStorage.getItem(TRIAL_KEY) === "1";
-}
-function markTrialUsed(){
-  localStorage.setItem(TRIAL_KEY, "1");
-}
 // locked = true means: blur the details, but the overall score still shows
 function isLocked(){
-  return !isPro() && trialUsed();
+  return !isPro();
 }
 
 function updateTrialNote(){
   const note = document.getElementById("trialNote");
   if (isPro()){
     note.textContent = "✦ Pro plan — unlimited full analyses";
-  } else if (trialUsed()){
-    note.innerHTML = "🔒 Free analysis used — <a href='https://chetta.xyz/Pricing/'>upgrade to unlock full details</a>";
   } else {
-    note.textContent = "🎁 1 free full analysis included";
+    note.innerHTML = "🔒 Full details are a Pro feature — <a href='https://chetta.xyz/Pricing/'>upgrade to unlock</a>";
   }
 }
 updateTrialNote();
@@ -503,7 +493,7 @@ async function analyzeProfile(){
     `;
 
     // Everything below (categories, strengths, weaknesses, recommendations)
-    // gets blurred once the free trial is used and the user isn't Pro.
+    // gets blurred for every non-Pro user, from the first analysis.
     const detailsHtml = `
       <div class="m-sec">Categories</div>
       <ul class="cat-list">
@@ -535,11 +525,6 @@ async function analyzeProfile(){
         </div>
       </div>
     `;
-
-    if (!isPro() && !trialUsed()){
-      markTrialUsed();
-      updateTrialNote();
-    }
 
   } catch(error){
     console.error(error);
@@ -583,7 +568,7 @@ async function findUniversities(){
     const withoutCount = universities.withoutScholarship.length;
 
     // Summary badge is always visible; the actual list of matches is what
-    // gets blurred once the free trial is used and the user isn't Pro.
+    // gets blurred for every non-Pro user, from the first analysis.
     const summaryHtml = `
       <div class="score-box">
         <div class="score-num">${withCount + withoutCount}</div>
@@ -637,11 +622,6 @@ async function findUniversities(){
         </div>
       </div>
     `;
-
-    if (!isPro() && !trialUsed()){
-      markTrialUsed();
-      updateTrialNote();
-    }
 
   } catch(error){
     console.error(error);
