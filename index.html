@@ -2939,12 +2939,13 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
   sendPasswordResetEmail,
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
@@ -2994,7 +2995,21 @@ window.updatePlanBadge = function () {
 /* GOOGLE LOGIN */
 window.doGoogle = async function () {
   try {
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    const u = result.user;
+    try {
+      const snap = await getDoc(doc(db, "users", u.uid));
+      if (!snap.exists()) {
+        const parts = (u.displayName || "").trim().split(" ");
+        await setDoc(doc(db, "users", u.uid), {
+          firstName: parts[0] || "",
+          lastName: parts.slice(1).join(" ") || "",
+          email: u.email || "",
+          plan: "standard",
+          createdAt: new Date().toISOString()
+        });
+      }
+    } catch (e2) { console.error("Could not create user doc:", e2); }
     if (typeof closeAuth === "function") closeAuth();
   } catch (e) {
     alert(e.message);
@@ -3019,15 +3034,30 @@ window.doLogin = async function () {
 /* REGISTER */
 window.doRegister = async function () {
   try {
+    const firstName = document.getElementById("rFirst") ? document.getElementById("rFirst").value.trim() : "";
+    const lastName = document.getElementById("rLast") ? document.getElementById("rLast").value.trim() : "";
     const email = document.getElementById("rEmail").value;
     const password = document.getElementById("rPass").value;
 
-    await createUserWithEmailAndPassword(auth, email, password);
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const fullName = (firstName + " " + lastName).trim();
+    if (fullName) {
+      try { await updateProfile(cred.user, { displayName: fullName }); } catch (e2) { console.error("updateProfile failed:", e2); }
+    }
+    try {
+      await setDoc(doc(db, "users", cred.user.uid), {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        plan: "standard",
+        createdAt: new Date().toISOString()
+      });
+    } catch (e3) { console.error("Could not create user doc:", e3); }
 
     if (typeof closeAuth === "function") closeAuth();
   } catch (e) {
     const err = document.getElementById("regErr");
-    if (err) err.textContent = e.message;
+    if (err) { err.textContent = e.message; if (err.classList) err.classList.add("show"); }
   }
 };
 
