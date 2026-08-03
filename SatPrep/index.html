@@ -604,7 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="u-dd-head"><div class="u-dd-name" id="ddName"></div><div class="u-dd-email" id="ddEmail"></div></div>
         <div class="u-dd-item" onclick="window.location.href='/Universities/'">🏛 <span data-i18n="nav_universities">Universities</span></div>
         <div class="u-dd-item" onclick="window.location.href='/Scholarships/'">🎓 <span data-i18n="nav_scholarships">Scholarships</span></div>
-        <div class="u-dd-item" onclick="window.location.href='/#ai-advisor'">✦ <span data-i18n="nav_ai">AI Advisor</span></div>
+       <div class="u-dd-item" onclick="window.location.href='/ProfileAnalyzer/'">✦ <span data-i18n="nav_ai">Profile Analyzer</span></div>
         <div class="u-dd-item danger" onclick="signOut()">↩ <span data-i18n="dd_signout">Sign out</span></div>
       </div>
     </div>
@@ -1355,7 +1355,7 @@ function applyLang(lang){
 
 function buildFooter(t){
   const ft=document.querySelector('footer');if(!ft)return;
-  ft.innerHTML=`<div class="ft-inner"><div class="ft-grid"><div><div class="ft-logo">Chetta<em>.</em></div><p class="ft-desc">${t.ft_desc}</p></div><div class="ft-col"><h4>${t.ft_ex}</h4><ul><li><a onclick="showPage('universities')">${t.nav_universities}</a></li><li><a onclick="showPage('scholarships')">${t.nav_scholarships}</a></li><li><a onclick="showPage('interviews')">${t.nav_interviews}</a></li><li><a onclick="scrollToChat()">${t.nav_ai}</a></li></ul></div><div class="ft-col"><h4>${t.ft_res}</h4><ul><li><a href="#">${t.ft_sat}</a></li><li><a href="#">${t.ft_ielts}</a></li><li><a href="#">${t.ft_essay}</a></li><li><a href="#">${t.ft_visa}</a></li></ul></div><div class="ft-col"><h4>${t.ft_co}</h4><ul><li><a href="#">${t.ft_about}</a></li><li><a href="#">${t.ft_blog}</a></li><li><a href="#">${t.ft_priv}</a></li><li><a href="#">${t.ft_contact}</a></li></ul></div></div><div class="ft-bottom"><span>${t.ft_copy}</span><span>${t.ft_love}</span></div></div>`;
+  ft.innerHTML=`<div class="ft-inner"><div class="ft-grid"><div><div class="ft-logo">Chetta<em>.</em></div><p class="ft-desc">${t.ft_desc}</p></div><div class="ft-col"><h4>${t.ft_ex}</h4><ul><li><a onclick="showPage('universities')">${t.nav_universities}</a></li><li><a onclick="showPage('scholarships')">${t.nav_scholarships}</a></li><li><a onclick="showPage('interviews')">${t.nav_interviews}</a></li><li><a onclick="window.location.href='/ProfileAnalyzer/'">${t.nav_ai}</a></li></ul></div><div class="ft-col"><h4>${t.ft_res}</h4><ul><li><a href="#">${t.ft_sat}</a></li><li><a href="#">${t.ft_ielts}</a></li><li><a href="#">${t.ft_essay}</a></li><li><a href="#">${t.ft_visa}</a></li></ul></div><div class="ft-col"><h4>${t.ft_co}</h4><ul><li><a href="#">${t.ft_about}</a></li><li><a href="#">${t.ft_blog}</a></li><li><a href="#">${t.ft_priv}</a></li><li><a href="#">${t.ft_contact}</a></li></ul></div></div><div class="ft-bottom"><span>${t.ft_copy}</span><span>${t.ft_love}</span></div></div>`;
 }
 
 function setLang(l){applyLang(l);document.getElementById('langSw').classList.remove('open');}
