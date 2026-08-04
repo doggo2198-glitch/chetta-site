@@ -571,65 +571,85 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 <div class="cards-sec">
   <div class="cards-inner">
     <div class="prac-cards">
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(1)">
+      <div class="prac-card amber" id="examCard1" onclick="if(requirePro())startPastExam(1)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge1" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>March Exam 2026</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn1" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(1, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(2)">
+      <div class="prac-card amber" id="examCard2" onclick="if(requirePro())startPastExam(2)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge2" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 2</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn2" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(2, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(3)">
+      <div class="prac-card amber" id="examCard3" onclick="if(requirePro())startPastExam(3)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge3" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 3</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn3" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(3, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(4)">
+      <div class="prac-card amber" id="examCard4" onclick="if(requirePro())startPastExam(4)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge4" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 4</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn4" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(4, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(5)">
+      <div class="prac-card amber" id="examCard5" onclick="if(requirePro())startPastExam(5)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge5" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 5</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn5" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(5, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(6)">
+      <div class="prac-card amber" id="examCard6" onclick="if(requirePro())startPastExam(6)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge6" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 6</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn6" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(6, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(7)">
+      <div class="prac-card amber" id="examCard7" onclick="if(requirePro())startPastExam(7)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge7" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 7</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn7" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(7, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(8)">
+      <div class="prac-card amber" id="examCard8" onclick="if(requirePro())startPastExam(8)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge8" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 8</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn8" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(8, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(9)">
+      <div class="prac-card amber" id="examCard9" onclick="if(requirePro())startPastExam(9)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge9" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 9</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn9" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(9, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" onclick="if(requirePro())startPastExam(10)">
+      <div class="prac-card amber" id="examCard10" onclick="if(requirePro())startPastExam(10)">
         <span class="pro-badge">PRO</span>
+        <span class="done-badge" id="examDoneBadge10" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 10</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
+        <button class="qb-btn outline" id="examMistakesBtn10" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(10, event)">Review mistakes</button>
       </div>
     </div>
   </div>
@@ -994,6 +1014,7 @@ mark.user-hl{background:#fef08a;color:inherit;border-radius:2px;padding:0 1px;cu
     <div style="font-family:'Instrument Serif',serif;font-size:1.1rem;color:var(--g400);margin-bottom:1.5rem">Total: <span id="exam-res-total" style="color:var(--g900);font-weight:700">1290</span></div>
     <div style="display:flex;gap:.65rem">
       <button class="qb-btn primary" onclick="exitExam()">Back to Exams</button>
+      <button class="qb-btn outline" id="exam-res-review-btn" style="display:none" onclick="openMistakesReviewFromResults()">Review mistakes</button>
     </div>
   </div>
 </div>
@@ -1087,6 +1108,21 @@ const PAST_EXAMS = {
       {id:'e2-rw1-27', passage:`Notes: Albert Einstein's theory of general relativity allows for potential shortcuts through spacetime. These hypothetical spacetime tunnels are known as wormholes. For matter to travel through a wormhole, it would need to have negative energy density. Negative energy density means that the matter would have less energy than empty space. Such matter has not been shown to exist.`, question:`The student wants to acknowledge a complication affecting travel through wormholes. Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
        options:['The hypothetical tunnels known as wormholes would be potential shortcuts through spacetime were it not for one complication: they have less energy than empty space.',"Einstein's theory of general relativity allows for potential spacetime shortcuts called wormholes but does not explain how matter with negative energy density could travel through them",'For matter to travel through a wormhole, the matter would need to have less energy than empty space; such matter has not been shown to exist.','For wormholes to be possible, according to Einstein\'s theory of general relativity, they would have to allow for potential shortcuts through spacetime'], answer:2,
        explanation:`Choice C states the requirement (negative energy density) and the complication (such matter is unproven to exist).`},
+      {id:'e1-rw1-h1', passage:``, question:`Although the committee had anticipated significant opposition to the proposed zoning changes, the public hearing proved almost entirely ____; only two residents spoke, and neither raised substantive objections.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`contentious`, `perfunctory`, `anticlimactic`, `unanimous`], answer:2, difficulty:10,
+       explanation:`The hearing didn't live up to the expected drama, making it "anticlimactic"; the other options don't capture the letdown after anticipated opposition.`},
+      {id:'e1-rw1-h2', passage:``, question:`The novelist's prose has often been praised for its ____ quality: sentences that seem effortless on the page were, according to her notebooks, revised dozens of times before publication.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`labored`, `unpolished`, `deceptive`, `spontaneous`], answer:2, difficulty:10,
+       explanation:`The sentence sets up a contrast between how the prose seems (effortless) and how it actually came to be (heavily revised), so "deceptive" best captures that gap.`},
+      {id:'e1-rw1-h3', passage:``, question:`Rather than dismiss the amateur astronomer's data outright, the research team chose to treat it with cautious ____, cross-checking each observation against professional instruments before drawing conclusions.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`skepticism`, `enthusiasm`, `indifference`, `authority`], answer:0, difficulty:10,
+       explanation:`Cross-checking each observation before accepting it reflects a cautious, skeptical approach rather than enthusiasm or indifference.`},
     ],
    rw2: [
       {id:'e2-rw2-1', passage:``, question:`Recitals by Catherine Kautsky, known for her virtuosity on the piano, are rightly described as ____ given that they can feature not just the performance of a musical piece but also a lecture on the piece's composer and a slideshow contextualizing the time in which it was composed.\n\nWhich choice completes the text with the most logical and precise word or phrase?`,
@@ -1170,6 +1206,15 @@ const PAST_EXAMS = {
       {id:'e2-rw2-27', passage:`Notes: Shanawdithit (1801-1829) was a Beothuk cartographer (mapmaker). Her maps of Newfoundland's Beothuk Lake outline both the lake and various points around the lake where encounters between the Indigenous Beothuk people and British colonists occurred. Her maps are notable for depicting the experiences the Beothuk had within the landscape. Contemporary Potawatomi cartographer Margaret Pearce: Indigenous cartography emphasizes "experienced space, or place, as opposed to the Western convention of depicting space as universal, homogenized, and devoid of human experience." Pearce: "Indigenous cartographies are as diverse as Indigenous cultures, from Hawaiian performative cartographies to Navajo verbal maps and sand paintings."`, question:`The student wants to describe Shanawdithit's approach and explain its significance. Which choice most effectively uses relevant information from the notes to accomplish this goal?`,
        options:[`By depicting experiences of the Beothuk that occurred around Beothuk Lake, Shanawdithit's maps reflect Indigenous cartography's emphasis on "experienced space, or place" rather than the landscape alone.`,`According to Pearce, Indigenous cartography, such as Shanawdithit's maps of Beothuk Lake, emphasizes "experienced space, or place," with a variety of approaches that reflect the diversity of Indigenous cultures`,`Shanawdithit mapped Beothuk Lake through significant encounters that occurred there, an approach that Pearce describes as "depicting space as universal [and] homogenized."`,`Shanawdithit's maps are part of a broader tradition of Indigenous cartography that, according to Pearce, ranges from "Hawaiian performative cartographies to Navajo verbal maps and sand paintings."`], answer:0,
        explanation:`Choice A both describes Shanawdithit's approach (depicting experiences around the lake) and explains its significance (reflecting the "experienced space" concept), matching the goal.`},
+      {id:'e1-rw2-h1', passage:`The bridge was designed to withstand winds of up to 120 miles per hour, far exceeding any storm recorded in the region's history. ____, engineers added redundant support cables after a smaller, unrelated bridge collapsed under far milder conditions elsewhere in the country.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`Consequently,`, `Nevertheless,`, `For example,`, `In other words,`], answer:1, difficulty:10,
+       explanation:`The bridge already exceeded any recorded storm, yet engineers still added redundancy — a contrast best signaled by "Nevertheless."`},
+      {id:'e1-rw2-h2', passage:`Most economists predicted that automation would eliminate more jobs than it created over the following decade. ____, employment in several automated sectors rose, as new roles emerged to design, maintain, and oversee the machines themselves.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`As a result,`, `In fact,`, `Similarly,`, `Instead,`], answer:3, difficulty:10,
+       explanation:`The actual outcome (employment rose) contradicts the prediction, so "Instead" signals that reversal.`},
+      {id:'e1-rw2-h3', passage:`The city council initially proposed banning outdoor dining structures entirely, citing sidewalk congestion. ____, after months of public comment, the council settled on a compromise: structures would be permitted but limited in size and required to leave a clear path for pedestrians.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`Ultimately,`, `Similarly,`, `For instance,`, `Consequently,`], answer:0, difficulty:10,
+       explanation:`The sentence describes the final outcome after a process of public comment, so "Ultimately" fits best.`},
     ],
     math1: [
       {id:'e2-m1-1', passage:``, question:`If 6 + x = 70, what is the value of 48 + 8x?`,
@@ -1253,6 +1298,15 @@ const PAST_EXAMS = {
       {id:'e2-m1-22', passage:``, question:`30x = 1,800y - 2,700. One of the two equations in a system of linear equations is given. The system has no solution. Which equation could be the second equation in this system?`,
        options:['(1/30)x = 2y','(1/30)x = 60y - 90','x = 2y','x = 60y - 90'], answer:0,
        explanation:`The given equation simplifies to x = 60y - 90. A parallel (no-solution) system needs the same slope but a different intercept; (1/30)x = 2y simplifies to x = 60y, matching the slope but with a different constant.`},
+      {id:'e1-m1-h1', passage:``, question:`If 2x + 3y = 22 and x - y = 1, what is the value of xy?`,
+       options:[`20`, `9`, `81`, `21`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 1. Substituting into the first: 2(y+1) + 3y = 22, so 5y = 20, y = 4, and x = 5. Thus xy = 5 × 4 = 20.`},
+      {id:'e1-m1-h2', passage:``, question:`If f(x) = 3x - 1 and g(x) = x² + 1, what is the value of f(g(2))?`,
+       options:[`14`, `10`, `16`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 1 = 5. Then f(g(2)) = 3(5) - 1 = 15 - 1 = 14.`},
+      {id:'e1-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 1| = 7?`,
+       options:[`1`, `2`, `-1`, `8`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 1 = 7 gives x = 4; 2x - 1 = -7 gives x = -3. Their sum is 1.`},
     ],
    math2: [
       {id:'e2-m2-1', passage:``, question:`A candle is made of 18 ounces of wax. When the candle is burning, the amount of wax in the candle decreases by 1 ounce every 4 hours. If 8 ounces of wax remain in this candle, for how many hours has it been burning?`,
@@ -1341,17 +1395,505 @@ const PAST_EXAMS = {
       {id:'e2-m2-22', passage:``, question:`In triangle JKL, the measure of angle J is (90b)°, the measure of angle K is (69a)°, and the measure of angle L is (21a)°, where a and b are constants. Which of the following must be true?`,
        options:['cos L > sin K','cos L = sin K','cos L < sin K','There is not enough information to compare the values of cos L and sin K'], answer:3,
        explanation:`Without fixed values for a and b, there isn't enough information to compare cos L and sin K in general.`},
+      {id:'e1-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 4x + 6y - 3 = 0. What is the radius of the circle?`,
+       options:[`4`, `5`, `3`, `8`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(2))² + (y-(-3))² = 16, so the center is (2, -3) and the radius is √16 = 4.`},
+      {id:'e1-m2-h2', passage:``, question:`The equation x² - 8x + 15 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`34`, `64`, `30`, `23`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 8 and rs = 15. Then r² + s² = (r+s)² - 2rs = 8² - 2(15) = 64 - 30 = 34.`},
+      {id:'e1-m2-h3', passage:``, question:`Working alone, Machine A takes 12 hours to complete a job, and Machine B takes 6 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`4`, `18`, `9`, `8`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/12 + 1/6 = 1/8 + 2/8 = 3/8 = 1/4. So together they take 4 hours.`}
     ]
   },
-  2:  { rw1: [], rw2: [], math1: [], math2: [] },
-  3:  { rw1: [], rw2: [], math1: [], math2: [] },
-  4:  { rw1: [], rw2: [], math1: [], math2: [] },
-  5:  { rw1: [], rw2: [], math1: [], math2: [] },
-  6:  { rw1: [], rw2: [], math1: [], math2: [] },
-  7:  { rw1: [], rw2: [], math1: [], math2: [] },
-  8:  { rw1: [], rw2: [], math1: [], math2: [] },
-  9:  { rw1: [], rw2: [], math1: [], math2: [] },
-  10: { rw1: [], rw2: [], math1: [], math2: [] },
+  2: {
+   rw1: [
+      {id:'e2-rw1-h1', passage:``, question:`The city's new transit map was praised for its ____: even first-time riders could trace a route across the entire system without consulting a key.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`complexity`, `legibility`, `novelty`, `brevity`], answer:1, difficulty:10,
+       explanation:`The ability of first-time riders to trace routes without help points to the map's clarity, or "legibility."`},
+      {id:'e2-rw1-h2', passage:``, question:`Historians once regarded the treaty as a diplomatic triumph, but newly declassified correspondence has ____ that celebratory narrative, revealing that key provisions were dictated under duress.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`reinforced`, `complicated`, `summarized`, `anticipated`], answer:1, difficulty:10,
+       explanation:`New evidence that undercuts a settled narrative "complicates" it rather than reinforcing, summarizing, or anticipating it.`},
+      {id:'e2-rw1-h3', passage:``, question:`The chef's tasting menu is built around ____: dishes that at first appear simple reveal, with each bite, an unexpected layer of flavor or texture.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`simplicity`, `misdirection`, `consistency`, `abundance`], answer:1, difficulty:10,
+       explanation:`Dishes that seem simple but conceal hidden complexity are built around "misdirection" — deliberately understating what's actually happening.`}
+    ],
+   rw2: [
+      {id:'e2-rw2-h1', passage:`The study's sample size was small, drawing conclusions from just forty participants. ____, its findings have been cited in dozens of subsequent papers, in part because no larger study has yet attempted to replicate them.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`Therefore,`, `Even so,`, `Specifically,`, `As expected,`], answer:1, difficulty:10,
+       explanation:`Despite the small sample size, the study has been widely cited — a contrast best captured by "Even so."`},
+      {id:'e2-rw2-h2', passage:`Glaciers in the region have retreated an average of thirty meters per year over the past decade. ____, local water authorities have begun redesigning reservoir systems to rely less on glacial meltwater and more on rainfall collection.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`In response,`, `On the other hand,`, `For example,`, `Regardless,`], answer:0, difficulty:10,
+       explanation:`Redesigning reservoirs is a direct reaction to glacier retreat, so "In response" fits.`},
+      {id:'e2-rw2-h3', passage:`The playwright rarely gave interviews and almost never explained her work publicly. ____, scholars have had to rely almost entirely on early drafts and marginal notes to reconstruct her creative process.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`However,`, `As a result,`, `Similarly,`, `In contrast,`], answer:1, difficulty:10,
+       explanation:`Because the playwright didn't explain her work, scholars had to rely on other sources — a direct consequence, signaled by "As a result."`}
+    ],
+   math1: [
+      {id:'e2-m1-h1', passage:``, question:`If 2x + 3y = 29 and x - y = 2, what is the value of xy?`,
+       options:[`35`, `12`, `144`, `37`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 2. Substituting into the first: 2(y+2) + 3y = 29, so 5y = 25, y = 5, and x = 7. Thus xy = 7 × 5 = 35.`},
+      {id:'e2-m1-h2', passage:``, question:`If f(x) = 3x - 2 and g(x) = x² + 2, what is the value of f(g(2))?`,
+       options:[`16`, `12`, `20`, `13`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 2 = 6. Then f(g(2)) = 3(6) - 2 = 18 - 2 = 16.`},
+      {id:'e2-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 2| = 10?`,
+       options:[`2`, `4`, `-2`, `12`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 2 = 10 gives x = 6; 2x - 2 = -10 gives x = -4. Their sum is 2.`}
+    ],
+   math2: [
+      {id:'e2-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 6x + 8y + 0 = 0. What is the radius of the circle?`,
+       options:[`5`, `6`, `4`, `10`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(3))² + (y-(-4))² = 25, so the center is (3, -4) and the radius is √25 = 5.`},
+      {id:'e2-m2-h2', passage:``, question:`The equation x² - 11x + 28 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`65`, `121`, `56`, `39`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 11 and rs = 28. Then r² + s² = (r+s)² - 2rs = 11² - 2(28) = 121 - 56 = 65.`},
+      {id:'e2-m2-h3', passage:``, question:`Working alone, Machine A takes 18 hours to complete a job, and Machine B takes 9 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`6`, `27`, `13`, `12`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/18 + 1/9 = 1/12 + 2/12 = 3/12 = 1/6. So together they take 6 hours.`}
+    ]
+  },
+  3: {
+   rw1: [
+      {id:'e3-rw1-h1', passage:``, question:`Critics initially dismissed the architect's design as derivative, but subsequent scholarship has ____ this judgment, tracing several of the building's most distinctive features to no known precedent.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`confirmed`, `overturned`, `ignored`, `anticipated`], answer:1, difficulty:10,
+       explanation:`Tracing features to "no known precedent" directly contradicts the charge of being derivative, so the judgment has been "overturned."`},
+      {id:'e3-rw1-h2', passage:``, question:`Far from being a purely defensive measure, the company's investment in employee training proved ____, opening opportunities in markets competitors had not yet considered.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`generative`, `redundant`, `cautious`, `reactive`], answer:0, difficulty:10,
+       explanation:`Opening new opportunities describes a productive, "generative" effect, the opposite of merely defensive or reactive.`},
+      {id:'e3-rw1-h3', passage:``, question:`The philosopher's arguments are often ____ rather than linear, circling back to earlier claims and revising them in light of later ones.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`recursive`, `conclusive`, `chronological`, `fragmentary`], answer:0, difficulty:10,
+       explanation:`Circling back to revise earlier claims describes a "recursive" structure, explicitly contrasted with "linear" in the sentence.`}
+    ],
+   rw2: [
+      {id:'e3-rw2-h1', passage:`The vaccine trial's early results looked promising, with participants showing strong antibody responses. ____, researchers cautioned that antibody levels alone do not guarantee real-world protection, and long-term efficacy data would take months to collect.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`Additionally,`, `However,`, `Thus,`, `Likewise,`], answer:1, difficulty:10,
+       explanation:`The caution about antibody levels not guaranteeing protection contrasts with the promising early results, so "However" fits.`},
+      {id:'e3-rw2-h2', passage:`Deep-sea vents host ecosystems that rely not on sunlight but on chemical energy released from the Earth's crust. ____, some biologists have looked to these vents as models for how life might exist on moons with subsurface oceans, far from any star.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`For this reason,`, `In spite of this,`, `Similarly,`, `Nonetheless,`], answer:0, difficulty:10,
+       explanation:`Because vent ecosystems don't need sunlight, biologists use them as models for starless environments — a causal link, signaled by "For this reason."`},
+      {id:'e3-rw2-h3', passage:`The archive contains thousands of letters written by soldiers during the war, many of them never sent. ____, historians have found them invaluable, offering an unfiltered look at daily concerns that official reports omitted.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`Because of this,`, `Even though many were never delivered,`, `As expected,`, `Similarly,`], answer:1, difficulty:10,
+       explanation:`The letters' value to historians is notable given that many were never sent/delivered — that concession is best captured by "Even though many were never delivered."`}
+    ],
+   math1: [
+      {id:'e3-m1-h1', passage:``, question:`If 2x + 3y = 36 and x - y = 3, what is the value of xy?`,
+       options:[`54`, `15`, `225`, `57`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 3. Substituting into the first: 2(y+3) + 3y = 36, so 5y = 30, y = 6, and x = 9. Thus xy = 9 × 6 = 54.`},
+      {id:'e3-m1-h2', passage:``, question:`If f(x) = 3x - 3 and g(x) = x² + 3, what is the value of f(g(2))?`,
+       options:[`18`, `14`, `24`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 3 = 7. Then f(g(2)) = 3(7) - 3 = 21 - 3 = 18.`},
+      {id:'e3-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 3| = 13?`,
+       options:[`3`, `6`, `-3`, `16`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 3 = 13 gives x = 8; 2x - 3 = -13 gives x = -5. Their sum is 3.`}
+    ],
+   math2: [
+      {id:'e3-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 8x + 10y + 5 = 0. What is the radius of the circle?`,
+       options:[`6`, `7`, `5`, `12`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(4))² + (y-(-5))² = 36, so the center is (4, -5) and the radius is √36 = 6.`},
+      {id:'e3-m2-h2', passage:``, question:`The equation x² - 14x + 45 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`106`, `196`, `90`, `59`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 14 and rs = 45. Then r² + s² = (r+s)² - 2rs = 14² - 2(45) = 196 - 90 = 106.`},
+      {id:'e3-m2-h3', passage:``, question:`Working alone, Machine A takes 24 hours to complete a job, and Machine B takes 12 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`8`, `36`, `18`, `16`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/24 + 1/12 = 1/16 + 2/16 = 3/16 = 1/8. So together they take 8 hours.`}
+    ]
+  },
+  4: {
+   rw1: [
+      {id:'e4-rw1-h1', passage:``, question:`Though the startup's founders had promised rapid, ____ growth, investors soon realized that expansion would instead require years of incremental, unglamorous work.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`exponential`, `modest`, `deliberate`, `gradual`], answer:0, difficulty:10,
+       explanation:`The contrast with "incremental, unglamorous work" signals the promised growth was meant to be dramatic and fast — "exponential."`},
+      {id:'e4-rw1-h2', passage:``, question:`The museum's new wing was designed to be ____ with the historic facade, so that visitors would struggle to identify where the original structure ends and the addition begins.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`contiguous`, `indistinguishable`, `incompatible`, `adjacent`], answer:1, difficulty:10,
+       explanation:`Struggling to tell where old ends and new begins describes visual seamlessness, best captured by "indistinguishable."`},
+      {id:'e4-rw1-h3', passage:``, question:`Rather than a single decisive battle, the conflict was defined by ____ skirmishes that wore down both sides over more than a decade.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`attrition`, `isolated`, `climactic`, `coordinated`], answer:0, difficulty:10,
+       explanation:`Skirmishes that gradually wear down both sides over years describes a war of "attrition."`}
+    ],
+   rw2: [
+      {id:'e4-rw2-h1', passage:`The company's flagship product accounted for nearly ninety percent of its revenue for over a decade. ____, executives invested heavily in diversifying the product line after a single supplier disruption nearly halted production entirely.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`Similarly,`, `Following this incident,`, `In general,`, `As predicted,`], answer:1, difficulty:10,
+       explanation:`The diversification effort came after and because of the supplier disruption, so "Following this incident" fits best.`},
+      {id:'e4-rw2-h2', passage:`A student is writing a report about a study on urban tree cover. The student wants to present a finding that connects tree cover directly to a measurable public health outcome.
+
+Notes:
+- The study examined 45 U.S. cities.
+- Cities with over 30% tree canopy had 15% lower rates of heat-related hospital visits.
+- Tree canopy also correlated with higher property values.
+- Researchers used satellite imagery to measure canopy cover.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`The study examined 45 U.S. cities using satellite imagery to measure tree canopy cover.`, `Cities with over 30% tree canopy had 15% lower rates of heat-related hospital visits than cities with less canopy.`, `Tree canopy cover was found to correlate with higher property values in the cities studied.`, `Researchers used satellite imagery, a method increasingly common in urban environmental studies.`], answer:1, difficulty:10,
+       explanation:`Only this choice links tree cover directly to a measurable public health outcome (hospital visit rates), matching the stated goal.`},
+      {id:'e4-rw2-h3', passage:`A student is writing a caption for a photo of a 19th-century lighthouse. The student wants to explain why the lighthouse was decommissioned.
+
+Notes:
+- The lighthouse was built in 1868.
+- It used a rotating oil lamp visible for 20 miles.
+- GPS navigation made the lighthouse's warning function unnecessary by the 1990s.
+- The structure is now a protected historic landmark.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`Built in 1868, the lighthouse once used a rotating oil lamp visible for 20 miles.`, `The lighthouse was decommissioned after GPS navigation made its warning function unnecessary by the 1990s.`, `Today, the lighthouse is preserved as a protected historic landmark.`, `The lighthouse's rotating oil lamp was an innovative technology for its time.`], answer:1, difficulty:10,
+       explanation:`Only this choice directly explains the cause of decommissioning: GPS making the lighthouse's function unnecessary.`}
+    ],
+   math1: [
+      {id:'e4-m1-h1', passage:``, question:`If 2x + 3y = 43 and x - y = 4, what is the value of xy?`,
+       options:[`77`, `18`, `324`, `81`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 4. Substituting into the first: 2(y+4) + 3y = 43, so 5y = 35, y = 7, and x = 11. Thus xy = 11 × 7 = 77.`},
+      {id:'e4-m1-h2', passage:``, question:`If f(x) = 3x - 4 and g(x) = x² + 4, what is the value of f(g(2))?`,
+       options:[`20`, `16`, `28`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 4 = 8. Then f(g(2)) = 3(8) - 4 = 24 - 4 = 20.`},
+      {id:'e4-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 4| = 16?`,
+       options:[`4`, `8`, `-4`, `20`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 4 = 16 gives x = 10; 2x - 4 = -16 gives x = -6. Their sum is 4.`}
+    ],
+   math2: [
+      {id:'e4-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 10x + 12y + 12 = 0. What is the radius of the circle?`,
+       options:[`7`, `8`, `6`, `14`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(5))² + (y-(-6))² = 49, so the center is (5, -6) and the radius is √49 = 7.`},
+      {id:'e4-m2-h2', passage:``, question:`The equation x² - 17x + 66 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`157`, `289`, `132`, `83`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 17 and rs = 66. Then r² + s² = (r+s)² - 2rs = 17² - 2(66) = 289 - 132 = 157.`},
+      {id:'e4-m2-h3', passage:``, question:`Working alone, Machine A takes 30 hours to complete a job, and Machine B takes 15 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`10`, `45`, `22`, `20`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/30 + 1/15 = 1/20 + 2/20 = 3/20 = 1/10. So together they take 10 hours.`}
+    ]
+  },
+  5: {
+   rw1: [
+      {id:'e5-rw1-h1', passage:``, question:`The economist's model was elegant but ultimately ____, since it assumed a level of rational decision-making rarely observed in real markets.
+
+Which choice completes the text with the most logical and precise word or phrase?`,
+       options:[`unfalsifiable`, `impractical`, `comprehensive`, `predictive`], answer:1, difficulty:10,
+       explanation:`An elegant model resting on unrealistic assumptions is described as "impractical" for describing real markets.`},
+      {id:'e5-rw1-h2', passage:`The senator's remarks, though measured in tone, were widely interpreted as a tacit rebuke of the administration's handling of the crisis; she never named the president directly, yet no one in the chamber mistook her meaning.`, question:`As used in the text, what does the word "tacit" most nearly mean?`,
+       options:[`Loud`, `Unspoken`, `Official`, `Hostile`], answer:1, difficulty:10,
+       explanation:`The senator never directly named anyone, yet her meaning was clear — an "unspoken" (tacit) rebuke.`},
+      {id:'e5-rw1-h3', passage:`The negotiations dragged on for months, each side making concessions so incremental that observers began to question whether real progress was occurring at all, or whether the delegates were merely going through the motions to placate their respective governments.`, question:`As used in the text, what does the phrase "going through the motions" most nearly suggest about the delegates?`,
+       options:[`They were acting with great enthusiasm.`, `They were performing a task without genuine commitment.`, `They were following a strict legal procedure.`, `They were making rapid, decisive progress.`], answer:1, difficulty:10,
+       explanation:`"Going through the motions" describes doing something mechanically, without real engagement or commitment.`}
+    ],
+   rw2: [
+      {id:'e5-rw2-h1', passage:`A student is writing about an experiment on plant growth. The student wants to emphasize a surprising result of the experiment.
+
+Notes:
+- Researchers grew tomato plants under three light conditions: full sun, partial shade, and artificial light.
+- Plants expected to grow fastest in full sun.
+- Partial-shade plants actually produced 20% more fruit than full-sun plants.
+- Artificial-light plants grew tallest but produced the least fruit.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`Researchers grew tomato plants under three different light conditions to compare their growth.`, `Contrary to expectations, plants grown in partial shade produced 20% more fruit than those grown in full sun.`, `Plants grown under artificial light grew the tallest among the three groups.`, `The experiment tested full sun, partial shade, and artificial light conditions on tomato plants.`], answer:1, difficulty:10,
+       explanation:`Only this choice highlights the surprising, counter-to-expectation finding, matching the student's goal.`},
+      {id:'e5-rw2-h2', passage:`A student is writing a blog post about a new species of frog. The student wants to describe a distinguishing physical feature of the frog.
+
+Notes:
+- The frog was discovered in a remote cloud forest in Ecuador in 2019.
+- It measures about 1.5 centimeters, among the smallest frogs known.
+- Its skin is translucent, revealing its internal organs.
+- It is currently classified as critically endangered.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`The frog was discovered in a remote cloud forest in Ecuador in 2019.`, `This tiny frog, measuring just 1.5 centimeters, has translucent skin that reveals its internal organs.`, `The frog is currently classified as critically endangered by conservationists.`, `Cloud forests like the one where this frog was found are rich in undiscovered species.`], answer:1, difficulty:10,
+       explanation:`Only this choice describes a distinguishing physical feature — translucent skin revealing internal organs.`},
+      {id:'e5-rw2-h3', passage:`A student is writing a paragraph comparing two ancient trade routes. The student wants to highlight a similarity between the Silk Road and the Trans-Saharan trade route.
+
+Notes:
+- The Silk Road connected China to the Mediterranean, primarily trading silk and spices.
+- The Trans-Saharan route connected West Africa to North Africa, primarily trading gold and salt.
+- Both routes relied heavily on caravans and pack animals suited to harsh terrain.
+- Both routes also facilitated the spread of religious and cultural ideas alongside goods.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`The Silk Road primarily traded silk and spices, while the Trans-Saharan route traded gold and salt.`, `Both the Silk Road and the Trans-Saharan route relied on caravans suited to harsh terrain and helped spread cultural and religious ideas.`, `The Silk Road connected China to the Mediterranean, covering a vast distance.`, `The Trans-Saharan route was essential to the economies of West and North Africa.`], answer:1, difficulty:10,
+       explanation:`Only this choice states a similarity shared by both routes, matching the student's stated goal.`}
+    ],
+   math1: [
+      {id:'e5-m1-h1', passage:``, question:`If 2x + 3y = 50 and x - y = 5, what is the value of xy?`,
+       options:[`104`, `21`, `441`, `109`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 5. Substituting into the first: 2(y+5) + 3y = 50, so 5y = 40, y = 8, and x = 13. Thus xy = 13 × 8 = 104.`},
+      {id:'e5-m1-h2', passage:``, question:`If f(x) = 3x - 5 and g(x) = x² + 5, what is the value of f(g(2))?`,
+       options:[`22`, `18`, `32`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 5 = 9. Then f(g(2)) = 3(9) - 5 = 27 - 5 = 22.`},
+      {id:'e5-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 5| = 19?`,
+       options:[`5`, `10`, `-5`, `24`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 5 = 19 gives x = 12; 2x - 5 = -19 gives x = -7. Their sum is 5.`}
+    ],
+   math2: [
+      {id:'e5-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 12x + 14y + 21 = 0. What is the radius of the circle?`,
+       options:[`8`, `9`, `7`, `16`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(6))² + (y-(-7))² = 64, so the center is (6, -7) and the radius is √64 = 8.`},
+      {id:'e5-m2-h2', passage:``, question:`The equation x² - 20x + 91 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`218`, `400`, `182`, `111`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 20 and rs = 91. Then r² + s² = (r+s)² - 2rs = 20² - 2(91) = 400 - 182 = 218.`},
+      {id:'e5-m2-h3', passage:``, question:`Working alone, Machine A takes 36 hours to complete a job, and Machine B takes 18 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`12`, `54`, `27`, `24`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/36 + 1/18 = 1/24 + 2/24 = 3/24 = 1/12. So together they take 12 hours.`}
+    ]
+  },
+  6: {
+   rw1: [
+      {id:'e6-rw1-h1', passage:`Long dismissed by mainstream ecologists as a fringe hypothesis, the idea that fungal networks facilitate communication between trees has, in the past decade, been vindicated by a growing body of rigorous field research.`, question:`As used in the text, what does the word "vindicated" most nearly mean?`,
+       options:[`Criticized`, `Proven correct`, `Popularized`, `Questioned`], answer:1, difficulty:10,
+       explanation:`Field research supporting a once-dismissed hypothesis "vindicates" it — proves it correct.`},
+      {id:'e6-rw1-h2', passage:`The auditor's report was notable less for what it revealed than for its cautious tone: every finding was hedged with qualifications, every conclusion softened by phrases like "it appears" and "preliminary evidence suggests."`, question:`As used in the text, what does the word "hedged" most nearly mean?`,
+       options:[`Emphasized`, `Qualified`, `Discarded`, `Publicized`], answer:1, difficulty:10,
+       explanation:`Softening conclusions with cautious phrases is a way of "hedging," or qualifying, a statement.`},
+      {id:'e6-rw1-h3', passage:`Despite decades of excavation, the site has yielded only fragmentary evidence of the settlement's daily life; archaeologists must extrapolate entire social structures from a handful of pottery shards and postholes.`, question:`As used in the text, what does the word "extrapolate" most nearly mean?`,
+       options:[`Discard`, `Infer broadly from limited data`, `Physically excavate`, `Confirm with certainty`], answer:1, difficulty:10,
+       explanation:`Drawing conclusions about entire social structures from a handful of artifacts describes inferring broadly, or extrapolating, from limited evidence.`}
+    ],
+   rw2: [
+      {id:'e6-rw2-h1', passage:`A student is writing a summary of a museum exhibit on ancient pottery. The student wants to explain how researchers determined the age of the pottery.
+
+Notes:
+- The exhibit features pottery from a site dated to roughly 3000 BCE.
+- Researchers used thermoluminescence dating to estimate when the clay was last fired.
+- The pottery shows intricate geometric patterns unique to the region.
+- Some pieces were found alongside tools made of bone and stone.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`The pottery features intricate geometric patterns unique to the region.`, `Researchers used thermoluminescence dating to estimate when the clay was last fired, dating the pottery to roughly 3000 BCE.`, `Some of the pottery pieces were found alongside tools made of bone and stone.`, `The exhibit showcases pottery from a site of great archaeological significance.`], answer:1, difficulty:10,
+       explanation:`Only this choice explains the dating method used and connects it to the estimated age.`},
+      {id:'e6-rw2-h2', passage:`In a controlled study, participants who took short walking breaks every hour showed measurably better performance on memory tasks than those who sat continuously, even though total work time was identical across both groups. Researchers noted that the walking group did not report feeling less fatigued, only that their recall scores were higher.`, question:`Which choice best describes what can be reasonably concluded from the study?`,
+       options:[`Walking breaks eliminate fatigue during long work sessions.`, `The benefit of walking breaks may be specific to memory performance rather than to fatigue reduction.`, `Sitting continuously has no measurable effect on cognitive performance.`, `Total work time is the most important factor in memory task performance.`], answer:1, difficulty:10,
+       explanation:`Since the walking group's recall improved but their reported fatigue didn't, the benefit seems specific to memory, not fatigue — supporting choice B.`},
+      {id:'e6-rw2-h3', passage:`A survey of small business owners found that those who used formal written business plans were no more likely to survive their first five years than those who did not, though they were significantly more likely to secure outside investment.`, question:`Which choice best describes what can be reasonably concluded from the survey?`,
+       options:[`Written business plans have no practical value for small business owners.`, `Written business plans may influence access to investment without necessarily affecting business survival.`, `Businesses without written plans are more likely to fail within five years.`, `Outside investment guarantees a business's long-term survival.`], answer:1, difficulty:10,
+       explanation:`The plan correlates with investment but not survival, so its practical value appears specific to investment access, matching choice B.`}
+    ],
+   math1: [
+      {id:'e6-m1-h1', passage:``, question:`If 2x + 3y = 57 and x - y = 6, what is the value of xy?`,
+       options:[`135`, `24`, `576`, `141`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 6. Substituting into the first: 2(y+6) + 3y = 57, so 5y = 45, y = 9, and x = 15. Thus xy = 15 × 9 = 135.`},
+      {id:'e6-m1-h2', passage:``, question:`If f(x) = 3x - 6 and g(x) = x² + 6, what is the value of f(g(2))?`,
+       options:[`24`, `20`, `36`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 6 = 10. Then f(g(2)) = 3(10) - 6 = 30 - 6 = 24.`},
+      {id:'e6-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 6| = 22?`,
+       options:[`6`, `12`, `-6`, `28`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 6 = 22 gives x = 14; 2x - 6 = -22 gives x = -8. Their sum is 6.`}
+    ],
+   math2: [
+      {id:'e6-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 14x + 16y + 32 = 0. What is the radius of the circle?`,
+       options:[`9`, `10`, `8`, `18`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(7))² + (y-(-8))² = 81, so the center is (7, -8) and the radius is √81 = 9.`},
+      {id:'e6-m2-h2', passage:``, question:`The equation x² - 23x + 120 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`289`, `529`, `240`, `143`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 23 and rs = 120. Then r² + s² = (r+s)² - 2rs = 23² - 2(120) = 529 - 240 = 289.`},
+      {id:'e6-m2-h3', passage:``, question:`Working alone, Machine A takes 42 hours to complete a job, and Machine B takes 21 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`14`, `63`, `31`, `28`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/42 + 1/21 = 1/28 + 2/28 = 3/28 = 1/14. So together they take 14 hours.`}
+    ]
+  },
+  7: {
+   rw1: [
+      {id:'e7-rw1-h1', passage:`The novel's narrator is deeply unreliable, prone to embellishing minor slights into grand betrayals, so that readers must constantly triangulate the "true" events from the gaps and contradictions in her account.`, question:`As used in the text, what does the word "triangulate" most nearly mean?`,
+       options:[`Measure geographically`, `Piece together from multiple, imperfect sources`, `Ignore entirely`, `Confirm through the narrator directly`], answer:1, difficulty:10,
+       explanation:`Because the narrator is unreliable, readers must piece together the truth from indirect clues — "triangulate" it.`},
+      {id:'e7-rw1-h2', passage:`The committee's decision to delay the vote was, by most accounts, a tactical maneuver rather than a genuine reconsideration of the policy's merits; few believed the additional weeks would change any minds.`, question:`As used in the text, what does the word "tactical" most nearly mean?`,
+       options:[`Accidental`, `Strategically motivated`, `Legally required`, `Emotionally driven`], answer:1, difficulty:10,
+       explanation:`A delay meant to serve a strategic purpose rather than genuine reconsideration is described as "tactical."`},
+      {id:'e7-rw1-h3', passage:`The engineer's proposal, though technically sound, was met with palpable resistance from a board more concerned with short-term costs than long-term durability.`, question:`As used in the text, what does the word "palpable" most nearly mean?`,
+       options:[`Invisible`, `Easily perceptible`, `Reluctant`, `Enthusiastic`], answer:1, difficulty:10,
+       explanation:`"Palpable" resistance is resistance that can clearly be felt or perceived, even if not stated outright.`}
+    ],
+   rw2: [
+      {id:'e7-rw2-h1', passage:`Researchers tracking a population of migratory birds found that individuals fitted with lightweight tracking devices arrived at their breeding grounds, on average, two days later than untagged birds, though tagged and untagged birds showed no difference in overall survival rates.`, question:`Which choice best describes what can be reasonably concluded from the findings?`,
+       options:[`The tracking devices had no effect on the birds' migration.`, `The tracking devices may have slightly delayed migration timing without affecting survival.`, `Untagged birds are more likely to survive migration than tagged birds.`, `Tracking devices improve birds' chances of arriving at breeding grounds on time.`], answer:1, difficulty:10,
+       explanation:`A timing delay with no survival difference supports a narrow conclusion: the devices affected timing but not survival — choice B.`},
+      {id:'e7-rw2-h2', passage:`In an analysis of customer reviews, products with moderate numbers of reviews (50 to 200) had higher average ratings than products with either very few reviews (under 10) or very many (over 1,000), even after controlling for product category.`, question:`Which choice best describes what can be reasonably concluded from the analysis?`,
+       options:[`Products with more reviews are always rated more highly.`, `The relationship between review count and average rating may not be a simple straight-line trend.`, `Products with very few reviews are rated the lowest of all groups.`, `Review count has no relationship to average rating.`], answer:1, difficulty:10,
+       explanation:`A pattern where the middle group scores highest (not the extremes) indicates a non-linear relationship, matching choice B.`},
+      {id:'e7-rw2-h3', passage:`A city that introduced a fee for single-use plastic bags saw plastic bag usage drop by sixty percent within a year. However, sales of small plastic trash bags, which were not covered by the fee, rose by nearly the same percentage over the same period.`, question:`Which choice best describes what can be reasonably concluded from the data?`,
+       options:[`The fee eliminated plastic bag use in the city entirely.`, `Some of the apparent reduction in plastic bag use may have been offset by increased purchases of a substitute product.`, `The fee had no effect on consumer behavior.`, `Trash bag sales are unrelated to single-use plastic bag policy.`], answer:1, difficulty:10,
+       explanation:`The rise in trash bag sales alongside the drop in single-use bags suggests substitution, offsetting some of the apparent reduction — choice B.`}
+    ],
+   math1: [
+      {id:'e7-m1-h1', passage:``, question:`If 2x + 3y = 64 and x - y = 7, what is the value of xy?`,
+       options:[`170`, `27`, `729`, `177`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 7. Substituting into the first: 2(y+7) + 3y = 64, so 5y = 50, y = 10, and x = 17. Thus xy = 17 × 10 = 170.`},
+      {id:'e7-m1-h2', passage:``, question:`If f(x) = 3x - 7 and g(x) = x² + 7, what is the value of f(g(2))?`,
+       options:[`26`, `22`, `40`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 7 = 11. Then f(g(2)) = 3(11) - 7 = 33 - 7 = 26.`},
+      {id:'e7-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 7| = 25?`,
+       options:[`7`, `14`, `-7`, `32`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 7 = 25 gives x = 16; 2x - 7 = -25 gives x = -9. Their sum is 7.`}
+    ],
+   math2: [
+      {id:'e7-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 16x + 18y + 45 = 0. What is the radius of the circle?`,
+       options:[`10`, `11`, `9`, `20`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(8))² + (y-(-9))² = 100, so the center is (8, -9) and the radius is √100 = 10.`},
+      {id:'e7-m2-h2', passage:``, question:`The equation x² - 26x + 153 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`370`, `676`, `306`, `179`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 26 and rs = 153. Then r² + s² = (r+s)² - 2rs = 26² - 2(153) = 676 - 306 = 370.`},
+      {id:'e7-m2-h3', passage:``, question:`Working alone, Machine A takes 48 hours to complete a job, and Machine B takes 24 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`16`, `72`, `36`, `32`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/48 + 1/24 = 1/32 + 2/32 = 3/32 = 1/16. So together they take 16 hours.`}
+    ]
+  },
+  8: {
+   rw1: [
+      {id:'e8-rw1-h1', passage:`Critics have long debated whether the artist's late work represents a genuine stylistic evolution or merely a capitulation to the commercial pressures of the gallery system.`, question:`As used in the text, what does the word "capitulation" most nearly mean?`,
+       options:[`Innovation`, `Surrender`, `Celebration`, `Rejection`], answer:1, difficulty:10,
+       explanation:`"Capitulation" means giving in or surrendering, here to commercial pressure rather than artistic instinct.`},
+      {id:'e8-rw1-h2', passage:`The startup's early success was less a matter of visionary strategy than of fortuitous timing: the technology it depended on happened to mature just as the market it served began to expand.`, question:`As used in the text, what does the word "fortuitous" most nearly mean?`,
+       options:[`Deliberate`, `Lucky`, `Predictable`, `Costly`], answer:1, difficulty:10,
+       explanation:`Success attributed to circumstances lining up by chance, rather than strategy, is described as "fortuitous," or lucky.`},
+      {id:'e8-rw1-h3', passage:`The diplomat's carefully worded statement managed to acknowledge the dispute without conceding any of her country's core claims, a rhetorical feat that satisfied almost no one.`, question:`As used in the text, what does the word "conceding" most nearly mean?`,
+       options:[`Yielding or admitting`, `Announcing publicly`, `Strengthening`, `Ignoring`], answer:0, difficulty:10,
+       explanation:`"Conceding" a claim means yielding or admitting to it; the diplomat avoided giving up any ground.`}
+    ],
+   rw2: [
+      {id:'e8-rw2-h1', passage:`The orchestra's new concert hall was designed with movable acoustic panels that can be reconfigured for different types of performances. ____, a chamber music recital and a full symphonic performance require noticeably different reverberation times, and the panels allow the same room to serve both.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`In contrast,`, `After all,`, `Similarly,`, `Regardless,`], answer:1, difficulty:10,
+       explanation:`The sentence explains the reasoning behind the panels' design, which "After all" introduces as a justification.`},
+      {id:'e8-rw2-h2', passage:`The regulation requires all new vehicles to meet stricter emissions standards within five years. ____, manufacturers have lobbied for a longer transition period, arguing that redesigning engines on such a short timeline would be prohibitively expensive.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`In response,`, `As a result,`, `For example,`, `Specifically,`], answer:0, difficulty:10,
+       explanation:`The lobbying effort is a reaction to the new regulation, so "In response" fits best.`},
+      {id:'e8-rw2-h3', passage:`Early drafts of the constitution included no explicit protections for freedom of the press. ____, several delegates threatened to withhold their support entirely unless such protections were added, forcing a late revision.`, question:`Which choice completes the text with the most logical transition?`,
+       options:[`Consequently,`, `However,`, `Similarly,`, `In particular,`], answer:1, difficulty:10,
+       explanation:`The delegates' objection contrasts with the initial absence of protections, so "However" fits.`}
+    ],
+   math1: [
+      {id:'e8-m1-h1', passage:``, question:`If 2x + 3y = 71 and x - y = 8, what is the value of xy?`,
+       options:[`209`, `30`, `900`, `217`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 8. Substituting into the first: 2(y+8) + 3y = 71, so 5y = 55, y = 11, and x = 19. Thus xy = 19 × 11 = 209.`},
+      {id:'e8-m1-h2', passage:``, question:`If f(x) = 3x - 8 and g(x) = x² + 8, what is the value of f(g(2))?`,
+       options:[`28`, `24`, `44`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 8 = 12. Then f(g(2)) = 3(12) - 8 = 36 - 8 = 28.`},
+      {id:'e8-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 8| = 28?`,
+       options:[`8`, `16`, `-8`, `36`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 8 = 28 gives x = 18; 2x - 8 = -28 gives x = -10. Their sum is 8.`}
+    ],
+   math2: [
+      {id:'e8-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 18x + 20y + 60 = 0. What is the radius of the circle?`,
+       options:[`11`, `12`, `10`, `22`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(9))² + (y-(-10))² = 121, so the center is (9, -10) and the radius is √121 = 11.`},
+      {id:'e8-m2-h2', passage:``, question:`The equation x² - 29x + 190 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`461`, `841`, `380`, `219`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 29 and rs = 190. Then r² + s² = (r+s)² - 2rs = 29² - 2(190) = 841 - 380 = 461.`},
+      {id:'e8-m2-h3', passage:``, question:`Working alone, Machine A takes 54 hours to complete a job, and Machine B takes 27 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`18`, `81`, `40`, `36`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/54 + 1/27 = 1/36 + 2/36 = 3/36 = 1/18. So together they take 18 hours.`}
+    ]
+  },
+  9: {
+   rw1: [
+      {id:'e9-rw1-h1', passage:`The professor's lectures were notorious for their digressions, wandering from the assigned topic into tangents so absorbing that students rarely minded the detour.`, question:`As used in the text, what does the word "digressions" most nearly mean?`,
+       options:[`Summaries`, `Departures from the main subject`, `Corrections`, `Repetitions`], answer:1, difficulty:10,
+       explanation:`Wandering from the assigned topic into tangents describes "digressions," or departures from the main subject.`},
+      {id:'e9-rw1-h2', passage:`In 1943, physicist Lise Meitner declined to participate in the Manhattan Project, despite having co-discovered the theoretical basis for nuclear fission years earlier. She later explained that she had no interest in building a bomb, a decision that cost her recognition many of her collaborators eventually received.`, question:`Which choice best states the main purpose of the text?`,
+       options:[`To argue that Lise Meitner deserved the Nobel Prize.`, `To describe a personal decision Lise Meitner made and its professional consequences.`, `To explain the physics behind nuclear fission.`, `To criticize the scientists who worked on the Manhattan Project.`], answer:1, difficulty:10,
+       explanation:`The text focuses on Meitner's choice not to join the project and the cost of that choice — a personal decision and its consequences.`},
+      {id:'e9-rw1-h3', passage:`Coral reefs cover less than one percent of the ocean floor, yet they support roughly a quarter of all known marine species. This disproportionate biodiversity has made reefs a focal point for conservation efforts, even as rising ocean temperatures threaten to bleach them beyond recovery.`, question:`Which choice best states the main purpose of the text?`,
+       options:[`To explain why coral reefs are difficult to study.`, `To highlight the ecological importance of coral reefs and the threat they face.`, `To compare coral reefs to other marine ecosystems.`, `To describe the process of coral bleaching in detail.`], answer:1, difficulty:10,
+       explanation:`The text emphasizes reefs' outsized biodiversity and the threat of bleaching — their importance and the danger they face.`}
+    ],
+   rw2: [
+      {id:'e9-rw2-h1', passage:`A student is writing about a renewable energy project. The student wants to highlight a challenge the project faced during construction.
+
+Notes:
+- The offshore wind farm consists of 60 turbines.
+- It was completed in 2021, two years behind schedule.
+- Rough seas repeatedly delayed the installation of turbine foundations.
+- Once complete, the farm powers roughly 200,000 homes.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`The offshore wind farm consists of 60 turbines and powers roughly 200,000 homes.`, `Rough seas repeatedly delayed the installation of turbine foundations, pushing completion two years behind schedule.`, `The wind farm was completed in 2021 after construction began several years earlier.`, `Once complete, the farm became one of the largest renewable energy projects in the region.`], answer:1, difficulty:10,
+       explanation:`Only this choice describes a specific construction challenge (rough seas delaying foundations) and its effect on the schedule.`},
+      {id:'e9-rw2-h2', passage:`A student is writing a report on a historical figure. The student wants to explain why the inventor's early work was initially rejected by the scientific community.
+
+Notes:
+- The inventor proposed a new theory of heat transfer in 1850.
+- The theory contradicted the dominant caloric theory of the time.
+- Most physicists dismissed the work without testing its predictions.
+- Decades later, experiments confirmed the inventor's theory was correct.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`The inventor proposed a new theory of heat transfer in 1850.`, `Because the theory contradicted the dominant caloric theory of the time, most physicists dismissed it without testing its predictions.`, `Decades later, experiments confirmed that the inventor's theory was correct.`, `The inventor is now regarded as ahead of his time by many historians of science.`], answer:1, difficulty:10,
+       explanation:`Only this choice explains the reason for the initial rejection: conflict with the dominant theory of the time.`},
+      {id:'e9-rw2-h3', passage:`A student is writing a paragraph about two river ecosystems. The student wants to highlight a key difference between the Amazon and Nile river ecosystems.
+
+Notes:
+- The Amazon River basin receives over 2,000 mm of rainfall annually.
+- The Nile River basin, by contrast, is largely arid, relying on seasonal floods from distant highlands.
+- Both rivers support dense human populations along their banks.
+- The Amazon is home to a far greater diversity of fish species than the Nile.`, question:`Which choice most effectively uses relevant information from the notes to accomplish the student's goal?`,
+       options:[`Both the Amazon and Nile support dense human populations along their banks.`, `While the Amazon basin receives heavy year-round rainfall, the Nile basin is largely arid and depends on seasonal floods.`, `The Amazon is home to a far greater diversity of fish species than the Nile.`, `The Nile relies on seasonal floods from distant highlands to sustain its ecosystem.`], answer:1, difficulty:10,
+       explanation:`Only this choice directly contrasts the two rivers' climates, matching the student's goal of highlighting a difference.`}
+    ],
+   math1: [
+      {id:'e9-m1-h1', passage:``, question:`If 2x + 3y = 78 and x - y = 9, what is the value of xy?`,
+       options:[`252`, `33`, `1089`, `261`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 9. Substituting into the first: 2(y+9) + 3y = 78, so 5y = 60, y = 12, and x = 21. Thus xy = 21 × 12 = 252.`},
+      {id:'e9-m1-h2', passage:``, question:`If f(x) = 3x - 9 and g(x) = x² + 9, what is the value of f(g(2))?`,
+       options:[`30`, `26`, `48`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 9 = 13. Then f(g(2)) = 3(13) - 9 = 39 - 9 = 30.`},
+      {id:'e9-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 9| = 31?`,
+       options:[`9`, `18`, `-9`, `40`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 9 = 31 gives x = 20; 2x - 9 = -31 gives x = -11. Their sum is 9.`}
+    ],
+   math2: [
+      {id:'e9-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 20x + 22y + 77 = 0. What is the radius of the circle?`,
+       options:[`12`, `13`, `11`, `24`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(10))² + (y-(-11))² = 144, so the center is (10, -11) and the radius is √144 = 12.`},
+      {id:'e9-m2-h2', passage:``, question:`The equation x² - 32x + 231 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`562`, `1024`, `462`, `263`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 32 and rs = 231. Then r² + s² = (r+s)² - 2rs = 32² - 2(231) = 1024 - 462 = 562.`},
+      {id:'e9-m2-h3', passage:``, question:`Working alone, Machine A takes 60 hours to complete a job, and Machine B takes 30 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`20`, `90`, `45`, `40`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/60 + 1/30 = 1/40 + 2/40 = 3/40 = 1/20. So together they take 20 hours.`}
+    ]
+  },
+  10: {
+   rw1: [
+      {id:'e10-rw1-h1', passage:`The typewriter, once an indispensable tool of offices and newsrooms, has become largely obsolete for everyday writing. Yet a small but devoted community of collectors and writers continues to seek out vintage machines, prizing the tactile resistance of the keys and the finality of ink on paper.`, question:`Which choice best states the main purpose of the text?`,
+       options:[`To argue that typewriters are more reliable than computers.`, `To trace the invention and spread of the typewriter.`, `To note the typewriter's obsolescence alongside its continued appeal to a niche group.`, `To criticize modern writers for abandoning traditional tools.`], answer:2, difficulty:10,
+       explanation:`The text notes that typewriters are largely obsolete but still valued by a devoted niche — both facts together, not an argument for one side.`},
+      {id:'e10-rw1-h2', passage:`Octopuses possess a distributed nervous system, with roughly two-thirds of their neurons located in their arms rather than their central brain. This arrangement allows each arm to process sensory information and initiate movement somewhat independently, a capability researchers are still working to fully understand.`, question:`Which choice best states the main purpose of the text?`,
+       options:[`To argue that octopuses are more intelligent than other animals.`, `To describe an unusual feature of octopus neurology and its functional implications.`, `To compare octopus arms to human limbs.`, `To explain how octopuses evolved from earlier cephalopods.`], answer:1, difficulty:10,
+       explanation:`The text describes the distributed nervous system and what it allows the arms to do — an unusual feature and its function.`},
+      {id:'e10-rw1-h3', passage:`When the first public libraries opened in the nineteenth century, many worried that free access to books would discourage people from working. Instead, library attendance rose alongside literacy rates and, eventually, alongside broader economic participation, undercutting the original fear.`, question:`Which choice best states the main purpose of the text?`,
+       options:[`To argue that public libraries should charge admission.`, `To describe an initial concern about public libraries and the outcome that contradicted it.`, `To compare literacy rates across different countries.`, `To explain how libraries are funded today.`], answer:1, difficulty:10,
+       explanation:`The text presents an initial worry and the actual outcome, which undercut that worry.`}
+    ],
+   rw2: [
+      {id:'e10-rw2-h1', passage:`A survey of remote workers found that those who maintained a strict start and end time for their workday reported higher job satisfaction than those with flexible hours, even though the flexible-hours group worked, on average, fewer total hours per week.`, question:`Which choice best describes what can be reasonably concluded from the survey?`,
+       options:[`Working fewer hours always increases job satisfaction.`, `Job satisfaction among remote workers may depend on factors other than total hours worked, such as schedule structure.`, `Flexible hours are the primary cause of low job satisfaction.`, `Remote workers with strict schedules are more productive than those without.`], answer:1, difficulty:10,
+       explanation:`Since the group working fewer hours reported lower satisfaction, some factor besides total hours (like structure) appears to matter — choice B.`},
+      {id:'e10-rw2-h2', passage:`An analysis of hospital records found that patients who received a follow-up phone call within 48 hours of discharge were readmitted at lower rates than those who did not, even though the calls provided no new medical treatment, only a review of instructions the patient had already received in writing.`, question:`Which choice best describes what can be reasonably concluded from the analysis?`,
+       options:[`The phone calls provided medical information unavailable elsewhere.`, `Simply reinforcing existing instructions, without new treatment, may still reduce readmission rates.`, `Written instructions alone are sufficient to prevent readmission.`, `Patients who are readmitted did not receive any discharge instructions.`], answer:1, difficulty:10,
+       explanation:`Since the calls added no new medical content yet still lowered readmissions, reinforcement itself appears to help — choice B.`},
+      {id:'e10-rw2-h3', passage:`A study of two neighboring school districts found that the district that adopted a later start time saw a rise in average test scores the following year, while the neighboring district, which kept its original schedule, saw scores remain flat over the same period.`, question:`Which choice best describes what can be reasonably concluded from the study?`,
+       options:[`Later start times are the only factor that can improve test scores.`, `The change in start time may be associated with the score increase, though other differences between the districts cannot be ruled out.`, `The neighboring district's test scores declined significantly.`, `All school districts would benefit equally from adopting later start times.`], answer:1, difficulty:10,
+       explanation:`A single comparison between two districts suggests an association but can't rule out other differences — the cautious, well-supported conclusion is choice B.`}
+    ],
+   math1: [
+      {id:'e10-m1-h1', passage:``, question:`If 2x + 3y = 85 and x - y = 10, what is the value of xy?`,
+       options:[`299`, `36`, `1296`, `309`], answer:0, difficulty:10,
+       explanation:`From the second equation, x = y + 10. Substituting into the first: 2(y+10) + 3y = 85, so 5y = 65, y = 13, and x = 23. Thus xy = 23 × 13 = 299.`},
+      {id:'e10-m1-h2', passage:``, question:`If f(x) = 3x - 10 and g(x) = x² + 10, what is the value of f(g(2))?`,
+       options:[`32`, `28`, `52`, `12`], answer:0, difficulty:10,
+       explanation:`g(2) = 2² + 10 = 14. Then f(g(2)) = 3(14) - 10 = 42 - 10 = 32.`},
+      {id:'e10-m1-h3', passage:``, question:`What is the sum of all solutions to the equation |2x - 10| = 34?`,
+       options:[`10`, `20`, `-10`, `44`], answer:0, difficulty:10,
+       explanation:`Splitting into two cases: 2x - 10 = 34 gives x = 22; 2x - 10 = -34 gives x = -12. Their sum is 10.`}
+    ],
+   math2: [
+      {id:'e10-m2-h1', passage:``, question:`A circle in the xy-plane is defined by the equation x² + y² - 22x + 24y + 96 = 0. What is the radius of the circle?`,
+       options:[`13`, `14`, `12`, `26`], answer:0, difficulty:10,
+       explanation:`Completing the square gives (x-(11))² + (y-(-12))² = 169, so the center is (11, -12) and the radius is √169 = 13.`},
+      {id:'e10-m2-h2', passage:``, question:`The equation x² - 35x + 276 = 0 has two distinct real solutions. What is the sum of the squares of the two solutions?`,
+       options:[`673`, `1225`, `552`, `311`], answer:0, difficulty:10,
+       explanation:`If r and s are the solutions, r + s = 35 and rs = 276. Then r² + s² = (r+s)² - 2rs = 35² - 2(276) = 1225 - 552 = 673.`},
+      {id:'e10-m2-h3', passage:``, question:`Working alone, Machine A takes 66 hours to complete a job, and Machine B takes 33 hours to complete the same job. Working together at their respective constant rates, how many hours will it take them to complete the job?`,
+       options:[`22`, `99`, `49`, `44`], answer:0, difficulty:10,
+       explanation:`Combined rate = 1/66 + 1/33 = 1/44 + 2/44 = 3/44 = 1/22. So together they take 22 hours.`}
+    ]
+  },
 };
 
 
@@ -1377,6 +1919,7 @@ let examCurrentQ = 0;
 let examTimer = null;
 let examTimeLeft = 0;
 let examAllModuleResults = {}; // { moduleKey: {correct, total} }
+let examMistakes = {};        // { moduleKey: [{qIndex, question, options, correctIdx, chosenIdx, explanation}] }
 
 
 function startPastExam(num) {
@@ -1393,6 +1936,7 @@ function startPastExam(num) {
   examCrossed = { rw1: {}, rw2: {}, math1: {}, math2: {} };
   examHighlights = { rw1: {}, rw2: {}, math1: {}, math2: {} };
   examAllModuleResults = {};
+  examMistakes = { rw1: [], rw2: [], math1: [], math2: [] };
   document.getElementById('exam-page').classList.add('open');
   document.body.style.overflow = 'hidden';
   const siteNav = document.querySelector('nav');
@@ -1705,9 +2249,23 @@ function finishExamModule() {
   if (examTimer) clearInterval(examTimer);
   const moduleKey = EXAM_MODULE_ORDER[examModuleIdx];
   let correct = 0;
+  const mistakes = [];
   examQuestions.forEach((q, i) => {
-    if (examAnswers[moduleKey][i] === q.answer) correct++;
+    const chosen = examAnswers[moduleKey][i];
+    if (chosen === q.answer) {
+      correct++;
+    } else {
+      mistakes.push({
+        qIndex: i,
+        question: q.question,
+        options: q.options,
+        correctIdx: q.answer,
+        chosenIdx: (chosen === undefined ? -1 : chosen),
+        explanation: q.explanation || ''
+      });
+    }
   });
+  examMistakes[moduleKey] = mistakes;
   examAllModuleResults[moduleKey] = { correct, total: examQuestions.length };
   advanceExamModule();
 }
@@ -1781,6 +2339,27 @@ function showExamResults() {
   document.getElementById('exam-res-rw').textContent = rw.total > 0 ? rwScore : '—';
   document.getElementById('exam-res-math').textContent = math.total > 0 ? mathScore : '—';
   document.getElementById('exam-res-total').textContent = (rw.total > 0 && math.total > 0) ? (rwScore + mathScore) : '—';
+
+  const totalMistakes = ['rw1','rw2','math1','math2'].reduce((s,k) => s + (examMistakes[k] ? examMistakes[k].length : 0), 0);
+  const reviewBtn = document.getElementById('exam-res-review-btn');
+  if (reviewBtn) {
+    reviewBtn.style.display = totalMistakes > 0 ? '' : 'none';
+    reviewBtn.textContent = `Review ${totalMistakes} mistake${totalMistakes === 1 ? '' : 's'}`;
+  }
+
+  try {
+    localStorage.setItem('chetta_exam_' + examNum, JSON.stringify({
+      done: true,
+      score: pct,
+      rwScore: rw.total > 0 ? rwScore : null,
+      mathScore: math.total > 0 ? mathScore : null,
+      total: (rw.total > 0 && math.total > 0) ? (rwScore + mathScore) : null,
+      mistakes: examMistakes,
+      completedAt: new Date().toISOString()
+    }));
+  } catch (e) { console.error('Could not save exam results:', e); }
+
+  if (typeof refreshExamCardBadges === 'function') refreshExamCardBadges();
 }
 
 
@@ -1823,6 +2402,121 @@ function toggleExamDarkMode() {
 }
 
 setupHighlightToolbar();
+
+// ── Mistakes review (per completed exam) ──
+let mistakesReviewExamNum = null;
+let mistakesReviewData = null;
+let mistakesReviewCurrentModule = null;
+
+function openMistakesReviewFromResults() {
+  openMistakesReviewWithData(examNum, examMistakes);
+}
+
+function openMistakesReviewForExam(num, ev) {
+  if (ev) ev.stopPropagation();
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem('chetta_exam_' + num) || 'null'); } catch (e) {}
+  if (!saved || !saved.mistakes) { alert('No saved results for this exam yet — complete it first.'); return; }
+  openMistakesReviewWithData(num, saved.mistakes);
+}
+
+function openMistakesReviewWithData(num, mistakesObj) {
+  mistakesReviewExamNum = num;
+  mistakesReviewData = mistakesObj || { rw1: [], rw2: [], math1: [], math2: [] };
+  showMistakesModuleList();
+  document.getElementById('mistakesReviewOv').classList.add('open');
+}
+
+function closeMistakesReview() {
+  document.getElementById('mistakesReviewOv').classList.remove('open');
+}
+
+function showMistakesModuleList() {
+  document.getElementById('mistakesModuleList').style.display = 'flex';
+  document.getElementById('mistakesQuestionList').style.display = 'none';
+  document.getElementById('mistakesDetail').style.display = 'none';
+  document.getElementById('mistakesReviewTitle').textContent = 'Review mistakes';
+  document.getElementById('mistakesReviewSub').textContent = 'SAT Exam ' + mistakesReviewExamNum;
+
+  const order = ['rw1', 'rw2', 'math1', 'math2'];
+  const total = order.reduce((s, k) => s + ((mistakesReviewData[k] || []).length), 0);
+  const list = document.getElementById('mistakesModuleList');
+  if (total === 0) {
+    list.innerHTML = '<p style="color:var(--g500);font-size:.88rem;text-align:center;padding:1.5rem 0">No mistakes — perfect run! 🎉</p>';
+    return;
+  }
+  list.innerHTML = order.map(k => {
+    const n = (mistakesReviewData[k] || []).length;
+    const lbl = EXAM_MODULE_LABELS[k];
+    return '<div class="prac-card ' + (n > 0 ? 'red' : 'green') + '" style="padding:1rem 1.2rem;' + (n > 0 ? 'cursor:pointer' : 'cursor:default') + '"' +
+      (n > 0 ? ' onclick="showMistakesForModule(\'' + k + '\')"' : '') + '>' +
+      '<h3 style="margin-bottom:.2rem">' + lbl.section + ' — ' + lbl.sub + '</h3>' +
+      '<p>' + (n > 0 ? (n + ' mistake' + (n === 1 ? '' : 's')) : 'No mistakes') + '</p></div>';
+  }).join('');
+}
+
+function showMistakesForModule(moduleKey) {
+  mistakesReviewCurrentModule = moduleKey;
+  document.getElementById('mistakesModuleList').style.display = 'none';
+  document.getElementById('mistakesQuestionList').style.display = 'flex';
+  document.getElementById('mistakesDetail').style.display = 'none';
+  const lbl = EXAM_MODULE_LABELS[moduleKey];
+  document.getElementById('mistakesReviewTitle').textContent = lbl.section;
+  document.getElementById('mistakesReviewSub').textContent = lbl.sub;
+
+  const qs = mistakesReviewData[moduleKey] || [];
+  const list = document.getElementById('mistakesQuestionList');
+  list.innerHTML = '<button class="qb-btn outline" style="align-self:flex-start" onclick="showMistakesModuleList()">← Back</button>' +
+    qs.map((m, i) => {
+      const plain = (m.question || '').replace(/<[^>]+>/g, '').replace(/\n/g, ' ');
+      const short = plain.length > 90 ? plain.slice(0, 90) + '…' : plain;
+      return '<div class="prac-card blue" style="padding:1rem 1.2rem;cursor:pointer" onclick="showMistakeDetail(' + i + ')">' +
+        '<h3 style="margin-bottom:.2rem">Question ' + (m.qIndex + 1) + '</h3><p>' + short + '</p></div>';
+    }).join('');
+}
+
+function showMistakeDetail(i) {
+  document.getElementById('mistakesQuestionList').style.display = 'none';
+  document.getElementById('mistakesDetail').style.display = 'block';
+  const m = mistakesReviewData[mistakesReviewCurrentModule][i];
+  document.getElementById('mistakesReviewTitle').textContent = 'Question ' + (m.qIndex + 1);
+  document.getElementById('mistakesReviewSub').textContent = 'Correct answer vs. your answer';
+
+  const letters = ['A', 'B', 'C', 'D'];
+  const blank = m.chosenIdx === -1 || m.chosenIdx === undefined;
+  const optsHtml = m.options.map((opt, oi) => {
+    let cls = 'qb-option';
+    let tag = '';
+    if (oi === m.correctIdx) { cls += ' correct'; tag = ' <strong>(Correct answer)</strong>'; }
+    else if (!blank && oi === m.chosenIdx) { cls += ' wrong'; tag = ' <strong>(Your answer)</strong>'; }
+    return '<div class="' + cls + '"><span class="qb-option-letter">' + letters[oi] + '</span><span>' + opt + tag + '</span></div>';
+  }).join('');
+
+  document.getElementById('mistakesDetail').innerHTML =
+    '<button class="qb-btn outline" style="margin-bottom:1rem" onclick="showMistakesForModule(\'' + mistakesReviewCurrentModule + '\')">← Back</button>' +
+    '<div class="qb-q-text" style="margin-bottom:1rem">' + m.question + '</div>' +
+    (blank ? '<p style="color:var(--g500);font-size:.82rem;margin-bottom:.75rem">You left this question blank.</p>' : '') +
+    '<div class="qb-options">' + optsHtml + '</div>' +
+    (m.explanation ? '<div class="qb-explanation show"><div class="qb-exp-title">Explanation</div>' + m.explanation + '</div>' : '');
+}
+
+function refreshExamCardBadges() {
+  for (let n = 1; n <= 10; n++) {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem('chetta_exam_' + n) || 'null'); } catch (e) {}
+    const badge = document.getElementById('examDoneBadge' + n);
+    const btn = document.getElementById('examMistakesBtn' + n);
+    if (saved && saved.done) {
+      if (badge) { badge.style.display = ''; badge.textContent = '✓ Done · ' + saved.score + '%'; }
+      if (btn) { btn.style.display = ''; }
+    } else {
+      if (badge) badge.style.display = 'none';
+      if (btn) btn.style.display = 'none';
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', refreshExamCardBadges);
+if (document.readyState !== 'loading') refreshExamCardBadges();
 </script>
 
 
@@ -2270,13 +2964,13 @@ async function sendMsg(custom) {
 // ── I18N ──
 let currentLang=localStorage.getItem('cl')||'en';
 const LANGS={
-en:{nav_home:'Home',nav_universities:'Universities',nav_scholarships:'Scholarships',nav_interviews:'Interviews',nav_ai:'AI Advisor',nav_signin:'Sign in',nav_getstarted:'Get started',nav_practice:'SAT Prep',dd_signout:'Sign out',auth_tagline:'Your path to a top university',auth_signin:'Sign in',auth_create:'Create account',auth_email:'Email',auth_password:'Password',auth_forgot:'Forgot password?',auth_signin_btn:'Sign in',auth_or:'or',auth_google:'Continue with Google',auth_no_account:'No account?',auth_create_link:'Create one free',auth_firstname:'First name',auth_lastname:'Last name',auth_create_btn:'Create free account',auth_terms:'By signing up you agree to our Terms and Privacy Policy.',auth_forgot_desc:"Enter your email and we'll send a reset link.",auth_send_reset:'Send reset link',auth_back_login:'← Back to sign in',hero_eyebrow:'✦ AI-Powered Admissions Platform',hero_h1:'Get into your <em>dream university</em>.',hero_sub:'Chetta gives you the tools, data, and AI guidance to navigate the most competitive university admissions in the world.',hero_btn1:'Start for free',hero_btn2:'Try AI Advisor',strip_label:'Helping students get into',ps1:'Universities saved',ps2:'Scholarships matched',ps3:'SAT target score',ps4:'Next deadline',pc1_lbl:'Application Readiness',pc2_lbl:'Your Universities',steps_eye:'How it works',steps_title:'Three steps to your dream school.',steps_sub:'From first search to final submission — Chetta walks you through every step.',s1_title:'Explore universities',s1_desc:'Browse 500+ universities with acceptance rates, tuition, SAT requirements, and full application roadmaps.',s2_title:'Find your scholarships',s2_desc:'Discover $2B+ in scholarships matched to your profile, country, GPA, and field — with deadlines and guides.',s3_title:'Get AI-powered guidance',s3_desc:'Chat with Chetta AI for essay feedback, admissions strategy, SAT tips, and visa guidance — 24/7.',feat_eye:'Platform features',feat_title:'Everything in one place.',f1_title:'University Explorer',f1_desc:'500+ universities with rankings, acceptance rates, tuition, and requirements — filterable by country and field.',f2_title:'Scholarship Finder',f2_desc:'Discover Rhodes, Gates Cambridge, Fulbright and more — with step-by-step guides and eligibility checklists.',f3_title:'AI Admissions Advisor',f3_desc:'Gemini-powered AI for essays, SAT tips, visa questions, comparisons. Remembers your conversation.',f4_title:'Ivy League Interviews',f4_desc:'Real Harvard, MIT, and Oxford students explain how they got in — with key advice and YouTube links.',f5_title:'Application Roadmaps',f5_desc:"Every university profile includes a step-by-step checklist for that school's specific process.",f6_title:'Multilingual Support',f6_desc:"Full support in English, O'zbek, and Русский. Switch instantly. AI responds in your language too.",testi_eye:'Student stories',testi_title:'Real students. Real results.',t1_q:'"Chetta\'s AI helped me understand what MIT was looking for. I rewrote my essays three times — and I got in."',t2_q:'"I found a full-ride scholarship through Chetta I\'d never heard of. The guide made applying easy. It covered four full years."',t3_q:'"The interview videos showed me how Oxford students think. Watching them changed how I wrote my personal statement."',faq_title:'Common questions',faq1_q:'Is Chetta free to use?',faq1_a:"Yes! University search, scholarships, and AI chat are all free. The AI uses Gemini — get a free key from Google AI Studio.",faq2_q:'How does the AI Advisor work?',faq2_a:"It uses Google Gemini 2.0 Flash configured as a university admissions expert. It remembers your conversation and replies in your language.",faq3_q:'What countries does Chetta cover?',faq3_a:'USA, UK, Canada, Europe (Germany, Switzerland, Netherlands), and Asia. 40+ countries with scholarships globally.',faq4_q:'Available in Uzbek and Russian?',faq4_a:"Yes — switch instantly with the flag selector top-right. The AI also detects and replies in your language.",cta_title:'Join thousands of students on their way to the top.',cta_sub:'Free to start. No credit card required.',cta_btn1:'Get started free →',cta_btn2:'Browse Universities',upage_eye:'Explore',upage_title:'University Explorer',upage_sub:'Click any university for full details, acceptance rates, and scholarships.',btn_search:'Search',f_all:'All',f_full:'Full Ride',f_partial:'Partial',spage_eye:'Funding',spage_title:'Scholarship Finder',spage_sub:'Discover $2B+ in scholarships — click any to see eligibility, amounts, and how to apply. Showing 14 featured scholarships.',ipage_eye:'Stories',ipage_title:'Ivy League Interviews',ipage_sub:'Real students. Real strategies. Learn from those who got in.',acc:'acc.',card_view:'View profile →',card_apply:'How to apply →',f_full:'Full Ride',f_partial:'Partial',card_dl:'Deadline:',by:'by',mod_acc:'Acceptance Rate',mod_tui:'Annual Tuition',mod_sat:'SAT Range',mod_diff:'Difficulty to Get In',diff_ext:'Extremely Selective',diff_very:'Very Selective',diff_sel:'Selective',mod_majors:'Popular Majors',mod_road:'Application Roadmap',mod_schs:'Available Scholarships',mod_visit:'Visit university website',mod_elig:'Eligibility Requirements',mod_howto:'How to Apply — Step by Step',mod_dl:'⏰ Deadline:',mod_field:'📚 Field:',mod_svis:'Official scholarship website',mod_watch:'Watch on YouTube',mod_adv:'💡 Key Advice from this Interview',ai_title:'Your AI Admissions Advisor',ai_sub:'Ask anything — scholarships, essays, SAT tips, visa questions. Powered by Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Powered by Gemini 2.0',ai_welcome:"Hi! I'm Chetta AI. Ask me anything about getting into top universities — essays, scholarships, SAT prep, visa guidance, or comparing schools. What's your dream school? 🎓",c1:'How do I get into Harvard?',c2:'Find me scholarships',c3:'SAT improvement tips',c4:'Help with my essay',c5:'IELTS for Oxford',c6:'Student visa guide',chat_ph:'Ask me anything about admissions...',prac_eye:'Test Prep',prac_title:'Practice like it\'s the real thing.',prac_sub:'4000+ SAT and IELTS questions with AI explanations, timed tests, and analytics.',pb_qb_title:'Question Bank',pb_qb_desc:'Work through SAT questions at your own pace with AI explanations.',pb_qb_badge:'200+ questions',pb_math_title:'Math Practice',pb_math_desc:'Algebra, geometry, data analysis with step-by-step solutions.',pb_math_badge:'150+ questions',pb_test_title:'Past Exam Papers + Predictions',pb_test_desc:'Simulate the real Digital SAT — timed, scored, reviewed.',pb_test_badge:'+15 full practice tests',pb_rush_title:'Question Rush',pb_rush_desc:'30 seconds per question. Build speed and improve pacing.',pb_rush_badge:'Speed mode',pb_vocab_title:'Vocabulary',pb_vocab_desc:'Master 200 most-tested SAT words with flashcards.',pb_vocab_badge:'200 words',pb_plan_title:'Study Planner',pb_plan_desc:'Enter test date and target score for a personalised schedule.',pb_plan_badge:'Personalised',pb_diag_title:'Diagnostic Test',pb_diag_desc:'Find your projected SAT score and weak domains in 30 min.',pb_diag_badge:'30 min',pb_calc_title:'Score Calculator',pb_calc_desc:'Enter raw scores to see your SAT score and percentile.',pb_calc_badge:'Instant',ana_eye:'Your Progress',ana_title:'Know your weak spots.',vocab_sub:'Click any card to reveal the definition.',planner_sub:'Set your test date and target score to generate your plan.',plan_date:'SAT Test Date',plan_current:'Current Score',plan_target:'Target Score',plan_hrs:'Daily Study Hours',plan_generate:'Generate My Plan',calc_sub:'Move sliders to see your estimated SAT score and percentile.',calc_rw:'Reading and Writing',calc_math:'Math',calc_questions:'Questions',calc_estimated:'Estimated SAT Score',calc_percentile:'Percentile',ielts_title:'IELTS Band Estimator',ielts_listening:'Listening',ielts_reading:'Reading',ielts_overall:'Estimated Overall Band',qb_submit:'Check Answer',qb_next:'Next',qb_skip:'Skip',res_retry:'Try Again',res_back:'Back to Practice',rush_title:'Question Rush',rush_desc:'30 seconds per question. Answer as many as you can!',rush_start:'Start Rush',rush_again:'Play Again',rush_answered:'questions answered',ft_desc:'Helping ambitious students worldwide access top universities and life-changing scholarships through intelligent guidance.',ft_ex:'Explore',ft_res:'Resources',ft_co:'Company',ft_sat:'SAT Prep Guide',ft_ielts:'IELTS Tips',ft_essay:'Essay Templates',ft_visa:'Visa Guide',ft_about:'About Chetta',ft_blog:'Blog',ft_priv:'Privacy Policy',ft_contact:'Contact',ft_copy:'© 2025 Chetta. All rights reserved.',ft_love:'Made for ambitious students everywhere'},
+en:{nav_home:'Home',nav_universities:'Universities',nav_scholarships:'Scholarships',nav_interviews:'Interviews',nav_ai:'AI Advisor',nav_signin:'Sign in',nav_getstarted:'Get started',nav_practice:'SAT Prep',dd_signout:'Sign out',auth_tagline:'Your path to a top university',auth_signin:'Sign in',auth_create:'Create account',auth_email:'Email',auth_password:'Password',auth_forgot:'Forgot password?',auth_signin_btn:'Sign in',auth_or:'or',auth_google:'Continue with Google',auth_no_account:'No account?',auth_create_link:'Create one free',auth_firstname:'First name',auth_lastname:'Last name',auth_create_btn:'Create free account',auth_terms:'By signing up you agree to our Terms and Privacy Policy.',auth_forgot_desc:"Enter your email and we'll send a reset link.",auth_send_reset:'Send reset link',auth_back_login:'← Back to sign in',hero_eyebrow:'✦ AI-Powered Admissions Platform',hero_h1:'Get into your <em>dream university</em>.',hero_sub:'Chetta gives you the tools, data, and AI guidance to navigate the most competitive university admissions in the world.',hero_btn1:'Start for free',hero_btn2:'Try AI Advisor',strip_label:'Helping students get into',ps1:'Universities saved',ps2:'Scholarships matched',ps3:'SAT target score',ps4:'Next deadline',pc1_lbl:'Application Readiness',pc2_lbl:'Your Universities',steps_eye:'How it works',steps_title:'Three steps to your dream school.',steps_sub:'From first search to final submission — Chetta walks you through every step.',s1_title:'Explore universities',s1_desc:'Browse 500+ universities with acceptance rates, tuition, SAT requirements, and full application roadmaps.',s2_title:'Find your scholarships',s2_desc:'Discover $2B+ in scholarships matched to your profile, country, GPA, and field — with deadlines and guides.',s3_title:'Get AI-powered guidance',s3_desc:'Chat with Chetta AI for essay feedback, admissions strategy, SAT tips, and visa guidance — 24/7.',feat_eye:'Platform features',feat_title:'Everything in one place.',f1_title:'University Explorer',f1_desc:'500+ universities with rankings, acceptance rates, tuition, and requirements — filterable by country and field.',f2_title:'Scholarship Finder',f2_desc:'Discover Rhodes, Gates Cambridge, Fulbright and more — with step-by-step guides and eligibility checklists.',f3_title:'AI Admissions Advisor',f3_desc:'Gemini-powered AI for essays, SAT tips, visa questions, comparisons. Remembers your conversation.',f4_title:'Ivy League Interviews',f4_desc:'Real Harvard, MIT, and Oxford students explain how they got in — with key advice and YouTube links.',f5_title:'Application Roadmaps',f5_desc:"Every university profile includes a step-by-step checklist for that school's specific process.",f6_title:'Multilingual Support',f6_desc:"Full support in English, O'zbek, and Русский. Switch instantly. AI responds in your language too.",testi_eye:'Student stories',testi_title:'Real students. Real results.',t1_q:'"Chetta\'s AI helped me understand what MIT was looking for. I rewrote my essays three times — and I got in."',t2_q:'"I found a full-ride scholarship through Chetta I\'d never heard of. The guide made applying easy. It covered four full years."',t3_q:'"The interview videos showed me how Oxford students think. Watching them changed how I wrote my personal statement."',faq_title:'Common questions',faq1_q:'Is Chetta free to use?',faq1_a:"Yes! University search, scholarships, and AI chat are all free. The AI uses Gemini — get a free key from Google AI Studio.",faq2_q:'How does the AI Advisor work?',faq2_a:"It uses Google Gemini 2.0 Flash configured as a university admissions expert. It remembers your conversation and replies in your language.",faq3_q:'What countries does Chetta cover?',faq3_a:'USA, UK, Canada, Europe (Germany, Switzerland, Netherlands), and Asia. 40+ countries with scholarships globally.',faq4_q:'Available in Uzbek and Russian?',faq4_a:"Yes — switch instantly with the flag selector top-right. The AI also detects and replies in your language.",cta_title:'Join thousands of students on their way to the top.',cta_sub:'Free to start. No credit card required.',cta_btn1:'Get started free →',cta_btn2:'Browse Universities',upage_eye:'Explore',upage_title:'University Explorer',upage_sub:'Click any university for full details, acceptance rates, and scholarships.',btn_search:'Search',f_all:'All',f_full:'Full Ride',f_partial:'Partial',spage_eye:'Funding',spage_title:'Scholarship Finder',spage_sub:'Discover $2B+ in scholarships — click any to see eligibility, amounts, and how to apply. Showing 14 featured scholarships.',ipage_eye:'Stories',ipage_title:'Ivy League Interviews',ipage_sub:'Real students. Real strategies. Learn from those who got in.',acc:'acc.',card_view:'View profile →',card_apply:'How to apply →',f_full:'Full Ride',f_partial:'Partial',card_dl:'Deadline:',by:'by',mod_acc:'Acceptance Rate',mod_tui:'Annual Tuition',mod_sat:'SAT Range',mod_diff:'Difficulty to Get In',diff_ext:'Extremely Selective',diff_very:'Very Selective',diff_sel:'Selective',mod_majors:'Popular Majors',mod_road:'Application Roadmap',mod_schs:'Available Scholarships',mod_visit:'Visit university website',mod_elig:'Eligibility Requirements',mod_howto:'How to Apply — Step by Step',mod_dl:'⏰ Deadline:',mod_field:'📚 Field:',mod_svis:'Official scholarship website',mod_watch:'Watch on YouTube',mod_adv:'💡 Key Advice from this Interview',ai_title:'Your AI Admissions Advisor',ai_sub:'Ask anything — scholarships, essays, SAT tips, visa questions. Powered by Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Powered by Gemini 2.0',ai_welcome:"Hi! I'm Chetta AI. Ask me anything about getting into top universities — essays, scholarships, SAT prep, visa guidance, or comparing schools. What's your dream school? 🎓",c1:'How do I get into Harvard?',c2:'Find me scholarships',c3:'SAT improvement tips',c4:'Help with my essay',c5:'IELTS for Oxford',c6:'Student visa guide',chat_ph:'Ask me anything about admissions...',prac_eye:'Test Prep',prac_title:'Practice like it\'s the real thing.',prac_sub:'4000+ SAT and IELTS questions with AI explanations, timed tests, and analytics.',pb_qb_title:'Question Bank',pb_qb_desc:'Work through SAT questions at your own pace with AI explanations.',pb_qb_badge:'200+ questions',pb_math_title:'Math Practice',pb_math_desc:'Algebra, geometry, data analysis with step-by-step solutions.',pb_math_badge:'150+ questions',pb_test_title:'Full Length Practice Tests',pb_test_desc:'Simulate the real Digital SAT — timed, scored, reviewed.',pb_test_badge:'+15 full practice tests',pb_rush_title:'Question Rush',pb_rush_desc:'30 seconds per question. Build speed and improve pacing.',pb_rush_badge:'Speed mode',pb_vocab_title:'Vocabulary',pb_vocab_desc:'Master 200 most-tested SAT words with flashcards.',pb_vocab_badge:'200 words',pb_plan_title:'Study Planner',pb_plan_desc:'Enter test date and target score for a personalised schedule.',pb_plan_badge:'Personalised',pb_diag_title:'Diagnostic Test',pb_diag_desc:'Find your projected SAT score and weak domains in 30 min.',pb_diag_badge:'30 min',pb_calc_title:'Score Calculator',pb_calc_desc:'Enter raw scores to see your SAT score and percentile.',pb_calc_badge:'Instant',ana_eye:'Your Progress',ana_title:'Know your weak spots.',vocab_sub:'Click any card to reveal the definition.',planner_sub:'Set your test date and target score to generate your plan.',plan_date:'SAT Test Date',plan_current:'Current Score',plan_target:'Target Score',plan_hrs:'Daily Study Hours',plan_generate:'Generate My Plan',calc_sub:'Move sliders to see your estimated SAT score and percentile.',calc_rw:'Reading and Writing',calc_math:'Math',calc_questions:'Questions',calc_estimated:'Estimated SAT Score',calc_percentile:'Percentile',ielts_title:'IELTS Band Estimator',ielts_listening:'Listening',ielts_reading:'Reading',ielts_overall:'Estimated Overall Band',qb_submit:'Check Answer',qb_next:'Next',qb_skip:'Skip',res_retry:'Try Again',res_back:'Back to Practice',rush_title:'Question Rush',rush_desc:'30 seconds per question. Answer as many as you can!',rush_start:'Start Rush',rush_again:'Play Again',rush_answered:'questions answered',ft_desc:'Helping ambitious students worldwide access top universities and life-changing scholarships through intelligent guidance.',ft_ex:'Explore',ft_res:'Resources',ft_co:'Company',ft_sat:'SAT Prep Guide',ft_ielts:'IELTS Tips',ft_essay:'Essay Templates',ft_visa:'Visa Guide',ft_about:'About Chetta',ft_blog:'Blog',ft_priv:'Privacy Policy',ft_contact:'Contact',ft_copy:'© 2025 Chetta. All rights reserved.',ft_love:'Made for ambitious students everywhere'},
 
 
-uz:{nav_home:'Bosh sahifa',nav_universities:'Universitetlar',nav_scholarships:'Stipendiyalar',nav_interviews:'Intervyular',nav_ai:'AI Maslahatchi',nav_signin:'Kirish',nav_getstarted:'Boshlash',nav_practice:'SAT Tayyorgarlik',dd_signout:'Chiqish',auth_tagline:"Top universitetga yo'lingiz",auth_signin:'Kirish',auth_create:'Hisob yaratish',auth_email:'Email',auth_password:'Parol',auth_forgot:'Parolni unutdingizmi?',auth_signin_btn:'Kirish',auth_or:'yoki',auth_google:'Google orqali kirish',auth_no_account:"Hisobingiz yo'qmi?",auth_create_link:'Bepul yarating',auth_firstname:'Ism',auth_lastname:'Familiya',auth_create_btn:'Bepul hisob yaratish',auth_terms:"Ro'yxatdan o'tib Shartlar va Maxfiylik siyosatiga rozisiz.",auth_forgot_desc:'Emailingizni kiriting, tiklash havolasini yuboramiz.',auth_send_reset:'Havolani yuborish',auth_back_login:'← Kirishga qaytish',hero_eyebrow:'✦ AI-Quvvatli Qabul Platformasi',hero_h1:'<em>Orzu universitetingizga</em> kiring.',hero_sub:"Chetta sizga dunyoning eng tanlov universitetlariga qabul bo'lishda kerakli vositalar, ma'lumotlar va AI yo'riqnomasini beradi.",hero_btn1:'Bepul boshlash',hero_btn2:"AI Maslahatchi sinab ko'rish",strip_label:"Quyidagilarga o'quvchilar kirdi",ps1:'Saqlangan universitetlar',ps2:'Mos stipendiyalar',ps3:'SAT maqsad bali',ps4:'Keyingi muddat',pc1_lbl:'Ariza tayyorgarligi',pc2_lbl:'Sizning universitetlaringiz',steps_eye:'Qanday ishlaydi',steps_title:"Orzu maktabingizga uch qadam.",steps_sub:"Birinchi qidiruvdan yakuniy topshiriqgacha — Chetta har qadamda yo'l ko'rsatadi.",s1_title:"Universitetlarni o'rganing",s1_desc:"500+ universitetni qabul darajasi, to'lov, SAT talablari va to'liq ariza yo'l xaritalari bilan ko'ring.",s2_title:'Stipendiyalaringizni toping',s2_desc:"Profilingizga, mamlakatga, GPA va sohangizga mos $2 mlrd+ stipendiyalarni toping — muddatlar va qo'llanmalar bilan.",s3_title:"AI yo'riqnoma oling",s3_desc:"Esse, qabul strategiyasi, SAT va viza uchun Chetta AI bilan suhbatlashing — 7/24 O'zbek, Ingliz, Rus tillarida.",feat_eye:'Platforma imkoniyatlari',feat_title:'Hamma narsa bir joyda.',f1_title:"Universitet Izlovchi",f1_desc:"500+ universitetni reyting, qabul darajasi, to'lov va talablar bilan — mamlakat va soha bo'yicha filtrlab.",f2_title:'Stipendiya Izlovchi',f2_desc:"Rhodes, Gates Cambridge, Fulbright va boshqalarni toping — qadam-baqadam qo'llanmalar bilan.",f3_title:'AI Qabul Maslahatchisi',f3_desc:'Gemini-quvvatli AI: essalar, SAT maslahatlari, viza savollari, universitetlarni solishtirish. Suhbatni eslab qoladi.',f4_title:"Ivy League Intervyulari",f4_desc:"Harvard, MIT va Oksford talabalarining o'zlaridan qanday kirganliklarini eshiting.",f5_title:"Ariza Yo'l Xaritalari",f5_desc:"Har bir universitet profili o'sha maktabning o'ziga xos jarayoni uchun qadam-baqadam ro'yxat o'z ichiga oladi.",f6_title:"Ko'p tilli qo'llab-quvvatlash",f6_desc:"O'zbek, Ingliz va Rus tillarida to'liq qo'llab-quvvatlash. Bir zumda almashtiring. AI ham tilingizda javob beradi.",testi_eye:'Talabalar hikoyalari',testi_title:"Haqiqiy talabalar. Haqiqiy natijalar.",t1_q:'"Chetta AI menga MITning nima qidirganini tushunishda yordam berdi. Fikr-mulohazasi asosida essalarni uch marta yozdim — va qabul bo\'ldim."',t2_q:'"Chetta orqali hech eshitmagan to\'liq stipendiyamni topdim. Qadam-baqadam qo\'llanma ariza berishni osonlashtirdi. To\'rt yilni qopladi."',t3_q:'"Intervyu videolari Oksford talabalarining qanday fikrlovini ko\'rsatdi. Shaxsiy bayonnomamni butunlay o\'zgartirdim."',faq_title:"Tez-tez so'raladigan savollar",faq1_q:"Chetta bepulmi?",faq1_a:"Ha! Universitet qidiruvi, stipendiyalar va AI suhbat barchasi bepul. AI Gemini'dan foydalanadi — Google AI Studio'dan bepul kalit oling.",faq2_q:'AI Maslahatchi qanday ishlaydi?',faq2_a:"Google Gemini 2.0 Flash qabul maslahatchisi sifatida sozlangan. Suhbatingizni eslab qoladi va tilingizda javob beradi.",faq3_q:'Chetta qaysi mamlakatlarni qamrab oladi?',faq3_a:"AQSh, Britaniya, Kanada, Yevropa (Germaniya, Shveytsariya, Niderlandiya) va Osiyo. Butun dunyo bo'yicha 40+ mamlakat.",faq4_q:"O'zbek va Rus tillarida mavjudmi?",faq4_a:"Ha — yuqori o'ng burchakdagi bayroqdan bir zumda almashtiring. AI ham tilingizni aniqlab, shunga javob beradi.",cta_title:"Minlab talabalar bilan top universitetlarga yo'lda qo'shiling.",cta_sub:"Boshlash bepul. Kredit karta talab qilinmaydi.",cta_btn1:'Bepul boshlash →',cta_btn2:"Universitetlarni ko'rish",upage_eye:'Izlash',upage_title:"Universitet Izlovchi",upage_sub:"To'liq tafsilotlar va stipendiyalarni ko'rish uchun istalgan universitetni bosing.",btn_search:'Qidirish',f_all:'Barchasi',f_full:"To'liq stipendiya",f_partial:'Qisman',spage_eye:'Moliyalashtirish',spage_title:'Stipendiya Izlovchi',spage_sub:"$2 mlrd+ stipendiya — munosiblik va ariza qanday berish haqida ko'rish uchun bosing.",ipage_eye:'Hikoyalar',ipage_title:"Ivy League Intervyulari",ipage_sub:"Haqiqiy talabalar. Haqiqiy strategiyalar. Muvaffaq bo'lganlardan o'rganing.",acc:'qabul',card_view:"Profilni ko'rish →",card_apply:'Qanday ariza berish →',card_dl:'Muddat:',by:'',mod_acc:'Qabul darajasi',mod_tui:"Yillik o'quv to'lovi",mod_sat:'SAT diapazoni',mod_diff:'Kirish qiyinligi',diff_ext:"O'ta tanlovli",diff_very:'Juda tanlovli',diff_sel:'Tanlovli',mod_majors:"Mashhur ixtisosliklar",mod_road:"Ariza yo'l xaritasi",mod_schs:"Mavjud stipendiyalar",mod_visit:"Universitet saytiga o'tish",mod_elig:'Munosiblik talablari',mod_howto:'Qanday ariza berish — qadam-baqadam',mod_dl:'⏰ Muddat:',mod_field:"📚 Soha:",mod_svis:"Rasmiy stipendiya saytiga o'tish",mod_watch:"YouTube'da ko'rish",mod_adv:"💡 Intervyudan asosiy maslahatlar",ai_title:'Sizning AI Qabul Maslahatchangiz',ai_sub:"Istalganini so'rang — stipendiyalar, essalar, SAT, viza. Gemini 2.0 bilan ishlaydi.",ai_agent:'Chetta AI',ai_status:'Gemini 2.0 bilan ishlaydi',ai_welcome:"Salom! Men Chetta AI. Top universitetlarga kirish haqida istalgan narsani so'rang. Orzu universitetingiz qaysi? 🎓",c1:'Harvardga qanday kirish mumkin?',c2:'Menga stipendiya toping',c3:'SAT balini yaxshilash',c4:'Esse yozishda yordam',c5:"Oksford uchun IELTS",c6:"Talaba vizasi yo'riqnomasi",chat_ph:"Qabul haqida istalgan narsani so'rang...",prac_eye:'Test Tayyorgarligi',prac_title:'Haqiqiy imtihondek mashq qiling.',prac_sub:"4000+ SAT va IELTS savollari AI tushuntirishlari bilan.",pb_qb_title:'Savollar Banki',pb_qb_desc:"SAT savollarini o'z sur'atingizda ishlang.",pb_qb_badge:'200+ savol',pb_math_title:'Matematika',pb_math_desc:'Algebra va geometriya — qadam-baqadam yechimlar.',pb_math_badge:'150+ savol',pb_test_title:"O'tgan Imtihon Savollari + Bashoratlar",pb_test_desc:"Haqiqiy SATni simulyatsiya qiling.",pb_test_badge:'15+ to\'liq test',pb_rush_title:'Savol Rush',pb_rush_desc:'Har savol uchun 30 soniya.',pb_rush_badge:'Tezlik',pb_vocab_title:"Lug'at",pb_vocab_desc:"SAT so'zlarini kartochkalar bilan o'rganing.",pb_vocab_badge:"200 so'z",pb_plan_title:"O'qish Rejasi",pb_plan_desc:'Test sanangizni kiriting — shaxsiy jadval oling.',pb_plan_badge:'Shaxsiy',pb_diag_title:'Diagnostik Test',pb_diag_desc:'30 daqiqada taxminiy balingizni toping.',pb_diag_badge:'30 daq',pb_calc_title:'Bal Kalkulyatori',pb_calc_desc:'Xom ballarni kiriting — natijani bir zumda koring.',pb_calc_badge:'Tezkor',ana_eye:'Taraqqiyotingiz',ana_title:"Zaif joylaringizni biling.",vocab_sub:"Izohni ko'rsatish uchun bosing.",planner_sub:'Test sanangizni va maqsad balingizni kiriting.',plan_date:'SAT Test Sanasi',plan_current:'Joriy Bal',plan_target:'Maqsad Bal',plan_hrs:"O'qish soatlari",plan_generate:'Reja Yaratish',calc_sub:'Slayderni torting.',calc_rw:"O'qish va Yozish",calc_math:'Matematika',calc_questions:'Savollar',calc_estimated:'Taxminiy SAT Bali',calc_percentile:'Foizli daraja',ielts_title:'IELTS Band Estimator',ielts_listening:'Tinglash',ielts_reading:"O'qish",ielts_overall:'Taxminiy Band',qb_submit:'Tekshirish',qb_next:'Keyingisi',qb_skip:"O'tkazish",res_retry:'Qayta urinish',res_back:'Orqaga',rush_title:'Savol Rush',rush_desc:'Har savol uchun 30 soniya!',rush_start:'Boshlash',rush_again:"Yana o'ynash",rush_answered:'savol javoblandi',ft_desc:"Chetta dunyo bo'ylab talabalariga top universitetlar va stipendiyalarga yordam beradi.",ft_ex:'Izlash',ft_res:'Resurslar',ft_co:'Kompaniya',ft_sat:"SAT Qo'llanmasi",ft_ielts:'IELTS Maslahatlari',ft_essay:'Esse Shablonlari',ft_visa:"Viza Qo'llanmasi",ft_about:'Chetta Haqida',ft_blog:'Blog',ft_priv:'Maxfiylik Siyosati',ft_contact:'Aloqa',ft_copy:"© 2025 Chetta. Barcha huquqlar himoyalangan.",ft_love:"Dunyo bo'yicha talabalar uchun yaratilgan"},
+uz:{nav_home:'Bosh sahifa',nav_universities:'Universitetlar',nav_scholarships:'Stipendiyalar',nav_interviews:'Intervyular',nav_ai:'AI Maslahatchi',nav_signin:'Kirish',nav_getstarted:'Boshlash',nav_practice:'SAT Tayyorgarlik',dd_signout:'Chiqish',auth_tagline:"Top universitetga yo'lingiz",auth_signin:'Kirish',auth_create:'Hisob yaratish',auth_email:'Email',auth_password:'Parol',auth_forgot:'Parolni unutdingizmi?',auth_signin_btn:'Kirish',auth_or:'yoki',auth_google:'Google orqali kirish',auth_no_account:"Hisobingiz yo'qmi?",auth_create_link:'Bepul yarating',auth_firstname:'Ism',auth_lastname:'Familiya',auth_create_btn:'Bepul hisob yaratish',auth_terms:"Ro'yxatdan o'tib Shartlar va Maxfiylik siyosatiga rozisiz.",auth_forgot_desc:'Emailingizni kiriting, tiklash havolasini yuboramiz.',auth_send_reset:'Havolani yuborish',auth_back_login:'← Kirishga qaytish',hero_eyebrow:'✦ AI-Quvvatli Qabul Platformasi',hero_h1:'<em>Orzu universitetingizga</em> kiring.',hero_sub:"Chetta sizga dunyoning eng tanlov universitetlariga qabul bo'lishda kerakli vositalar, ma'lumotlar va AI yo'riqnomasini beradi.",hero_btn1:'Bepul boshlash',hero_btn2:"AI Maslahatchi sinab ko'rish",strip_label:"Quyidagilarga o'quvchilar kirdi",ps1:'Saqlangan universitetlar',ps2:'Mos stipendiyalar',ps3:'SAT maqsad bali',ps4:'Keyingi muddat',pc1_lbl:'Ariza tayyorgarligi',pc2_lbl:'Sizning universitetlaringiz',steps_eye:'Qanday ishlaydi',steps_title:"Orzu maktabingizga uch qadam.",steps_sub:"Birinchi qidiruvdan yakuniy topshiriqgacha — Chetta har qadamda yo'l ko'rsatadi.",s1_title:"Universitetlarni o'rganing",s1_desc:"500+ universitetni qabul darajasi, to'lov, SAT talablari va to'liq ariza yo'l xaritalari bilan ko'ring.",s2_title:'Stipendiyalaringizni toping',s2_desc:"Profilingizga, mamlakatga, GPA va sohangizga mos $2 mlrd+ stipendiyalarni toping — muddatlar va qo'llanmalar bilan.",s3_title:"AI yo'riqnoma oling",s3_desc:"Esse, qabul strategiyasi, SAT va viza uchun Chetta AI bilan suhbatlashing — 7/24 O'zbek, Ingliz, Rus tillarida.",feat_eye:'Platforma imkoniyatlari',feat_title:'Hamma narsa bir joyda.',f1_title:"Universitet Izlovchi",f1_desc:"500+ universitetni reyting, qabul darajasi, to'lov va talablar bilan — mamlakat va soha bo'yicha filtrlab.",f2_title:'Stipendiya Izlovchi',f2_desc:"Rhodes, Gates Cambridge, Fulbright va boshqalarni toping — qadam-baqadam qo'llanmalar bilan.",f3_title:'AI Qabul Maslahatchisi',f3_desc:'Gemini-quvvatli AI: essalar, SAT maslahatlari, viza savollari, universitetlarni solishtirish. Suhbatni eslab qoladi.',f4_title:"Ivy League Intervyulari",f4_desc:"Harvard, MIT va Oksford talabalarining o'zlaridan qanday kirganliklarini eshiting.",f5_title:"Ariza Yo'l Xaritalari",f5_desc:"Har bir universitet profili o'sha maktabning o'ziga xos jarayoni uchun qadam-baqadam ro'yxat o'z ichiga oladi.",f6_title:"Ko'p tilli qo'llab-quvvatlash",f6_desc:"O'zbek, Ingliz va Rus tillarida to'liq qo'llab-quvvatlash. Bir zumda almashtiring. AI ham tilingizda javob beradi.",testi_eye:'Talabalar hikoyalari',testi_title:"Haqiqiy talabalar. Haqiqiy natijalar.",t1_q:'"Chetta AI menga MITning nima qidirganini tushunishda yordam berdi. Fikr-mulohazasi asosida essalarni uch marta yozdim — va qabul bo\'ldim."',t2_q:'"Chetta orqali hech eshitmagan to\'liq stipendiyamni topdim. Qadam-baqadam qo\'llanma ariza berishni osonlashtirdi. To\'rt yilni qopladi."',t3_q:'"Intervyu videolari Oksford talabalarining qanday fikrlovini ko\'rsatdi. Shaxsiy bayonnomamni butunlay o\'zgartirdim."',faq_title:"Tez-tez so'raladigan savollar",faq1_q:"Chetta bepulmi?",faq1_a:"Ha! Universitet qidiruvi, stipendiyalar va AI suhbat barchasi bepul. AI Gemini'dan foydalanadi — Google AI Studio'dan bepul kalit oling.",faq2_q:'AI Maslahatchi qanday ishlaydi?',faq2_a:"Google Gemini 2.0 Flash qabul maslahatchisi sifatida sozlangan. Suhbatingizni eslab qoladi va tilingizda javob beradi.",faq3_q:'Chetta qaysi mamlakatlarni qamrab oladi?',faq3_a:"AQSh, Britaniya, Kanada, Yevropa (Germaniya, Shveytsariya, Niderlandiya) va Osiyo. Butun dunyo bo'yicha 40+ mamlakat.",faq4_q:"O'zbek va Rus tillarida mavjudmi?",faq4_a:"Ha — yuqori o'ng burchakdagi bayroqdan bir zumda almashtiring. AI ham tilingizni aniqlab, shunga javob beradi.",cta_title:"Minlab talabalar bilan top universitetlarga yo'lda qo'shiling.",cta_sub:"Boshlash bepul. Kredit karta talab qilinmaydi.",cta_btn1:'Bepul boshlash →',cta_btn2:"Universitetlarni ko'rish",upage_eye:'Izlash',upage_title:"Universitet Izlovchi",upage_sub:"To'liq tafsilotlar va stipendiyalarni ko'rish uchun istalgan universitetni bosing.",btn_search:'Qidirish',f_all:'Barchasi',f_full:"To'liq stipendiya",f_partial:'Qisman',spage_eye:'Moliyalashtirish',spage_title:'Stipendiya Izlovchi',spage_sub:"$2 mlrd+ stipendiya — munosiblik va ariza qanday berish haqida ko'rish uchun bosing.",ipage_eye:'Hikoyalar',ipage_title:"Ivy League Intervyulari",ipage_sub:"Haqiqiy talabalar. Haqiqiy strategiyalar. Muvaffaq bo'lganlardan o'rganing.",acc:'qabul',card_view:"Profilni ko'rish →",card_apply:'Qanday ariza berish →',card_dl:'Muddat:',by:'',mod_acc:'Qabul darajasi',mod_tui:"Yillik o'quv to'lovi",mod_sat:'SAT diapazoni',mod_diff:'Kirish qiyinligi',diff_ext:"O'ta tanlovli",diff_very:'Juda tanlovli',diff_sel:'Tanlovli',mod_majors:"Mashhur ixtisosliklar",mod_road:"Ariza yo'l xaritasi",mod_schs:"Mavjud stipendiyalar",mod_visit:"Universitet saytiga o'tish",mod_elig:'Munosiblik talablari',mod_howto:'Qanday ariza berish — qadam-baqadam',mod_dl:'⏰ Muddat:',mod_field:"📚 Soha:",mod_svis:"Rasmiy stipendiya saytiga o'tish",mod_watch:"YouTube'da ko'rish",mod_adv:"💡 Intervyudan asosiy maslahatlar",ai_title:'Sizning AI Qabul Maslahatchangiz',ai_sub:"Istalganini so'rang — stipendiyalar, essalar, SAT, viza. Gemini 2.0 bilan ishlaydi.",ai_agent:'Chetta AI',ai_status:'Gemini 2.0 bilan ishlaydi',ai_welcome:"Salom! Men Chetta AI. Top universitetlarga kirish haqida istalgan narsani so'rang. Orzu universitetingiz qaysi? 🎓",c1:'Harvardga qanday kirish mumkin?',c2:'Menga stipendiya toping',c3:'SAT balini yaxshilash',c4:'Esse yozishda yordam',c5:"Oksford uchun IELTS",c6:"Talaba vizasi yo'riqnomasi",chat_ph:"Qabul haqida istalgan narsani so'rang...",prac_eye:'Test Tayyorgarligi',prac_title:'Haqiqiy imtihondek mashq qiling.',prac_sub:"4000+ SAT va IELTS savollari AI tushuntirishlari bilan.",pb_qb_title:'Savollar Banki',pb_qb_desc:"SAT savollarini o'z sur'atingizda ishlang.",pb_qb_badge:'200+ savol',pb_math_title:'Matematika',pb_math_desc:'Algebra va geometriya — qadam-baqadam yechimlar.',pb_math_badge:'150+ savol',pb_test_title:"To'liq Uzunlikdagi Amaliy Testlar",pb_test_desc:"Haqiqiy SATni simulyatsiya qiling.",pb_test_badge:'15+ to\'liq test',pb_rush_title:'Savol Rush',pb_rush_desc:'Har savol uchun 30 soniya.',pb_rush_badge:'Tezlik',pb_vocab_title:"Lug'at",pb_vocab_desc:"SAT so'zlarini kartochkalar bilan o'rganing.",pb_vocab_badge:"200 so'z",pb_plan_title:"O'qish Rejasi",pb_plan_desc:'Test sanangizni kiriting — shaxsiy jadval oling.',pb_plan_badge:'Shaxsiy',pb_diag_title:'Diagnostik Test',pb_diag_desc:'30 daqiqada taxminiy balingizni toping.',pb_diag_badge:'30 daq',pb_calc_title:'Bal Kalkulyatori',pb_calc_desc:'Xom ballarni kiriting — natijani bir zumda koring.',pb_calc_badge:'Tezkor',ana_eye:'Taraqqiyotingiz',ana_title:"Zaif joylaringizni biling.",vocab_sub:"Izohni ko'rsatish uchun bosing.",planner_sub:'Test sanangizni va maqsad balingizni kiriting.',plan_date:'SAT Test Sanasi',plan_current:'Joriy Bal',plan_target:'Maqsad Bal',plan_hrs:"O'qish soatlari",plan_generate:'Reja Yaratish',calc_sub:'Slayderni torting.',calc_rw:"O'qish va Yozish",calc_math:'Matematika',calc_questions:'Savollar',calc_estimated:'Taxminiy SAT Bali',calc_percentile:'Foizli daraja',ielts_title:'IELTS Band Estimator',ielts_listening:'Tinglash',ielts_reading:"O'qish",ielts_overall:'Taxminiy Band',qb_submit:'Tekshirish',qb_next:'Keyingisi',qb_skip:"O'tkazish",res_retry:'Qayta urinish',res_back:'Orqaga',rush_title:'Savol Rush',rush_desc:'Har savol uchun 30 soniya!',rush_start:'Boshlash',rush_again:"Yana o'ynash",rush_answered:'savol javoblandi',ft_desc:"Chetta dunyo bo'ylab talabalariga top universitetlar va stipendiyalarga yordam beradi.",ft_ex:'Izlash',ft_res:'Resurslar',ft_co:'Kompaniya',ft_sat:"SAT Qo'llanmasi",ft_ielts:'IELTS Maslahatlari',ft_essay:'Esse Shablonlari',ft_visa:"Viza Qo'llanmasi",ft_about:'Chetta Haqida',ft_blog:'Blog',ft_priv:'Maxfiylik Siyosati',ft_contact:'Aloqa',ft_copy:"© 2025 Chetta. Barcha huquqlar himoyalangan.",ft_love:"Dunyo bo'yicha talabalar uchun yaratilgan"},
 
 
-ru:{nav_home:'Главная',nav_universities:'Университеты',nav_scholarships:'Стипендии',nav_interviews:'Интервью',nav_ai:'ИИ Советник',nav_signin:'Войти',nav_getstarted:'Начать',nav_practice:'Подготовка к SAT',dd_signout:'Выйти',auth_tagline:'Ваш путь в топ-университет',auth_signin:'Войти',auth_create:'Создать аккаунт',auth_email:'Email',auth_password:'Пароль',auth_forgot:'Забыли пароль?',auth_signin_btn:'Войти',auth_or:'или',auth_google:'Войти через Google',auth_no_account:'Нет аккаунта?',auth_create_link:'Создайте бесплатно',auth_firstname:'Имя',auth_lastname:'Фамилия',auth_create_btn:'Создать бесплатный аккаунт',auth_terms:'Регистрируясь вы соглашаетесь с Условиями и Политикой конфиденциальности.',auth_forgot_desc:'Введите email, и мы отправим ссылку для сброса пароля.',auth_send_reset:'Отправить ссылку',auth_back_login:'← Назад к входу',hero_eyebrow:'✦ ИИ-платформа для поступления',hero_h1:'Поступите в <em>университет мечты</em>.',hero_sub:'Chetta даёт вам инструменты, данные и руководство ИИ для навигации в самых конкурентных университетских приёмных в мире.',hero_btn1:'Начать бесплатно',hero_btn2:'Попробовать ИИ Советник',strip_label:'Помогаем студентам поступить в',ps1:'Сохранённых университетов',ps2:'Подобранных стипендий',ps3:'Целевой балл SAT',ps4:'Следующий дедлайн',pc1_lbl:'Готовность заявки',pc2_lbl:'Ваши университеты',steps_eye:'Как это работает',steps_title:'Три шага до университета мечты.',steps_sub:'От первого поиска до финальной подачи — Chetta ведёт вас через каждый шаг.',s1_title:'Изучите университеты',s1_desc:'Просматривайте 500+ университетов с процентами поступления, стоимостью, SAT и полными дорожными картами заявки.',s2_title:'Найдите стипендии',s2_desc:'Откройте $2+ млрд стипендий, подобранных по профилю, стране, GPA и области — с дедлайнами и руководствами.',s3_title:'Получите ИИ-руководство',s3_desc:'Общайтесь с Chetta AI для отзывов на эссе, стратегии, советов по SAT и визовых вопросов — 24/7.',feat_eye:'Возможности платформы',feat_title:'Всё в одном месте.',f1_title:'Обзор Университетов',f1_desc:'500+ университетов с рейтингами, процентами поступления и требованиями — фильтрация по стране и области.',f2_title:'Поиск Стипендий',f2_desc:'Откройте Rhodes, Gates Cambridge, Fulbright и другие — с пошаговыми руководствами и чеклистами.',f3_title:'ИИ Советник',f3_desc:'Gemini-ИИ для эссе, SAT, визовых вопросов, сравнений. Запоминает разговор.',f4_title:'Интервью Ivy League',f4_desc:'Реальные студенты Гарварда, MIT и Оксфорда объясняют как поступили — с советами и ссылками на YouTube.',f5_title:'Дорожные карты заявки',f5_desc:'Каждый профиль включает пошаговый чеклист для конкретного процесса этой школы.',f6_title:'Многоязычная поддержка',f6_desc:'Полная поддержка на русском, английском и узбекском. Переключайте мгновенно. ИИ отвечает на вашем языке.',testi_eye:'Истории студентов',testi_title:'Реальные студенты. Реальные результаты.',t1_q:'"ИИ Chetta помог мне понять что искал MIT. Трижды переписал эссе на основе отзывов — и поступил."',t2_q:'"Нашёл полную стипендию через Chetta о которой никогда не слышал. Пошаговое руководство упростило всё. Покрыла четыре года."',t3_q:'"Видео с интервью показали как мыслят студенты Оксфорда. Это полностью изменило моё личное заявление."',faq_title:'Частые вопросы',faq1_q:'Chetta бесплатна?',faq1_a:'Да! Поиск университетов, стипендий и ИИ-чат бесплатны. ИИ использует Gemini — получите бесплатный ключ в Google AI Studio.',faq2_q:'Как работает ИИ Советник?',faq2_a:'Использует Google Gemini 2.0 Flash настроенный как эксперт по поступлению. Запоминает разговор и отвечает на вашем языке.',faq3_q:'Какие страны охватывает Chetta?',faq3_a:'США, Великобритания, Канада, Европа (Германия, Швейцария, Нидерланды) и Азия. 40+ стран со стипендиями глобально.',faq4_q:'Доступна на узбекском и русском?',faq4_a:'Да — переключайте мгновенно через флаг в правом верхнем углу. ИИ также определяет и отвечает на вашем языке.',cta_title:'Присоединяйтесь к тысячам студентов на пути к вершине.',cta_sub:'Бесплатный старт. Кредитная карта не нужна.',cta_btn1:'Начать бесплатно →',cta_btn2:'Смотреть университеты',upage_eye:'Обзор',upage_title:'Обзор Университетов',upage_sub:'Нажмите на любой университет для полных деталей, процента поступления и стипендий.',btn_search:'Поиск',f_all:'Все',f_full:'Полное финансирование',f_partial:'Частичное',spage_eye:'Финансирование',spage_title:'Поиск Стипендий',spage_sub:'$2+ млрд стипендий — нажмите на любую для критериев и как подать заявку.',ipage_eye:'Истории',ipage_title:'Интервью Ivy League',ipage_sub:'Реальные студенты. Реальные стратегии. Учитесь у поступивших.',acc:'поступление',card_view:'Смотреть профиль →',card_apply:'Как подать →',card_dl:'Дедлайн:',by:'',mod_acc:'Процент поступления',mod_tui:'Годовая стоимость',mod_sat:'Диапазон SAT',mod_diff:'Сложность поступления',diff_ext:'Крайне высокий конкурс',diff_very:'Очень высокий конкурс',diff_sel:'Высокий конкурс',mod_majors:'Популярные специальности',mod_road:'Дорожная карта заявки',mod_schs:'Доступные стипендии',mod_visit:'Перейти на сайт университета',mod_elig:'Требования участия',mod_howto:'Как подать — шаг за шагом',mod_dl:'⏰ Дедлайн:',mod_field:'📚 Область:',mod_svis:'Официальный сайт стипендии',mod_watch:'Смотреть на YouTube',mod_adv:'💡 Ключевые советы из интервью',ai_title:'Ваш ИИ Советник по поступлению',ai_sub:'Спрашивайте что угодно — стипендии, эссе, SAT, визовые вопросы. Работает на Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Работает на Gemini 2.0',ai_welcome:'Привет! Я Chetta AI. Спрашивайте что угодно о поступлении в топ-университеты. Какой ваш университет мечты? 🎓',c1:'Как поступить в Гарвард?',c2:'Найти стипендии',c3:'Советы по улучшению SAT',c4:'Помощь с эссе',c5:'IELTS для Оксфорда',c6:'Руководство по студенческой визе',chat_ph:'Спросите что угодно о поступлении...',prac_eye:'Подготовка',prac_title:'Практикуйтесь как на настоящем экзамене.',prac_sub:'4000+ вопросов SAT и IELTS с объяснениями ИИ и аналитикой.',pb_qb_title:'Банк вопросов',pb_qb_desc:'Решайте вопросы SAT в своём темпе с объяснениями ИИ.',pb_qb_badge:'200+ вопросов',pb_math_title:'Математика',pb_math_desc:'Алгебра и геометрия с пошаговыми решениями.',pb_math_badge:'150+ вопросов',pb_test_title:'Прошлые экзамены + прогнозы',pb_test_desc:'Симулируйте реальный SAT с таймером и разбором.',pb_test_badge:'15+ полных тестов',pb_rush_title:'Быстрые вопросы',pb_rush_desc:'30 секунд на вопрос. Развивайте скорость.',pb_rush_badge:'Скорость',pb_vocab_title:'Словарь',pb_vocab_desc:'200 слов SAT с карточками и примерами.',pb_vocab_badge:'200 слов',pb_plan_title:'План обучения',pb_plan_desc:'Введите дату теста для персонального расписания.',pb_plan_badge:'Персональный',pb_diag_title:'Диагностика',pb_diag_desc:'Узнайте прогноз балла SAT за 30 минут.',pb_diag_badge:'30 мин',pb_calc_title:'Калькулятор',pb_calc_desc:'Введите баллы — мгновенный результат.',pb_calc_badge:'Мгновенно',ana_eye:'Прогресс',ana_title:'Знайте свои слабые места.',vocab_sub:'Нажмите на карточку для определения.',planner_sub:'Введите дату теста и целевой балл.',plan_date:'Дата SAT',plan_current:'Текущий балл',plan_target:'Целевой балл',plan_hrs:'Часов в день',plan_generate:'Создать план',calc_sub:'Двигайте слайдеры для расчёта балла.',calc_rw:'Чтение и письмо',calc_math:'Математика',calc_questions:'Вопросы',calc_estimated:'Расчётный балл SAT',calc_percentile:'Перцентиль',ielts_title:'Оценщик IELTS',ielts_listening:'Аудирование',ielts_reading:'Чтение',ielts_overall:'Общий балл',qb_submit:'Проверить',qb_next:'Далее',qb_skip:'Пропустить',res_retry:'Ещё раз',res_back:'Назад',rush_title:'Быстрые вопросы',rush_desc:'30 секунд на вопрос!',rush_start:'Начать',rush_again:'Снова',rush_answered:'отвечено',ft_desc:'Chetta помогает амбициозным студентам по всему миру получить доступ к топ-университетам и стипендиям.',ft_ex:'Обзор',ft_res:'Ресурсы',ft_co:'Компания',ft_sat:'Руководство по SAT',ft_ielts:'Советы по IELTS',ft_essay:'Шаблоны эссе',ft_visa:'Визовое руководство',ft_about:'О Chetta',ft_blog:'Блог',ft_priv:'Конфиденциальность',ft_contact:'Контакт',ft_copy:'© 2025 Chetta. Все права защищены.',ft_love:'Создано для амбициозных студентов везде'},
+ru:{nav_home:'Главная',nav_universities:'Университеты',nav_scholarships:'Стипендии',nav_interviews:'Интервью',nav_ai:'ИИ Советник',nav_signin:'Войти',nav_getstarted:'Начать',nav_practice:'Подготовка к SAT',dd_signout:'Выйти',auth_tagline:'Ваш путь в топ-университет',auth_signin:'Войти',auth_create:'Создать аккаунт',auth_email:'Email',auth_password:'Пароль',auth_forgot:'Забыли пароль?',auth_signin_btn:'Войти',auth_or:'или',auth_google:'Войти через Google',auth_no_account:'Нет аккаунта?',auth_create_link:'Создайте бесплатно',auth_firstname:'Имя',auth_lastname:'Фамилия',auth_create_btn:'Создать бесплатный аккаунт',auth_terms:'Регистрируясь вы соглашаетесь с Условиями и Политикой конфиденциальности.',auth_forgot_desc:'Введите email, и мы отправим ссылку для сброса пароля.',auth_send_reset:'Отправить ссылку',auth_back_login:'← Назад к входу',hero_eyebrow:'✦ ИИ-платформа для поступления',hero_h1:'Поступите в <em>университет мечты</em>.',hero_sub:'Chetta даёт вам инструменты, данные и руководство ИИ для навигации в самых конкурентных университетских приёмных в мире.',hero_btn1:'Начать бесплатно',hero_btn2:'Попробовать ИИ Советник',strip_label:'Помогаем студентам поступить в',ps1:'Сохранённых университетов',ps2:'Подобранных стипендий',ps3:'Целевой балл SAT',ps4:'Следующий дедлайн',pc1_lbl:'Готовность заявки',pc2_lbl:'Ваши университеты',steps_eye:'Как это работает',steps_title:'Три шага до университета мечты.',steps_sub:'От первого поиска до финальной подачи — Chetta ведёт вас через каждый шаг.',s1_title:'Изучите университеты',s1_desc:'Просматривайте 500+ университетов с процентами поступления, стоимостью, SAT и полными дорожными картами заявки.',s2_title:'Найдите стипендии',s2_desc:'Откройте $2+ млрд стипендий, подобранных по профилю, стране, GPA и области — с дедлайнами и руководствами.',s3_title:'Получите ИИ-руководство',s3_desc:'Общайтесь с Chetta AI для отзывов на эссе, стратегии, советов по SAT и визовых вопросов — 24/7.',feat_eye:'Возможности платформы',feat_title:'Всё в одном месте.',f1_title:'Обзор Университетов',f1_desc:'500+ университетов с рейтингами, процентами поступления и требованиями — фильтрация по стране и области.',f2_title:'Поиск Стипендий',f2_desc:'Откройте Rhodes, Gates Cambridge, Fulbright и другие — с пошаговыми руководствами и чеклистами.',f3_title:'ИИ Советник',f3_desc:'Gemini-ИИ для эссе, SAT, визовых вопросов, сравнений. Запоминает разговор.',f4_title:'Интервью Ivy League',f4_desc:'Реальные студенты Гарварда, MIT и Оксфорда объясняют как поступили — с советами и ссылками на YouTube.',f5_title:'Дорожные карты заявки',f5_desc:'Каждый профиль включает пошаговый чеклист для конкретного процесса этой школы.',f6_title:'Многоязычная поддержка',f6_desc:'Полная поддержка на русском, английском и узбекском. Переключайте мгновенно. ИИ отвечает на вашем языке.',testi_eye:'Истории студентов',testi_title:'Реальные студенты. Реальные результаты.',t1_q:'"ИИ Chetta помог мне понять что искал MIT. Трижды переписал эссе на основе отзывов — и поступил."',t2_q:'"Нашёл полную стипендию через Chetta о которой никогда не слышал. Пошаговое руководство упростило всё. Покрыла четыре года."',t3_q:'"Видео с интервью показали как мыслят студенты Оксфорда. Это полностью изменило моё личное заявление."',faq_title:'Частые вопросы',faq1_q:'Chetta бесплатна?',faq1_a:'Да! Поиск университетов, стипендий и ИИ-чат бесплатны. ИИ использует Gemini — получите бесплатный ключ в Google AI Studio.',faq2_q:'Как работает ИИ Советник?',faq2_a:'Использует Google Gemini 2.0 Flash настроенный как эксперт по поступлению. Запоминает разговор и отвечает на вашем языке.',faq3_q:'Какие страны охватывает Chetta?',faq3_a:'США, Великобритания, Канада, Европа (Германия, Швейцария, Нидерланды) и Азия. 40+ стран со стипендиями глобально.',faq4_q:'Доступна на узбекском и русском?',faq4_a:'Да — переключайте мгновенно через флаг в правом верхнем углу. ИИ также определяет и отвечает на вашем языке.',cta_title:'Присоединяйтесь к тысячам студентов на пути к вершине.',cta_sub:'Бесплатный старт. Кредитная карта не нужна.',cta_btn1:'Начать бесплатно →',cta_btn2:'Смотреть университеты',upage_eye:'Обзор',upage_title:'Обзор Университетов',upage_sub:'Нажмите на любой университет для полных деталей, процента поступления и стипендий.',btn_search:'Поиск',f_all:'Все',f_full:'Полное финансирование',f_partial:'Частичное',spage_eye:'Финансирование',spage_title:'Поиск Стипендий',spage_sub:'$2+ млрд стипендий — нажмите на любую для критериев и как подать заявку.',ipage_eye:'Истории',ipage_title:'Интервью Ivy League',ipage_sub:'Реальные студенты. Реальные стратегии. Учитесь у поступивших.',acc:'поступление',card_view:'Смотреть профиль →',card_apply:'Как подать →',card_dl:'Дедлайн:',by:'',mod_acc:'Процент поступления',mod_tui:'Годовая стоимость',mod_sat:'Диапазон SAT',mod_diff:'Сложность поступления',diff_ext:'Крайне высокий конкурс',diff_very:'Очень высокий конкурс',diff_sel:'Высокий конкурс',mod_majors:'Популярные специальности',mod_road:'Дорожная карта заявки',mod_schs:'Доступные стипендии',mod_visit:'Перейти на сайт университета',mod_elig:'Требования участия',mod_howto:'Как подать — шаг за шагом',mod_dl:'⏰ Дедлайн:',mod_field:'📚 Область:',mod_svis:'Официальный сайт стипендии',mod_watch:'Смотреть на YouTube',mod_adv:'💡 Ключевые советы из интервью',ai_title:'Ваш ИИ Советник по поступлению',ai_sub:'Спрашивайте что угодно — стипендии, эссе, SAT, визовые вопросы. Работает на Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Работает на Gemini 2.0',ai_welcome:'Привет! Я Chetta AI. Спрашивайте что угодно о поступлении в топ-университеты. Какой ваш университет мечты? 🎓',c1:'Как поступить в Гарвард?',c2:'Найти стипендии',c3:'Советы по улучшению SAT',c4:'Помощь с эссе',c5:'IELTS для Оксфорда',c6:'Руководство по студенческой визе',chat_ph:'Спросите что угодно о поступлении...',prac_eye:'Подготовка',prac_title:'Практикуйтесь как на настоящем экзамене.',prac_sub:'4000+ вопросов SAT и IELTS с объяснениями ИИ и аналитикой.',pb_qb_title:'Банк вопросов',pb_qb_desc:'Решайте вопросы SAT в своём темпе с объяснениями ИИ.',pb_qb_badge:'200+ вопросов',pb_math_title:'Математика',pb_math_desc:'Алгебра и геометрия с пошаговыми решениями.',pb_math_badge:'150+ вопросов',pb_test_title:'Полноформатные пробные тесты',pb_test_desc:'Симулируйте реальный SAT с таймером и разбором.',pb_test_badge:'15+ полных тестов',pb_rush_title:'Быстрые вопросы',pb_rush_desc:'30 секунд на вопрос. Развивайте скорость.',pb_rush_badge:'Скорость',pb_vocab_title:'Словарь',pb_vocab_desc:'200 слов SAT с карточками и примерами.',pb_vocab_badge:'200 слов',pb_plan_title:'План обучения',pb_plan_desc:'Введите дату теста для персонального расписания.',pb_plan_badge:'Персональный',pb_diag_title:'Диагностика',pb_diag_desc:'Узнайте прогноз балла SAT за 30 минут.',pb_diag_badge:'30 мин',pb_calc_title:'Калькулятор',pb_calc_desc:'Введите баллы — мгновенный результат.',pb_calc_badge:'Мгновенно',ana_eye:'Прогресс',ana_title:'Знайте свои слабые места.',vocab_sub:'Нажмите на карточку для определения.',planner_sub:'Введите дату теста и целевой балл.',plan_date:'Дата SAT',plan_current:'Текущий балл',plan_target:'Целевой балл',plan_hrs:'Часов в день',plan_generate:'Создать план',calc_sub:'Двигайте слайдеры для расчёта балла.',calc_rw:'Чтение и письмо',calc_math:'Математика',calc_questions:'Вопросы',calc_estimated:'Расчётный балл SAT',calc_percentile:'Перцентиль',ielts_title:'Оценщик IELTS',ielts_listening:'Аудирование',ielts_reading:'Чтение',ielts_overall:'Общий балл',qb_submit:'Проверить',qb_next:'Далее',qb_skip:'Пропустить',res_retry:'Ещё раз',res_back:'Назад',rush_title:'Быстрые вопросы',rush_desc:'30 секунд на вопрос!',rush_start:'Начать',rush_again:'Снова',rush_answered:'отвечено',ft_desc:'Chetta помогает амбициозным студентам по всему миру получить доступ к топ-университетам и стипендиям.',ft_ex:'Обзор',ft_res:'Ресурсы',ft_co:'Компания',ft_sat:'Руководство по SAT',ft_ielts:'Советы по IELTS',ft_essay:'Шаблоны эссе',ft_visa:'Визовое руководство',ft_about:'О Chetta',ft_blog:'Блог',ft_priv:'Конфиденциальность',ft_contact:'Контакт',ft_copy:'© 2025 Chetta. Все права защищены.',ft_love:'Создано для амбициозных студентов везде'},
 };
 const langMeta={en:{f:'🇬🇧',l:'ENG'},uz:{f:'🇺🇿',l:'UZ'},ru:{f:'🇷🇺',l:'RU'}};
 const T=()=>LANGS[currentLang]||LANGS.en;
@@ -2554,7 +3248,7 @@ function openQBank(mode) {
 
   // Set UI
   const sliceLabel = sliceMatch ? (sliceMatch[1] === 'predict' ? `Prediction ${sliceMatch[2]}` : `Past Exam ${sliceMatch[2]}`) : null;
-  const titles = {reading:'Reading & Writing',math:'Math',test:'Past Exam Papers + Predictions',diagnostic:'Diagnostic Test'};
+  const titles = {reading:'Reading & Writing',math:'Math',test:'Full Length Practice Tests',diagnostic:'Diagnostic Test'};
   const badges = {reading:'R&W',math:'Math',test:'Full Test',diagnostic:'Diagnostic'};
   document.getElementById('qb-title').textContent = sliceLabel || titles[mode] || 'Question Bank';
   document.getElementById('qb-badge').textContent = sliceLabel ? (sliceMatch[1] === 'predict' ? 'Prediction' : 'Past Exam') : (badges[mode] || mode);
@@ -2974,28 +3668,15 @@ function requirePro() {
   document.getElementById('upgradeOv').classList.add('open');
   return false;
 }
-// ── Past Exam Papers + Predictions menu ──
+// ── Full Length Practice Tests menu ──
 function openExamMenu() {
   document.getElementById('examMenuStep1').style.display = 'flex';
-  document.getElementById('examMenuStep2').style.display = 'none';
-  document.getElementById('examMenuTitle').textContent = 'Past Exam Papers + Predictions';
+  document.getElementById('examMenuTitle').textContent = 'Full Length Practice Tests';
   document.getElementById('examMenuSub').textContent = "Choose what you'd like to practice";
   document.getElementById('examMenuOv').classList.add('open');
 }
 function closeExamMenu() {
   document.getElementById('examMenuOv').classList.remove('open');
-}
-function showPredictionsStep() {
-  document.getElementById('examMenuStep1').style.display = 'none';
-  document.getElementById('examMenuStep2').style.display = 'flex';
-  document.getElementById('examMenuTitle').textContent = 'Predictions';
-  document.getElementById('examMenuSub').textContent = 'Which section would you like a projected score for?';
-}
-function backToExamMenuStep1() {
-  document.getElementById('examMenuStep1').style.display = 'flex';
-  document.getElementById('examMenuStep2').style.display = 'none';
-  document.getElementById('examMenuTitle').textContent = 'Past Exam Papers + Predictions';
-  document.getElementById('examMenuSub').textContent = "Choose what you'd like to practice";
 }
 
 
@@ -3579,13 +4260,14 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
   sendPasswordResetEmail,
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -3641,7 +4323,21 @@ window.updatePlanBadge = function () {
 /* GOOGLE LOGIN */
 window.doGoogle = async function () {
   try {
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    const u = result.user;
+    try {
+      const snap = await getDoc(doc(db, "users", u.uid));
+      if (!snap.exists()) {
+        const parts = (u.displayName || "").trim().split(" ");
+        await setDoc(doc(db, "users", u.uid), {
+          firstName: parts[0] || "",
+          lastName: parts.slice(1).join(" ") || "",
+          email: u.email || "",
+          plan: "standard",
+          createdAt: new Date().toISOString()
+        });
+      }
+    } catch (e2) { console.error("Could not create user doc:", e2); }
     if (typeof closeAuth === "function") closeAuth();
   } catch (e) {
     alert(e.message);
@@ -3670,17 +4366,30 @@ window.doLogin = async function () {
 /* REGISTER */
 window.doRegister = async function () {
   try {
+    const firstName = document.getElementById("rFirst") ? document.getElementById("rFirst").value.trim() : "";
+    const lastName = document.getElementById("rLast") ? document.getElementById("rLast").value.trim() : "";
     const email = document.getElementById("rEmail").value;
     const password = document.getElementById("rPass").value;
 
-
-    await createUserWithEmailAndPassword(auth, email, password);
-
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const fullName = (firstName + " " + lastName).trim();
+    if (fullName) {
+      try { await updateProfile(cred.user, { displayName: fullName }); } catch (e2) { console.error("updateProfile failed:", e2); }
+    }
+    try {
+      await setDoc(doc(db, "users", cred.user.uid), {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        plan: "standard",
+        createdAt: new Date().toISOString()
+      });
+    } catch (e3) { console.error("Could not create user doc:", e3); }
 
     if (typeof closeAuth === "function") closeAuth();
   } catch (e) {
     const err = document.getElementById("regErr");
-    if (err) err.textContent = e.message;
+    if (err) { err.textContent = e.message; if (err.classList) err.classList.add("show"); }
   }
 };
 
@@ -3741,7 +4450,7 @@ onAuthStateChanged(auth, (user) => {
   <div class="m-box" style="max-width:460px">
     <div class="m-head" style="border-radius:var(--rxl) var(--rxl) 0 0">
       <button class="m-close" onclick="closeExamMenu()">✕</button>
-      <div class="m-title" style="font-size:1.35rem" id="examMenuTitle">Past Exam Papers + Predictions</div>
+      <div class="m-title" style="font-size:1.35rem" id="examMenuTitle">Full Length Practice Tests</div>
       <div class="m-loc" id="examMenuSub">Choose what you'd like to practice</div>
     </div>
     <div class="m-content">
@@ -3752,26 +4461,23 @@ onAuthStateChanged(auth, (user) => {
           <h3>Past Exams</h3>
           <p>Real past exam papers, timed and scored just like the actual test.</p>
         </div>
-        <div class="prac-card purple" style="cursor:pointer" onclick="window.location.href='/SatPrep/Predictions/'">
-          <div class="prac-icon purple">🔮</div>
-          <h3>Predictions</h3>
-          <p>Get a projected score for a specific section based on your performance.</p>
-        </div>
       </div>
-      <!-- STEP 2 -->
-      <div id="examMenuStep2" style="display:none;flex-direction:column;gap:.8rem">
-        <button class="qb-btn outline" style="align-self:flex-start" onclick="backToExamMenuStep1()">← Back</button>
-        <div class="prac-card blue" style="cursor:pointer" onclick="closeExamMenu();openQBank('reading')">
-          <div class="prac-icon blue">📖</div>
-          <h3>Reading &amp; Writing</h3>
-          <p>Projected Reading &amp; Writing score based on a focused practice set.</p>
-        </div>
-        <div class="prac-card green" style="cursor:pointer" onclick="closeExamMenu();openQBank('math')">
-          <div class="prac-icon green">📐</div>
-          <h3>Math</h3>
-          <p>Projected Math score based on a focused practice set.</p>
-        </div>
-      </div>
+</div>
+  </div>
+</div>
+
+
+<div class="m-ov" id="mistakesReviewOv">
+  <div class="m-box" style="max-width:600px">
+    <div class="m-head">
+      <button class="m-close" onclick="closeMistakesReview()">✕</button>
+      <div class="m-title" id="mistakesReviewTitle">Review mistakes</div>
+      <div class="m-loc" id="mistakesReviewSub">SAT Exam</div>
+    </div>
+    <div class="m-content">
+      <div id="mistakesModuleList" style="display:flex;flex-direction:column;gap:.7rem"></div>
+      <div id="mistakesQuestionList" style="display:none;flex-direction:column;gap:.7rem"></div>
+      <div id="mistakesDetail" style="display:none"></div>
     </div>
   </div>
 </div>
