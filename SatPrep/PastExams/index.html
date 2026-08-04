@@ -571,23 +571,23 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 <div class="cards-sec">
   <div class="cards-inner">
     <div class="prac-cards">
-      <div class="prac-card amber" id="examCard1" onclick="if(requirePro())startPastExam(1)">
-        <span class="pro-badge">PRO</span>
+      <div class="prac-card amber" id="examCard1" onclick="if(canStartExam(1))startPastExam(1)">
+        <span class="pro-badge" style="background:linear-gradient(135deg,#0d9488,#0f766e)">FREE</span>
         <span class="done-badge" id="examDoneBadge1" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>March Exam 2026</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn1" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(1, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard2" onclick="if(requirePro())startPastExam(2)">
-        <span class="pro-badge">PRO</span>
+      <div class="prac-card amber" id="examCard2" onclick="if(canStartExam(2))startPastExam(2)">
+        <span class="pro-badge" style="background:linear-gradient(135deg,#0d9488,#0f766e)">FREE</span>
         <span class="done-badge" id="examDoneBadge2" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
         <h3>SAT Exam 2</h3>
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn2" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(2, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard3" onclick="if(requirePro())startPastExam(3)">
+      <div class="prac-card amber" id="examCard3" onclick="if(canStartExam(3))startPastExam(3)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge3" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -595,7 +595,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn3" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(3, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard4" onclick="if(requirePro())startPastExam(4)">
+      <div class="prac-card amber" id="examCard4" onclick="if(canStartExam(4))startPastExam(4)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge4" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -603,7 +603,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn4" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(4, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard5" onclick="if(requirePro())startPastExam(5)">
+      <div class="prac-card amber" id="examCard5" onclick="if(canStartExam(5))startPastExam(5)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge5" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -611,7 +611,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn5" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(5, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard6" onclick="if(requirePro())startPastExam(6)">
+      <div class="prac-card amber" id="examCard6" onclick="if(canStartExam(6))startPastExam(6)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge6" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -619,7 +619,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn6" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(6, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard7" onclick="if(requirePro())startPastExam(7)">
+      <div class="prac-card amber" id="examCard7" onclick="if(canStartExam(7))startPastExam(7)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge7" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -627,7 +627,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn7" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(7, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard8" onclick="if(requirePro())startPastExam(8)">
+      <div class="prac-card amber" id="examCard8" onclick="if(canStartExam(8))startPastExam(8)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge8" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -635,7 +635,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn8" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(8, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard9" onclick="if(requirePro())startPastExam(9)">
+      <div class="prac-card amber" id="examCard9" onclick="if(canStartExam(9))startPastExam(9)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge9" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -643,7 +643,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <p>Full-length, modular, and timed exactly like the real Digital SAT.</p>
         <button class="qb-btn outline" id="examMistakesBtn9" style="display:none;margin-top:.7rem;width:100%" onclick="openMistakesReviewForExam(9, event)">Review mistakes</button>
       </div>
-      <div class="prac-card amber" id="examCard10" onclick="if(requirePro())startPastExam(10)">
+      <div class="prac-card amber" id="examCard10" onclick="if(canStartExam(10))startPastExam(10)">
         <span class="pro-badge">PRO</span>
         <span class="done-badge" id="examDoneBadge10" style="display:none;position:absolute;top:.9rem;left:.9rem;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.4px;padding:.22rem .6rem;border-radius:100px;z-index:2"></span>
         <div class="prac-icon amber">📄</div>
@@ -3667,6 +3667,11 @@ function requirePro() {
   if (isPro()) return true;
   document.getElementById('upgradeOv').classList.add('open');
   return false;
+}
+const FREE_EXAM_NUMS = [1, 2];
+function canStartExam(n) {
+  if (FREE_EXAM_NUMS.includes(n)) return true;
+  return requirePro();
 }
 // ── Full Length Practice Tests menu ──
 function openExamMenu() {
