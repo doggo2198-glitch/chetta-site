@@ -6422,8 +6422,14 @@ function requirePro() {
   document.getElementById('upgradeOv').classList.add('open');
   return false;
 }
+function requireAuth() {
+  if (currentUser) return true;
+  openAuth('login');
+  return false;
+}
 const FREE_EXAM_NUMS = [1, 2];
 function canStartExam(n) {
+  if (!requireAuth()) return false;
   if (FREE_EXAM_NUMS.includes(n)) return true;
   return requirePro();
 }
@@ -7215,9 +7221,9 @@ onAuthStateChanged(auth, (user) => {
     <div class="m-content">
       <!-- STEP 1 -->
       <div id="examMenuStep1" style="display:flex;flex-direction:column;gap:.8rem">
-        <div class="prac-card blue" style="cursor:pointer" onclick="window.location.href='/SatTests/'">
+        <div class="prac-card blue" style="cursor:pointer" onclick="window.location.href='/SatPrep/SatTests/'">
           <div class="prac-icon blue">📄</div>
-          <h3>SatTests</h3>
+          <h3>SAT Tests</h3>
           <p>Real past exam papers, timed and scored just like the actual test.</p>
         </div>
       </div>
