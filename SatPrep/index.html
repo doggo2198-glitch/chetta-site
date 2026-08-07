@@ -665,19 +665,19 @@ document.addEventListener('DOMContentLoaded', () => {
     <p class="sec-sub" style="margin:0 auto;text-align:center" data-i18n="prac_sub">4,000+ SAT, IELTS, and English questions with AI-powered explanations, timed tests, and analytics.</p>
   </div>
   <div class="prac-cards">
-    <div class="prac-card blue" onclick="openSectionMode('reading')">
+    <div class="prac-card blue" onclick="if(requireAuth())openSectionMode('reading')">
       <div class="prac-icon blue">📖</div>
       <h3 data-i18n="pb_reading&writing_title">Reading&Writing</h3>
       <p data-i18n="pb_qb_desc">Work through SAT Reading & Writing questions at your own pace with full AI explanations.</p>
       <span class="prac-badge" data-i18n="pb_qb_badge">200+ questions</span>
     </div>
-    <div class="prac-card green" onclick="openSectionMode('math')">
+    <div class="prac-card green" onclick="if(requireAuth())openSectionMode('math')">
       <div class="prac-icon green">📐</div>
       <h3 data-i18n="pb_math_title">Math Practice</h3>
       <p data-i18n="pb_math_desc">Algebra, geometry, data analysis and advanced math — step-by-step solutions for every problem.</p>
       <span class="prac-badge" style="background:var(--gpale);color:var(--green)" data-i18n="pb_math_badge">150+ questions</span>
     </div>
-    <div class="prac-card amber" onclick="openExamMenu()">
+    <div class="prac-card amber" onclick="if(requireAuth())openExamMenu()">
       <span class="prac-badge" style="position:absolute;top:.9rem;right:.9rem;background:var(--apale);color:var(--amber)">2 FREE</span>
       <div class="prac-icon amber">📝</div>
       <h3 data-i18n="pb_test_title">Full Length Practice Tests</h3>
@@ -2359,6 +2359,11 @@ function requirePro() {
   document.getElementById('upgradeOv').classList.add('open');
   return false;
 }
+function requireAuth() {
+  if (currentUser) return true;
+  openAuth('login');
+  return false;
+}
 // ── Full Length Practice Tests menu ──
 function openExamMenu() {
   document.getElementById('examMenuStep1').style.display = 'flex';
@@ -2888,9 +2893,9 @@ onAuthStateChanged(auth, (user) => {
     <div class="m-content">
       <!-- STEP 1 -->
       <div id="examMenuStep1" style="display:flex;flex-direction:column;gap:.8rem">
-        <div class="prac-card blue" style="cursor:pointer" onclick="window.location.href='/SatTests/'">
+        <div class="prac-card blue" style="cursor:pointer" onclick="window.location.href='/SatPrep/SatTests/'">
           <div class="prac-icon blue">📄</div>
-          <h3>SatTests</h3>
+          <h3>SAT Tests</h3>
           <p>Real past exam papers, timed and scored just like the actual test.</p>
         </div>
       </div>
