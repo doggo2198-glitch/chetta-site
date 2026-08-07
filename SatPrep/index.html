@@ -2360,7 +2360,7 @@ function requirePro() {
   return false;
 }
 function requireAuth() {
-  if (currentUser) return true;
+  if (window.chettaUser) return true;
   openAuth('login');
   return false;
 }
