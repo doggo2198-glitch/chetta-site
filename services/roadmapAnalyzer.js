@@ -78,7 +78,9 @@ Use exactly this structure:
             "severity": "high",
             "currentSituation": "",
             "whyItMatters": "",
-            "whatToDo": []
+            "whatToDo": [
+                ""
+            ]
         }
     ],
 
@@ -125,6 +127,7 @@ RULES:
 - Give each month a clear focus.
 - The reason should briefly explain why that month's focus is important.
 - Do not create tasks for things the student has already completed unless further improvement is genuinely needed.
+- The "whatToDo" field must contain simple strings, NOT objects.
 - Do not use markdown.
 - Return ONLY valid JSON.
                 `
@@ -190,3 +193,4 @@ ${data.applicationYear}
 
     return text.trim();
 }
+
