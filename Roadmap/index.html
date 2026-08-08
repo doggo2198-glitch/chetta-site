@@ -3917,58 +3917,115 @@ window.doGoogle = async function () {
     alert(e.message);
   }
 };
-
+```javascript
 /* EMAIL LOGIN */
 window.doLogin = async function () {
-  try {
-    const email = document.getElementById("lEmail").value;
-    const password = document.getElementById("lPass").value;
 
-    await signInWithEmailAndPassword(auth, email, password);
+    try {
 
-    if (typeof closeAuth === "function") closeAuth();
-  } catch (e) {
-    const err = document.getElementById("loginErr");
-    if (err) err.textContent = e.message;
-  }
+        const email =
+            document.getElementById("lEmail").value;
+
+        const password =
+            document.getElementById("lPass").value;
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        if (typeof closeAuth === "function") {
+            closeAuth();
+        }
+
+    } catch (e) {
+
+        const err =
+            document.getElementById("loginErr");
+
+        if (err) {
+            err.textContent = e.message;
+        }
+
+    }
+
 };
+
 
 /* REGISTER */
 window.doRegister = async function () {
-  try {
-    const email = document.getElementById("rEmail").value;
-    const password = document.getElementById("rPass").value;
 
-    await createUserWithEmailAndPassword(auth, email, password);
+    try {
 
-    if (typeof closeAuth === "function") closeAuth();
-  } catch (e) {
-    const err = document.getElementById("regErr");
-    if (err) err.textContent = e.message;
-  }
+        const email =
+            document.getElementById("rEmail").value;
+
+        const password =
+            document.getElementById("rPass").value;
+
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        if (typeof closeAuth === "function") {
+            closeAuth();
+        }
+
+    } catch (e) {
+
+        const err =
+            document.getElementById("regErr");
+
+        if (err) {
+            err.textContent = e.message;
+        }
+
+    }
+
 };
+
 
 /* RESET PASSWORD */
 window.doForgot = async function () {
-  try {
-    const email = document.getElementById("fEmail").value;
 
-    await sendPasswordResetEmail(auth, email);
+    try {
 
-    alert("Password reset email sent.");
-  } catch (e) {
-    alert(e.message);
-  }
+        const email =
+            document.getElementById("fEmail").value;
+
+        await sendPasswordResetEmail(
+            auth,
+            email
+        );
+
+        alert("Password reset email sent.");
+
+    } catch (e) {
+
+        alert(e.message);
+
+    }
+
 };
+
 
 /* SIGN OUT */
 window.signOut = async function () {
-  await signOut(auth);
+
+    await signOut(auth);
+
 };
+
 
 /* USER STATE */
 onAuthStateChanged(auth, (user) => {
-  console.log("Auth state:", user);
+
+    console.log("Auth state:", user);
+
+});
   window.chettaUser = user;
   window.chettaPlan = "standard";
   if (user) loadChettaPlan(user.uid); else updatePlanBadge();
