@@ -2162,26 +2162,220 @@ function applyEssayToggleUI(){
   textArea.style.display=roadEssayHas===true?'block':'none';
   notStarted.style.display=roadEssayHas===false?'block':'none';
 }
-function generateRoadmap(){
-  const major=document.getElementById('rf-major').value.trim();
-  const gpa=document.getElementById('rf-gpa').value.trim();
-  const test=document.getElementById('rf-test').value.trim();
-  const ec=document.getElementById('rf-ec').value.trim();
-  const missing=[];
-  if(!major)missing.push('Intended Major');
-  if(!gpa)missing.push('GPA');
-  if(!test)missing.push('SAT/ACT Score');
-  if(!ec)missing.push('Extracurriculars');
-  const msgEl=document.getElementById('road-validation-msg');
-  if(missing.length){
-    msgEl.style.display='block';
-    msgEl.textContent=`Please fill in the required fields before generating your roadmap: ${missing.join(', ')}.`;
-    msgEl.scrollIntoView({behavior:'smooth',block:'center'});
-    return;
-  }
-  msgEl.style.display='none';
-  saveRoadProfile();
-  renderRoadResults();
+```javascript
+async function generateRoadmap(){
+
+    const major = document.getElementById('rf-major').value.trim();
+    const gpa = document.getElementById('rf-gpa').value.trim();
+    const test = document.getElementById('rf-test').value.trim();
+    const ec = document.getElementById('rf-ec').value.trim();
+
+    const missing = [];
+
+    if(!major) missing.push('Intended Major');
+    if(!gpa) missing.push('GPA');
+    if(!test) missing.push('SAT/ACT Score');
+    if(!ec) missing.push('Extracurriculars');
+
+    const msgEl = document.getElementById('road-validation-msg');
+
+    if(missing.length){
+
+        msgEl.style.display = 'block';
+
+        msgEl.textContent =
+            `Please fill in the required fields before generating your roadmap: ${missing.join(', ')}.`;
+
+        msgEl.scrollIntoView({
+            behavior:'smooth',
+            block:'center'
+        });
+
+        return;
+    }
+
+    msgEl.style.display = 'none';
+
+    // Save the profile using your existing function
+    saveRoadProfile();
+
+    // Get the saved profile
+    let profile = {};
+
+    try {
+
+        profile = JSON.parse(
+            localStorage.getItem(roadStorageKey()) || '{}'
+        );
+
+    } catch(error) {
+
+        console.error("Could not read saved profile:", error);
+
+    }
+
+    // Get selected university
+    const u = unis.find(x => x.id === roadUniId);
+
+    if(!u){
+
+        msgEl.style.display = 'block';
+
+        msgEl.textContent =
+            'Could not identify the selected university. Please try again.';
+
+        return;
+    }
+
+    // Show loading screen
+    const resultsEl = document.getElementById('road-results');
+
+    resultsEl.style.display = 'block';
+
+    resultsEl.innerHTML = `
+
+        <div class="road-score-card">
+
+            <div style="
+                font-size:1.2rem;
+                font-weight:700;
+                margin-bottom:8px;
+            ">
+                ✨ Creating your personalized roadmap...
+            </div>
+
+            <div style="
+                color:rgba(255,255,255,.65);
+                font-size:.9rem;
+            ">
+                Analyzing your profile for
+                <strong style="color:#fff">${u.name}</strong>.
+            </div>
+
+            <div style="
+                margin-top:20px;
+                font-size:.9rem;
+                color:rgba(255,255,255,.55);
+            ">
+                This may take a few seconds.
+            </div>
+
+        </div>
+
+    `;
+
+    resultsEl.scrollIntoView({
+        behavior:'smooth',
+        block:'start'
+    });
+
+    try {
+
+        // Send profile to your backend
+        const response = await fetch(
+            'https://sat-backend-n13d.onrender.com/api/roadmap',
+            {
+                method:'POST',
+
+                headers:{
+                    'Content-Type':'application/json'
+                },
+
+                body:JSON.stringify({
+
+                    university: u.name,
+
+                    major: profile.major || major,
+
+                    gpa: profile.gpa || gpa,
+
+                    satAct: profile.test || test,
+
+                    english: profile.ielts || '',
+
+                    courses: profile.apib || '',
+
+                    classRank: profile.rank || '',
+
+                    extracurriculars: profile.ec || ec,
+
+                    awards: profile.awards || '',
+
+                    leadership: profile.leadership || '',
+
+                    research: profile.research || '',
+
+                    essay: profile.essayText || '',
+
+                    essayHas: profile.essayHas,
+
+                })
+            }
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+                `Server returned ${response.status}`
+            );
+
+        }
+
+        const data = await response.json();
+
+        if(!data.success || !data.roadmap){
+
+            throw new Error(
+                data.error || 'Invalid roadmap response'
+            );
+
+        }
+
+        // Save AI result
+        localStorage.setItem(
+            `roadmap-result-${roadUniId}`,
+            JSON.stringify(data.roadmap)
+        );
+
+        // Display AI result
+        renderAIRoadResults(data.roadmap, u);
+
+    } catch(error){
+
+        console.error("Roadmap generation error:", error);
+
+        resultsEl.innerHTML = `
+
+            <div class="road-score-card">
+
+                <div style="
+                    font-size:1.1rem;
+                    font-weight:700;
+                    margin-bottom:10px;
+                ">
+                    ⚠️ Roadmap generation failed
+                </div>
+
+                <div style="
+                    color:rgba(255,255,255,.65);
+                    font-size:.9rem;
+                ">
+                    We couldn't connect to the AI service.
+                    Please try again in a moment.
+                </div>
+
+                <button
+                    class="road-edit-btn"
+                    onclick="generateRoadmap()"
+                    style="margin-top:16px;"
+                >
+                    Try Again
+                </button>
+
+            </div>
+
+        `;
+    }
 }
 function renderRoadResults(){
   const u=unis.find(x=>x.id===roadUniId);if(!u)return;
@@ -2224,6 +2418,268 @@ function renderRoadResults(){
     </div>`;
   resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
 }
+```javascript
+function renderAIRoadResults(roadmap, u){
+
+    const resultsEl = document.getElementById('road-results');
+
+    const categories = roadmap.categoryScores || {};
+
+    const categoryNames = {
+        academics: '📚 Academics',
+        extracurriculars: '🎯 Extracurriculars',
+        leadership: '👑 Leadership',
+        awards: '🏆 Awards & Honors',
+        research: '🔬 Research / Projects',
+        essay: '✍️ Essay'
+    };
+
+    const categoryHTML = Object.entries(categoryNames)
+        .map(([key, name]) => {
+
+            const score = Number(categories[key] || 0);
+
+            return `
+                <div style="margin-bottom:16px;">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        margin-bottom:6px;
+                    ">
+                        <span>${name}</span>
+                        <strong>${score}%</strong>
+                    </div>
+
+                    <div style="
+                        width:100%;
+                        height:8px;
+                        background:rgba(255,255,255,.1);
+                        border-radius:10px;
+                        overflow:hidden;
+                    ">
+
+                        <div style="
+                            width:${score}%;
+                            height:100%;
+                            background:#ffffff;
+                            border-radius:10px;
+                        "></div>
+
+                    </div>
+
+                </div>
+            `;
+
+        })
+        .join('');
+
+
+    const gapsHTML = (roadmap.mainGaps || [])
+        .map(gap => {
+
+            const tasks = (gap.whatToDo || [])
+                .map(task => `<li>${task}</li>`)
+                .join('');
+
+            return `
+                <div class="road-sec">
+
+                    <div class="road-sec-head">
+
+                        <span class="road-sec-title">
+                            ${gap.category || 'Area to improve'}
+                        </span>
+
+                        <span>
+                            ${gap.severity || ''}
+                        </span>
+
+                    </div>
+
+                    <p>
+                        <strong>Current situation:</strong>
+                        ${gap.currentSituation || ''}
+                    </p>
+
+                    <p>
+                        <strong>Why it matters:</strong>
+                        ${gap.whyItMatters || ''}
+                    </p>
+
+                    <strong>What to do:</strong>
+
+                    <ul>
+                        ${tasks}
+                    </ul>
+
+                </div>
+            `;
+
+        })
+        .join('');
+
+
+    const monthsHTML = (roadmap.monthlyPlan || [])
+        .map(month => {
+
+            const tasks = (month.tasks || [])
+                .map(task => `
+                    <div style="
+                        padding:10px 0;
+                        border-bottom:1px solid rgba(255,255,255,.08);
+                    ">
+                        ☐ ${task}
+                    </div>
+                `)
+                .join('');
+
+            return `
+                <div class="road-sec">
+
+                    <div class="road-sec-head">
+
+                        <span class="road-sec-title">
+                            📅 ${month.month}
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        ${month.focus || ''}
+                    </h3>
+
+                    <p style="
+                        color:rgba(255,255,255,.65);
+                    ">
+                        ${month.reason || ''}
+                    </p>
+
+                    ${tasks}
+
+                </div>
+            `;
+
+        })
+        .join('');
+
+
+    resultsEl.innerHTML = `
+
+        <!-- READINESS -->
+
+        <div class="road-score-card">
+
+            <div style="
+                font-size:2.5rem;
+                font-weight:800;
+                text-align:center;
+            ">
+                ${roadmap.readinessScore}
+            </div>
+
+            <div style="
+                text-align:center;
+                font-size:.9rem;
+                color:rgba(255,255,255,.65);
+            ">
+                Readiness Score
+            </div>
+
+            <div style="
+                margin-top:16px;
+                font-size:.9rem;
+                color:rgba(255,255,255,.75);
+            ">
+                ${roadmap.summary || ''}
+            </div>
+
+            <div style="
+                margin-top:12px;
+                font-size:.9rem;
+            ">
+                Competitive target:
+                <strong>
+                    ${roadmap.competitiveTarget}%
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- CATEGORY SCORES -->
+
+        <div class="road-sec">
+
+            <div class="road-sec-head">
+
+                <span class="road-sec-title">
+                    📊 Your Profile
+                </span>
+
+            </div>
+
+            ${categoryHTML}
+
+        </div>
+
+
+        <!-- MAIN GAPS -->
+
+        <div class="road-sec">
+
+            <div class="road-sec-head">
+
+                <span class="road-sec-title">
+                    🚧 What's holding you back?
+                </span>
+
+            </div>
+
+        </div>
+
+        ${gapsHTML}
+
+
+        <!-- MONTHLY ROADMAP -->
+
+        <div class="road-sec">
+
+            <div class="road-sec-head">
+
+                <span class="road-sec-title">
+                    🗺️ Your Roadmap
+                </span>
+
+            </div>
+
+            <p style="
+                color:rgba(255,255,255,.65);
+            ">
+                Follow these priorities month by month
+                to strengthen your application.
+            </p>
+
+        </div>
+
+        ${monthsHTML}
+
+
+        <button
+            class="road-edit-btn"
+            onclick="
+                document.getElementById('road-results').style.display='none';
+                document.getElementById('road-form').scrollIntoView({
+                    behavior:'smooth'
+                });
+            "
+        >
+            ← Edit my profile
+        </button>
+
+    `;
+
+}  
 function toggleRoadCheck(i,el){
   let checked=[];
   try{checked=JSON.parse(localStorage.getItem(roadChecklistKey())||'[]');}catch(e){}
