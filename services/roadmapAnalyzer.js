@@ -1,4 +1,3 @@
-
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
 
@@ -182,7 +181,7 @@ ${data.applicationYear}
 
         ],
 
-        temperature: 0.3
+        temperature: 0.15
 
     });
 
@@ -193,4 +192,3 @@ ${data.applicationYear}
 
     return text.trim();
 }
-
