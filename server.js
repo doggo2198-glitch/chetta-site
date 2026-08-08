@@ -5,19 +5,20 @@ import cors from "cors";
 import { analyzeOpportunities } from "./services/openai.js";
 import { analyzeProfile } from "./services/profileAnalyzer.js";
 import { analyzeUniversities } from "./services/universityAnalyzer.js";
+import { generateRoadmap } from "./services/roadmapAnalyzer.js";
 
 dotenv.config();
 
-
 const app = express();
-
 
 app.use(cors());
 app.use(express.json());
 
 
+// ===============================
+// HOME CHECK
+// ===============================
 
-// Home check
 app.get("/", (req, res) => {
 
     res.send("Backend is running!");
@@ -25,8 +26,10 @@ app.get("/", (req, res) => {
 });
 
 
+// ===============================
+// RENDER ENVIRONMENT TEST
+// ===============================
 
-// Render environment test
 app.get("/test", (req, res) => {
 
     res.json({
@@ -44,8 +47,10 @@ app.get("/test", (req, res) => {
 });
 
 
+// ===============================
+// VERIFY URL
+// ===============================
 
-// Verify URLs
 async function verifyURL(url) {
 
     try {
@@ -58,18 +63,15 @@ async function verifyURL(url) {
 
         });
 
-
         return response.ok;
 
-
-    } catch(error) {
+    } catch (error) {
 
         return false;
 
     }
 
 }
-
 
 
 // ===============================
@@ -80,7 +82,6 @@ app.post("/api/opportunities", async (req, res) => {
 
     try {
 
-
         const {
 
             major,
@@ -90,7 +91,6 @@ app.post("/api/opportunities", async (req, res) => {
             country
 
         } = req.body;
-
 
 
         const query = `
@@ -108,7 +108,6 @@ app.post("/api/opportunities", async (req, res) => {
         `;
 
 
-
         const response = await fetch(
 
             "https://api.tavily.com/search",
@@ -122,7 +121,6 @@ app.post("/api/opportunities", async (req, res) => {
                     "Content-Type": "application/json"
 
                 },
-
 
                 body: JSON.stringify({
 
@@ -141,8 +139,7 @@ app.post("/api/opportunities", async (req, res) => {
         );
 
 
-
-        if(!response.ok){
+        if (!response.ok) {
 
             throw new Error(
                 `Tavily error: ${response.status}`
@@ -151,24 +148,18 @@ app.post("/api/opportunities", async (req, res) => {
         }
 
 
-
         const data = await response.json();
-
 
 
         const checkedResults = [];
 
 
-
-        for(const result of data.results){
-
+        for (const result of data.results) {
 
             const valid = await verifyURL(result.url);
 
 
-
-            if(valid){
-
+            if (valid) {
 
                 checkedResults.push({
 
@@ -176,15 +167,13 @@ app.post("/api/opportunities", async (req, res) => {
 
                     url: result.url,
 
-                    content: result.content?.slice(0,500)
+                    content: result.content?.slice(0, 500)
 
                 });
-
 
             }
 
         }
-
 
 
         const recommendations = await analyzeOpportunities(
@@ -208,144 +197,163 @@ app.post("/api/opportunities", async (req, res) => {
         );
 
 
-
         const parsed = JSON.parse(recommendations);
-
 
 
         res.json({
 
             recommendations:
-            parsed.opportunities
+                parsed.opportunities
 
         });
 
 
-
-    } catch(error) {
-
+    } catch (error) {
 
         console.error(error);
 
 
-
         res.status(500).json({
 
-            error:"Something went wrong"
+            error: "Something went wrong"
 
         });
 
-
     }
 
-
 });
-
-
-
-
 
 
 // ===============================
 // PROFILE ANALYZER
 // ===============================
 
+app.post("/api/profile", async (req, res) => {
 
-app.post("/api/profile", async (req,res)=>{
-
-
-    try{
-
+    try {
 
         const profile = req.body;
-
 
 
         const analysis = await analyzeProfile(profile);
 
 
-
         res.json({
 
-            success:true,
+            success: true,
 
             analysis
 
         });
 
 
-
-    } catch(error){
-
+    } catch (error) {
 
         console.error(error);
 
 
-
         res.status(500).json({
 
-            success:false,
+            success: false,
 
-            error:"Profile analysis failed"
+            error: "Profile analysis failed"
 
         });
 
-
     }
-
 
 });
 
 
-app.post("/api/universities", async (req,res)=>{
+// ===============================
+// UNIVERSITY ANALYZER
+// ===============================
 
+app.post("/api/universities", async (req, res) => {
 
-    try{
-
+    try {
 
         const universities = await analyzeUniversities(req.body);
 
 
         res.json({
 
-            success:true,
+            success: true,
 
             universities
 
         });
 
 
-    }catch(error){
-
+    } catch (error) {
 
         console.error(error);
 
 
         res.status(500).json({
 
-            success:false,
+            success: false,
 
-            error:"University recommendation failed"
+            error: "University recommendation failed"
 
         });
 
-
     }
-
 
 });
 
 
+// ===============================
+// UNIVERSITY ROADMAP
+// ===============================
+
+app.post("/api/roadmap", async (req, res) => {
+
+    try {
+
+        const roadmap = await generateRoadmap(req.body);
+
+
+        const parsed = JSON.parse(roadmap);
+
+
+        res.json({
+
+            success: true,
+
+            roadmap: parsed
+
+        });
+
+
+    } catch (error) {
+
+        console.error("Roadmap error:", error);
+
+
+        res.status(500).json({
+
+            success: false,
+
+            error: "Roadmap generation failed"
+
+        });
+
+    }
+
+});
+
+
+// ===============================
+// START SERVER
+// ===============================
 
 const PORT = process.env.PORT || 3000;
 
-
-app.listen(PORT, ()=>{
-
+app.listen(PORT, () => {
 
     console.log(
         `Server running on port ${PORT}`
     );
-
 
 });
