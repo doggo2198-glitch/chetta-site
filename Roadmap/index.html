@@ -2163,7 +2163,8 @@ function applyEssayToggleUI(){
   notStarted.style.display=roadEssayHas===false?'block':'none';
 }
 ```javascript
-async function generateRoadmap(){
+```javascript
+async function generateRoadmap() {
 
     const major = document.getElementById('rf-major').value.trim();
     const gpa = document.getElementById('rf-gpa').value.trim();
@@ -2172,23 +2173,25 @@ async function generateRoadmap(){
 
     const missing = [];
 
-    if(!major) missing.push('Intended Major');
-    if(!gpa) missing.push('GPA');
-    if(!test) missing.push('SAT/ACT Score');
-    if(!ec) missing.push('Extracurriculars');
+    if (!major) missing.push('Intended Major');
+    if (!gpa) missing.push('GPA');
+    if (!test) missing.push('SAT/ACT Score');
+    if (!ec) missing.push('Extracurriculars');
 
     const msgEl = document.getElementById('road-validation-msg');
 
-    if(missing.length){
+    if (missing.length) {
 
         msgEl.style.display = 'block';
 
         msgEl.textContent =
-            `Please fill in the required fields before generating your roadmap: ${missing.join(', ')}.`;
+            'Please fill in the required fields before generating your roadmap: ' +
+            missing.join(', ') +
+            '.';
 
         msgEl.scrollIntoView({
-            behavior:'smooth',
-            block:'center'
+            behavior: 'smooth',
+            block: 'center'
         });
 
         return;
@@ -2196,10 +2199,8 @@ async function generateRoadmap(){
 
     msgEl.style.display = 'none';
 
-    // Save the profile using your existing function
     saveRoadProfile();
 
-    // Get the saved profile
     let profile = {};
 
     try {
@@ -2208,16 +2209,17 @@ async function generateRoadmap(){
             localStorage.getItem(roadStorageKey()) || '{}'
         );
 
-    } catch(error) {
+    } catch (error) {
 
-        console.error("Could not read saved profile:", error);
+        console.error('Could not read saved profile:', error);
 
     }
 
-    // Get selected university
-    const u = unis.find(x => x.id === roadUniId);
+    const u = unis.find(function(x) {
+        return x.id === roadUniId;
+    });
 
-    if(!u){
+    if (!u) {
 
         msgEl.style.display = 'block';
 
@@ -2227,61 +2229,44 @@ async function generateRoadmap(){
         return;
     }
 
-    // Show loading screen
-    const resultsEl = document.getElementById('road-results');
+    const resultsEl =
+        document.getElementById('road-results');
 
     resultsEl.style.display = 'block';
 
-    resultsEl.innerHTML = `
-
-        <div class="road-score-card">
-
-            <div style="
-                font-size:1.2rem;
-                font-weight:700;
-                margin-bottom:8px;
-            ">
-                ✨ Creating your personalized roadmap...
-            </div>
-
-            <div style="
-                color:rgba(255,255,255,.65);
-                font-size:.9rem;
-            ">
-                Analyzing your profile for
-                <strong style="color:#fff">${u.name}</strong>.
-            </div>
-
-            <div style="
-                margin-top:20px;
-                font-size:.9rem;
-                color:rgba(255,255,255,.55);
-            ">
-                This may take a few seconds.
-            </div>
-
-        </div>
-
-    `;
+    resultsEl.innerHTML =
+        '<div class="road-score-card">' +
+            '<div style="font-size:1.2rem;font-weight:700;margin-bottom:8px;">' +
+                'Creating your personalized roadmap...' +
+            '</div>' +
+            '<div style="color:rgba(255,255,255,.65);font-size:.9rem;">' +
+                'Analyzing your profile for ' +
+                '<strong style="color:#fff">' +
+                    u.name +
+                '</strong>.' +
+            '</div>' +
+            '<div style="margin-top:20px;font-size:.9rem;color:rgba(255,255,255,.55);">' +
+                'This may take a few seconds.' +
+            '</div>' +
+        '</div>';
 
     resultsEl.scrollIntoView({
-        behavior:'smooth',
-        block:'start'
+        behavior: 'smooth',
+        block: 'start'
     });
 
     try {
 
-        // Send profile to your backend
         const response = await fetch(
             'https://sat-backend-n13d.onrender.com/api/roadmap',
             {
-                method:'POST',
+                method: 'POST',
 
-                headers:{
-                    'Content-Type':'application/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 },
 
-                body:JSON.stringify({
+                body: JSON.stringify({
 
                     university: u.name,
 
@@ -2297,33 +2282,39 @@ async function generateRoadmap(){
 
                     classRank: profile.rank || '',
 
-                    extracurriculars: profile.ec || ec,
+                    extracurriculars:
+                        profile.ec || ec,
 
-                    awards: profile.awards || '',
+                    awards:
+                        profile.awards || '',
 
-                    leadership: profile.leadership || '',
+                    leadership:
+                        profile.leadership || '',
 
-                    research: profile.research || '',
+                    research:
+                        profile.research || '',
 
-                    essay: profile.essayText || '',
+                    essay:
+                        profile.essayText || '',
 
-                    essayHas: profile.essayHas,
+                    applicationYear:
+                        profile.applicationYear || ''
 
                 })
             }
         );
 
-        if(!response.ok){
+        if (!response.ok) {
 
             throw new Error(
-                `Server returned ${response.status}`
+                'Server returned ' + response.status
             );
 
         }
 
         const data = await response.json();
 
-        if(!data.success || !data.roadmap){
+        if (!data.success || !data.roadmap) {
 
             throw new Error(
                 data.error || 'Invalid roadmap response'
@@ -2331,52 +2322,38 @@ async function generateRoadmap(){
 
         }
 
-        // Save AI result
         localStorage.setItem(
-            `roadmap-result-${roadUniId}`,
+            'roadmap-result-' + roadUniId,
             JSON.stringify(data.roadmap)
         );
 
-        // Display AI result
         renderAIRoadResults(data.roadmap, u);
 
-    } catch(error){
+    } catch (error) {
 
-        console.error("Roadmap generation error:", error);
+        console.error(
+            'Roadmap generation error:',
+            error
+        );
 
-        resultsEl.innerHTML = `
+        resultsEl.innerHTML =
+            '<div class="road-score-card">' +
+                '<div style="font-size:1.1rem;font-weight:700;margin-bottom:10px;">' +
+                    'Roadmap generation failed' +
+                '</div>' +
+                '<div style="color:rgba(255,255,255,.65);font-size:.9rem;">' +
+                    'We could not connect to the AI service. Please try again.' +
+                '</div>' +
+                '<button class="road-edit-btn" onclick="generateRoadmap()" style="margin-top:16px;">' +
+                    'Try Again' +
+                '</button>' +
+            '</div>';
 
-            <div class="road-score-card">
-
-                <div style="
-                    font-size:1.1rem;
-                    font-weight:700;
-                    margin-bottom:10px;
-                ">
-                    ⚠️ Roadmap generation failed
-                </div>
-
-                <div style="
-                    color:rgba(255,255,255,.65);
-                    font-size:.9rem;
-                ">
-                    We couldn't connect to the AI service.
-                    Please try again in a moment.
-                </div>
-
-                <button
-                    class="road-edit-btn"
-                    onclick="generateRoadmap()"
-                    style="margin-top:16px;"
-                >
-                    Try Again
-                </button>
-
-            </div>
-
-        `;
     }
+
 }
+```
+
 function renderRoadResults(){
   const u=unis.find(x=>x.id===roadUniId);if(!u)return;
   let p={};
