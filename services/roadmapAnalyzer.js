@@ -1,3 +1,4 @@
+
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
 
@@ -57,53 +58,76 @@ Return ONLY valid JSON.
 Use exactly this structure:
 
 {
-  "readinessScore": 0,
-  "competitiveTarget": 0,
+    "readinessScore": 0,
+    "competitiveTarget": 0,
 
-  "categoryScores": {
-    "academics": 0,
-    "extracurriculars": 0,
-    "leadership": 0,
-    "awards": 0,
-    "research": 0,
-    "essay": 0
-  },
+    "categoryScores": {
+        "academics": 0,
+        "extracurriculars": 0,
+        "leadership": 0,
+        "awards": 0,
+        "research": 0,
+        "essay": 0
+    },
 
-  "summary": "",
+    "summary": "",
 
-  "mainGaps": [
-    {
-      "category": "",
-      "severity": "high",
-      "currentSituation": "",
-      "whyItMatters": "",
-      "whatToDo": []
-    }
-  ],
+    "mainGaps": [
+        {
+            "category": "",
+            "severity": "high",
+            "currentSituation": "",
+            "whyItMatters": "",
+            "whatToDo": []
+        }
+    ],
 
-  "monthlyPlan": [
-    {
-      "month": "",
-      "focus": "",
-      "tasks": [],
-      "reason": ""
-    }
-  ]
+    "monthlyPlan": [
+        {
+            "month": "",
+            "focus": "",
+            "priority": "high",
+            "reason": "",
+            "tasks": [
+                {
+                    "id": "",
+                    "title": "",
+                    "priority": "high"
+                }
+            ]
+        }
+    ]
 }
 
-Rules:
+RULES:
 
 - Scores must be integers from 0 to 100.
 - competitiveTarget must be between 70 and 95.
 - Give 2-5 main gaps.
-- Give a realistic monthly plan.
+- Give a realistic monthly plan covering the student's realistic application timeline.
+- Use the student's application year to determine the timeline whenever possible.
+- Each month should contain 2-5 specific actionable tasks.
+- Each task must have a unique ID.
+- Task priority must be exactly "high", "medium", or "low".
+- Monthly priority must be exactly "high", "medium", or "low".
 - Prioritize the highest-impact improvements first.
 - Do not recommend impossible or unrealistic achievements.
 - Do not guarantee admission.
 - If the student has not written an essay, give the essay category a low or neutral score rather than treating it as a permanent weakness.
 - Consider the student's intended major when evaluating activities and projects.
+- Make extracurricular recommendations relevant to the intended major.
+- Do not give generic advice when a more specific action is possible.
+- If the student has already completed something, do not tell them to repeat it.
+- Tasks should be realistic for a high school student.
+- Tasks should be concrete actions the student can actually complete.
+- Avoid vague tasks such as "improve your profile" or "work harder".
+- Use short, clear task titles.
+- Give each month a clear focus.
+- The reason should briefly explain why that month's focus is important.
+- Do not create tasks for things the student has already completed unless further improvement is genuinely needed.
 - Do not use markdown.
-`
+- Return ONLY valid JSON.
+                `
             },
 
             {
@@ -150,7 +174,7 @@ ${data.essay}
 
 Application Year:
 ${data.applicationYear}
-`
+                `
             }
 
         ],
