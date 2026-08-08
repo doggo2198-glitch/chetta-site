@@ -2162,8 +2162,6 @@ function applyEssayToggleUI(){
   textArea.style.display=roadEssayHas===true?'block':'none';
   notStarted.style.display=roadEssayHas===false?'block':'none';
 }
-```javascript
-```javascript
 async function generateRoadmap() {
 
     const major = document.getElementById('rf-major').value.trim();
@@ -2352,8 +2350,6 @@ async function generateRoadmap() {
     }
 
 }
-```
-
 function renderRoadResults(){
   const u=unis.find(x=>x.id===roadUniId);if(!u)return;
   let p={};
@@ -2395,7 +2391,6 @@ function renderRoadResults(){
     </div>`;
   resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
 }
-```javascript
 function renderAIRoadResults(roadmap, u){
 
     const resultsEl = document.getElementById('road-results');
@@ -3894,7 +3889,6 @@ window.doGoogle = async function () {
     alert(e.message);
   }
 };
-```javascript
 /* EMAIL LOGIN */
 window.doLogin = async function () {
 
