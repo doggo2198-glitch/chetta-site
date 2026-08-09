@@ -2168,7 +2168,7 @@ function switchDashTab(tab,b){
 // ── ROADMAP BUILDER ──
 let roadUniId=null,roadEssayHas=null,expandedMonthIndex=null;
 // TODO: point this at your actual Groq-powered roadmap backend endpoint
-const ROADMAP_API_ENDPOINT='/api/roadmap/generate';
+const ROADMAP_API_ENDPOINT='https://sat-backend-n13d.onrender.com/api/roadmap';
 const TASK_TYPE_LABELS={academic:'Academic',testing:'Testing',extracurricular:'Extracurricular',leadership:'Leadership',award:'Award',research:'Research',essay:'Essay',application:'Application',recommendation:'Recommendation',document:'Document','financial-aid':'Financial Aid',scholarship:'Scholarship',portfolio:'Portfolio',other:'Other'};
 function safeText(v,fallback){
   fallback=fallback===undefined?'Not available':fallback;
