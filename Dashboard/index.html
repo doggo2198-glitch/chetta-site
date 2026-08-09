@@ -200,6 +200,21 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .save-heart:active{transform:scale(.9)}
 .save-heart.saved{background:#fff;border-color:#fff;color:#e11d48;box-shadow:0 3px 12px rgba(225,29,72,.42)}
 .save-heart.saved:hover{background:#fff;box-shadow:0 4px 16px rgba(225,29,72,.52)}
+.remove-badge{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(17,24,39,.4);backdrop-filter:blur(6px);border:1.5px solid rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:.85rem;font-weight:700;transition:all .15s ease}
+.remove-badge:hover{background:var(--red);border-color:var(--red);transform:scale(1.08)}
+.road-list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:900px){.road-list-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.road-list-grid{grid-template-columns:1fr}}
+.road-list-card{position:relative;background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.2rem 1.3rem;transition:all .2s}
+.road-list-card:hover{border-color:rgba(37,99,235,.4);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+.road-list-top{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem;padding-right:1.8rem}
+.road-list-emoji{font-size:1.4rem;width:40px;height:40px;background:var(--g900);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.road-list-name{font-weight:700;font-size:.88rem;color:var(--g900);line-height:1.3}
+.road-list-loc{font-size:.72rem;color:var(--g400);margin-top:.1rem}
+.road-list-score{font-size:.78rem;color:var(--g600);margin-bottom:.5rem}
+.road-list-score strong{color:var(--blue)}
+.road-list-summary{font-size:.76rem;color:var(--g500);line-height:1.5;margin-bottom:.8rem}
+.road-list-view-btn{width:100%;padding:.6rem;font-size:.8rem;border-radius:9px}
 .save-heart.pop{animation:heartPop .48s cubic-bezier(.17,.89,.32,1.49)}
 @keyframes heartPop{0%{transform:scale(1)}30%{transform:scale(1.42)}55%{transform:scale(.8)}75%{transform:scale(1.12)}100%{transform:scale(1)}}
 .m-heart{position:absolute;top:1rem;right:3.4rem;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.18);transition:transform .18s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}
@@ -215,7 +230,11 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .dash-count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:100px;background:var(--red);color:#fff;font-size:.65rem;font-weight:700;margin-left:.35rem}
 .card-roadmap-wrap{padding:0 1.15rem 1.1rem;display:flex;justify-content:center}
 .road-page{padding:2.5rem 2rem 5rem;max-width:760px;margin:0 auto}
-.road-uni-card{display:flex;align-items:center;gap:1rem;background:var(--g900);border-radius:var(--rxl);padding:1.4rem 1.6rem;margin-bottom:1.75rem;color:#fff}
+.road-back-btn{background:none;border:1.5px solid var(--g200);color:var(--g700);padding:.55rem 1.1rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;margin-bottom:1.1rem;display:inline-flex;align-items:center;gap:.4rem;transition:all .15s}
+.road-back-btn:hover{border-color:var(--g300);background:var(--g50)}
+.road-uni-card{display:flex;align-items:center;gap:1rem;background:var(--g900);border-radius:var(--rxl);padding:1.4rem 1.6rem;margin-bottom:1.75rem;color:#fff;position:relative}
+.road-uni-card-info{flex:1;min-width:0}
+.road-uni-card .m-heart{top:1.2rem;right:1.2rem}
 .road-uni-emoji{font-size:2rem;width:56px;height:56px;background:rgba(255,255,255,.1);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .road-uni-name{font-weight:700;font-size:1.1rem}
 .road-uni-loc{font-size:.8rem;color:rgba(255,255,255,.55);margin-top:.15rem}
@@ -256,8 +275,91 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .road-check.checked{background:var(--green);border-color:var(--green)}
 .road-checklist-text{font-size:.85rem;color:var(--g700);line-height:1.55}
 .road-checklist-text.done{color:var(--g400);text-decoration:line-through}
-.road-edit-btn{background:none;border:1.5px solid var(--g200);color:var(--g700);padding:.6rem 1.15rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;margin-top:.5rem}
+.road-actions-row{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;margin-top:.5rem}
+.road-save-btn.saved-confirm{background:var(--green)!important}
+.road-edit-btn{background:none;border:1.5px solid var(--g200);color:var(--g700);padding:.6rem 1.15rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;margin-top:0}
 .road-edit-btn:hover{border-color:var(--g300);background:var(--g50)}
+
+/* ── AI Roadmap Result (calendar system) ── */
+.road-cache-banner{background:var(--bluepale);color:var(--blue);border:1px solid rgba(37,99,235,.2);border-radius:var(--r);padding:.75rem 1rem;font-size:.8rem;font-weight:600;margin-bottom:1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.road-cache-banner button{background:var(--blue);color:#fff;border:none;padding:.4rem .9rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;cursor:pointer;white-space:nowrap}
+.road-cache-banner button:hover{background:#1d4ed8}
+.road-loading{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rxl);padding:3.5rem 2rem;text-align:center;color:var(--g500)}
+.road-spinner{width:38px;height:38px;border:3px solid var(--g200);border-top-color:var(--blue);border-radius:50%;margin:0 auto 1.1rem;animation:roadspin .8s linear infinite}
+@keyframes roadspin{to{transform:rotate(360deg)}}
+.road-error{background:#fef2f2;border:1.5px solid rgba(220,38,38,.25);border-radius:var(--rxl);padding:2.2rem 1.8rem;text-align:center}
+.road-error-title{font-weight:700;color:var(--red);margin-bottom:.4rem;font-size:.95rem}
+.road-error-sub{font-size:.83rem;color:var(--g600);margin-bottom:1.2rem;line-height:1.55}
+.road-summary-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rxl);padding:1.4rem 1.6rem;margin-bottom:1.1rem;font-size:.85rem;color:var(--g700);line-height:1.65}
+.road-disclaimer{font-size:.72rem;color:var(--g400);margin-top:.6rem;font-style:italic}
+.road-score-target{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:.35rem}
+.road-category-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem 1.3rem}
+@media(max-width:560px){.road-category-grid{grid-template-columns:1fr}}
+.road-cat-item{}
+.road-cat-top{display:flex;justify-content:space-between;font-size:.78rem;font-weight:600;color:var(--g700);margin-bottom:.35rem}
+.road-cat-track{height:8px;background:var(--g100);border-radius:100px;overflow:hidden}
+.road-cat-fill{height:100%;background:var(--blue);border-radius:100px;transition:width .4s ease}
+.road-kv-row{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 0;border-bottom:1px solid var(--g100);font-size:.82rem}
+.road-kv-row:last-child{border-bottom:none}
+.road-kv-lbl{color:var(--g500);font-weight:600;flex-shrink:0}
+.road-kv-val{color:var(--g800);text-align:right}
+.road-kv-val.na{color:var(--g400);font-style:italic}
+.road-gap-card{border:1.5px solid var(--g200);border-radius:var(--r);padding:1.1rem 1.2rem;margin-bottom:.8rem}
+.road-gap-card:last-child{margin-bottom:0}
+.road-gap-head{display:flex;align-items:center;justify-content:space-between;gap:.7rem;margin-bottom:.6rem;flex-wrap:wrap}
+.road-gap-cat{font-weight:700;font-size:.88rem;color:var(--g900)}
+.road-sev{padding:.2rem .6rem;border-radius:100px;font-size:.65rem;font-weight:700;text-transform:uppercase}
+.road-sev.high{background:#fef2f2;color:var(--red)}
+.road-sev.medium{background:var(--apale);color:var(--amber)}
+.road-sev.low{background:var(--gpale);color:var(--green)}
+.road-gap-lbl{font-size:.72rem;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.3px;margin:.6rem 0 .25rem}
+.road-gap-txt{font-size:.83rem;color:var(--g700);line-height:1.55}
+.road-gap-todo{margin:.3rem 0 0;padding-left:1.1rem}
+.road-gap-todo li{font-size:.83rem;color:var(--g700);line-height:1.6}
+.road-progress-wrap{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rxl);padding:1.3rem 1.5rem;margin-bottom:1.1rem}
+.road-progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem}
+.road-progress-title{font-weight:700;font-size:.85rem;color:var(--g900)}
+.road-progress-pct{font-weight:700;font-size:.85rem;color:var(--blue)}
+.road-progress-track{height:10px;background:var(--g100);border-radius:100px;overflow:hidden;margin-bottom:.5rem}
+.road-progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:100px;transition:width .4s ease}
+.road-progress-sub{font-size:.75rem;color:var(--g400)}
+.road-month-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-bottom:1.5rem}
+@media(max-width:900px){.road-month-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.road-month-grid{grid-template-columns:1fr}}
+.road-month-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.1rem 1.15rem;cursor:pointer;transition:all .15s}
+.road-month-card:hover{border-color:rgba(37,99,235,.4);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+.road-month-card.expanded{border-color:var(--blue);box-shadow:0 6px 20px rgba(37,99,235,.18)}
+.road-month-name{font-weight:700;font-size:.88rem;color:var(--g900);margin-bottom:.3rem}
+.road-month-focus{font-size:.76rem;color:var(--g500);margin-bottom:.65rem;line-height:1.4;min-height:1.4em}
+.road-month-meta{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem}
+.road-priority-badge{padding:.16rem .55rem;border-radius:100px;font-size:.63rem;font-weight:700;text-transform:uppercase;display:inline-flex;align-items:center;gap:.25rem}
+.road-priority-badge.high{background:#fef2f2;color:var(--red)}
+.road-priority-badge.medium{background:var(--apale);color:var(--amber)}
+.road-priority-badge.low{background:var(--gpale);color:var(--green)}
+.road-deadline-badge{padding:.16rem .55rem;border-radius:100px;font-size:.63rem;font-weight:700;display:inline-flex;align-items:center;gap:.25rem}
+.road-deadline-badge.red{background:#fef2f2;color:var(--red)}
+.road-deadline-badge.orange{background:var(--apale);color:var(--amber)}
+.road-deadline-badge.green{background:var(--gpale);color:var(--green)}
+.road-deadline-badge.gray{background:var(--g100);color:var(--g500)}
+.road-month-count{font-size:.72rem;color:var(--g400)}
+.road-month-status{font-size:.72rem;font-weight:700;margin-top:.5rem}
+.road-month-status.complete{color:var(--green)}
+.road-month-status.progress{color:var(--amber)}
+.road-month-status.notstarted{color:var(--g400)}
+.road-month-expand{grid-column:1/-1;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--rxl);padding:1.5rem 1.7rem;margin:-.3rem 0 .9rem}
+.road-expand-head{margin-bottom:1rem}
+.road-expand-title{font-weight:700;font-size:1.05rem;color:var(--g900);margin-bottom:.5rem}
+.road-expand-row{font-size:.82rem;color:var(--g600);margin-bottom:.3rem}
+.road-expand-row strong{color:var(--g800)}
+.road-task-row{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--g200)}
+.road-task-row:last-child{border-bottom:none}
+.road-task-main{flex:1}
+.road-task-title{font-size:.85rem;color:var(--g800);font-weight:600;line-height:1.5}
+.road-task-title.done{color:var(--g400);text-decoration:line-through;font-weight:500}
+.road-task-desc{font-size:.78rem;color:var(--g500);margin-top:.2rem;line-height:1.5}
+.road-task-meta{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.45rem}
+.road-task-type{padding:.14rem .5rem;border-radius:100px;font-size:.62rem;font-weight:600;background:var(--bluepale);color:var(--blue)}
+.road-no-tasks{font-size:.82rem;color:var(--g400);font-style:italic;padding:.5rem 0}
 .roadmap-btn{background:var(--blue);color:#fff;border:none;padding:.6rem 1.4rem;border-radius:100px;font-size:.8rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .15s ease;box-shadow:0 2px 8px rgba(37,99,235,.32);white-space:nowrap}
 .roadmap-btn:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 5px 14px rgba(37,99,235,.42)}
 .roadmap-btn:active{transform:translateY(0) scale(.97)}
@@ -724,6 +826,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
     <div class="filter-row">
       <button class="f-chip active" id="dtab-overview" onclick="switchDashTab('overview',this)" data-i18n="dash_tab_overview">Overview</button>
       <button class="f-chip" id="dtab-saved" onclick="switchDashTab('saved',this)">❤️ <span data-i18n="dash_tab_saved">Saved Universities</span></button>
+      <button class="f-chip" id="dtab-roadmaps" onclick="switchDashTab('roadmaps',this)">🗺️ <span data-i18n="dash_tab_roadmaps">Generated Roadmaps</span></button>
     </div>
   </div></div>
   <div class="cards-sec"><div class="cards-inner">
@@ -755,6 +858,16 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
       <div class="cards-grid" id="dash-grid"></div>
     </div>
 
+    <div id="dash-panel-roadmaps" class="dash-panel" style="display:none">
+      <div id="dash-roadmaps-empty" class="dash-empty" style="display:none">
+        <div class="dash-empty-ico">🗺️</div>
+        <div class="dash-empty-t" data-i18n="dash_road_empty_t">No roadmaps generated yet</div>
+        <div class="dash-empty-s" data-i18n="dash_road_empty_s">Save a university, then tap "Create Roadmap" on its card to build a personalized 12-month plan.</div>
+        <button class="btn-blue" onclick="showPage('universities')" data-i18n="dash_browse">Browse Universities</button>
+      </div>
+      <div class="road-list-grid" id="dash-roadmaps-grid"></div>
+    </div>
+
   </div></div>
 </div>
 
@@ -767,6 +880,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
   </div></div>
 
   <div class="road-page">
+    <button class="road-back-btn" onclick="window.location.href='/Dashboard/'">← <span data-i18n="road_back_saved">Back to Saved Universities</span></button>
     <div class="road-uni-card" id="road-uni-card"></div>
 
     <div class="road-form" id="road-form">
@@ -780,7 +894,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
         <div class="road-sec-head"><span class="road-sec-title" data-i18n="road_academics_title">📚 Academics</span><span class="road-badge req" data-i18n="road_required">Required</span></div>
         <div class="road-grid-2">
           <div><label class="plan-label" data-i18n="road_gpa_lbl">GPA <span class="req-star">*</span></label><input class="plan-input" id="rf-gpa" data-i18n-ph="road_gpa_ph" placeholder="e.g. 3.8 / 4.0"></div>
-          <div><label class="plan-label" data-i18n="road_test_lbl">SAT / ACT Score <span class="req-star">*</span></label><input class="plan-input" id="rf-test" data-i18n-ph="road_test_ph" placeholder="e.g. SAT 1480 or ACT 33"></div>
+          <div><label class="plan-label"><span data-i18n="road_test_lbl">SAT / ACT Score</span> <span class="opt-tag" data-i18n="road_optional_inline">optional</span></label><input class="plan-input" id="rf-test" data-i18n-ph="road_test_ph" placeholder="e.g. SAT 1480 or ACT 33"></div>
           <div><label class="plan-label"><span data-i18n="road_ielts_lbl">IELTS / TOEFL</span> <span class="opt-tag" data-i18n="road_optional_inline">optional</span></label><input class="plan-input" id="rf-ielts" data-i18n-ph="road_ielts_ph" placeholder="e.g. IELTS 7.5"></div>
           <div><label class="plan-label"><span data-i18n="road_apib_lbl">AP / IB / A-Level Courses</span> <span class="opt-tag" data-i18n="road_optional_inline">optional</span></label><input class="plan-input" id="rf-apib" data-i18n-ph="road_apib_ph" placeholder="e.g. 5 AP courses, IB Diploma"></div>
           <div><label class="plan-label"><span data-i18n="road_rank_lbl">Class Rank</span> <span class="opt-tag" data-i18n="road_optional_inline">optional</span></label><input class="plan-input" id="rf-rank" data-i18n-ph="road_rank_ph" placeholder="e.g. Top 5%, 3rd of 210"></div>
@@ -2032,20 +2146,27 @@ function updateModalHeart(){
   btn.classList.toggle('saved',s);
   btn.title=s?'Remove from saved':'Save university';
 }
-function uniCardHTML(u,savedSet,showHeart,showRoadmapBtn){
+function uniCardHTML(u,savedSet,showHeart,showRoadmapBtn,showRemoveBtn){
   if(showHeart===undefined)showHeart=true;
   const t=T();
   const s=savedSet.has(u.id);
   return `<div class="u-card ${s?'card-saved':''}" onclick="openUni(${u.id})">
     ${showHeart?`<button class="save-heart ${s?'saved':''}" onclick="event.stopPropagation();toggleSave(${u.id},this)" title="${s?'Remove from saved':'Save university'}">${heartSVG(s)}</button>`:''}
+    ${showRemoveBtn?`<button class="remove-badge" onclick="event.stopPropagation();removeSavedUni(${u.id})" title="Remove from saved">✕</button>`:''}
     <div class="card-top"><div class="card-emoji">${u.emoji}</div><div><div class="card-top-name">${u.name}</div><div class="card-top-loc">${u.loc} • ${u.rank}</div></div></div>
     <div class="card-bd">
       <div class="card-pills">${u.tags.map(tg=>`<span class="pill p-blue">${tg}</span>`).join('')}<span class="pill ${u.acc<10?'p-red':u.acc<25?'p-amber':'p-green'}">${u.acc}% ${t.acc||'acc.'}</span></div>
       <div class="card-meta"><div class="c-meta">SAT <strong>${u.sat}</strong></div><div class="c-meta">GPA <strong>${u.gpa}</strong></div></div>
       <div class="card-ft"><span class="card-lnk">${t.card_view||'View profile →'}</span><span style="color:var(--g300)">→</span></div>
     </div>
-    ${showRoadmapBtn?`<div class="card-roadmap-wrap"><button class="roadmap-btn" onclick="event.stopPropagation();window.location.href='/Roadmap/?id=${u.id}'">🗺️ ${t.card_roadmap||'Create Roadmap'}</button></div>`:''}
+    ${showRoadmapBtn?`<div class="card-roadmap-wrap"><button class="roadmap-btn" onclick="event.stopPropagation();goToRoadmap(${u.id})">🗺️ ${t.card_roadmap||'Create Roadmap'}</button></div>`:''}
     </div>`;
+}
+function removeSavedUni(id){
+  let saved=getSaved();
+  saved=saved.filter(x=>x!==id);
+  setSaved(saved);
+  refreshSavedUI();
 }
 function renderUnis(data){
   const g=document.getElementById('uni-grid');if(!g)return;
@@ -2063,7 +2184,7 @@ function renderDashboard(){
     if(empty)empty.style.display='block';
   }else{
     if(empty)empty.style.display='none';
-    g.innerHTML=savedUnis.map(u=>uniCardHTML(u,savedSet,false,true)).join('');
+    g.innerHTML=savedUnis.map(u=>uniCardHTML(u,savedSet,false,true,true)).join('');
   }
   // Overview panel (stats only — full list lives in the Saved Universities tab)
   const ovEmpty=document.getElementById('ov-empty'),ovCta=document.getElementById('ov-cta');
@@ -2080,15 +2201,123 @@ function renderDashboard(){
   }
   updateSavedBadge();
 }
+function roadCardHTML(u,resultRaw){
+  let result=null;
+  try{result=resultRaw?JSON.parse(resultRaw):null;}catch(e){}
+  const readiness=result&&typeof result.readinessScore==='number'?Math.round(result.readinessScore):null;
+  const summary=result&&typeof result.summary==='string'&&result.summary.trim()?result.summary.trim():'';
+  const summaryShort=summary.length>110?summary.slice(0,110)+'…':summary;
+  return `<div class="road-list-card">
+    <button class="remove-badge" onclick="event.stopPropagation();removeGeneratedRoadmapAndRefresh(${u.id})" title="Remove roadmap">✕</button>
+    <div class="road-list-top"><div class="road-list-emoji">${u.emoji}</div><div><div class="road-list-name">${u.name}</div><div class="road-list-loc">${u.loc}</div></div></div>
+    ${readiness!=null?`<div class="road-list-score">Readiness: <strong>${readiness}</strong></div>`:''}
+    ${summaryShort?`<div class="road-list-summary">${summaryShort}</div>`:''}
+    <button class="qb-btn primary road-list-view-btn" onclick="goToRoadmap(${u.id})">View Roadmap →</button>
+  </div>`;
+}
+function renderDashRoadmaps(){
+  const g=document.getElementById('dash-roadmaps-grid');if(!g)return;
+  const ids=getGeneratedRoadmapIds();
+  const empty=document.getElementById('dash-roadmaps-empty');
+  const roadUnis=ids.map(id=>unis.find(u=>u.id===id)).filter(Boolean);
+  if(roadUnis.length===0){
+    g.innerHTML='';
+    if(empty)empty.style.display='block';
+  }else{
+    if(empty)empty.style.display='none';
+    g.innerHTML=roadUnis.map(u=>roadCardHTML(u,localStorage.getItem(`chetta_road_result_${u.id}`))).join('');
+  }
+}
+function removeGeneratedRoadmapAndRefresh(id){
+  removeGeneratedRoadmapId(id);
+  renderDashRoadmaps();
+}
 function switchDashTab(tab,b){
   document.querySelectorAll('#page-dashboard .f-chip').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
   document.getElementById('dash-panel-overview').style.display=tab==='overview'?'block':'none';
   document.getElementById('dash-panel-saved').style.display=tab==='saved'?'block':'none';
+  document.getElementById('dash-panel-roadmaps').style.display=tab==='roadmaps'?'block':'none';
+  if(tab==='roadmaps')renderDashRoadmaps();
 }
 
 // ── ROADMAP BUILDER ──
-let roadUniId=null,roadEssayHas=null;
+let roadUniId=null,roadEssayHas=null,expandedMonthIndex=null;
+function isProUser(){return window.chettaPlan==='pro'||window.chettaPlan==='lifetime';}
+function showUpgradePrompt(){
+  const ov=document.getElementById('upgradeOv');
+  if(ov)ov.classList.add('open');else window.location.href='/Pricing/';
+}
+function goToRoadmap(id){
+  if(!isProUser()){showUpgradePrompt();return;}
+  window.location.href='/Roadmap/?id='+id;
+}
+function getGeneratedRoadmapIds(){
+  try{return JSON.parse(localStorage.getItem('chetta_road_generated')||'[]');}catch(e){return[];}
+}
+function addGeneratedRoadmapId(id){
+  const ids=getGeneratedRoadmapIds();
+  if(!ids.includes(id)){ids.push(id);localStorage.setItem('chetta_road_generated',JSON.stringify(ids));}
+}
+function removeGeneratedRoadmapId(id){
+  const ids=getGeneratedRoadmapIds().filter(x=>x!==id);
+  localStorage.setItem('chetta_road_generated',JSON.stringify(ids));
+  localStorage.removeItem(`chetta_road_result_${id}`);
+  localStorage.removeItem(`chetta_road_taskdone_${id}`);
+}
+// TODO: point this at your actual Groq-powered roadmap backend endpoint
+const ROADMAP_API_ENDPOINT='https://sat-backend-n13d.onrender.com/api/roadmap';
+const TASK_TYPE_LABELS={academic:'Academic',testing:'Testing',extracurricular:'Extracurricular',leadership:'Leadership',award:'Award',research:'Research',essay:'Essay',application:'Application',recommendation:'Recommendation',document:'Document','financial-aid':'Financial Aid',scholarship:'Scholarship',portfolio:'Portfolio',other:'Other'};
+function safeText(v,fallback){
+  fallback=fallback===undefined?'Not available':fallback;
+  if(typeof v==='string'){const t=v.trim();return t?t:fallback;}
+  if(typeof v==='number')return String(v);
+  return fallback;
+}
+function deadlineInfo(dateStr){
+  if(typeof dateStr!=='string'||!dateStr.trim())return null;
+  const raw=dateStr.trim();
+  if(/not available|verify|rolling|n\/a/i.test(raw))return{text:raw,cls:'gray',days:null};
+  const d=new Date(raw);
+  if(isNaN(d.getTime()))return{text:raw,cls:'gray',days:null};
+  const today=new Date();today.setHours(0,0,0,0);
+  const target=new Date(d);target.setHours(0,0,0,0);
+  const days=Math.round((target-today)/86400000);
+  if(days<0)return{text:'Deadline passed',cls:'gray',days};
+  if(days<=7)return{text:`${raw} • ${days}d left`,cls:'red',days};
+  if(days<=30)return{text:`${raw} • ${days}d left`,cls:'orange',days};
+  return{text:raw,cls:'green',days};
+}
+function getTaskDoneMap(){
+  try{return JSON.parse(localStorage.getItem(roadTasksDoneKey())||'{}');}catch(e){return{};}
+}
+function setTaskDone(taskId,done){
+  const map=getTaskDoneMap();
+  if(done)map[taskId]=true;else delete map[taskId];
+  localStorage.setItem(roadTasksDoneKey(),JSON.stringify(map));
+}
+function flattenTasks(monthlyPlan){
+  const out=[];
+  if(!Array.isArray(monthlyPlan))return out;
+  monthlyPlan.forEach(m=>{if(m&&Array.isArray(m.tasks))m.tasks.forEach(t=>{if(t&&t.id!=null)out.push(t);});});
+  return out;
+}
+function defaultApplicationYear(){
+  // No separate UI field for this (keeping the required/optional field list as-is) —
+  // infer the upcoming application cycle from today's date instead.
+  const now=new Date();
+  const y=now.getFullYear();
+  const startYear=now.getMonth()>=6?y:y-1; // Jul+ -> this year's fall cycle, else previous fall's cycle still running
+  return `${startYear}-${startYear+1}`;
+}
+async function getAuthToken(){
+  // Reuses the existing Firebase auth session (window.chettaUser is set in the
+  // onAuthStateChanged listener already in this file) — no new auth system.
+  if(window.chettaUser&&typeof window.chettaUser.getIdToken==='function'){
+    try{return await window.chettaUser.getIdToken();}catch(e){return null;}
+  }
+  return null;
+}
 function initRoadmapPage(){
   const params=new URLSearchParams(window.location.search);
   const id=Number(params.get('id'));
@@ -2096,23 +2325,51 @@ function initRoadmapPage(){
   const card=document.getElementById('road-uni-card');
   const formEl=document.getElementById('road-form');
   const resultsEl=document.getElementById('road-results');
-  if(resultsEl)resultsEl.style.display='none';
+  if(resultsEl){resultsEl.style.display='none';resultsEl.innerHTML='';}
   if(!u){
     if(card)card.innerHTML=`<div style="color:rgba(255,255,255,.65);font-size:.88rem">No university selected. <a href="/Universities/" style="color:#fff;text-decoration:underline">Browse universities</a>, save one, then tap "Create Roadmap" on its card.</div>`;
     if(formEl)formEl.style.display='none';
     return;
   }
   roadUniId=u.id;
-  if(formEl)formEl.style.display='block';
+  expandedMonthIndex=null;
+  if(!isProUser()){
+    if(card)card.innerHTML=`<div class="road-uni-emoji">${u.emoji}</div><div class="road-uni-card-info"><div class="road-uni-name">${u.name}</div><div class="road-uni-loc">${u.loc} • ${u.rank}</div></div>`;
+    if(formEl)formEl.style.display='none';
+    if(resultsEl){
+      resultsEl.style.display='block';
+      resultsEl.innerHTML=`<div class="road-error" style="background:var(--bluepale);border-color:rgba(37,99,235,.25)">
+        <div class="road-error-title" style="color:var(--blue)">✦ Roadmap Builder is a Pro feature</div>
+        <div class="road-error-sub">Upgrade to Chetta Pro to generate a personalized, university-specific 12-month application roadmap.</div>
+        <button class="qb-btn primary" onclick="showUpgradePrompt()">Upgrade to Pro</button>
+      </div>`;
+    }
+    return;
+  }
   const titleEl=document.getElementById('road-page-title'),subEl=document.getElementById('road-page-sub');
   if(titleEl)titleEl.textContent=`Roadmap for ${u.name}`;
   if(subEl)subEl.textContent=`Fill in your profile below — required fields unlock your roadmap right away, optional ones sharpen it.`;
-  if(card)card.innerHTML=`<div class="road-uni-emoji">${u.emoji}</div><div><div class="road-uni-name">${u.name}</div><div class="road-uni-loc">${u.loc} • ${u.rank}</div></div>`;
+  if(card){
+    const isS=isSaved(u.id);
+    card.innerHTML=`<div class="road-uni-emoji">${u.emoji}</div><div class="road-uni-card-info"><div class="road-uni-name">${u.name}</div><div class="road-uni-loc">${u.loc} • ${u.rank}</div></div><button class="m-heart ${isS?'saved':''}" id="roadUHeart" onclick="toggleSave(${u.id},this)" title="${isS?'Remove from saved':'Save university'}">${heartSVG(isS)}</button>`;
+  }
   const msgEl=document.getElementById('road-validation-msg');if(msgEl)msgEl.style.display='none';
   loadRoadProfile();
+  // If a roadmap was already generated for this university, show it immediately instead of the empty form
+  const existing=getStoredRoadmap();
+  if(existing){
+    if(formEl)formEl.style.display='none';
+    renderRoadmapResult(existing,true);
+  }else{
+    if(formEl)formEl.style.display='block';
+  }
 }
 function roadStorageKey(){return `chetta_road_profile_${roadUniId}`;}
-function roadChecklistKey(){return `chetta_road_checklist_${roadUniId}`;}
+function roadResultKey(){return `chetta_road_result_${roadUniId}`;}
+function roadTasksDoneKey(){return `chetta_road_taskdone_${roadUniId}`;}
+function getStoredRoadmap(){
+  try{const raw=localStorage.getItem(roadResultKey());return raw?JSON.parse(raw):null;}catch(e){return null;}
+}
 function loadRoadProfile(){
   let p={};
   try{p=JSON.parse(localStorage.getItem(roadStorageKey())||'{}');}catch(e){}
@@ -2165,12 +2422,10 @@ function applyEssayToggleUI(){
 function generateRoadmap(){
   const major=document.getElementById('rf-major').value.trim();
   const gpa=document.getElementById('rf-gpa').value.trim();
-  const test=document.getElementById('rf-test').value.trim();
   const ec=document.getElementById('rf-ec').value.trim();
   const missing=[];
   if(!major)missing.push('Intended Major');
   if(!gpa)missing.push('GPA');
-  if(!test)missing.push('SAT/ACT Score');
   if(!ec)missing.push('Extracurriculars');
   const msgEl=document.getElementById('road-validation-msg');
   if(missing.length){
@@ -2181,58 +2436,302 @@ function generateRoadmap(){
   }
   msgEl.style.display='none';
   saveRoadProfile();
-  renderRoadResults();
+  requestRoadmapFromBackend();
 }
-function renderRoadResults(){
+async function requestRoadmapFromBackend(){
   const u=unis.find(x=>x.id===roadUniId);if(!u)return;
   let p={};
   try{p=JSON.parse(localStorage.getItem(roadStorageKey())||'{}');}catch(e){}
-  let score=40;
-  if(p.ielts)score+=5;
-  if(p.apib)score+=5;
-  if(p.rank)score+=5;
-  if(p.awards&&p.awards.trim())score+=10;
-  if(p.leadership&&p.leadership.trim())score+=10;
-  if(p.research&&p.research.trim())score+=10;
-  if(p.essayHas===true&&p.essayText&&p.essayText.trim())score+=15;
-  score=Math.min(score,99);
-  const essayStatus=(p.essayHas===true&&p.essayText&&p.essayText.trim())?'Submitted — ready for review':'Not evaluated yet';
-  const statusItems=[
-    {lbl:'🥇 Awards & Honors',val:(p.awards&&p.awards.trim())?p.awards:'Not added yet'},
-    {lbl:'👑 Leadership',val:(p.leadership&&p.leadership.trim())?p.leadership:'Not added yet'},
-    {lbl:'🔬 Research / Projects',val:(p.research&&p.research.trim())?p.research:'Not added yet'},
-    {lbl:'✍️ Essay',val:essayStatus}
-  ];
-  let checked=[];
-  try{checked=JSON.parse(localStorage.getItem(roadChecklistKey())||'[]');}catch(e){}
+  const resultsEl=document.getElementById('road-results');
+  const formEl=document.getElementById('road-form');
+  resultsEl.style.display='block';
+  resultsEl.innerHTML=`<div class="road-loading"><div class="road-spinner"></div>Generating your personalized roadmap for ${u.name}…</div>`;
+  resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
+  const payload={
+    university:u.name,
+    major:p.major||'',
+    gpa:p.gpa||'',
+    satAct:p.test||'',
+    english:p.ielts||'',
+    courses:p.apib||'',
+    classRank:p.rank||'',
+    extracurriculars:p.ec||'',
+    awards:p.awards||'',
+    leadership:p.leadership||'',
+    research:p.research||'',
+    essay:p.essayHas===true?(p.essayText||''):'',
+    applicationYear:defaultApplicationYear()
+  };
+  try{
+    const headers={'Content-Type':'application/json'};
+    if(typeof getAuthToken==='function'){
+      const token=await getAuthToken().catch(()=>null);
+      if(token)headers['Authorization']=`Bearer ${token}`;
+    }
+    console.log('[roadmap] requesting',ROADMAP_API_ENDPOINT,payload);
+    const res=await fetch(ROADMAP_API_ENDPOINT,{method:'POST',headers,body:JSON.stringify(payload)});
+    const rawText=await res.text();
+    if(!res.ok){
+      console.error('[roadmap] backend returned',res.status,res.statusText,rawText);
+      throw new Error(`Request failed (${res.status})`);
+    }
+    let data;
+    try{data=JSON.parse(rawText);}catch(e){
+      console.error('[roadmap] response was not valid JSON:',rawText);
+      throw new Error('Invalid JSON response');
+    }
+    console.log('[roadmap] raw response',data);
+    if(data&&data.readinessScore===0){
+      console.warn('[roadmap] backend returned readinessScore: 0 — this is coming directly from your backend response, not a frontend bug. If this looks wrong, check your Groq prompt/scoring logic on the backend.');
+    }
+    if(!data||typeof data!=='object')throw new Error('Invalid response shape');
+    // Some backends wrap the roadmap, e.g. {success:true, roadmap:{...}} or {data:{...}}.
+    // If the top level doesn't look like a roadmap, try common wrapper keys before giving up.
+    if(!Array.isArray(data.monthlyPlan)){
+      const unwrapped=data.roadmap||data.data||data.result;
+      if(unwrapped&&typeof unwrapped==='object'&&Array.isArray(unwrapped.monthlyPlan)){
+        console.log('[roadmap] unwrapped nested roadmap object from response');
+        data=unwrapped;
+      }
+    }
+    localStorage.setItem(roadResultKey(),JSON.stringify(data));
+    localStorage.removeItem(roadTasksDoneKey());
+    addGeneratedRoadmapId(roadUniId);
+    expandedMonthIndex=null;
+    if(formEl)formEl.style.display='none';
+    renderRoadmapResult(data);
+  }catch(err){
+    console.error('[roadmap] generation failed:',err);
+    renderRoadmapError(err);
+  }
+}
+function saveRoadmapResults(){
+  addGeneratedRoadmapId(roadUniId);
+  const btn=document.getElementById('road-save-btn');
+  if(btn){
+    btn.textContent='✓ Saved to your Dashboard';
+    btn.classList.add('saved-confirm');
+    setTimeout(()=>{
+      if(document.getElementById('road-save-btn')){btn.textContent='💾 Save Results';btn.classList.remove('saved-confirm');}
+    },2200);
+  }
+}
+function forceRegenerateRoadmap(){
+  localStorage.removeItem(roadResultKey());
+  localStorage.removeItem(roadTasksDoneKey());
+  expandedMonthIndex=null;
+  requestRoadmapFromBackend();
+}
+function renderRoadmapError(err){
   const resultsEl=document.getElementById('road-results');
   resultsEl.style.display='block';
-  resultsEl.innerHTML=`
-    <div class="road-score-card">
-      <div class="road-score-ring"><div class="road-score-num">${score}</div><div class="road-score-lbl">Readiness Score</div></div>
-      <div style="font-size:.85rem;color:rgba(255,255,255,.65)">Based on your profile for <strong style="color:#fff">${u.name}</strong> — this updates as you add more.</div>
-    </div>
-    <div class="road-status-grid">
-      ${statusItems.map(it=>`<div class="road-status-item"><div class="road-status-item-lbl">${it.lbl}</div><div class="road-status-item-val ${it.val.startsWith('Not')?'pending':''}">${it.val.length>90?it.val.slice(0,90)+'…':it.val}</div></div>`).join('')}
-    </div>
-    <div class="road-sec">
-      <div class="road-sec-head"><span class="road-sec-title">📋 Your Step-by-Step Checklist for ${u.short}</span></div>
-      <div class="road-checklist">
-        ${u.roadmap.map((step,i)=>`<div class="road-checklist-item"><div class="road-check ${checked.includes(i)?'checked':''}" onclick="toggleRoadCheck(${i},this)">${checked.includes(i)?'✓':''}</div><div class="road-checklist-text ${checked.includes(i)?'done':''}">${step}</div></div>`).join('')}
-      </div>
-      <button class="road-edit-btn" onclick="document.getElementById('road-results').style.display='none';document.getElementById('road-form').scrollIntoView({behavior:'smooth'})">← Edit my profile</button>
-    </div>`;
-  resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
+  const detail=err&&err.message?err.message:'';
+  resultsEl.innerHTML=`<div class="road-error">
+    <div class="road-error-title">Your roadmap could not be loaded</div>
+    <div class="road-error-sub">Something went wrong reaching the roadmap service. Please try generating your roadmap again.</div>
+    ${detail?`<div class="road-error-sub" style="font-family:monospace;font-size:.72rem;opacity:.75;margin-top:-.6rem">${detail.replace(/</g,'&lt;')}</div>`:''}
+    <button class="qb-btn primary" onclick="requestRoadmapFromBackend()">Try Again</button>
+  </div>`;
 }
-function toggleRoadCheck(i,el){
-  let checked=[];
-  try{checked=JSON.parse(localStorage.getItem(roadChecklistKey())||'[]');}catch(e){}
-  if(checked.includes(i)){checked=checked.filter(x=>x!==i);}else{checked.push(i);}
-  localStorage.setItem(roadChecklistKey(),JSON.stringify(checked));
-  el.classList.toggle('checked');
-  el.textContent=checked.includes(i)?'✓':'';
-  const textEl=el.nextElementSibling;
-  if(textEl)textEl.classList.toggle('done');
+function renderRoadmapResult(roadmap,fromCache){
+  const resultsEl=document.getElementById('road-results');
+  if(!roadmap||typeof roadmap!=='object'){renderRoadmapError();return;}
+  resultsEl.style.display='block';
+
+  const readiness=typeof roadmap.readinessScore==='number'?Math.round(roadmap.readinessScore):null;
+  const target=typeof roadmap.competitiveTarget==='number'?Math.round(roadmap.competitiveTarget):null;
+  const cs=roadmap.categoryScores&&typeof roadmap.categoryScores==='object'?roadmap.categoryScores:{};
+  const catList=[['academics','Academics'],['extracurriculars','Extracurriculars'],['leadership','Leadership'],['awards','Awards'],['research','Research'],['essay','Essay']];
+  const deadlines=roadmap.importantDeadlines&&typeof roadmap.importantDeadlines==='object'?roadmap.importantDeadlines:{};
+  const deadlineList=[['earlyAction','Early Action'],['earlyDecision','Early Decision'],['regularDecision','Regular Decision'],['financialAid','Financial Aid'],['scholarship','Scholarship']];
+  const reqs=roadmap.requirements&&typeof roadmap.requirements==='object'?roadmap.requirements:{};
+  const reqList=[['applicationPlatform','Application Platform'],['satActPolicy','SAT/ACT Policy'],['englishRequirement','English Requirement'],['essayRequirements','Essay Requirements'],['recommendationRequirements','Recommendation Requirements'],['otherRequirements','Other Requirements']];
+  const gaps=Array.isArray(roadmap.mainGaps)?roadmap.mainGaps:[];
+  const monthlyPlan=Array.isArray(roadmap.monthlyPlan)?roadmap.monthlyPlan:null;
+
+  let html='';
+
+  if(fromCache){
+    html+=`<div class="road-cache-banner">📦 Showing your previously generated roadmap for this university. <button onclick="event.stopPropagation();forceRegenerateRoadmap()">Regenerate now</button></div>`;
+  }
+
+  if((typeof roadmap.university==='string'&&roadmap.university.trim())||(typeof roadmap.applicationYear==='string'&&roadmap.applicationYear.trim())){
+    html+=`<div class="road-expand-row" style="margin-bottom:1rem;font-size:.85rem">
+      ${roadmap.university?`<strong>${safeText(roadmap.university)}</strong>`:''}${roadmap.university&&roadmap.applicationYear?' • ':''}${roadmap.applicationYear?`Application Year: ${safeText(roadmap.applicationYear)}`:''}
+    </div>`;
+  }
+
+  html+=`<div class="road-score-card">
+    <div class="road-score-ring"><div class="road-score-num">${readiness!=null?readiness:'—'}</div><div class="road-score-lbl">Readiness Score</div></div>
+    ${target!=null?`<div class="road-score-target">Competitive target for ${safeText(roadmap.university,'this university')}: ${target}</div>`:''}
+    <div class="road-disclaimer">This isn't an admissions probability calculator — it's an estimate of how prepared your current profile is, based on what you've told us.</div>
+  </div>`;
+
+  if(catList.some(([k])=>typeof cs[k]==='number')){
+    html+=`<div class="road-sec"><div class="road-sec-head"><span class="road-sec-title">📊 Category Breakdown</span></div>
+    <div class="road-category-grid">${catList.map(([k,lbl])=>{
+      const v=typeof cs[k]==='number'?Math.round(cs[k]):null;
+      return `<div class="road-cat-item"><div class="road-cat-top"><span>${lbl}</span><span>${v!=null?v:'N/A'}</span></div><div class="road-cat-track"><div class="road-cat-fill" style="width:${v!=null?v:0}%"></div></div></div>`;
+    }).join('')}</div></div>`;
+  }
+
+  if(typeof roadmap.summary==='string'&&roadmap.summary.trim()){
+    html+=`<div class="road-summary-card">${safeText(roadmap.summary)}</div>`;
+  }
+
+  if(deadlineList.some(([k])=>deadlines[k])){
+    html+=`<div class="road-sec"><div class="road-sec-head"><span class="road-sec-title">📅 Key Deadlines</span></div>
+    ${deadlineList.map(([k,lbl])=>{
+      const v=safeText(deadlines[k]);
+      return `<div class="road-kv-row"><span class="road-kv-lbl">${lbl}</span><span class="road-kv-val ${v==='Not available'?'na':''}">${v}</span></div>`;
+    }).join('')}</div>`;
+  }
+
+  if(reqList.some(([k])=>reqs[k])){
+    html+=`<div class="road-sec"><div class="road-sec-head"><span class="road-sec-title">📋 University Requirements</span></div>
+    ${reqList.map(([k,lbl])=>{
+      const v=safeText(reqs[k]);
+      return `<div class="road-kv-row"><span class="road-kv-lbl">${lbl}</span><span class="road-kv-val ${v==='Not available'?'na':''}">${v}</span></div>`;
+    }).join('')}</div>`;
+  }
+
+  if(gaps.length){
+    html+=`<div class="road-sec"><div class="road-sec-head"><span class="road-sec-title">🎯 Main Gaps to Address</span></div>
+    ${gaps.map(g=>{
+      if(!g||typeof g!=='object')return'';
+      const sev=(typeof g.severity==='string'?g.severity.toLowerCase():'medium');
+      const sevCls=['high','medium','low'].includes(sev)?sev:'medium';
+      const todo=Array.isArray(g.whatToDo)?g.whatToDo.filter(x=>typeof x==='string'&&x.trim()):[];
+      return `<div class="road-gap-card">
+        <div class="road-gap-head"><span class="road-gap-cat">${safeText(g.category,'General')}</span><span class="road-sev ${sevCls}">${sevCls}</span></div>
+        ${g.currentSituation?`<div class="road-gap-lbl">Current situation</div><div class="road-gap-txt">${safeText(g.currentSituation)}</div>`:''}
+        ${g.whyItMatters?`<div class="road-gap-lbl">Why it matters</div><div class="road-gap-txt">${safeText(g.whyItMatters)}</div>`:''}
+        ${todo.length?`<div class="road-gap-lbl">What to do</div><ul class="road-gap-todo">${todo.map(t=>`<li>${safeText(t)}</li>`).join('')}</ul>`:''}
+      </div>`;
+    }).join('')}</div>`;
+  }
+
+  if(!monthlyPlan){
+    html+=`<div class="road-error"><div class="road-error-title">Your roadmap could not be loaded</div><div class="road-error-sub">Please generate your roadmap again.</div><button class="qb-btn primary" onclick="requestRoadmapFromBackend()">Try Again</button></div>`;
+    resultsEl.innerHTML=html;
+    return;
+  }
+
+  const allTasks=flattenTasks(monthlyPlan);
+  const doneMap=getTaskDoneMap();
+  const completedCount=allTasks.filter(t=>doneMap[t.id]).length;
+  const pct=allTasks.length?Math.round(completedCount/allTasks.length*100):0;
+
+  html+=`<div class="road-progress-wrap">
+    <div class="road-progress-top"><span class="road-progress-title">Roadmap Progress</span><span class="road-progress-pct" id="road-progress-pct">${pct}%</span></div>
+    <div class="road-progress-track"><div class="road-progress-fill" id="road-progress-fill" style="width:${pct}%"></div></div>
+    <div class="road-progress-sub" id="road-progress-sub">${completedCount} / ${allTasks.length} tasks completed</div>
+  </div>`;
+
+  if(!monthlyPlan.length){
+    html+=`<div class="road-sec"><div class="road-no-tasks">No monthly plan was returned. Please generate your roadmap again.</div></div>`;
+  }else{
+    html+=`<div class="road-month-grid" id="road-month-grid">${monthlyPlan.map((m,i)=>renderMonthCard(m,i,doneMap)).join('')}</div>`;
+  }
+
+  html+=`<div class="road-actions-row">
+    <button class="qb-btn primary road-save-btn" id="road-save-btn" onclick="saveRoadmapResults()">💾 Save Results</button>
+    <button class="road-edit-btn" onclick="document.getElementById('road-results').style.display='none';document.getElementById('road-form').style.display='block';document.getElementById('road-form').scrollIntoView({behavior:'smooth'})">← Edit my profile &amp; regenerate</button>
+  </div>`;
+
+  resultsEl.innerHTML=html;
+}
+function monthStatus(month,doneMap){
+  const tasks=Array.isArray(month.tasks)?month.tasks:[];
+  const total=tasks.length;
+  const done=tasks.filter(t=>t&&t.id!=null&&doneMap[t.id]).length;
+  if(total===0)return{done,total,cls:'notstarted',label:'No tasks'};
+  if(done===total)return{done,total,cls:'complete',label:'✓ Complete'};
+  if(done===0)return{done,total,cls:'notstarted',label:'Not started'};
+  return{done,total,cls:'progress',label:'In progress'};
+}
+function renderMonthCard(month,i,doneMap){
+  if(!month||typeof month!=='object')return'';
+  const st=monthStatus(month,doneMap);
+  const priority=(typeof month.priority==='string'?month.priority.toLowerCase():'medium');
+  const prCls=['high','medium','low'].includes(priority)?priority:'medium';
+  const dl=deadlineInfo(month.deadline);
+  const isExpanded=expandedMonthIndex===i;
+  let card=`<div class="road-month-card ${isExpanded?'expanded':''}" onclick="toggleMonth(${i})">
+    <div class="road-month-name">${safeText(month.month,`Month ${i+1}`)}</div>
+    <div class="road-month-focus">${safeText(month.focus,'')}</div>
+    <div class="road-month-meta">
+      <span class="road-priority-badge ${prCls}">${prCls}</span>
+      ${dl?`<span class="road-deadline-badge ${dl.cls}">${dl.text}</span>`:''}
+    </div>
+    <div class="road-month-count">${st.total} task${st.total===1?'':'s'}</div>
+    <div class="road-month-status ${st.cls}">${st.total?`${st.done} / ${st.total} completed`:''} ${st.total?'':''} ${st.label}</div>
+  </div>`;
+  if(isExpanded)card+=renderMonthExpand(month,i,doneMap);
+  return card;
+}
+function renderMonthExpand(month,i,doneMap){
+  const tasks=Array.isArray(month.tasks)?month.tasks:[];
+  const dl=deadlineInfo(month.deadline);
+  return `<div class="road-month-expand">
+    <div class="road-expand-head">
+      <div class="road-expand-title">${safeText(month.month,'')}</div>
+      <div class="road-expand-row"><strong>Focus:</strong> ${safeText(month.focus)}</div>
+      ${month.reason?`<div class="road-expand-row"><strong>Why:</strong> ${safeText(month.reason)}</div>`:''}
+      ${dl?`<div class="road-expand-row"><strong>Deadline:</strong> ${safeText(month.deadline)}</div>`:''}
+    </div>
+    ${tasks.length?tasks.map(t=>renderTaskRow(t,doneMap)).join(''):`<div class="road-no-tasks">No tasks assigned yet.</div>`}
+  </div>`;
+}
+function renderTaskRow(t,doneMap){
+  if(!t||typeof t!=='object'||t.id==null)return'';
+  const done=!!doneMap[t.id];
+  const priority=(typeof t.priority==='string'?t.priority.toLowerCase():'medium');
+  const prCls=['high','medium','low'].includes(priority)?priority:'medium';
+  const typeLbl=TASK_TYPE_LABELS[t.type]||(typeof t.type==='string'&&t.type?t.type:'Other');
+  const dl=deadlineInfo(t.deadline);
+  return `<div class="road-task-row">
+    <div class="road-check ${done?'checked':''}" onclick="event.stopPropagation();toggleTask('${String(t.id).replace(/'/g,"\\'")}',this)">${done?'✓':''}</div>
+    <div class="road-task-main">
+      <div class="road-task-title ${done?'done':''}">${safeText(t.title,'Untitled task')}</div>
+      ${t.description?`<div class="road-task-desc">${safeText(t.description)}</div>`:''}
+      <div class="road-task-meta">
+        <span class="road-priority-badge ${prCls}">${prCls}</span>
+        <span class="road-task-type">${typeLbl}</span>
+        ${dl?`<span class="road-deadline-badge ${dl.cls}">${dl.text}</span>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+function toggleMonth(i){
+  expandedMonthIndex=expandedMonthIndex===i?null:i;
+  const roadmap=getStoredRoadmap();
+  if(roadmap)renderRoadmapResult(roadmap);
+}
+function toggleTask(taskId,el){
+  const nowDone=!el.classList.contains('checked');
+  setTaskDone(taskId,nowDone);
+  const roadmap=getStoredRoadmap();
+  if(!roadmap)return;
+  const monthlyPlan=Array.isArray(roadmap.monthlyPlan)?roadmap.monthlyPlan:[];
+  const allTasks=flattenTasks(monthlyPlan);
+  const doneMap=getTaskDoneMap();
+  const completedCount=allTasks.filter(t=>doneMap[t.id]).length;
+  const pct=allTasks.length?Math.round(completedCount/allTasks.length*100):0;
+  const fillEl=document.getElementById('road-progress-fill'),pctEl=document.getElementById('road-progress-pct'),subEl=document.getElementById('road-progress-sub');
+  if(fillEl)fillEl.style.width=pct+'%';
+  if(pctEl)pctEl.textContent=pct+'%';
+  if(subEl)subEl.textContent=`${completedCount} / ${allTasks.length} tasks completed`;
+  el.classList.toggle('checked',nowDone);
+  el.textContent=nowDone?'✓':'';
+  const titleEl=el.parentElement.querySelector('.road-task-title');
+  if(titleEl)titleEl.classList.toggle('done',nowDone);
+  if(expandedMonthIndex!=null&&monthlyPlan[expandedMonthIndex]){
+    const st=monthStatus(monthlyPlan[expandedMonthIndex],doneMap);
+    const card=document.querySelectorAll('.road-month-card')[expandedMonthIndex];
+    const statusEl=card?card.querySelector('.road-month-status'):null;
+    if(statusEl){statusEl.className=`road-month-status ${st.cls}`;statusEl.textContent=st.total?`${st.done} / ${st.total} completed`:st.label;}
+  }
 }
 
 function renderSchs(data){
@@ -2504,11 +3003,11 @@ async function sendMsg(custom) {
 // ── I18N ──
 let currentLang=localStorage.getItem('cl')||'en';
 const LANGS={
-en:{nav_home:'Home',nav_universities:'Universities',nav_scholarships:'Scholarships',nav_interviews:'Interviews',nav_ai:'Profile Analyzer',nav_signin:'Sign in',nav_getstarted:'Get started',nav_practice:'SAT Prep',nav_saved:'❤️ Saved',dd_dashboard:'Dashboard',dd_signout:'Sign out',auth_tagline:'Your path to a top university',auth_signin:'Sign in',auth_create:'Create account',auth_email:'Email',auth_password:'Password',auth_forgot:'Forgot password?',auth_signin_btn:'Sign in',auth_or:'or',auth_google:'Continue with Google',auth_no_account:'No account?',auth_create_link:'Create one free',auth_firstname:'First name',auth_lastname:'Last name',auth_create_btn:'Create free account',auth_terms:'By signing up you agree to our Terms and Privacy Policy.',auth_forgot_desc:"Enter your email and we'll send a reset link.",auth_send_reset:'Send reset link',auth_back_login:'← Back to sign in',hero_eyebrow:'✦ AI-Powered Admissions Platform',hero_h1:'Get into your <em>dream university</em>.',hero_sub:'Chetta gives you the tools, data, and AI guidance to navigate the most competitive university admissions in the world.',hero_btn1:'Start for free',hero_btn2:'Try Profile Analyzer',strip_label:'Helping students get into',ps1:'Universities saved',ps2:'Scholarships matched',ps3:'SAT target score',ps4:'Next deadline',pc1_lbl:'Application Readiness',pc2_lbl:'Your Universities',steps_eye:'How it works',steps_title:'Three steps to your dream school.',steps_sub:'From first search to final submission — Chetta walks you through every step.',s1_title:'Explore universities',s1_desc:'Browse 500+ universities with acceptance rates, tuition, SAT requirements, and full application roadmaps.',s2_title:'Find your scholarships',s2_desc:'Discover $2B+ in scholarships matched to your profile, country, GPA, and field — with deadlines and guides.',s3_title:'Get AI-powered guidance',s3_desc:'Chat with Chetta AI for essay feedback, admissions strategy, SAT tips, and visa guidance — 24/7.',feat_eye:'Platform features',feat_title:'Everything in one place.',f1_title:'University Explorer',f1_desc:'500+ universities with rankings, acceptance rates, tuition, and requirements — filterable by country and field.',f2_title:'Scholarship Finder',f2_desc:'Discover Rhodes, Gates Cambridge, Fulbright and more — with step-by-step guides and eligibility checklists.',f3_title:'AI Admissions Advisor',f3_desc:'Gemini-powered AI for essays, SAT tips, visa questions, comparisons. Remembers your conversation.',f4_title:'Ivy League Interviews',f4_desc:'Real Harvard, MIT, and Oxford students explain how they got in — with key advice and YouTube links.',f5_title:'Application Roadmaps',f5_desc:"Every university profile includes a step-by-step checklist for that school's specific process.",f6_title:'Multilingual Support',f6_desc:"Full support in English, O'zbek, and Русский. Switch instantly. AI responds in your language too.",testi_eye:'Student stories',testi_title:'Real students. Real results.',t1_q:'"Chetta\'s AI helped me understand what MIT was looking for. I rewrote my essays three times — and I got in."',t2_q:'"I found a full-ride scholarship through Chetta I\'d never heard of. The guide made applying easy. It covered four full years."',t3_q:'"The interview videos showed me how Oxford students think. Watching them changed how I wrote my personal statement."',faq_title:'Common questions',faq1_q:'Is Chetta free to use?',faq1_a:"Yes! University search, scholarships, and AI chat are all free. The AI uses Gemini — get a free key from Google AI Studio.",faq2_q:'How does the AI Advisor work?',faq2_a:"It uses Google Gemini 2.0 Flash configured as a university admissions expert. It remembers your conversation and replies in your language.",faq3_q:'What countries does Chetta cover?',faq3_a:'USA, UK, Canada, Europe (Germany, Switzerland, Netherlands), and Asia. 40+ countries with scholarships globally.',faq4_q:'Available in Uzbek and Russian?',faq4_a:"Yes — switch instantly with the flag selector top-right. The AI also detects and replies in your language.",cta_title:'Join thousands of students on their way to the top.',cta_sub:'Free to start. No credit card required.',cta_btn1:'Get started free →',cta_btn2:'Browse Universities',upage_eye:'Explore',upage_title:'University Explorer',upage_sub:'Click any university for full details, acceptance rates, and scholarships.',btn_search:'Search',f_all:'All',f_full:'Full Ride',f_partial:'Partial',spage_eye:'Funding',spage_title:'Scholarship Finder',spage_sub:'Discover $2B+ in scholarships — click any to see eligibility, amounts, and how to apply.',ipage_eye:'Stories',ipage_title:'Ivy League Interviews',ipage_sub:'Real students. Real strategies. Learn from those who got in.',acc:'acc.',card_view:'View profile →',card_apply:'How to apply →',card_roadmap:'Create Roadmap',f_full:'Full Ride',f_partial:'Partial',card_dl:'Deadline:',by:'by',mod_acc:'Acceptance Rate',mod_tui:'Annual Tuition',mod_sat:'SAT Range',mod_diff:'Difficulty to Get In',diff_ext:'Extremely Selective',diff_very:'Very Selective',diff_sel:'Selective',mod_majors:'Popular Majors',mod_road:'Application Roadmap',mod_schs:'Available Scholarships',mod_visit:'Visit university website',mod_elig:'Eligibility Requirements',mod_howto:'How to Apply — Step by Step',mod_dl:'⏰ Deadline:',mod_field:'📚 Field:',mod_svis:'Official scholarship website',mod_watch:'Watch on YouTube',mod_adv:'💡 Key Advice from this Interview',ai_title:'Your AI Admissions Advisor',ai_sub:'Ask anything — scholarships, essays, SAT tips, visa questions. Powered by Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Powered by Gemini 2.0',ai_welcome:"Hi! I'm Chetta AI. Ask me anything about getting into top universities — essays, scholarships, SAT prep, visa guidance, or comparing schools. What's your dream school? 🎓",c1:'How do I get into Harvard?',c2:'Find me scholarships',c3:'SAT improvement tips',c4:'Help with my essay',c5:'IELTS for Oxford',c6:'Student visa guide',chat_ph:'Ask me anything about admissions...',prac_eye:'Test Prep',prac_title:'Practice like it\'s the real thing.',prac_sub:'4000+ SAT and IELTS questions with AI explanations, timed tests, and analytics.',pb_qb_title:'Question Bank',pb_qb_desc:'Work through SAT questions at your own pace with AI explanations.',pb_qb_badge:'200+ questions',pb_math_title:'Math Practice',pb_math_desc:'Algebra, geometry, data analysis with step-by-step solutions.',pb_math_badge:'150+ questions',pb_test_title:'Full Practice Test',pb_test_desc:'Simulate the real Digital SAT — timed, scored, reviewed.',pb_test_badge:'98 questions',pb_rush_title:'Question Rush',pb_rush_desc:'30 seconds per question. Build speed and improve pacing.',pb_rush_badge:'Speed mode',pb_vocab_title:'Vocabulary',pb_vocab_desc:'Master 200 most-tested SAT words with flashcards.',pb_vocab_badge:'200 words',pb_plan_title:'Study Planner',pb_plan_desc:'Enter test date and target score for a personalised schedule.',pb_plan_badge:'Personalised',pb_diag_title:'Diagnostic Test',pb_diag_desc:'Find your projected SAT score and weak domains in 30 min.',pb_diag_badge:'30 min',pb_calc_title:'Score Calculator',pb_calc_desc:'Enter raw scores to see your SAT score and percentile.',pb_calc_badge:'Instant',ana_eye:'Your Progress',ana_title:'Know your weak spots.',vocab_sub:'Click any card to reveal the definition.',planner_sub:'Set your test date and target score to generate your plan.',plan_date:'SAT Test Date',plan_current:'Current Score',plan_target:'Target Score',plan_hrs:'Daily Study Hours',plan_generate:'Generate My Plan',calc_sub:'Move sliders to see your estimated SAT score and percentile.',calc_rw:'Reading and Writing',calc_math:'Math',calc_questions:'Questions',calc_estimated:'Estimated SAT Score',calc_percentile:'Percentile',ielts_title:'IELTS Band Estimator',ielts_listening:'Listening',ielts_reading:'Reading',ielts_overall:'Estimated Overall Band',qb_submit:'Check Answer',qb_next:'Next',qb_skip:'Skip',res_retry:'Try Again',res_back:'Back to Practice',rush_title:'Question Rush',rush_desc:'30 seconds per question. Answer as many as you can!',rush_start:'Start Rush',rush_again:'Play Again',rush_answered:'questions answered',ft_desc:'Helping ambitious students worldwide access top universities and life-changing scholarships through intelligent guidance.',ft_ex:'Explore',ft_res:'Resources',ft_co:'Company',ft_sat:'SAT Prep Guide',ft_ielts:'IELTS Tips',ft_essay:'Essay Templates',ft_visa:'Visa Guide',ft_about:'About Chetta',ft_blog:'Blog',ft_priv:'Privacy Policy',ft_contact:'Contact',ft_copy:'© 2025 Chetta. All rights reserved.',ft_love:'Made for ambitious students everywhere',dash_eye:'Your Dashboard',dash_title:'Dashboard',dash_sub:"Everything you've saved and tracked, all in one place.",dash_empty_t:'No saved universities yet',dash_empty_s:'Tap the heart icon on any university card to save it here.',dash_browse:'Browse Universities',dash_count:'saved',dash_tab_overview:'Overview',dash_tab_saved:'Saved Universities',dash_ov_saved:'Saved Universities',dash_ov_regions:'Regions Explored',dash_ov_avgacc:'Avg. Acceptance Rate',dash_ov_recent:'Recently Saved',dash_view_saved:'View your saved universities →',road_eye:'Application Roadmap',road_title:'Build Your Roadmap',road_sub:"Tell us about your profile — required fields unlock your roadmap right away, optional ones sharpen it.",road_major_title:'🎯 Intended Major',road_required:'Required',road_academics_title:'📚 Academics',road_gpa_lbl:'GPA',road_gpa_ph:'e.g. 3.8 / 4.0',road_test_lbl:'SAT / ACT Score',road_test_ph:'e.g. SAT 1480 or ACT 33',road_ielts_lbl:'IELTS / TOEFL',road_ielts_ph:'e.g. IELTS 7.5',road_apib_lbl:'AP / IB / A-Level Courses',road_apib_ph:'e.g. 5 AP courses, IB Diploma',road_rank_lbl:'Class Rank',road_rank_ph:'e.g. Top 5%, 3rd of 210',road_optional_inline:'optional',road_ec_title:'🏆 Extracurriculars',road_ec_ph:"Describe your clubs, sports, volunteering, jobs, hobbies — anything you're involved in outside class.",road_awards_title:'🥇 Awards & Honors',road_awards_ph:'Competitions, olympiads, awards, recognitions...',road_optional:'Optional',road_lead_title:'👑 Leadership',road_lead_ph:"Leadership positions and initiatives you've started or led...",road_research_title:'🔬 Research / Projects',road_research_ph:'Research, coding projects, businesses, personal projects, publications...',road_essay_title:'✍️ Essays',road_essay_q:'Do you already have an essay?',road_yes:'Yes',road_no:'No',road_essay_ph:'Paste your Common App / personal statement here.',road_essay_not_started:"Not started — that's okay, we won't hold this against your roadmap.",road_generate:'✨ Generate Roadmap'},
+en:{nav_home:'Home',nav_universities:'Universities',nav_scholarships:'Scholarships',nav_interviews:'Interviews',nav_ai:'Profile Analyzer',nav_signin:'Sign in',nav_getstarted:'Get started',nav_practice:'SAT Prep',nav_saved:'❤️ Saved',dd_dashboard:'Dashboard',dd_signout:'Sign out',auth_tagline:'Your path to a top university',auth_signin:'Sign in',auth_create:'Create account',auth_email:'Email',auth_password:'Password',auth_forgot:'Forgot password?',auth_signin_btn:'Sign in',auth_or:'or',auth_google:'Continue with Google',auth_no_account:'No account?',auth_create_link:'Create one free',auth_firstname:'First name',auth_lastname:'Last name',auth_create_btn:'Create free account',auth_terms:'By signing up you agree to our Terms and Privacy Policy.',auth_forgot_desc:"Enter your email and we'll send a reset link.",auth_send_reset:'Send reset link',auth_back_login:'← Back to sign in',hero_eyebrow:'✦ AI-Powered Admissions Platform',hero_h1:'Get into your <em>dream university</em>.',hero_sub:'Chetta gives you the tools, data, and AI guidance to navigate the most competitive university admissions in the world.',hero_btn1:'Start for free',hero_btn2:'Try Profile Analyzer',strip_label:'Helping students get into',ps1:'Universities saved',ps2:'Scholarships matched',ps3:'SAT target score',ps4:'Next deadline',pc1_lbl:'Application Readiness',pc2_lbl:'Your Universities',steps_eye:'How it works',steps_title:'Three steps to your dream school.',steps_sub:'From first search to final submission — Chetta walks you through every step.',s1_title:'Explore universities',s1_desc:'Browse 500+ universities with acceptance rates, tuition, SAT requirements, and full application roadmaps.',s2_title:'Find your scholarships',s2_desc:'Discover $2B+ in scholarships matched to your profile, country, GPA, and field — with deadlines and guides.',s3_title:'Get AI-powered guidance',s3_desc:'Chat with Chetta AI for essay feedback, admissions strategy, SAT tips, and visa guidance — 24/7.',feat_eye:'Platform features',feat_title:'Everything in one place.',f1_title:'University Explorer',f1_desc:'500+ universities with rankings, acceptance rates, tuition, and requirements — filterable by country and field.',f2_title:'Scholarship Finder',f2_desc:'Discover Rhodes, Gates Cambridge, Fulbright and more — with step-by-step guides and eligibility checklists.',f3_title:'AI Admissions Advisor',f3_desc:'Gemini-powered AI for essays, SAT tips, visa questions, comparisons. Remembers your conversation.',f4_title:'Ivy League Interviews',f4_desc:'Real Harvard, MIT, and Oxford students explain how they got in — with key advice and YouTube links.',f5_title:'Application Roadmaps',f5_desc:"Every university profile includes a step-by-step checklist for that school's specific process.",f6_title:'Multilingual Support',f6_desc:"Full support in English, O'zbek, and Русский. Switch instantly. AI responds in your language too.",testi_eye:'Student stories',testi_title:'Real students. Real results.',t1_q:'"Chetta\'s AI helped me understand what MIT was looking for. I rewrote my essays three times — and I got in."',t2_q:'"I found a full-ride scholarship through Chetta I\'d never heard of. The guide made applying easy. It covered four full years."',t3_q:'"The interview videos showed me how Oxford students think. Watching them changed how I wrote my personal statement."',faq_title:'Common questions',faq1_q:'Is Chetta free to use?',faq1_a:"Yes! University search, scholarships, and AI chat are all free. The AI uses Gemini — get a free key from Google AI Studio.",faq2_q:'How does the AI Advisor work?',faq2_a:"It uses Google Gemini 2.0 Flash configured as a university admissions expert. It remembers your conversation and replies in your language.",faq3_q:'What countries does Chetta cover?',faq3_a:'USA, UK, Canada, Europe (Germany, Switzerland, Netherlands), and Asia. 40+ countries with scholarships globally.',faq4_q:'Available in Uzbek and Russian?',faq4_a:"Yes — switch instantly with the flag selector top-right. The AI also detects and replies in your language.",cta_title:'Join thousands of students on their way to the top.',cta_sub:'Free to start. No credit card required.',cta_btn1:'Get started free →',cta_btn2:'Browse Universities',upage_eye:'Explore',upage_title:'University Explorer',upage_sub:'Click any university for full details, acceptance rates, and scholarships.',btn_search:'Search',f_all:'All',f_full:'Full Ride',f_partial:'Partial',spage_eye:'Funding',spage_title:'Scholarship Finder',spage_sub:'Discover $2B+ in scholarships — click any to see eligibility, amounts, and how to apply.',ipage_eye:'Stories',ipage_title:'Ivy League Interviews',ipage_sub:'Real students. Real strategies. Learn from those who got in.',acc:'acc.',card_view:'View profile →',card_apply:'How to apply →',card_roadmap:'Create Roadmap',f_full:'Full Ride',f_partial:'Partial',card_dl:'Deadline:',by:'by',mod_acc:'Acceptance Rate',mod_tui:'Annual Tuition',mod_sat:'SAT Range',mod_diff:'Difficulty to Get In',diff_ext:'Extremely Selective',diff_very:'Very Selective',diff_sel:'Selective',mod_majors:'Popular Majors',mod_road:'Application Roadmap',mod_schs:'Available Scholarships',mod_visit:'Visit university website',mod_elig:'Eligibility Requirements',mod_howto:'How to Apply — Step by Step',mod_dl:'⏰ Deadline:',mod_field:'📚 Field:',mod_svis:'Official scholarship website',mod_watch:'Watch on YouTube',mod_adv:'💡 Key Advice from this Interview',ai_title:'Your AI Admissions Advisor',ai_sub:'Ask anything — scholarships, essays, SAT tips, visa questions. Powered by Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Powered by Gemini 2.0',ai_welcome:"Hi! I'm Chetta AI. Ask me anything about getting into top universities — essays, scholarships, SAT prep, visa guidance, or comparing schools. What's your dream school? 🎓",c1:'How do I get into Harvard?',c2:'Find me scholarships',c3:'SAT improvement tips',c4:'Help with my essay',c5:'IELTS for Oxford',c6:'Student visa guide',chat_ph:'Ask me anything about admissions...',prac_eye:'Test Prep',prac_title:'Practice like it\'s the real thing.',prac_sub:'4000+ SAT and IELTS questions with AI explanations, timed tests, and analytics.',pb_qb_title:'Question Bank',pb_qb_desc:'Work through SAT questions at your own pace with AI explanations.',pb_qb_badge:'200+ questions',pb_math_title:'Math Practice',pb_math_desc:'Algebra, geometry, data analysis with step-by-step solutions.',pb_math_badge:'150+ questions',pb_test_title:'Full Practice Test',pb_test_desc:'Simulate the real Digital SAT — timed, scored, reviewed.',pb_test_badge:'98 questions',pb_rush_title:'Question Rush',pb_rush_desc:'30 seconds per question. Build speed and improve pacing.',pb_rush_badge:'Speed mode',pb_vocab_title:'Vocabulary',pb_vocab_desc:'Master 200 most-tested SAT words with flashcards.',pb_vocab_badge:'200 words',pb_plan_title:'Study Planner',pb_plan_desc:'Enter test date and target score for a personalised schedule.',pb_plan_badge:'Personalised',pb_diag_title:'Diagnostic Test',pb_diag_desc:'Find your projected SAT score and weak domains in 30 min.',pb_diag_badge:'30 min',pb_calc_title:'Score Calculator',pb_calc_desc:'Enter raw scores to see your SAT score and percentile.',pb_calc_badge:'Instant',ana_eye:'Your Progress',ana_title:'Know your weak spots.',vocab_sub:'Click any card to reveal the definition.',planner_sub:'Set your test date and target score to generate your plan.',plan_date:'SAT Test Date',plan_current:'Current Score',plan_target:'Target Score',plan_hrs:'Daily Study Hours',plan_generate:'Generate My Plan',calc_sub:'Move sliders to see your estimated SAT score and percentile.',calc_rw:'Reading and Writing',calc_math:'Math',calc_questions:'Questions',calc_estimated:'Estimated SAT Score',calc_percentile:'Percentile',ielts_title:'IELTS Band Estimator',ielts_listening:'Listening',ielts_reading:'Reading',ielts_overall:'Estimated Overall Band',qb_submit:'Check Answer',qb_next:'Next',qb_skip:'Skip',res_retry:'Try Again',res_back:'Back to Practice',rush_title:'Question Rush',rush_desc:'30 seconds per question. Answer as many as you can!',rush_start:'Start Rush',rush_again:'Play Again',rush_answered:'questions answered',ft_desc:'Helping ambitious students worldwide access top universities and life-changing scholarships through intelligent guidance.',ft_ex:'Explore',ft_res:'Resources',ft_co:'Company',ft_sat:'SAT Prep Guide',ft_ielts:'IELTS Tips',ft_essay:'Essay Templates',ft_visa:'Visa Guide',ft_about:'About Chetta',ft_blog:'Blog',ft_priv:'Privacy Policy',ft_contact:'Contact',ft_copy:'© 2025 Chetta. All rights reserved.',ft_love:'Made for ambitious students everywhere',dash_eye:'Your Dashboard',dash_title:'Dashboard',dash_sub:"Everything you've saved and tracked, all in one place.",dash_empty_t:'No saved universities yet',dash_empty_s:'Tap the heart icon on any university card to save it here.',dash_browse:'Browse Universities',dash_count:'saved',dash_tab_overview:'Overview',dash_tab_saved:'Saved Universities',dash_ov_saved:'Saved Universities',dash_ov_regions:'Regions Explored',dash_ov_avgacc:'Avg. Acceptance Rate',dash_ov_recent:'Recently Saved',dash_view_saved:'View your saved universities →',road_eye:'Application Roadmap',road_title:'Build Your Roadmap',road_sub:"Tell us about your profile — required fields unlock your roadmap right away, optional ones sharpen it.",road_major_title:'🎯 Intended Major',road_required:'Required',road_academics_title:'📚 Academics',road_gpa_lbl:'GPA',road_gpa_ph:'e.g. 3.8 / 4.0',road_test_lbl:'SAT / ACT Score',road_test_ph:'e.g. SAT 1480 or ACT 33',road_ielts_lbl:'IELTS / TOEFL',road_ielts_ph:'e.g. IELTS 7.5',road_apib_lbl:'AP / IB / A-Level Courses',road_apib_ph:'e.g. 5 AP courses, IB Diploma',road_rank_lbl:'Class Rank',road_rank_ph:'e.g. Top 5%, 3rd of 210',road_optional_inline:'optional',road_ec_title:'🏆 Extracurriculars',road_ec_ph:"Describe your clubs, sports, volunteering, jobs, hobbies — anything you're involved in outside class.",road_awards_title:'🥇 Awards & Honors',road_awards_ph:'Competitions, olympiads, awards, recognitions...',road_optional:'Optional',road_lead_title:'👑 Leadership',road_lead_ph:"Leadership positions and initiatives you've started or led...",road_research_title:'🔬 Research / Projects',road_research_ph:'Research, coding projects, businesses, personal projects, publications...',road_essay_title:'✍️ Essays',road_essay_q:'Do you already have an essay?',road_yes:'Yes',road_no:'No',road_essay_ph:'Paste your Common App / personal statement here.',road_essay_not_started:"Not started — that's okay, we won't hold this against your roadmap.",road_generate:'✨ Generate Roadmap',road_back_saved:'Back to Saved Universities',dash_tab_roadmaps:'Generated Roadmaps',dash_road_empty_t:'No roadmaps generated yet',dash_road_empty_s:'Save a university, then tap "Create Roadmap" on its card to build a personalized 12-month plan.'},
 
-uz:{nav_home:'Bosh sahifa',nav_universities:'Universitetlar',nav_scholarships:'Stipendiyalar',nav_interviews:'Intervyular',nav_ai:'Profil Tahlilchisi',nav_signin:'Kirish',nav_getstarted:'Boshlash',nav_practice:'SAT Tayyorgarlik',nav_saved:'❤️ Saqlangan',dd_dashboard:'Boshqaruv paneli',dd_signout:'Chiqish',auth_tagline:"Top universitetga yo'lingiz",auth_signin:'Kirish',auth_create:'Hisob yaratish',auth_email:'Email',auth_password:'Parol',auth_forgot:'Parolni unutdingizmi?',auth_signin_btn:'Kirish',auth_or:'yoki',auth_google:'Google orqali kirish',auth_no_account:"Hisobingiz yo'qmi?",auth_create_link:'Bepul yarating',auth_firstname:'Ism',auth_lastname:'Familiya',auth_create_btn:'Bepul hisob yaratish',auth_terms:"Ro'yxatdan o'tib Shartlar va Maxfiylik siyosatiga rozisiz.",auth_forgot_desc:'Emailingizni kiriting, tiklash havolasini yuboramiz.',auth_send_reset:'Havolani yuborish',auth_back_login:'← Kirishga qaytish',hero_eyebrow:'✦ AI-Quvvatli Qabul Platformasi',hero_h1:'<em>Orzu universitetingizga</em> kiring.',hero_sub:"Chetta sizga dunyoning eng tanlov universitetlariga qabul bo'lishda kerakli vositalar, ma'lumotlar va AI yo'riqnomasini beradi.",hero_btn1:'Bepul boshlash',hero_btn2:"Profil Tahlilchisini sinab ko'rish",strip_label:"Quyidagilarga o'quvchilar kirdi",ps1:'Saqlangan universitetlar',ps2:'Mos stipendiyalar',ps3:'SAT maqsad bali',ps4:'Keyingi muddat',pc1_lbl:'Ariza tayyorgarligi',pc2_lbl:'Sizning universitetlaringiz',steps_eye:'Qanday ishlaydi',steps_title:"Orzu maktabingizga uch qadam.",steps_sub:"Birinchi qidiruvdan yakuniy topshiriqgacha — Chetta har qadamda yo'l ko'rsatadi.",s1_title:"Universitetlarni o'rganing",s1_desc:"500+ universitetni qabul darajasi, to'lov, SAT talablari va to'liq ariza yo'l xaritalari bilan ko'ring.",s2_title:'Stipendiyalaringizni toping',s2_desc:"Profilingizga, mamlakatga, GPA va sohangizga mos $2 mlrd+ stipendiyalarni toping — muddatlar va qo'llanmalar bilan.",s3_title:"AI yo'riqnoma oling",s3_desc:"Esse, qabul strategiyasi, SAT va viza uchun Chetta AI bilan suhbatlashing — 7/24 O'zbek, Ingliz, Rus tillarida.",feat_eye:'Platforma imkoniyatlari',feat_title:'Hamma narsa bir joyda.',f1_title:"Universitet Izlovchi",f1_desc:"500+ universitetni reyting, qabul darajasi, to'lov va talablar bilan — mamlakat va soha bo'yicha filtrlab.",f2_title:'Stipendiya Izlovchi',f2_desc:"Rhodes, Gates Cambridge, Fulbright va boshqalarni toping — qadam-baqadam qo'llanmalar bilan.",f3_title:'AI Qabul Maslahatchisi',f3_desc:'Gemini-quvvatli AI: essalar, SAT maslahatlari, viza savollari, universitetlarni solishtirish. Suhbatni eslab qoladi.',f4_title:"Ivy League Intervyulari",f4_desc:"Harvard, MIT va Oksford talabalarining o'zlaridan qanday kirganliklarini eshiting.",f5_title:"Ariza Yo'l Xaritalari",f5_desc:"Har bir universitet profili o'sha maktabning o'ziga xos jarayoni uchun qadam-baqadam ro'yxat o'z ichiga oladi.",f6_title:"Ko'p tilli qo'llab-quvvatlash",f6_desc:"O'zbek, Ingliz va Rus tillarida to'liq qo'llab-quvvatlash. Bir zumda almashtiring. AI ham tilingizda javob beradi.",testi_eye:'Talabalar hikoyalari',testi_title:"Haqiqiy talabalar. Haqiqiy natijalar.",t1_q:'"Chetta AI menga MITning nima qidirganini tushunishda yordam berdi. Fikr-mulohazasi asosida essalarni uch marta yozdim — va qabul bo\'ldim."',t2_q:'"Chetta orqali hech eshitmagan to\'liq stipendiyamni topdim. Qadam-baqadam qo\'llanma ariza berishni osonlashtirdi. To\'rt yilni qopladi."',t3_q:'"Intervyu videolari Oksford talabalarining qanday fikrlovini ko\'rsatdi. Shaxsiy bayonnomamni butunlay o\'zgartirdim."',faq_title:"Tez-tez so'raladigan savollar",faq1_q:"Chetta bepulmi?",faq1_a:"Ha! Universitet qidiruvi, stipendiyalar va AI suhbat barchasi bepul. AI Gemini'dan foydalanadi — Google AI Studio'dan bepul kalit oling.",faq2_q:'AI Maslahatchi qanday ishlaydi?',faq2_a:"Google Gemini 2.0 Flash qabul maslahatchisi sifatida sozlangan. Suhbatingizni eslab qoladi va tilingizda javob beradi.",faq3_q:'Chetta qaysi mamlakatlarni qamrab oladi?',faq3_a:"AQSh, Britaniya, Kanada, Yevropa (Germaniya, Shveytsariya, Niderlandiya) va Osiyo. Butun dunyo bo'yicha 40+ mamlakat.",faq4_q:"O'zbek va Rus tillarida mavjudmi?",faq4_a:"Ha — yuqori o'ng burchakdagi bayroqdan bir zumda almashtiring. AI ham tilingizni aniqlab, shunga javob beradi.",cta_title:"Minlab talabalar bilan top universitetlarga yo'lda qo'shiling.",cta_sub:"Boshlash bepul. Kredit karta talab qilinmaydi.",cta_btn1:'Bepul boshlash →',cta_btn2:"Universitetlarni ko'rish",upage_eye:'Izlash',upage_title:"Universitet Izlovchi",upage_sub:"To'liq tafsilotlar va stipendiyalarni ko'rish uchun istalgan universitetni bosing.",btn_search:'Qidirish',f_all:'Barchasi',f_full:"To'liq stipendiya",f_partial:'Qisman',spage_eye:'Moliyalashtirish',spage_title:'Stipendiya Izlovchi',spage_sub:"$2 mlrd+ stipendiya — munosiblik va ariza qanday berish haqida ko'rish uchun bosing.",ipage_eye:'Hikoyalar',ipage_title:"Ivy League Intervyulari",ipage_sub:"Haqiqiy talabalar. Haqiqiy strategiyalar. Muvaffaq bo'lganlardan o'rganing.",acc:'qabul',card_view:"Profilni ko'rish →",card_apply:'Qanday ariza berish →',card_roadmap:"Yo'l xaritasini yaratish",card_dl:'Muddat:',by:'',mod_acc:'Qabul darajasi',mod_tui:"Yillik o'quv to'lovi",mod_sat:'SAT diapazoni',mod_diff:'Kirish qiyinligi',diff_ext:"O'ta tanlovli",diff_very:'Juda tanlovli',diff_sel:'Tanlovli',mod_majors:"Mashhur ixtisosliklar",mod_road:"Ariza yo'l xaritasi",mod_schs:"Mavjud stipendiyalar",mod_visit:"Universitet saytiga o'tish",mod_elig:'Munosiblik talablari',mod_howto:'Qanday ariza berish — qadam-baqadam',mod_dl:'⏰ Muddat:',mod_field:"📚 Soha:",mod_svis:"Rasmiy stipendiya saytiga o'tish",mod_watch:"YouTube'da ko'rish",mod_adv:"💡 Intervyudan asosiy maslahatlar",ai_title:'Sizning AI Qabul Maslahatchangiz',ai_sub:"Istalganini so'rang — stipendiyalar, essalar, SAT, viza. Gemini 2.0 bilan ishlaydi.",ai_agent:'Chetta AI',ai_status:'Gemini 2.0 bilan ishlaydi',ai_welcome:"Salom! Men Chetta AI. Top universitetlarga kirish haqida istalgan narsani so'rang. Orzu universitetingiz qaysi? 🎓",c1:'Harvardga qanday kirish mumkin?',c2:'Menga stipendiya toping',c3:'SAT balini yaxshilash',c4:'Esse yozishda yordam',c5:"Oksford uchun IELTS",c6:"Talaba vizasi yo'riqnomasi",chat_ph:"Qabul haqida istalgan narsani so'rang...",prac_eye:'Test Tayyorgarligi',prac_title:'Haqiqiy imtihondek mashq qiling.',prac_sub:"4000+ SAT va IELTS savollari AI tushuntirishlari bilan.",pb_qb_title:'Savollar Banki',pb_qb_desc:"SAT savollarini o'z sur'atingizda ishlang.",pb_qb_badge:'200+ savol',pb_math_title:'Matematika',pb_math_desc:'Algebra va geometriya — qadam-baqadam yechimlar.',pb_math_badge:'150+ savol',pb_test_title:"To'liq Test",pb_test_desc:"Haqiqiy SATni simulyatsiya qiling.",pb_test_badge:'98 savol',pb_rush_title:'Savol Rush',pb_rush_desc:'Har savol uchun 30 soniya.',pb_rush_badge:'Tezlik',pb_vocab_title:"Lug'at",pb_vocab_desc:"SAT so'zlarini kartochkalar bilan o'rganing.",pb_vocab_badge:"200 so'z",pb_plan_title:"O'qish Rejasi",pb_plan_desc:'Test sanangizni kiriting — shaxsiy jadval oling.',pb_plan_badge:'Shaxsiy',pb_diag_title:'Diagnostik Test',pb_diag_desc:'30 daqiqada taxminiy balingizni toping.',pb_diag_badge:'30 daq',pb_calc_title:'Bal Kalkulyatori',pb_calc_desc:'Xom ballarni kiriting — natijani bir zumda koring.',pb_calc_badge:'Tezkor',ana_eye:'Taraqqiyotingiz',ana_title:"Zaif joylaringizni biling.",vocab_sub:"Izohni ko'rsatish uchun bosing.",planner_sub:'Test sanangizni va maqsad balingizni kiriting.',plan_date:'SAT Test Sanasi',plan_current:'Joriy Bal',plan_target:'Maqsad Bal',plan_hrs:"O'qish soatlari",plan_generate:'Reja Yaratish',calc_sub:'Slayderni torting.',calc_rw:"O'qish va Yozish",calc_math:'Matematika',calc_questions:'Savollar',calc_estimated:'Taxminiy SAT Bali',calc_percentile:'Foizli daraja',ielts_title:'IELTS Band Estimator',ielts_listening:'Tinglash',ielts_reading:"O'qish",ielts_overall:'Taxminiy Band',qb_submit:'Tekshirish',qb_next:'Keyingisi',qb_skip:"O'tkazish",res_retry:'Qayta urinish',res_back:'Orqaga',rush_title:'Savol Rush',rush_desc:'Har savol uchun 30 soniya!',rush_start:'Boshlash',rush_again:"Yana o'ynash",rush_answered:'savol javoblandi',ft_desc:"Chetta dunyo bo'ylab talabalariga top universitetlar va stipendiyalarga yordam beradi.",ft_ex:'Izlash',ft_res:'Resurslar',ft_co:'Kompaniya',ft_sat:"SAT Qo'llanmasi",ft_ielts:'IELTS Maslahatlari',ft_essay:'Esse Shablonlari',ft_visa:"Viza Qo'llanmasi",ft_about:'Chetta Haqida',ft_blog:'Blog',ft_priv:'Maxfiylik Siyosati',ft_contact:'Aloqa',ft_copy:"© 2025 Chetta. Barcha huquqlar himoyalangan.",ft_love:"Dunyo bo'yicha talabalar uchun yaratilgan",dash_eye:'Boshqaruv paneli',dash_title:'Boshqaruv paneli',dash_sub:"Saqlangan va kuzatilgan barcha narsalar bir joyda.",dash_empty_t:"Hali saqlangan universitet yo'q",dash_empty_s:"Saqlash uchun istalgan universitet kartasidagi yurak belgisini bosing.",dash_browse:'Universitetlarni ko\'rish',dash_count:'saqlangan',dash_tab_overview:'Umumiy',dash_tab_saved:'Saqlangan universitetlar',dash_ov_saved:'Saqlangan universitetlar',dash_ov_regions:'Ko\'rilgan hududlar',dash_ov_avgacc:'O\'rtacha qabul darajasi',dash_ov_recent:'Yaqinda saqlangan',dash_view_saved:"Saqlangan universitetlaringizni ko'ring →",road_eye:"Ariza Yo'l Xaritasi",road_title:"Yo'l Xaritangizni Yarating",road_sub:"Profilingiz haqida ayting — majburiy maydonlar darhol yo'l xaritangizni ochadi, ixtiyoriylari uni aniqroq qiladi.",road_major_title:'🎯 Tanlangan Yo\'nalish',road_required:'Majburiy',road_academics_title:'📚 Akademik',road_gpa_lbl:'GPA',road_gpa_ph:'masalan, 3.8 / 4.0',road_test_lbl:'SAT / ACT Bali',road_test_ph:'masalan, SAT 1480 yoki ACT 33',road_ielts_lbl:'IELTS / TOEFL',road_ielts_ph:'masalan, IELTS 7.5',road_apib_lbl:'AP / IB / A-Level Kurslari',road_apib_ph:'masalan, 5 ta AP kursi, IB Diplomi',road_rank_lbl:'Sinf Reytingi',road_rank_ph:'masalan, Top 5%, 210 tadan 3-o\'rin',road_optional_inline:'ixtiyoriy',road_ec_title:"🏆 Qo'shimcha Faoliyat",road_ec_ph:"To'garaklar, sport, volontyorlik, ish, qiziqishlaringizni tasvirlang — darsdan tashqari qatnashgan har qanday narsa.",road_awards_title:'🥇 Mukofotlar va Unvonlar',road_awards_ph:'Musobaqalar, olimpiadalar, mukofotlar, tan olinishlar...',road_optional:'Ixtiyoriy',road_lead_title:'👑 Yetakchilik',road_lead_ph:"Boshlagan yoki boshqargan yetakchilik lavozimlari va tashabbuslaringiz...",road_research_title:'🔬 Tadqiqot / Loyihalar',road_research_ph:"Tadqiqot, kodlash loyihalari, biznes, shaxsiy loyihalar, nashrlar...",road_essay_title:'✍️ Esse',road_essay_q:'Sizda allaqachon esse bormi?',road_yes:'Ha',road_no:"Yo'q",road_essay_ph:'Common App / shaxsiy bayonnomangizni shu yerga joylashtiring.',road_essay_not_started:"Hali boshlanmagan — hechqisi yo'q, bu yo'l xaritangizga salbiy ta'sir qilmaydi.",road_generate:"✨ Yo'l Xaritasini Yaratish"},
+uz:{nav_home:'Bosh sahifa',nav_universities:'Universitetlar',nav_scholarships:'Stipendiyalar',nav_interviews:'Intervyular',nav_ai:'Profil Tahlilchisi',nav_signin:'Kirish',nav_getstarted:'Boshlash',nav_practice:'SAT Tayyorgarlik',nav_saved:'❤️ Saqlangan',dd_dashboard:'Boshqaruv paneli',dd_signout:'Chiqish',auth_tagline:"Top universitetga yo'lingiz",auth_signin:'Kirish',auth_create:'Hisob yaratish',auth_email:'Email',auth_password:'Parol',auth_forgot:'Parolni unutdingizmi?',auth_signin_btn:'Kirish',auth_or:'yoki',auth_google:'Google orqali kirish',auth_no_account:"Hisobingiz yo'qmi?",auth_create_link:'Bepul yarating',auth_firstname:'Ism',auth_lastname:'Familiya',auth_create_btn:'Bepul hisob yaratish',auth_terms:"Ro'yxatdan o'tib Shartlar va Maxfiylik siyosatiga rozisiz.",auth_forgot_desc:'Emailingizni kiriting, tiklash havolasini yuboramiz.',auth_send_reset:'Havolani yuborish',auth_back_login:'← Kirishga qaytish',hero_eyebrow:'✦ AI-Quvvatli Qabul Platformasi',hero_h1:'<em>Orzu universitetingizga</em> kiring.',hero_sub:"Chetta sizga dunyoning eng tanlov universitetlariga qabul bo'lishda kerakli vositalar, ma'lumotlar va AI yo'riqnomasini beradi.",hero_btn1:'Bepul boshlash',hero_btn2:"Profil Tahlilchisini sinab ko'rish",strip_label:"Quyidagilarga o'quvchilar kirdi",ps1:'Saqlangan universitetlar',ps2:'Mos stipendiyalar',ps3:'SAT maqsad bali',ps4:'Keyingi muddat',pc1_lbl:'Ariza tayyorgarligi',pc2_lbl:'Sizning universitetlaringiz',steps_eye:'Qanday ishlaydi',steps_title:"Orzu maktabingizga uch qadam.",steps_sub:"Birinchi qidiruvdan yakuniy topshiriqgacha — Chetta har qadamda yo'l ko'rsatadi.",s1_title:"Universitetlarni o'rganing",s1_desc:"500+ universitetni qabul darajasi, to'lov, SAT talablari va to'liq ariza yo'l xaritalari bilan ko'ring.",s2_title:'Stipendiyalaringizni toping',s2_desc:"Profilingizga, mamlakatga, GPA va sohangizga mos $2 mlrd+ stipendiyalarni toping — muddatlar va qo'llanmalar bilan.",s3_title:"AI yo'riqnoma oling",s3_desc:"Esse, qabul strategiyasi, SAT va viza uchun Chetta AI bilan suhbatlashing — 7/24 O'zbek, Ingliz, Rus tillarida.",feat_eye:'Platforma imkoniyatlari',feat_title:'Hamma narsa bir joyda.',f1_title:"Universitet Izlovchi",f1_desc:"500+ universitetni reyting, qabul darajasi, to'lov va talablar bilan — mamlakat va soha bo'yicha filtrlab.",f2_title:'Stipendiya Izlovchi',f2_desc:"Rhodes, Gates Cambridge, Fulbright va boshqalarni toping — qadam-baqadam qo'llanmalar bilan.",f3_title:'AI Qabul Maslahatchisi',f3_desc:'Gemini-quvvatli AI: essalar, SAT maslahatlari, viza savollari, universitetlarni solishtirish. Suhbatni eslab qoladi.',f4_title:"Ivy League Intervyulari",f4_desc:"Harvard, MIT va Oksford talabalarining o'zlaridan qanday kirganliklarini eshiting.",f5_title:"Ariza Yo'l Xaritalari",f5_desc:"Har bir universitet profili o'sha maktabning o'ziga xos jarayoni uchun qadam-baqadam ro'yxat o'z ichiga oladi.",f6_title:"Ko'p tilli qo'llab-quvvatlash",f6_desc:"O'zbek, Ingliz va Rus tillarida to'liq qo'llab-quvvatlash. Bir zumda almashtiring. AI ham tilingizda javob beradi.",testi_eye:'Talabalar hikoyalari',testi_title:"Haqiqiy talabalar. Haqiqiy natijalar.",t1_q:'"Chetta AI menga MITning nima qidirganini tushunishda yordam berdi. Fikr-mulohazasi asosida essalarni uch marta yozdim — va qabul bo\'ldim."',t2_q:'"Chetta orqali hech eshitmagan to\'liq stipendiyamni topdim. Qadam-baqadam qo\'llanma ariza berishni osonlashtirdi. To\'rt yilni qopladi."',t3_q:'"Intervyu videolari Oksford talabalarining qanday fikrlovini ko\'rsatdi. Shaxsiy bayonnomamni butunlay o\'zgartirdim."',faq_title:"Tez-tez so'raladigan savollar",faq1_q:"Chetta bepulmi?",faq1_a:"Ha! Universitet qidiruvi, stipendiyalar va AI suhbat barchasi bepul. AI Gemini'dan foydalanadi — Google AI Studio'dan bepul kalit oling.",faq2_q:'AI Maslahatchi qanday ishlaydi?',faq2_a:"Google Gemini 2.0 Flash qabul maslahatchisi sifatida sozlangan. Suhbatingizni eslab qoladi va tilingizda javob beradi.",faq3_q:'Chetta qaysi mamlakatlarni qamrab oladi?',faq3_a:"AQSh, Britaniya, Kanada, Yevropa (Germaniya, Shveytsariya, Niderlandiya) va Osiyo. Butun dunyo bo'yicha 40+ mamlakat.",faq4_q:"O'zbek va Rus tillarida mavjudmi?",faq4_a:"Ha — yuqori o'ng burchakdagi bayroqdan bir zumda almashtiring. AI ham tilingizni aniqlab, shunga javob beradi.",cta_title:"Minlab talabalar bilan top universitetlarga yo'lda qo'shiling.",cta_sub:"Boshlash bepul. Kredit karta talab qilinmaydi.",cta_btn1:'Bepul boshlash →',cta_btn2:"Universitetlarni ko'rish",upage_eye:'Izlash',upage_title:"Universitet Izlovchi",upage_sub:"To'liq tafsilotlar va stipendiyalarni ko'rish uchun istalgan universitetni bosing.",btn_search:'Qidirish',f_all:'Barchasi',f_full:"To'liq stipendiya",f_partial:'Qisman',spage_eye:'Moliyalashtirish',spage_title:'Stipendiya Izlovchi',spage_sub:"$2 mlrd+ stipendiya — munosiblik va ariza qanday berish haqida ko'rish uchun bosing.",ipage_eye:'Hikoyalar',ipage_title:"Ivy League Intervyulari",ipage_sub:"Haqiqiy talabalar. Haqiqiy strategiyalar. Muvaffaq bo'lganlardan o'rganing.",acc:'qabul',card_view:"Profilni ko'rish →",card_apply:'Qanday ariza berish →',card_roadmap:"Yo'l xaritasini yaratish",card_dl:'Muddat:',by:'',mod_acc:'Qabul darajasi',mod_tui:"Yillik o'quv to'lovi",mod_sat:'SAT diapazoni',mod_diff:'Kirish qiyinligi',diff_ext:"O'ta tanlovli",diff_very:'Juda tanlovli',diff_sel:'Tanlovli',mod_majors:"Mashhur ixtisosliklar",mod_road:"Ariza yo'l xaritasi",mod_schs:"Mavjud stipendiyalar",mod_visit:"Universitet saytiga o'tish",mod_elig:'Munosiblik talablari',mod_howto:'Qanday ariza berish — qadam-baqadam',mod_dl:'⏰ Muddat:',mod_field:"📚 Soha:",mod_svis:"Rasmiy stipendiya saytiga o'tish",mod_watch:"YouTube'da ko'rish",mod_adv:"💡 Intervyudan asosiy maslahatlar",ai_title:'Sizning AI Qabul Maslahatchangiz',ai_sub:"Istalganini so'rang — stipendiyalar, essalar, SAT, viza. Gemini 2.0 bilan ishlaydi.",ai_agent:'Chetta AI',ai_status:'Gemini 2.0 bilan ishlaydi',ai_welcome:"Salom! Men Chetta AI. Top universitetlarga kirish haqida istalgan narsani so'rang. Orzu universitetingiz qaysi? 🎓",c1:'Harvardga qanday kirish mumkin?',c2:'Menga stipendiya toping',c3:'SAT balini yaxshilash',c4:'Esse yozishda yordam',c5:"Oksford uchun IELTS",c6:"Talaba vizasi yo'riqnomasi",chat_ph:"Qabul haqida istalgan narsani so'rang...",prac_eye:'Test Tayyorgarligi',prac_title:'Haqiqiy imtihondek mashq qiling.',prac_sub:"4000+ SAT va IELTS savollari AI tushuntirishlari bilan.",pb_qb_title:'Savollar Banki',pb_qb_desc:"SAT savollarini o'z sur'atingizda ishlang.",pb_qb_badge:'200+ savol',pb_math_title:'Matematika',pb_math_desc:'Algebra va geometriya — qadam-baqadam yechimlar.',pb_math_badge:'150+ savol',pb_test_title:"To'liq Test",pb_test_desc:"Haqiqiy SATni simulyatsiya qiling.",pb_test_badge:'98 savol',pb_rush_title:'Savol Rush',pb_rush_desc:'Har savol uchun 30 soniya.',pb_rush_badge:'Tezlik',pb_vocab_title:"Lug'at",pb_vocab_desc:"SAT so'zlarini kartochkalar bilan o'rganing.",pb_vocab_badge:"200 so'z",pb_plan_title:"O'qish Rejasi",pb_plan_desc:'Test sanangizni kiriting — shaxsiy jadval oling.',pb_plan_badge:'Shaxsiy',pb_diag_title:'Diagnostik Test',pb_diag_desc:'30 daqiqada taxminiy balingizni toping.',pb_diag_badge:'30 daq',pb_calc_title:'Bal Kalkulyatori',pb_calc_desc:'Xom ballarni kiriting — natijani bir zumda koring.',pb_calc_badge:'Tezkor',ana_eye:'Taraqqiyotingiz',ana_title:"Zaif joylaringizni biling.",vocab_sub:"Izohni ko'rsatish uchun bosing.",planner_sub:'Test sanangizni va maqsad balingizni kiriting.',plan_date:'SAT Test Sanasi',plan_current:'Joriy Bal',plan_target:'Maqsad Bal',plan_hrs:"O'qish soatlari",plan_generate:'Reja Yaratish',calc_sub:'Slayderni torting.',calc_rw:"O'qish va Yozish",calc_math:'Matematika',calc_questions:'Savollar',calc_estimated:'Taxminiy SAT Bali',calc_percentile:'Foizli daraja',ielts_title:'IELTS Band Estimator',ielts_listening:'Tinglash',ielts_reading:"O'qish",ielts_overall:'Taxminiy Band',qb_submit:'Tekshirish',qb_next:'Keyingisi',qb_skip:"O'tkazish",res_retry:'Qayta urinish',res_back:'Orqaga',rush_title:'Savol Rush',rush_desc:'Har savol uchun 30 soniya!',rush_start:'Boshlash',rush_again:"Yana o'ynash",rush_answered:'savol javoblandi',ft_desc:"Chetta dunyo bo'ylab talabalariga top universitetlar va stipendiyalarga yordam beradi.",ft_ex:'Izlash',ft_res:'Resurslar',ft_co:'Kompaniya',ft_sat:"SAT Qo'llanmasi",ft_ielts:'IELTS Maslahatlari',ft_essay:'Esse Shablonlari',ft_visa:"Viza Qo'llanmasi",ft_about:'Chetta Haqida',ft_blog:'Blog',ft_priv:'Maxfiylik Siyosati',ft_contact:'Aloqa',ft_copy:"© 2025 Chetta. Barcha huquqlar himoyalangan.",ft_love:"Dunyo bo'yicha talabalar uchun yaratilgan",dash_eye:'Boshqaruv paneli',dash_title:'Boshqaruv paneli',dash_sub:"Saqlangan va kuzatilgan barcha narsalar bir joyda.",dash_empty_t:"Hali saqlangan universitet yo'q",dash_empty_s:"Saqlash uchun istalgan universitet kartasidagi yurak belgisini bosing.",dash_browse:'Universitetlarni ko\'rish',dash_count:'saqlangan',dash_tab_overview:'Umumiy',dash_tab_saved:'Saqlangan universitetlar',dash_ov_saved:'Saqlangan universitetlar',dash_ov_regions:'Ko\'rilgan hududlar',dash_ov_avgacc:'O\'rtacha qabul darajasi',dash_ov_recent:'Yaqinda saqlangan',dash_view_saved:"Saqlangan universitetlaringizni ko'ring →",road_eye:"Ariza Yo'l Xaritasi",road_title:"Yo'l Xaritangizni Yarating",road_sub:"Profilingiz haqida ayting — majburiy maydonlar darhol yo'l xaritangizni ochadi, ixtiyoriylari uni aniqroq qiladi.",road_major_title:'🎯 Tanlangan Yo\'nalish',road_required:'Majburiy',road_academics_title:'📚 Akademik',road_gpa_lbl:'GPA',road_gpa_ph:'masalan, 3.8 / 4.0',road_test_lbl:'SAT / ACT Bali',road_test_ph:'masalan, SAT 1480 yoki ACT 33',road_ielts_lbl:'IELTS / TOEFL',road_ielts_ph:'masalan, IELTS 7.5',road_apib_lbl:'AP / IB / A-Level Kurslari',road_apib_ph:'masalan, 5 ta AP kursi, IB Diplomi',road_rank_lbl:'Sinf Reytingi',road_rank_ph:'masalan, Top 5%, 210 tadan 3-o\'rin',road_optional_inline:'ixtiyoriy',road_ec_title:"🏆 Qo'shimcha Faoliyat",road_ec_ph:"To'garaklar, sport, volontyorlik, ish, qiziqishlaringizni tasvirlang — darsdan tashqari qatnashgan har qanday narsa.",road_awards_title:'🥇 Mukofotlar va Unvonlar',road_awards_ph:'Musobaqalar, olimpiadalar, mukofotlar, tan olinishlar...',road_optional:'Ixtiyoriy',road_lead_title:'👑 Yetakchilik',road_lead_ph:"Boshlagan yoki boshqargan yetakchilik lavozimlari va tashabbuslaringiz...",road_research_title:'🔬 Tadqiqot / Loyihalar',road_research_ph:"Tadqiqot, kodlash loyihalari, biznes, shaxsiy loyihalar, nashrlar...",road_essay_title:'✍️ Esse',road_essay_q:'Sizda allaqachon esse bormi?',road_yes:'Ha',road_no:"Yo'q",road_essay_ph:'Common App / shaxsiy bayonnomangizni shu yerga joylashtiring.',road_essay_not_started:"Hali boshlanmagan — hechqisi yo'q, bu yo'l xaritangizga salbiy ta'sir qilmaydi.",road_generate:"✨ Yo'l Xaritasini Yaratish",road_back_saved:"Saqlangan universitetlarga qaytish",dash_tab_roadmaps:"Yaratilgan yo'l xaritalari",dash_road_empty_t:"Hali yo'l xaritasi yaratilmagan",dash_road_empty_s:"Universitetni saqlang, so'ng uning kartasida \"Yo'l xaritasini yaratish\"ni bosing."},
 
-ru:{nav_home:'Главная',nav_universities:'Университеты',nav_scholarships:'Стипендии',nav_interviews:'Интервью',nav_ai:'ИИ Советник',nav_signin:'Войти',nav_getstarted:'Начать',nav_practice:'Подготовка к SAT',nav_saved:'❤️ Избранное',dd_dashboard:'Панель управления',dd_signout:'Выйти',auth_tagline:'Ваш путь в топ-университет',auth_signin:'Войти',auth_create:'Создать аккаунт',auth_email:'Email',auth_password:'Пароль',auth_forgot:'Забыли пароль?',auth_signin_btn:'Войти',auth_or:'или',auth_google:'Войти через Google',auth_no_account:'Нет аккаунта?',auth_create_link:'Создайте бесплатно',auth_firstname:'Имя',auth_lastname:'Фамилия',auth_create_btn:'Создать бесплатный аккаунт',auth_terms:'Регистрируясь вы соглашаетесь с Условиями и Политикой конфиденциальности.',auth_forgot_desc:'Введите email, и мы отправим ссылку для сброса пароля.',auth_send_reset:'Отправить ссылку',auth_back_login:'← Назад к входу',hero_eyebrow:'✦ ИИ-платформа для поступления',hero_h1:'Поступите в <em>университет мечты</em>.',hero_sub:'Chetta даёт вам инструменты, данные и руководство ИИ для навигации в самых конкурентных университетских приёмных в мире.',hero_btn1:'Начать бесплатно',hero_btn2:'Попробовать ИИ Советник',strip_label:'Помогаем студентам поступить в',ps1:'Сохранённых университетов',ps2:'Подобранных стипендий',ps3:'Целевой балл SAT',ps4:'Следующий дедлайн',pc1_lbl:'Готовность заявки',pc2_lbl:'Ваши университеты',steps_eye:'Как это работает',steps_title:'Три шага до университета мечты.',steps_sub:'От первого поиска до финальной подачи — Chetta ведёт вас через каждый шаг.',s1_title:'Изучите университеты',s1_desc:'Просматривайте 500+ университетов с процентами поступления, стоимостью, SAT и полными дорожными картами заявки.',s2_title:'Найдите стипендии',s2_desc:'Откройте $2+ млрд стипендий, подобранных по профилю, стране, GPA и области — с дедлайнами и руководствами.',s3_title:'Получите ИИ-руководство',s3_desc:'Общайтесь с Chetta AI для отзывов на эссе, стратегии, советов по SAT и визовых вопросов — 24/7.',feat_eye:'Возможности платформы',feat_title:'Всё в одном месте.',f1_title:'Обзор Университетов',f1_desc:'500+ университетов с рейтингами, процентами поступления и требованиями — фильтрация по стране и области.',f2_title:'Поиск Стипендий',f2_desc:'Откройте Rhodes, Gates Cambridge, Fulbright и другие — с пошаговыми руководствами и чеклистами.',f3_title:'ИИ Советник',f3_desc:'Gemini-ИИ для эссе, SAT, визовых вопросов, сравнений. Запоминает разговор.',f4_title:'Интервью Ivy League',f4_desc:'Реальные студенты Гарварда, MIT и Оксфорда объясняют как поступили — с советами и ссылками на YouTube.',f5_title:'Дорожные карты заявки',f5_desc:'Каждый профиль включает пошаговый чеклист для конкретного процесса этой школы.',f6_title:'Многоязычная поддержка',f6_desc:'Полная поддержка на русском, английском и узбекском. Переключайте мгновенно. ИИ отвечает на вашем языке.',testi_eye:'Истории студентов',testi_title:'Реальные студенты. Реальные результаты.',t1_q:'"ИИ Chetta помог мне понять что искал MIT. Трижды переписал эссе на основе отзывов — и поступил."',t2_q:'"Нашёл полную стипендию через Chetta о которой никогда не слышал. Пошаговое руководство упростило всё. Покрыла четыре года."',t3_q:'"Видео с интервью показали как мыслят студенты Оксфорда. Это полностью изменило моё личное заявление."',faq_title:'Частые вопросы',faq1_q:'Chetta бесплатна?',faq1_a:'Да! Поиск университетов, стипендий и ИИ-чат бесплатны. ИИ использует Gemini — получите бесплатный ключ в Google AI Studio.',faq2_q:'Как работает ИИ Советник?',faq2_a:'Использует Google Gemini 2.0 Flash настроенный как эксперт по поступлению. Запоминает разговор и отвечает на вашем языке.',faq3_q:'Какие страны охватывает Chetta?',faq3_a:'США, Великобритания, Канада, Европа (Германия, Швейцария, Нидерланды) и Азия. 40+ стран со стипендиями глобально.',faq4_q:'Доступна на узбекском и русском?',faq4_a:'Да — переключайте мгновенно через флаг в правом верхнем углу. ИИ также определяет и отвечает на вашем языке.',cta_title:'Присоединяйтесь к тысячам студентов на пути к вершине.',cta_sub:'Бесплатный старт. Кредитная карта не нужна.',cta_btn1:'Начать бесплатно →',cta_btn2:'Смотреть университеты',upage_eye:'Обзор',upage_title:'Обзор Университетов',upage_sub:'Нажмите на любой университет для полных деталей, процента поступления и стипендий.',btn_search:'Поиск',f_all:'Все',f_full:'Полное финансирование',f_partial:'Частичное',spage_eye:'Финансирование',spage_title:'Поиск Стипендий',spage_sub:'$2+ млрд стипендий — нажмите на любую для критериев и как подать заявку.',ipage_eye:'Истории',ipage_title:'Интервью Ivy League',ipage_sub:'Реальные студенты. Реальные стратегии. Учитесь у поступивших.',acc:'поступление',card_view:'Смотреть профиль →',card_apply:'Как подать →',card_roadmap:'Создать дорожную карту',card_dl:'Дедлайн:',by:'',mod_acc:'Процент поступления',mod_tui:'Годовая стоимость',mod_sat:'Диапазон SAT',mod_diff:'Сложность поступления',diff_ext:'Крайне высокий конкурс',diff_very:'Очень высокий конкурс',diff_sel:'Высокий конкурс',mod_majors:'Популярные специальности',mod_road:'Дорожная карта заявки',mod_schs:'Доступные стипендии',mod_visit:'Перейти на сайт университета',mod_elig:'Требования участия',mod_howto:'Как подать — шаг за шагом',mod_dl:'⏰ Дедлайн:',mod_field:'📚 Область:',mod_svis:'Официальный сайт стипендии',mod_watch:'Смотреть на YouTube',mod_adv:'💡 Ключевые советы из интервью',ai_title:'Ваш ИИ Советник по поступлению',ai_sub:'Спрашивайте что угодно — стипендии, эссе, SAT, визовые вопросы. Работает на Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Работает на Gemini 2.0',ai_welcome:'Привет! Я Chetta AI. Спрашивайте что угодно о поступлении в топ-университеты. Какой ваш университет мечты? 🎓',c1:'Как поступить в Гарвард?',c2:'Найти стипендии',c3:'Советы по улучшению SAT',c4:'Помощь с эссе',c5:'IELTS для Оксфорда',c6:'Руководство по студенческой визе',chat_ph:'Спросите что угодно о поступлении...',prac_eye:'Подготовка',prac_title:'Практикуйтесь как на настоящем экзамене.',prac_sub:'4000+ вопросов SAT и IELTS с объяснениями ИИ и аналитикой.',pb_qb_title:'Банк вопросов',pb_qb_desc:'Решайте вопросы SAT в своём темпе с объяснениями ИИ.',pb_qb_badge:'200+ вопросов',pb_math_title:'Математика',pb_math_desc:'Алгебра и геометрия с пошаговыми решениями.',pb_math_badge:'150+ вопросов',pb_test_title:'Полный тест',pb_test_desc:'Симулируйте реальный SAT с таймером и разбором.',pb_test_badge:'98 вопросов',pb_rush_title:'Быстрые вопросы',pb_rush_desc:'30 секунд на вопрос. Развивайте скорость.',pb_rush_badge:'Скорость',pb_vocab_title:'Словарь',pb_vocab_desc:'200 слов SAT с карточками и примерами.',pb_vocab_badge:'200 слов',pb_plan_title:'План обучения',pb_plan_desc:'Введите дату теста для персонального расписания.',pb_plan_badge:'Персональный',pb_diag_title:'Диагностика',pb_diag_desc:'Узнайте прогноз балла SAT за 30 минут.',pb_diag_badge:'30 мин',pb_calc_title:'Калькулятор',pb_calc_desc:'Введите баллы — мгновенный результат.',pb_calc_badge:'Мгновенно',ana_eye:'Прогресс',ana_title:'Знайте свои слабые места.',vocab_sub:'Нажмите на карточку для определения.',planner_sub:'Введите дату теста и целевой балл.',plan_date:'Дата SAT',plan_current:'Текущий балл',plan_target:'Целевой балл',plan_hrs:'Часов в день',plan_generate:'Создать план',calc_sub:'Двигайте слайдеры для расчёта балла.',calc_rw:'Чтение и письмо',calc_math:'Математика',calc_questions:'Вопросы',calc_estimated:'Расчётный балл SAT',calc_percentile:'Перцентиль',ielts_title:'Оценщик IELTS',ielts_listening:'Аудирование',ielts_reading:'Чтение',ielts_overall:'Общий балл',qb_submit:'Проверить',qb_next:'Далее',qb_skip:'Пропустить',res_retry:'Ещё раз',res_back:'Назад',rush_title:'Быстрые вопросы',rush_desc:'30 секунд на вопрос!',rush_start:'Начать',rush_again:'Снова',rush_answered:'отвечено',ft_desc:'Chetta помогает амбициозным студентам по всему миру получить доступ к топ-университетам и стипендиям.',ft_ex:'Обзор',ft_res:'Ресурсы',ft_co:'Компания',ft_sat:'Руководство по SAT',ft_ielts:'Советы по IELTS',ft_essay:'Шаблоны эссе',ft_visa:'Визовое руководство',ft_about:'О Chetta',ft_blog:'Блог',ft_priv:'Конфиденциальность',ft_contact:'Контакт',ft_copy:'© 2025 Chetta. Все права защищены.',ft_love:'Создано для амбициозных студентов везде',dash_eye:'Ваша панель',dash_title:'Панель управления',dash_sub:'Всё, что вы сохранили и отслеживаете, в одном месте.',dash_empty_t:'Пока нет сохранённых университетов',dash_empty_s:'Нажмите на значок сердца на карточке университета, чтобы сохранить его здесь.',dash_browse:'Смотреть университеты',dash_count:'сохранено',dash_tab_overview:'Обзор',dash_tab_saved:'Сохранённые университеты',dash_ov_saved:'Сохранённые университеты',dash_ov_regions:'Изученные регионы',dash_ov_avgacc:'Средний процент поступления',dash_ov_recent:'Недавно сохранённые',dash_view_saved:'Смотреть сохранённые университеты →',road_eye:'Дорожная карта заявки',road_title:'Создайте свою дорожную карту',road_sub:'Расскажите о своём профиле — обязательные поля сразу открывают дорожную карту, необязательные делают её точнее.',road_major_title:'🎯 Предполагаемая специальность',road_required:'Обязательно',road_academics_title:'📚 Академические показатели',road_gpa_lbl:'GPA',road_gpa_ph:'напр. 3.8 / 4.0',road_test_lbl:'Балл SAT / ACT',road_test_ph:'напр. SAT 1480 или ACT 33',road_ielts_lbl:'IELTS / TOEFL',road_ielts_ph:'напр. IELTS 7.5',road_apib_lbl:'Курсы AP / IB / A-Level',road_apib_ph:'напр. 5 курсов AP, диплом IB',road_rank_lbl:'Место в классе',road_rank_ph:'напр. Топ 5%, 3-е из 210',road_optional_inline:'необязательно',road_ec_title:'🏆 Внеучебная деятельность',road_ec_ph:'Опишите ваши кружки, спорт, волонтёрство, работу, хобби — всё, чем вы занимаетесь вне учёбы.',road_awards_title:'🥇 Награды и достижения',road_awards_ph:'Конкурсы, олимпиады, награды, признания...',road_optional:'Необязательно',road_lead_title:'👑 Лидерство',road_lead_ph:'Лидерские позиции и инициативы, которые вы начали или возглавили...',road_research_title:'🔬 Исследования / Проекты',road_research_ph:'Исследования, кодинг-проекты, бизнес, личные проекты, публикации...',road_essay_title:'✍️ Эссе',road_essay_q:'У вас уже есть эссе?',road_yes:'Да',road_no:'Нет',road_essay_ph:'Вставьте сюда ваше эссе Common App / личное заявление.',road_essay_not_started:'Ещё не начато — ничего страшного, это не повлияет на вашу дорожную карту.',road_generate:'✨ Создать дорожную карту'},
+ru:{nav_home:'Главная',nav_universities:'Университеты',nav_scholarships:'Стипендии',nav_interviews:'Интервью',nav_ai:'ИИ Советник',nav_signin:'Войти',nav_getstarted:'Начать',nav_practice:'Подготовка к SAT',nav_saved:'❤️ Избранное',dd_dashboard:'Панель управления',dd_signout:'Выйти',auth_tagline:'Ваш путь в топ-университет',auth_signin:'Войти',auth_create:'Создать аккаунт',auth_email:'Email',auth_password:'Пароль',auth_forgot:'Забыли пароль?',auth_signin_btn:'Войти',auth_or:'или',auth_google:'Войти через Google',auth_no_account:'Нет аккаунта?',auth_create_link:'Создайте бесплатно',auth_firstname:'Имя',auth_lastname:'Фамилия',auth_create_btn:'Создать бесплатный аккаунт',auth_terms:'Регистрируясь вы соглашаетесь с Условиями и Политикой конфиденциальности.',auth_forgot_desc:'Введите email, и мы отправим ссылку для сброса пароля.',auth_send_reset:'Отправить ссылку',auth_back_login:'← Назад к входу',hero_eyebrow:'✦ ИИ-платформа для поступления',hero_h1:'Поступите в <em>университет мечты</em>.',hero_sub:'Chetta даёт вам инструменты, данные и руководство ИИ для навигации в самых конкурентных университетских приёмных в мире.',hero_btn1:'Начать бесплатно',hero_btn2:'Попробовать ИИ Советник',strip_label:'Помогаем студентам поступить в',ps1:'Сохранённых университетов',ps2:'Подобранных стипендий',ps3:'Целевой балл SAT',ps4:'Следующий дедлайн',pc1_lbl:'Готовность заявки',pc2_lbl:'Ваши университеты',steps_eye:'Как это работает',steps_title:'Три шага до университета мечты.',steps_sub:'От первого поиска до финальной подачи — Chetta ведёт вас через каждый шаг.',s1_title:'Изучите университеты',s1_desc:'Просматривайте 500+ университетов с процентами поступления, стоимостью, SAT и полными дорожными картами заявки.',s2_title:'Найдите стипендии',s2_desc:'Откройте $2+ млрд стипендий, подобранных по профилю, стране, GPA и области — с дедлайнами и руководствами.',s3_title:'Получите ИИ-руководство',s3_desc:'Общайтесь с Chetta AI для отзывов на эссе, стратегии, советов по SAT и визовых вопросов — 24/7.',feat_eye:'Возможности платформы',feat_title:'Всё в одном месте.',f1_title:'Обзор Университетов',f1_desc:'500+ университетов с рейтингами, процентами поступления и требованиями — фильтрация по стране и области.',f2_title:'Поиск Стипендий',f2_desc:'Откройте Rhodes, Gates Cambridge, Fulbright и другие — с пошаговыми руководствами и чеклистами.',f3_title:'ИИ Советник',f3_desc:'Gemini-ИИ для эссе, SAT, визовых вопросов, сравнений. Запоминает разговор.',f4_title:'Интервью Ivy League',f4_desc:'Реальные студенты Гарварда, MIT и Оксфорда объясняют как поступили — с советами и ссылками на YouTube.',f5_title:'Дорожные карты заявки',f5_desc:'Каждый профиль включает пошаговый чеклист для конкретного процесса этой школы.',f6_title:'Многоязычная поддержка',f6_desc:'Полная поддержка на русском, английском и узбекском. Переключайте мгновенно. ИИ отвечает на вашем языке.',testi_eye:'Истории студентов',testi_title:'Реальные студенты. Реальные результаты.',t1_q:'"ИИ Chetta помог мне понять что искал MIT. Трижды переписал эссе на основе отзывов — и поступил."',t2_q:'"Нашёл полную стипендию через Chetta о которой никогда не слышал. Пошаговое руководство упростило всё. Покрыла четыре года."',t3_q:'"Видео с интервью показали как мыслят студенты Оксфорда. Это полностью изменило моё личное заявление."',faq_title:'Частые вопросы',faq1_q:'Chetta бесплатна?',faq1_a:'Да! Поиск университетов, стипендий и ИИ-чат бесплатны. ИИ использует Gemini — получите бесплатный ключ в Google AI Studio.',faq2_q:'Как работает ИИ Советник?',faq2_a:'Использует Google Gemini 2.0 Flash настроенный как эксперт по поступлению. Запоминает разговор и отвечает на вашем языке.',faq3_q:'Какие страны охватывает Chetta?',faq3_a:'США, Великобритания, Канада, Европа (Германия, Швейцария, Нидерланды) и Азия. 40+ стран со стипендиями глобально.',faq4_q:'Доступна на узбекском и русском?',faq4_a:'Да — переключайте мгновенно через флаг в правом верхнем углу. ИИ также определяет и отвечает на вашем языке.',cta_title:'Присоединяйтесь к тысячам студентов на пути к вершине.',cta_sub:'Бесплатный старт. Кредитная карта не нужна.',cta_btn1:'Начать бесплатно →',cta_btn2:'Смотреть университеты',upage_eye:'Обзор',upage_title:'Обзор Университетов',upage_sub:'Нажмите на любой университет для полных деталей, процента поступления и стипендий.',btn_search:'Поиск',f_all:'Все',f_full:'Полное финансирование',f_partial:'Частичное',spage_eye:'Финансирование',spage_title:'Поиск Стипендий',spage_sub:'$2+ млрд стипендий — нажмите на любую для критериев и как подать заявку.',ipage_eye:'Истории',ipage_title:'Интервью Ivy League',ipage_sub:'Реальные студенты. Реальные стратегии. Учитесь у поступивших.',acc:'поступление',card_view:'Смотреть профиль →',card_apply:'Как подать →',card_roadmap:'Создать дорожную карту',card_dl:'Дедлайн:',by:'',mod_acc:'Процент поступления',mod_tui:'Годовая стоимость',mod_sat:'Диапазон SAT',mod_diff:'Сложность поступления',diff_ext:'Крайне высокий конкурс',diff_very:'Очень высокий конкурс',diff_sel:'Высокий конкурс',mod_majors:'Популярные специальности',mod_road:'Дорожная карта заявки',mod_schs:'Доступные стипендии',mod_visit:'Перейти на сайт университета',mod_elig:'Требования участия',mod_howto:'Как подать — шаг за шагом',mod_dl:'⏰ Дедлайн:',mod_field:'📚 Область:',mod_svis:'Официальный сайт стипендии',mod_watch:'Смотреть на YouTube',mod_adv:'💡 Ключевые советы из интервью',ai_title:'Ваш ИИ Советник по поступлению',ai_sub:'Спрашивайте что угодно — стипендии, эссе, SAT, визовые вопросы. Работает на Gemini 2.0.',ai_agent:'Chetta AI',ai_status:'Работает на Gemini 2.0',ai_welcome:'Привет! Я Chetta AI. Спрашивайте что угодно о поступлении в топ-университеты. Какой ваш университет мечты? 🎓',c1:'Как поступить в Гарвард?',c2:'Найти стипендии',c3:'Советы по улучшению SAT',c4:'Помощь с эссе',c5:'IELTS для Оксфорда',c6:'Руководство по студенческой визе',chat_ph:'Спросите что угодно о поступлении...',prac_eye:'Подготовка',prac_title:'Практикуйтесь как на настоящем экзамене.',prac_sub:'4000+ вопросов SAT и IELTS с объяснениями ИИ и аналитикой.',pb_qb_title:'Банк вопросов',pb_qb_desc:'Решайте вопросы SAT в своём темпе с объяснениями ИИ.',pb_qb_badge:'200+ вопросов',pb_math_title:'Математика',pb_math_desc:'Алгебра и геометрия с пошаговыми решениями.',pb_math_badge:'150+ вопросов',pb_test_title:'Полный тест',pb_test_desc:'Симулируйте реальный SAT с таймером и разбором.',pb_test_badge:'98 вопросов',pb_rush_title:'Быстрые вопросы',pb_rush_desc:'30 секунд на вопрос. Развивайте скорость.',pb_rush_badge:'Скорость',pb_vocab_title:'Словарь',pb_vocab_desc:'200 слов SAT с карточками и примерами.',pb_vocab_badge:'200 слов',pb_plan_title:'План обучения',pb_plan_desc:'Введите дату теста для персонального расписания.',pb_plan_badge:'Персональный',pb_diag_title:'Диагностика',pb_diag_desc:'Узнайте прогноз балла SAT за 30 минут.',pb_diag_badge:'30 мин',pb_calc_title:'Калькулятор',pb_calc_desc:'Введите баллы — мгновенный результат.',pb_calc_badge:'Мгновенно',ana_eye:'Прогресс',ana_title:'Знайте свои слабые места.',vocab_sub:'Нажмите на карточку для определения.',planner_sub:'Введите дату теста и целевой балл.',plan_date:'Дата SAT',plan_current:'Текущий балл',plan_target:'Целевой балл',plan_hrs:'Часов в день',plan_generate:'Создать план',calc_sub:'Двигайте слайдеры для расчёта балла.',calc_rw:'Чтение и письмо',calc_math:'Математика',calc_questions:'Вопросы',calc_estimated:'Расчётный балл SAT',calc_percentile:'Перцентиль',ielts_title:'Оценщик IELTS',ielts_listening:'Аудирование',ielts_reading:'Чтение',ielts_overall:'Общий балл',qb_submit:'Проверить',qb_next:'Далее',qb_skip:'Пропустить',res_retry:'Ещё раз',res_back:'Назад',rush_title:'Быстрые вопросы',rush_desc:'30 секунд на вопрос!',rush_start:'Начать',rush_again:'Снова',rush_answered:'отвечено',ft_desc:'Chetta помогает амбициозным студентам по всему миру получить доступ к топ-университетам и стипендиям.',ft_ex:'Обзор',ft_res:'Ресурсы',ft_co:'Компания',ft_sat:'Руководство по SAT',ft_ielts:'Советы по IELTS',ft_essay:'Шаблоны эссе',ft_visa:'Визовое руководство',ft_about:'О Chetta',ft_blog:'Блог',ft_priv:'Конфиденциальность',ft_contact:'Контакт',ft_copy:'© 2025 Chetta. Все права защищены.',ft_love:'Создано для амбициозных студентов везде',dash_eye:'Ваша панель',dash_title:'Панель управления',dash_sub:'Всё, что вы сохранили и отслеживаете, в одном месте.',dash_empty_t:'Пока нет сохранённых университетов',dash_empty_s:'Нажмите на значок сердца на карточке университета, чтобы сохранить его здесь.',dash_browse:'Смотреть университеты',dash_count:'сохранено',dash_tab_overview:'Обзор',dash_tab_saved:'Сохранённые университеты',dash_ov_saved:'Сохранённые университеты',dash_ov_regions:'Изученные регионы',dash_ov_avgacc:'Средний процент поступления',dash_ov_recent:'Недавно сохранённые',dash_view_saved:'Смотреть сохранённые университеты →',road_eye:'Дорожная карта заявки',road_title:'Создайте свою дорожную карту',road_sub:'Расскажите о своём профиле — обязательные поля сразу открывают дорожную карту, необязательные делают её точнее.',road_major_title:'🎯 Предполагаемая специальность',road_required:'Обязательно',road_academics_title:'📚 Академические показатели',road_gpa_lbl:'GPA',road_gpa_ph:'напр. 3.8 / 4.0',road_test_lbl:'Балл SAT / ACT',road_test_ph:'напр. SAT 1480 или ACT 33',road_ielts_lbl:'IELTS / TOEFL',road_ielts_ph:'напр. IELTS 7.5',road_apib_lbl:'Курсы AP / IB / A-Level',road_apib_ph:'напр. 5 курсов AP, диплом IB',road_rank_lbl:'Место в классе',road_rank_ph:'напр. Топ 5%, 3-е из 210',road_optional_inline:'необязательно',road_ec_title:'🏆 Внеучебная деятельность',road_ec_ph:'Опишите ваши кружки, спорт, волонтёрство, работу, хобби — всё, чем вы занимаетесь вне учёбы.',road_awards_title:'🥇 Награды и достижения',road_awards_ph:'Конкурсы, олимпиады, награды, признания...',road_optional:'Необязательно',road_lead_title:'👑 Лидерство',road_lead_ph:'Лидерские позиции и инициативы, которые вы начали или возглавили...',road_research_title:'🔬 Исследования / Проекты',road_research_ph:'Исследования, кодинг-проекты, бизнес, личные проекты, публикации...',road_essay_title:'✍️ Эссе',road_essay_q:'У вас уже есть эссе?',road_yes:'Да',road_no:'Нет',road_essay_ph:'Вставьте сюда ваше эссе Common App / личное заявление.',road_essay_not_started:'Ещё не начато — ничего страшного, это не повлияет на вашу дорожную карту.',road_generate:'✨ Создать дорожную карту',road_back_saved:'Назад к сохранённым университетам',dash_tab_roadmaps:'Созданные дорожные карты',dash_road_empty_t:'Пока нет созданных дорожных карт',dash_road_empty_s:'Сохраните университет, затем нажмите «Создать дорожную карту» на его карточке.'},
 };
 const langMeta={en:{f:'🇬🇧',l:'ENG'},uz:{f:'🇺🇿',l:'UZ'},ru:{f:'🇷🇺',l:'RU'}};
 const T=()=>LANGS[currentLang]||LANGS.en;
