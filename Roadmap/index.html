@@ -2254,6 +2254,16 @@ function switchDashTab(tab,b){
 // ── ROADMAP BUILDER ──
 let roadUniId=null,roadEssayHas=null,expandedMonthIndex=null;
 function isPro(){return window.chettaPlan==='pro'||window.chettaPlan==='lifetime';}
+// window.chettaPlan starts as "standard" and only gets its real value after an async
+// Firebase/Firestore lookup. If someone lands on the Roadmap page, the pro-gate check
+// in initRoadmapPage() can run before that lookup finishes, wrongly blocking real Pro
+// users. Once the plan is actually resolved (see updatePlanBadge()), re-run the gate
+// check if we're still sitting on the Roadmap page.
+document.addEventListener('chettaPlanResolved',()=>{
+  if(document.getElementById('page-roadmap')?.classList.contains('active')&&roadUniId!=null){
+    initRoadmapPage();
+  }
+});
 function requirePro(){
   if(isPro())return true;
   document.getElementById('upgradeOv').classList.add('open');
@@ -3951,16 +3961,18 @@ async function loadChettaPlan(uid) {
 
 window.updatePlanBadge = function () {
   const badge = document.getElementById("navPlanBadge");
-  if (!badge) return;
-  if (window.chettaPlan === "pro") {
-    badge.textContent = "PRO";
-    badge.style.display = "inline-block";
-  } else if (window.chettaPlan === "lifetime") {
-    badge.textContent = "LIFETIME";
-    badge.style.display = "inline-block";
-  } else {
-    badge.style.display = "none";
+  if (badge) {
+    if (window.chettaPlan === "pro") {
+      badge.textContent = "PRO";
+      badge.style.display = "inline-block";
+    } else if (window.chettaPlan === "lifetime") {
+      badge.textContent = "LIFETIME";
+      badge.style.display = "inline-block";
+    } else {
+      badge.style.display = "none";
+    }
   }
+  document.dispatchEvent(new Event('chettaPlanResolved'));
 };
 
 /* GOOGLE LOGIN */
