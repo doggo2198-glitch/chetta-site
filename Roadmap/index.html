@@ -2380,25 +2380,47 @@ async function requestRoadmapFromBackend(){
       const token=await getAuthToken().catch(()=>null);
       if(token)headers['Authorization']=`Bearer ${token}`;
     }
+    console.log('[roadmap] requesting',ROADMAP_API_ENDPOINT,payload);
     const res=await fetch(ROADMAP_API_ENDPOINT,{method:'POST',headers,body:JSON.stringify(payload)});
-    if(!res.ok)throw new Error(`Request failed (${res.status})`);
-    const data=await res.json();
-    if(!data||typeof data!=='object')throw new Error('Invalid response');
+    const rawText=await res.text();
+    if(!res.ok){
+      console.error('[roadmap] backend returned',res.status,res.statusText,rawText);
+      throw new Error(`Request failed (${res.status})`);
+    }
+    let data;
+    try{data=JSON.parse(rawText);}catch(e){
+      console.error('[roadmap] response was not valid JSON:',rawText);
+      throw new Error('Invalid JSON response');
+    }
+    console.log('[roadmap] raw response',data);
+    if(!data||typeof data!=='object')throw new Error('Invalid response shape');
+    // Some backends wrap the roadmap, e.g. {success:true, roadmap:{...}} or {data:{...}}.
+    // If the top level doesn't look like a roadmap, try common wrapper keys before giving up.
+    if(!Array.isArray(data.monthlyPlan)){
+      const unwrapped=data.roadmap||data.data||data.result;
+      if(unwrapped&&typeof unwrapped==='object'&&Array.isArray(unwrapped.monthlyPlan)){
+        console.log('[roadmap] unwrapped nested roadmap object from response');
+        data=unwrapped;
+      }
+    }
     localStorage.setItem(roadResultKey(),JSON.stringify(data));
     localStorage.removeItem(roadTasksDoneKey());
     expandedMonthIndex=null;
     if(formEl)formEl.style.display='none';
     renderRoadmapResult(data);
   }catch(err){
-    renderRoadmapError();
+    console.error('[roadmap] generation failed:',err);
+    renderRoadmapError(err);
   }
 }
-function renderRoadmapError(){
+function renderRoadmapError(err){
   const resultsEl=document.getElementById('road-results');
   resultsEl.style.display='block';
+  const detail=err&&err.message?err.message:'';
   resultsEl.innerHTML=`<div class="road-error">
     <div class="road-error-title">Your roadmap could not be loaded</div>
     <div class="road-error-sub">Something went wrong reaching the roadmap service. Please try generating your roadmap again.</div>
+    ${detail?`<div class="road-error-sub" style="font-family:monospace;font-size:.72rem;opacity:.75;margin-top:-.6rem">${detail.replace(/</g,'&lt;')}</div>`:''}
     <button class="qb-btn primary" onclick="requestRoadmapFromBackend()">Try Again</button>
   </div>`;
 }
