@@ -664,6 +664,16 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
   </div>
 </div>
 
+<div class="auth-ov" id="upgradeOv">
+  <div class="auth-box" style="max-width:380px;text-align:center;padding:2rem 1.5rem">
+    <div style="font-size:2rem;margin-bottom:.5rem">🔒</div>
+    <h3 style="font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g900);margin-bottom:.6rem">This is a Pro feature</h3>
+    <p style="font-size:.87rem;color:var(--g500);line-height:1.6;margin-bottom:1.4rem">Personalized 12-month roadmaps are available on the Pro and Lifetime plans.</p>
+    <button class="auth-btn" style="margin-bottom:.6rem" onclick="window.location.href='/Pricing/'">View Pricing →</button>
+    <button class="btn-ghost" style="width:100%" id="upgrade-maybe-later-btn" onclick="document.getElementById('upgradeOv').classList.remove('open')">Maybe later</button>
+  </div>
+</div>
+
 <!-- HOME PAGE -->
 <div id="page-home" class="page">
 <section class="hero">
@@ -2243,13 +2253,14 @@ function switchDashTab(tab,b){
 
 // ── ROADMAP BUILDER ──
 let roadUniId=null,roadEssayHas=null,expandedMonthIndex=null;
-function isProUser(){return window.chettaPlan==='pro'||window.chettaPlan==='lifetime';}
-function showUpgradePrompt(){
-  const ov=document.getElementById('upgradeOv');
-  if(ov)ov.classList.add('open');else window.location.href='/Pricing/';
+function isPro(){return window.chettaPlan==='pro'||window.chettaPlan==='lifetime';}
+function requirePro(){
+  if(isPro())return true;
+  document.getElementById('upgradeOv').classList.add('open');
+  return false;
 }
 function goToRoadmap(id){
-  if(!isProUser()){showUpgradePrompt();return;}
+  if(!requirePro())return;
   window.location.href='/Roadmap/?id='+id;
 }
 function getGeneratedRoadmapIds(){
@@ -2333,7 +2344,7 @@ function initRoadmapPage(){
   }
   roadUniId=u.id;
   expandedMonthIndex=null;
-  if(!isProUser()){
+  if(!isPro()){
     if(card)card.innerHTML=`<div class="road-uni-emoji">${u.emoji}</div><div class="road-uni-card-info"><div class="road-uni-name">${u.name}</div><div class="road-uni-loc">${u.loc} • ${u.rank}</div></div>`;
     if(formEl)formEl.style.display='none';
     if(resultsEl){
@@ -2341,9 +2352,10 @@ function initRoadmapPage(){
       resultsEl.innerHTML=`<div class="road-error" style="background:var(--bluepale);border-color:rgba(37,99,235,.25)">
         <div class="road-error-title" style="color:var(--blue)">✦ Roadmap Builder is a Pro feature</div>
         <div class="road-error-sub">Upgrade to Chetta Pro to generate a personalized, university-specific 12-month application roadmap.</div>
-        <button class="qb-btn primary" onclick="showUpgradePrompt()">Upgrade to Pro</button>
+        <button class="qb-btn primary" onclick="requirePro()">Upgrade to Pro</button>
       </div>`;
     }
+    requirePro();
     return;
   }
   const titleEl=document.getElementById('road-page-title'),subEl=document.getElementById('road-page-sub');
