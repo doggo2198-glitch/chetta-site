@@ -2345,43 +2345,19 @@ async function requestRoadmapFromBackend(){
   resultsEl.innerHTML=`<div class="road-loading"><div class="road-spinner"></div>Generating your personalized roadmap for ${u.name}…</div>`;
   resultsEl.scrollIntoView({behavior:'smooth',block:'start'});
   const payload={
-    // University object — sourced directly from the same `unis` array that powers
-    // the University List page. Fields your data doesn't have yet (deadlines,
-    // requirements) fall back to '' so the AI reports them as
-    // "Not specified in university data" instead of guessing.
-    university:{
-      id:u.id,
-      name:u.name,
-      location:u.loc,
-      url:u.url,
-      applicationPlatform:u.applicationPlatform||'',
-      earlyActionDeadline:u.earlyActionDeadline||'',
-      earlyDecisionDeadline:u.earlyDecisionDeadline||'',
-      regularDecisionDeadline:u.regularDecisionDeadline||'',
-      satActPolicy:u.satActPolicy||'',
-      englishRequirement:u.englishRequirement||'',
-      essayRequirements:u.essayRequirements||'',
-      recommendationRequirements:u.recommendationRequirements||'',
-      financialAidDeadline:u.financialAidDeadline||'',
-      scholarshipDeadline:u.scholarshipDeadline||'',
-      otherRequirements:u.otherRequirements||''
-    },
-    // Student profile — key names match the ${data.X} variables in the Groq prompt
-    profile:{
-      university:u.name,
-      major:p.major||'',
-      gpa:p.gpa||'',
-      satAct:p.test||'',
-      english:p.ielts||'',
-      apIbALevel:p.apib||'',
-      classRank:p.rank||'',
-      extracurriculars:p.ec||'',
-      awards:p.awards||'',
-      leadership:p.leadership||'',
-      research:p.research||'',
-      essay:p.essayHas===true?(p.essayText||'').trim()||'Has an essay draft':'Not started',
-      applicationYear:defaultApplicationYear()
-    }
+    university:u.name,
+    major:p.major||'',
+    gpa:p.gpa||'',
+    satAct:p.test||'',
+    english:p.ielts||'',
+    courses:p.apib||'',
+    classRank:p.rank||'',
+    extracurriculars:p.ec||'',
+    awards:p.awards||'',
+    leadership:p.leadership||'',
+    research:p.research||'',
+    essay:p.essayHas===true?(p.essayText||''):'',
+    applicationYear:defaultApplicationYear()
   };
   try{
     const headers={'Content-Type':'application/json'};
