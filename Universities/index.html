@@ -180,6 +180,13 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .s-input:focus{border-color:rgba(255,255,255,.38)}
 .s-btn{background:var(--blue);color:#fff;border:none;padding:.65rem 1.2rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
 .s-btn:hover{background:#1d4ed8}
+.compare-btn{position:relative;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;padding:.65rem 1.25rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 4px 16px rgba(124,58,237,.4);transition:transform .15s,box-shadow .15s;animation:cbGlow 2.4s ease-in-out infinite}
+.compare-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 26px rgba(124,58,237,.55);animation-play-state:paused}
+.compare-btn .cb-ico{font-size:1rem;display:inline-block;animation:cbSwap 2.4s ease-in-out infinite}
+.compare-btn .cb-badge{position:absolute;top:-9px;right:-8px;background:#f59e0b;color:#1a1408;font-size:.58rem;font-weight:800;letter-spacing:.3px;padding:.14rem .42rem;border-radius:100px;box-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+@keyframes cbGlow{0%,100%{box-shadow:0 4px 16px rgba(124,58,237,.4)}50%{box-shadow:0 4px 22px rgba(124,58,237,.75),0 0 0 5px rgba(124,58,237,.12)}}
+@keyframes cbSwap{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@media(prefers-reduced-motion:reduce){.compare-btn,.compare-btn .cb-ico{animation:none}}
 .filter-row{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.9rem}
 .f-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.55);padding:.28rem .8rem;border-radius:100px;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .f-chip:hover,.f-chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
@@ -653,7 +660,7 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
     <div class="page-hd-eye" data-i18n="upage_eye">Explore</div>
     <h2 data-i18n="upage_title">University Explorer</h2>
     <p data-i18n="upage_sub">Click any university for full details, acceptance rates, and scholarships.</p>
-    <div class="search-row"><input class="s-input" type="text" id="uni-search" placeholder="Search by name or country..." oninput="filterUnis()"><button class="s-btn" onclick="filterUnis()" data-i18n="btn_search">Search</button></div>
+    <div class="search-row"><input class="s-input" type="text" id="uni-search" placeholder="Search by name or country..." oninput="filterUnis()"><button class="s-btn" onclick="filterUnis()" data-i18n="btn_search">Search</button><button class="s-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);white-space:nowrap" onclick="window.location.href='/Universities/CompareUniversities'" data-i18n="btn_compare">⇄ Compare</button></div>
     <div class="filter-row">
       <button class="f-chip active" onclick="filterRegion('all',this)" data-i18n="f_all">All</button>
       <button class="f-chip" onclick="filterRegion('usa',this)">🇺🇸 USA</button>
@@ -1949,7 +1956,8 @@ function openUni(id){
     <div class="roadmap">${u.roadmap.map((s,i)=>`<div class="rm-item"><div class="rm-left"><div class="rm-circle">${i+1}</div>${i<u.roadmap.length-1?'<div class="rm-line"></div>':''}</div><div class="rm-text">${s}</div></div>`).join('')}</div>
     <div class="m-sec">🎓 ${t.mod_schs||'Available Scholarships'}</div>
     <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`closeM('uni-ov');openSch(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
-    <a href="${u.url}" target="_blank" class="visit-lnk">${t.mod_visit||'Visit university website'} ↗</a>`;
+    <a href="${u.url}" target="_blank" class="visit-lnk">${t.mod_visit||'Visit university website'} ↗</a>
+    <a href="/Universities/CompareUniversities?a=${u.id}" class="visit-lnk" style="margin-top:.6rem">⇄ ${t.mod_compare||'Compare with another university'}</a>`;
   openM('uni-ov');
   updateModalHeart();
 }
