@@ -85,6 +85,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .field-lbl{font-size:.77rem;font-weight:600;color:var(--g700);display:block;margin-bottom:.3rem}
 .field-in{width:100%;padding:.62rem .88rem;border:1.5px solid var(--g200);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--g900);outline:none;transition:border-color .15s}
 .field-in:focus{border-color:var(--blue)}
+.field-ta{resize:vertical;min-height:90px;line-height:1.5}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
 .auth-btn{background:var(--blue);color:#fff;border:none;width:100%;padding:.72rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s}
 .auth-btn:hover{background:#1d4ed8}
@@ -820,7 +821,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
@@ -917,6 +918,76 @@ window.signOut = async function () {
   await signOut(auth);
 };
 
+/* FEEDBACK */
+window.openFeedback = function () {
+  const err = document.getElementById("fbErr");
+  if (err) { err.classList.remove("show"); err.textContent = ""; }
+  document.getElementById("fbMsg").value = "";
+  document.getElementById("fbEmail").value = window.chettaUser ? (window.chettaUser.email || "") : "";
+  document.getElementById("fbPanelForm").classList.add("active");
+  document.getElementById("fbPanelSuccess").classList.remove("active");
+  document.getElementById("feedbackOv").classList.add("open");
+};
+
+window.closeFeedback = function () {
+  document.getElementById("feedbackOv").classList.remove("open");
+};
+
+window.submitFeedback = async function () {
+  const msgEl = document.getElementById("fbMsg");
+  const emailEl = document.getElementById("fbEmail");
+  const err = document.getElementById("fbErr");
+  const btn = document.getElementById("fbSubmitBtn");
+  const message = msgEl.value.trim();
+  const email = emailEl.value.trim();
+
+  if (!message) {
+    err.textContent = "Please write your feedback before sending.";
+    err.classList.add("show");
+    return;
+  }
+
+  const originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  err.classList.remove("show");
+
+  try {
+    await addDoc(collection(db, "feedback"), {
+      message,
+      email: email || null,
+      uid: window.chettaUser ? window.chettaUser.uid : null,
+      page: window.location.pathname,
+      lang: (typeof window.currentLang !== "undefined" && window.currentLang) || "en",
+      userAgent: navigator.userAgent,
+      createdAt: serverTimestamp()
+    });
+
+    if (window.emailjs && window.CHETTA_EMAILJS && window.CHETTA_EMAILJS.publicKey && window.CHETTA_EMAILJS.publicKey !== "YOUR_PUBLIC_KEY") {
+      try {
+        emailjs.send(window.CHETTA_EMAILJS.serviceId, window.CHETTA_EMAILJS.templateId, {
+          message,
+          from_email: email || "Not provided",
+          page: window.location.href
+        });
+      } catch (e) {
+        console.error("EmailJS send failed:", e);
+      }
+    }
+
+    document.getElementById("fbPanelForm").classList.remove("active");
+    document.getElementById("fbPanelSuccess").classList.add("active");
+    setTimeout(() => { window.closeFeedback(); }, 2200);
+  } catch (e) {
+    console.error("Feedback submit failed:", e);
+    err.textContent = "Something went wrong. Please try again.";
+    err.classList.add("show");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
+};
+
 /* USER STATE */
 onAuthStateChanged(auth, (user) => {
   window.chettaUser = user;
@@ -982,6 +1053,7 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
         <button class="nl-btn" onclick="window.location.href='/ProfileAnalyzer/'" data-i18n="nav_ai">Profile Analyzer</button>
         <button class="nl-btn" id="nav-practice" onclick="window.location.href='/SatPrep/'">SAT Prep</button>
     <button class="nl-btn" id="nav-extracurriculars" onclick="(window.chettaPlan==='pro'||window.chettaPlan==='lifetime')?window.location.href='/Extracurriculars/':(document.getElementById('upgradeOv')?document.getElementById('upgradeOv').classList.add('open'):window.location.href='/Pricing/')">Extracurriculars</button>
+    <button class="nl-btn" id="nav-feedback" onclick="window.location.href='/Feedback/'">Feedback</button>
     </div>
   <div class="nav-right">
     <div class="lang-sw" id="langSw">
@@ -1013,6 +1085,37 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
     </div>
   </div>
 </nav>
+<!-- FEEDBACK MODAL -->
+<div class="auth-ov" id="feedbackOv">
+  <div class="auth-box" style="max-width:400px">
+    <div class="auth-head">
+      <button class="auth-close" onclick="closeFeedback()">✕</button>
+      <div class="auth-logo">Feedback</div>
+      <div class="auth-tag" data-i18n="fb_tagline">We read every message</div>
+    </div>
+    <div class="auth-body">
+      <div class="auth-panel active" id="fbPanelForm">
+        <div class="auth-err" id="fbErr"></div>
+        <div>
+          <label class="field-lbl" data-i18n="fb_msg_lbl">Your feedback</label>
+          <textarea class="field-in field-ta" id="fbMsg" rows="5" data-i18n-ph="fb_msg_ph" placeholder="What's working, what's not, or what you'd like to see..."></textarea>
+        </div>
+        <div>
+          <label class="field-lbl" data-i18n="fb_email_lbl">Email (optional)</label>
+          <input class="field-in" type="email" id="fbEmail" placeholder="you@example.com">
+        </div>
+        <button class="auth-btn" id="fbSubmitBtn" onclick="submitFeedback()" data-i18n="fb_submit">Send feedback</button>
+        <p class="auth-note" data-i18n="fb_note">Goes straight to the Chetta team.</p>
+      </div>
+      <div class="auth-panel" id="fbPanelSuccess" style="text-align:center;padding:.4rem 0">
+        <div style="font-size:2.1rem;margin-bottom:.4rem">✓</div>
+        <h3 style="font-family:'Instrument Serif',serif;font-size:1.2rem;color:var(--g900);margin-bottom:.35rem" data-i18n="fb_thanks_title">Thank you!</h3>
+        <p style="font-size:.84rem;color:var(--g500)" data-i18n="fb_thanks_desc">Your feedback has been sent.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="auth-ov" id="authOv">
   <div class="auth-box">
@@ -1332,5 +1435,22 @@ document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.t
       src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon='{"token": "7c087326abc549d397e466a0fc49df84"}'>
     </script>
+
+<!-- Optional: direct email delivery for the Feedback form (in addition to Firestore storage).
+     Sign up free at emailjs.com, connect doggo2198@gmail.com as an email service, create a
+     template with {{message}}, {{from_email}}, {{page}} variables, then fill in the 3 values
+     below and set window.CHETTA_EMAILJS_ENABLED = true. Until then, feedback is still saved
+     and visible in Firestore (collection "feedback"). -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  window.CHETTA_EMAILJS = {
+    publicKey: "YOUR_PUBLIC_KEY",
+    serviceId: "YOUR_SERVICE_ID",
+    templateId: "YOUR_TEMPLATE_ID"
+  };
+  if (window.emailjs && window.CHETTA_EMAILJS.publicKey !== "YOUR_PUBLIC_KEY") {
+    emailjs.init(window.CHETTA_EMAILJS.publicKey);
+  }
+</script>
 </body>
 </html>
