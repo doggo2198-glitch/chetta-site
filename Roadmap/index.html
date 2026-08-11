@@ -2401,6 +2401,9 @@ function initRoadmapPage(){
     requirePro();
     return;
   }
+  // isPro() is true here — make sure any upgrade modal opened by an earlier,
+  // not-yet-resolved plan check (see chettaPlanResolved listener above) is closed.
+  document.getElementById('upgradeOv')?.classList.remove('open');
   const titleEl=document.getElementById('road-page-title'),subEl=document.getElementById('road-page-sub');
   if(titleEl)titleEl.textContent=`Roadmap for ${u.name}`;
   if(subEl)subEl.textContent=`Fill in your profile below — required fields unlock your roadmap right away, optional ones sharpen it.`;
