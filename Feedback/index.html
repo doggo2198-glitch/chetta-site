@@ -28,6 +28,18 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .nav-logo{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--black);cursor:pointer;flex-shrink:0;letter-spacing:-.3px;display:flex;align-items:center;gap:.5rem}
 .nav-logo em{color:var(--blue);font-style:normal}
 .nav-links{display:flex;align-items:center;gap:.15rem;flex:1}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:.5rem;margin-right:.2rem;flex-shrink:0;flex-direction:column;justify-content:center;gap:5px}
+.nav-hamburger span{display:block;width:21px;height:2px;background:var(--g700);border-radius:2px;transition:all .2s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:768px){
+  .nav-hamburger{display:flex}
+  .nav-links{position:fixed;top:58px;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:.15rem;background:#fff;border-bottom:1px solid var(--g200);box-shadow:0 16px 32px rgba(0,0,0,.1);padding:.6rem;max-height:calc(100vh - 58px);overflow-y:auto;z-index:895}
+  .nav-links.mobile-open{display:flex}
+  .nav-links .nl-btn{width:100%;text-align:left;padding:.85rem 1rem;border-radius:10px;font-size:.92rem}
+  .nav-links .nl-btn.active{background:var(--bluepale);color:var(--g900)}
+}
 .nl-btn{background:none;border:none;color:var(--g500);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;padding:.38rem .8rem;border-radius:8px;cursor:pointer;transition:all .15s}
 .nl-btn:hover{color:var(--g900);background:var(--g100)}
 .nl-btn.active{color:var(--g900);font-weight:600}
@@ -136,7 +148,8 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 <nav>
   <div class="nav-logo" onclick="window.location.href='/'">Chetta<em>.</em></div>
 
-  <div class="nav-links">
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav(event)" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
     <button class="nl-btn" onclick="window.location.href='/'">Home</button>
     <button class="nl-btn" onclick="window.location.href='/Universities/'">Universities</button>
     <button class="nl-btn" onclick="window.location.href='/Scholarships/'">Scholarships</button>
@@ -487,5 +500,19 @@ document.addEventListener('click', function(e){
 document.getElementById('authOv')?.addEventListener('click', function(e){ if(e.target===document.getElementById('authOv')) closeAuth(); });
 </script>
 
+
+<script>
+function toggleMobileNav(e){
+  if(e)e.stopPropagation();
+  document.getElementById('navLinks').classList.toggle('mobile-open');
+  document.getElementById('navHamburger').classList.toggle('open');
+}
+function closeMobileNav(){
+  document.getElementById('navLinks')?.classList.remove('mobile-open');
+  document.getElementById('navHamburger')?.classList.remove('open');
+}
+document.getElementById('navLinks')?.addEventListener('click',e=>{if(e.target.closest('.nl-btn'))closeMobileNav();});
+document.addEventListener('click',e=>{if(!e.target.closest('#navLinks')&&!e.target.closest('#navHamburger'))closeMobileNav();});
+</script>
 </body>
 </html>
