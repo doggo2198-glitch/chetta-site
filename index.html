@@ -163,10 +163,23 @@ html[data-theme="dark"] .dm-knob{transform:translateX(14px)}
 .h-btn-sec:hover{border-color:var(--g300);background:var(--g50);transform:translateY(-2px)}
 
 /* UNI STRIP */
-.uni-strip{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:.85rem;flex-wrap:wrap;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid var(--g100)}
-.strip-lbl{font-size:.74rem;color:var(--g400);font-weight:500;width:100%;text-align:center;margin-bottom:.35rem;letter-spacing:.5px;text-transform:uppercase}
-.uni-pill{background:var(--g100);border:1px solid var(--g200);border-radius:100px;padding:.38rem 1rem;font-size:.8rem;font-weight:600;color:var(--g600);transition:all .2s var(--ease);cursor:default}
-.uni-pill:hover{background:#fff;border-color:var(--blue);color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow)}
+.marquee-strip{position:relative;z-index:1;background:var(--g50);margin:0 -2rem 3.5rem;padding:1.75rem 2rem 2.1rem;border-top:1px solid var(--g100);border-bottom:1px solid var(--g100)}
+.strip-top{max-width:1080px;margin:0 auto 1.3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.strip-lbl-new{font-size:.72rem;font-weight:800;letter-spacing:1.2px;color:var(--blue);text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.strip-lbl-new::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px rgba(37,99,235,.5)}
+.strip-meta{font-size:.72rem;color:var(--g400);letter-spacing:.4px;font-variant-numeric:tabular-nums}
+.marquee-track{position:relative;width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.marquee-inner{display:flex;width:max-content;animation:marqueeScroll 26s linear infinite}
+.marquee-track:hover .marquee-inner{animation-play-state:paused}
+.marquee-group{display:flex;align-items:center;gap:3.25rem;padding-right:3.25rem;flex-shrink:0}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.uni-logo-item{height:34px;display:flex;align-items:center;flex-shrink:0;opacity:.75;filter:grayscale(1);transition:opacity .2s,transform .2s var(--ease),filter .2s}
+.uni-logo-item:hover{opacity:1;filter:grayscale(0);transform:translateY(-2px)}
+.uni-logo-item img{height:100%;width:auto;max-width:150px;object-fit:contain;display:block}
+@media(prefers-reduced-motion:reduce){.marquee-inner{animation:none}}
+@media(max-width:640px){.marquee-strip{margin-left:-1.25rem;margin-right:-1.25rem;padding-left:1.25rem;padding-right:1.25rem}.uni-logo-item{height:26px}.marquee-group{gap:2rem;padding-right:2rem}}
+
+
 
 /* PRODUCT PREVIEW */
 .hero-product{position:relative;z-index:1;max-width:860px;margin:0 auto;background:#fff;border:1px solid var(--g200);border-radius:var(--rxl);box-shadow:var(--shadowxl),0 1px 0 rgba(255,255,255,.8) inset;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
@@ -520,10 +533,11 @@ html[data-theme="dark"] .hero::after{background-image:radial-gradient(rgba(59,13
 html[data-theme="dark"] .hero h1{color:var(--d-text)}
 html[data-theme="dark"] .hero-sub{color:var(--d-text-dim)}
 html[data-theme="dark"] .hero-eye{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.3);color:#8ab4ff}
-html[data-theme="dark"] .uni-pill{background:var(--d-surface);border-color:var(--d-border);color:var(--d-text-dim)}
-html[data-theme="dark"] .uni-pill:hover{background:var(--d-surface2);border-color:#3b82f6;color:#8ab4ff}
-html[data-theme="dark"] .strip-lbl{color:var(--d-text-mute)}
-html[data-theme="dark"] .uni-strip{border-color:var(--d-border)}
+html[data-theme="dark"] .marquee-strip{background:linear-gradient(180deg,var(--d-surface),var(--d-bg));border-color:var(--d-border)}
+html[data-theme="dark"] .strip-meta{color:var(--d-text-mute)}
+html[data-theme="dark"] .uni-logo-item{filter:none;opacity:.7}
+html[data-theme="dark"] .uni-logo-item:hover{opacity:1}
+html[data-theme="dark"] .uni-logo-item img{filter:brightness(0) invert(1)}
 html[data-theme="dark"] .hero-product{background:var(--d-surface);border-color:var(--d-border)}
 html[data-theme="dark"] .prod-bar{background:var(--d-surface2);border-color:var(--d-border)}
 html[data-theme="dark"] .prod-url{color:var(--d-text-mute)}
@@ -763,11 +777,31 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:var(--d-border)}
     <button class="h-btn-main" onclick="openAuth('register')"><span data-i18n="hero_btn1">Start for free</span> →</button>
     <button class="h-btn-sec" onclick="window.location.href='/ProfileAnalyzer/'" data-i18n="hero_btn2">Try Profile Analyzer</button>
   </div>
-  <div class="uni-strip">
-    <div class="strip-lbl" data-i18n="strip_label">Helping students get into</div>
-    <div class="uni-pill">MIT</div><div class="uni-pill">Harvard</div><div class="uni-pill">Stanford</div>
-    <div class="uni-pill">Oxford</div><div class="uni-pill">Cambridge</div>
-    <div class="uni-pill">ETH Zürich</div><div class="uni-pill">NUS</div><div class="uni-pill">UCL</div>
+  <div class="marquee-strip">
+    <div class="strip-top">
+      <div class="strip-lbl-new">Helping students get into</div>
+      <div class="strip-meta">6 schools · 2024–25</div>
+    </div>
+    <div class="marquee-track">
+      <div class="marquee-inner">
+        <div class="marquee-group">
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/MIT_Logo_and_Wordmark.svg" alt="MIT" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Harvard_University_logo.svg" alt="Harvard" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Stanford_wordmark_(2012).svg" alt="Stanford" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/University_of_Oxford.svg" alt="Oxford" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/University_of_Cambridge_logo.png" alt="Cambridge" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yale_University_logo.svg" alt="Yale" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+        </div>
+        <div class="marquee-group" aria-hidden="true">
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/MIT_Logo_and_Wordmark.svg" alt="" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Harvard_University_logo.svg" alt="" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Stanford_wordmark_(2012).svg" alt="" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/University_of_Oxford.svg" alt="" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/University_of_Cambridge_logo.png" alt="" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+          <div class="uni-logo-item"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yale_University_logo.svg" alt="" loading="lazy" onerror="this.closest('.uni-logo-item').style.display='none'"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- Product preview -->
   <div class="hero-product">
