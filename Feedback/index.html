@@ -39,10 +39,29 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
   .nav-links.mobile-open{display:flex}
   .nav-links .nl-btn{width:100%;text-align:left;padding:.85rem 1rem;border-radius:10px;font-size:.92rem}
   .nav-links .nl-btn.active{background:var(--bluepale);color:var(--g900)}
+  .nav-links .nav-dd{display:flex;flex-direction:column;align-items:stretch;align-self:auto;width:100%}
+  .nav-links .nav-dd-trigger{width:100%;justify-content:space-between}
+  .nav-links .nav-dd-menu{display:none;position:static;padding-top:0}
+  .nav-links .nav-dd.open .nav-dd-menu{display:block}
+  .nav-links .nav-dd-menu-inner{box-shadow:none;border:none;border-radius:0;padding:0 0 0 .75rem;min-width:0;animation:none}
+  .nav-links .nav-dd-item{padding:.7rem .75rem}
 }
 .nl-btn{background:none;border:none;color:var(--g500);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;padding:.38rem .8rem;border-radius:8px;cursor:pointer;transition:all .15s}
 .nl-btn:hover{color:var(--g900);background:var(--g100)}
 .nl-btn.active{color:var(--g900);font-weight:600}
+/* NAV DROPDOWNS */
+.nav-dd{position:relative;display:flex;align-items:center;align-self:stretch}
+.nav-dd-trigger{display:flex;align-items:center;gap:.3rem}
+.nav-dd-chevron{width:10px;height:10px;flex-shrink:0;transition:transform .2s var(--ease)}
+.nav-dd:hover .nav-dd-chevron,.nav-dd.open .nav-dd-chevron{transform:rotate(180deg)}
+.nav-dd-menu{display:none;position:absolute;top:100%;left:0;padding-top:.6rem;z-index:1000}
+.nav-dd:hover .nav-dd-menu,.nav-dd.open .nav-dd-menu{display:block}
+.nav-dd-menu-inner{background:#fff;border:1px solid var(--g200);border-radius:var(--rl);min-width:225px;box-shadow:var(--shadowlg);overflow:hidden;padding:.4rem;animation:ddFade .16s var(--ease)}
+@keyframes ddFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.nav-dd-item{display:flex;align-items:center;gap:.65rem;padding:.65rem .75rem;border-radius:9px;cursor:pointer;color:var(--g700);font-size:.85rem;font-weight:500;transition:background .12s}
+.nav-dd-item:hover{background:var(--g50);color:var(--g900)}
+.nav-dd-item-icon{width:18px;text-align:center;flex-shrink:0;font-size:.95rem}
+
 .nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
 
 /* LANG SWITCHER */
@@ -150,17 +169,36 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 
   <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav(event)" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="nav-links" id="navLinks">
-    <button class="nl-btn" onclick="window.location.href='/'">Home</button>
-    <button class="nl-btn" onclick="window.location.href='/Universities/'">Universities</button>
-    <button class="nl-btn" onclick="window.location.href='/Scholarships/'">Scholarships</button>
-    <button class="nl-btn" onclick="window.location.href='/Interviews/'">Interviews</button>
-    <button class="nl-btn" onclick="window.location.href='/Pricing/'">Pricing</button>
-    <button class="nl-btn" onclick="window.location.href='/ProfileAnalyzer/'">Profile Analyzer</button>
-    <button class="nl-btn" onclick="window.location.href='/SatPrep/'">SAT Prep</button>
-    <button class="nl-btn" id="nav-extracurriculars" onclick="(window.chettaPlan==='pro'||window.chettaPlan==='lifetime')?window.location.href='/Extracurriculars/':window.location.href='/Pricing/'">Extracurriculars</button>
-    <button class="nl-btn active" onclick="window.location.href='/Feedback/'">Feedback</button>
+    <button class="nl-btn" onclick="window.location.href='/'" id="nav-home" data-i18n="nav_home">Home</button>
+    <div class="nav-dd" id="navResourcesDD">
+      <button class="nl-btn nav-dd-trigger" type="button" onclick="toggleNavDD('navResourcesDD')">
+        <span data-i18n="nav_resources">Resources</span>
+        <svg class="nav-dd-chevron" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-menu-inner">
+          <div class="nav-dd-item" onclick="window.location.href='/Universities/'"><span class="nav-dd-item-icon">🏛️</span><span data-i18n="nav_universities">Universities</span></div>
+          <div class="nav-dd-item" onclick="window.location.href='/Scholarships/'"><span class="nav-dd-item-icon">🎓</span><span data-i18n="nav_scholarships">Scholarships</span></div>
+          <div class="nav-dd-item" onclick="window.location.href='/Interviews/'"><span class="nav-dd-item-icon">🎤</span><span data-i18n="nav_interviews">Interviews</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-dd" id="navToolsDD">
+      <button class="nl-btn nav-dd-trigger" type="button" onclick="toggleNavDD('navToolsDD')">
+        <span data-i18n="nav_tools">Tools</span>
+        <svg class="nav-dd-chevron" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-menu-inner">
+          <div class="nav-dd-item" onclick="window.location.href='/ProfileAnalyzer/'"><span class="nav-dd-item-icon">✦</span><span data-i18n="nav_ai">Profile Analyzer</span></div>
+          <div class="nav-dd-item" onclick="window.location.href='/SatPrep/'"><span class="nav-dd-item-icon">📝</span><span data-i18n="nav_practice">SAT Prep</span></div>
+          <div class="nav-dd-item" onclick="(window.chettaPlan==='pro'||window.chettaPlan==='lifetime')?window.location.href='/Extracurriculars/':(document.getElementById('upgradeOv')?document.getElementById('upgradeOv').classList.add('open'):window.location.href='/Pricing/')"><span class="nav-dd-item-icon">🏅</span><span data-i18n="nav_extracurriculars">Extracurriculars</span></div>
+        </div>
+      </div>
+    </div>
+    <button class="nl-btn" id="nav-pricing" onclick="window.location.href='/Pricing/'" data-i18n="nav_pricing">Pricing</button>
+    <button class="nl-btn active" id="nav-feedback" onclick="window.location.href='/Feedback/'" data-i18n="nav_feedback">Feedback</button>
   </div>
-
   <div class="nav-right">
 
     <div class="lang-sw" id="langSw">
@@ -507,12 +545,26 @@ function toggleMobileNav(e){
   document.getElementById('navLinks').classList.toggle('mobile-open');
   document.getElementById('navHamburger').classList.toggle('open');
 }
+function closeAllNavDD(except){
+  document.querySelectorAll('.nav-dd.open').forEach(dd=>{if(dd.id!==except)dd.classList.remove('open');});
+}
+function toggleNavDD(id){
+  const dd=document.getElementById(id);
+  const willOpen=!dd.classList.contains('open');
+  closeAllNavDD();
+  if(willOpen)dd.classList.add('open');
+}
 function closeMobileNav(){
   document.getElementById('navLinks')?.classList.remove('mobile-open');
   document.getElementById('navHamburger')?.classList.remove('open');
+  closeAllNavDD();
 }
-document.getElementById('navLinks')?.addEventListener('click',e=>{if(e.target.closest('.nl-btn'))closeMobileNav();});
-document.addEventListener('click',e=>{if(!e.target.closest('#navLinks')&&!e.target.closest('#navHamburger'))closeMobileNav();});
+document.getElementById('navLinks')?.addEventListener('click',e=>{
+  if(e.target.closest('.nav-dd-trigger'))return;
+  if(e.target.closest('.nav-dd-item')){closeMobileNav();return;}
+  if(e.target.closest('.nl-btn'))closeMobileNav();
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.nav-dd'))closeAllNavDD();if(!e.target.closest('#navLinks')&&!e.target.closest('#navHamburger'))closeMobileNav();});
 </script>
 </body>
 </html>
