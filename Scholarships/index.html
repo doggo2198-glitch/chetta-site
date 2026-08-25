@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem('chetta-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<script>(function(){try{var v=Number(localStorage.getItem('chetta-brightness')||0);if(v>=50){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chetta -- Scholarship Finder</title>
@@ -230,6 +230,15 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 #page-scholarships .s-input:focus{border-color:rgba(76,29,149,.35);background:rgba(255,255,255,.8)}
 #page-scholarships .f-chip{background:rgba(255,255,255,.5);border:1px solid rgba(76,29,149,.16);color:rgba(45,26,79,.68)}
 #page-scholarships .f-chip:hover,#page-scholarships .f-chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
+html[data-theme="dark"] #page-scholarships .page-hd{background:linear-gradient(165deg,var(--d-surface) 0%,var(--d-bg) 100%)}
+html[data-theme="dark"] #page-scholarships .page-hd::before{background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px)}
+html[data-theme="dark"] #page-scholarships .page-hd::after{background:radial-gradient(circle,rgba(59,130,246,.16),transparent 65%)}
+html[data-theme="dark"] #page-scholarships .page-hd-eye{color:var(--d-text-mute)}
+html[data-theme="dark"] #page-scholarships .page-hd h2{color:var(--d-text)}
+html[data-theme="dark"] #page-scholarships .page-hd p{color:var(--d-text-dim)}
+html[data-theme="dark"] #page-scholarships .s-input{background:var(--d-surface2);border-color:var(--d-border);color:var(--d-text)}
+html[data-theme="dark"] #page-scholarships .s-input::placeholder{color:var(--d-text-mute)}
+html[data-theme="dark"] #page-scholarships .f-chip{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:var(--d-text-dim)}
 
 /* CARDS */
 .cards-sec{padding:2.25rem 2rem 4rem;background:#fff}
@@ -495,6 +504,8 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 html[data-theme="dark"] .dm-switch{background:var(--blue)}
 html[data-theme="dark"] .dm-knob{transform:translateX(14px)}
 
+html,body,nav,.u-card,.s-card,.u-dd,.page-hd,.auth-box,footer{transition:background-color .35s ease,color .35s ease,border-color .35s ease}
+
 /* LIGHT REGULATOR SLIDER */
 .light-reg{cursor:default;display:flex;align-items:center;gap:.65rem}
 .light-reg:hover{background:transparent!important}
@@ -575,8 +586,6 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:var(--d-border)}
 </style>
 </head>
   <body>
-<div id="lightOverlay" style="position:fixed;inset:0;pointer-events:none;z-index:890;background:#000;opacity:0;mix-blend-mode:multiply;transition:opacity .12s linear"></div>
-<script>(function(){try{var v=Number(localStorage.getItem('chetta-brightness')||0);var o=document.getElementById('lightOverlay');if(o)o.style.opacity=(v/100*0.72).toFixed(3);}catch(e){}})();</script>
 
 
 <html>
@@ -2354,8 +2363,9 @@ function updateNav(){
 }
 function toggleUMenu(){document.getElementById('navUser').classList.toggle('open');}
 function updateSliderFill(el){var pct=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right, var(--blue) '+pct+'%, #d1d5db '+pct+'%)';}
-window.setLightLevel=function(val){val=Math.max(0,Math.min(100,Number(val)));var overlay=document.getElementById('lightOverlay');if(overlay)overlay.style.opacity=(val/100*0.72).toFixed(3);try{localStorage.setItem('chetta-brightness',val);}catch(e){}var slider=document.getElementById('lightSlider');if(slider){if(Number(slider.value)!==val)slider.value=val;updateSliderFill(slider);}};
-document.addEventListener('DOMContentLoaded',function(){var v=0;try{var stored=localStorage.getItem('chetta-brightness');if(stored!==null)v=Number(stored);}catch(e){}var slider=document.getElementById('lightSlider');if(slider){slider.value=v;updateSliderFill(slider);}var overlay=document.getElementById('lightOverlay');if(overlay)overlay.style.opacity=(v/100*0.72).toFixed(3);});
+function applyLightLevel(val){var html=document.documentElement;if(val>=50){html.setAttribute('data-theme','dark');}else{html.removeAttribute('data-theme');}}
+window.setLightLevel=function(val){val=Math.max(0,Math.min(100,Number(val)));applyLightLevel(val);try{localStorage.setItem('chetta-brightness',val);}catch(e){}var slider=document.getElementById('lightSlider');if(slider){if(Number(slider.value)!==val)slider.value=val;updateSliderFill(slider);}};
+document.addEventListener('DOMContentLoaded',function(){var v=0;try{var stored=localStorage.getItem('chetta-brightness');if(stored!==null)v=Number(stored);}catch(e){}var slider=document.getElementById('lightSlider');if(slider){slider.value=v;updateSliderFill(slider);}applyLightLevel(v);});
 document.getElementById('authOv').addEventListener('click',e=>{if(e.target===document.getElementById('authOv'))closeAuth();});
 
 // ── AI ADVISOR (Built-in — no API key needed) ──
