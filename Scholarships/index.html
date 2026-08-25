@@ -495,6 +495,15 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 html[data-theme="dark"] .dm-switch{background:var(--blue)}
 html[data-theme="dark"] .dm-knob{transform:translateX(14px)}
 
+/* LIGHT REGULATOR SLIDER */
+.light-reg{cursor:default;display:flex;align-items:center;gap:.65rem}
+.light-reg:hover{background:transparent!important}
+.light-reg-ico{font-size:.85rem;flex-shrink:0;line-height:1}
+.light-slider{-webkit-appearance:none;appearance:none;flex:1;height:5px;border-radius:100px;outline:none;cursor:pointer;background:linear-gradient(to right,var(--blue) 0%,#d1d5db 0%)}
+.light-slider::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:#fff;border:3px solid var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.28);cursor:pointer;margin-top:-6.5px}
+.light-slider::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:#fff;border:3px solid var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.28);cursor:pointer}
+.light-slider::-moz-range-track{height:5px;border-radius:100px;background:#d1d5db}
+
 /* ══════ DARK MODE ══════ */
 html[data-theme="dark"]{
   --d-bg:#0a0e1a;--d-surface:#141a2e;--d-surface2:#1c2338;--d-border:#272f4c;
@@ -566,6 +575,9 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:var(--d-border)}
 </style>
 </head>
   <body>
+<div id="lightOverlay" style="position:fixed;inset:0;pointer-events:none;z-index:9997;background:#000;opacity:0;mix-blend-mode:multiply;transition:opacity .12s linear"></div>
+<script>(function(){try{var v=Number(localStorage.getItem('chetta-brightness')||0);var o=document.getElementById('lightOverlay');if(o)o.style.opacity=(v/100*0.72).toFixed(3);}catch(e){}})();</script>
+
 
 <html>
 
@@ -629,9 +641,10 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:var(--d-border)}
         <div class="u-dd-item" onclick="window.location.href='/Dashboard/'">📊 <span data-i18n="dd_dashboard">Dashboard</span></div>
         <div class="u-dd-item" onclick="showPage('scholarships')">🎓 <span data-i18n="nav_scholarships">Scholarships</span></div>
        <div class="u-dd-item" onclick="window.location.href='/ProfileAnalyzer/'">✦ <span data-i18n="nav_ai">Profile Analyzer</span></div>
-        <div class="u-dd-item" id="darkModeItem" onclick="event.stopPropagation();toggleDarkMode()">
-          <span id="darkModeIcon">🌙</span> <span data-i18n="dd_darkmode" style="flex:1">Dark mode</span>
-          <span class="dm-switch" id="darkModeSwitch"><span class="dm-knob"></span></span>
+        <div class="u-dd-item light-reg" onclick="event.stopPropagation()">
+          <span class="light-reg-ico">☀️</span>
+          <input type="range" min="0" max="100" value="0" class="light-slider" id="lightSlider" oninput="setLightLevel(this.value)">
+          <span class="light-reg-ico">🌙</span>
         </div>
         <div class="u-dd-item danger" onclick="signOut()">↩ <span data-i18n="dd_signout">Sign out</span></div>
       </div>
@@ -2340,9 +2353,9 @@ function updateNav(){
   }else{document.getElementById('authBtns').style.display='flex';document.getElementById('navUser').style.display='none';}
 }
 function toggleUMenu(){document.getElementById('navUser').classList.toggle('open');}
-function applyDarkSwitch(){var isDark=document.documentElement.getAttribute('data-theme')==='dark';var icon=document.getElementById('darkModeIcon');if(icon)icon.textContent=isDark?'☀️':'🌙';}
-window.toggleDarkMode=function(){var html=document.documentElement;var isDark=html.getAttribute('data-theme')==='dark';if(isDark){html.removeAttribute('data-theme');try{localStorage.setItem('chetta-theme','light');}catch(e){}}else{html.setAttribute('data-theme','dark');try{localStorage.setItem('chetta-theme','dark');}catch(e){}}applyDarkSwitch();};
-document.addEventListener('DOMContentLoaded',applyDarkSwitch);
+function updateSliderFill(el){var pct=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right, var(--blue) '+pct+'%, #d1d5db '+pct+'%)';}
+window.setLightLevel=function(val){val=Math.max(0,Math.min(100,Number(val)));var overlay=document.getElementById('lightOverlay');if(overlay)overlay.style.opacity=(val/100*0.72).toFixed(3);try{localStorage.setItem('chetta-brightness',val);}catch(e){}var slider=document.getElementById('lightSlider');if(slider){if(Number(slider.value)!==val)slider.value=val;updateSliderFill(slider);}};
+document.addEventListener('DOMContentLoaded',function(){var v=0;try{var stored=localStorage.getItem('chetta-brightness');if(stored!==null)v=Number(stored);}catch(e){}var slider=document.getElementById('lightSlider');if(slider){slider.value=v;updateSliderFill(slider);}var overlay=document.getElementById('lightOverlay');if(overlay)overlay.style.opacity=(v/100*0.72).toFixed(3);});
 document.getElementById('authOv').addEventListener('click',e=>{if(e.target===document.getElementById('authOv'))closeAuth();});
 
 // ── AI ADVISOR (Built-in — no API key needed) ──
