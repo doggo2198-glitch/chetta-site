@@ -512,10 +512,34 @@ html,body,*,*::before,*::after{transition:background-color .45s ease,color .45s 
 #darkModeItem.is-dark .dm-switch{background:var(--blue)}
 #darkModeItem.is-dark .dm-knob{transform:translateX(14px)}
 
+
+<style>
+/* PAGE LOADER — self-contained so it renders before the rest of the page's CSS/JS is ready */
+#pageLoader{position:fixed;inset:0;z-index:100000;background:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .4s ease,visibility .4s ease}
+#pageLoader.pl-hide{opacity:0;visibility:hidden;pointer-events:none}
+.pl-spinner{width:34px;height:34px;border-radius:50%;border:3px solid #e5e7eb;border-top-color:#2563eb;animation:pl-spin .7s linear infinite}
+@keyframes pl-spin{to{transform:rotate(360deg)}}
+@media(prefers-color-scheme:dark){#pageLoader{background:#09090b}}
 </style>
 </head>
   <body>
 
+<div id="pageLoader" aria-hidden="true"><div class="pl-spinner"></div></div>
+<noscript><style>#pageLoader{display:none}</style></noscript>
+<script>
+(function(){
+  function hidePageLoader(){
+    var el=document.getElementById('pageLoader');
+    if(!el)return;
+    el.classList.add('pl-hide');
+    setTimeout(function(){el.remove();},450);
+  }
+  if(document.readyState==='complete'){hidePageLoader();}
+  else{window.addEventListener('load',hidePageLoader);}
+  // Safety net: never let the loader block the page for more than 6s
+  setTimeout(hidePageLoader,6000);
+})();
+</script>
 
 <html>
 
