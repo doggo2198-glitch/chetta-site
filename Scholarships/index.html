@@ -21,7 +21,7 @@
 /* CONTINUOUS THEME TOKENS (light defaults; JS interpolates toward dark as the light regulator moves right) */
 :root{
   --t-bg:#ffffff;--t-surface:#ffffff;--t-surface2:#f9fafb;--t-border:#e5e7eb;
-  --t-text:#111827;--t-text-dim:#6b7280;--t-text-mute:#9ca3af;--t-nav:rgba(255,255,255,.94);
+  --t-text:#111827;--t-text-dim:#6b7280;--t-text-mute:#9ca3af;--t-nav:rgba(255,255,255,.94);--t-nav-border:#e5e7eb;
 }
 
 :root{
@@ -34,7 +34,7 @@ body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--g900);overflow
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:900;background:var(--t-nav);backdrop-filter:blur(16px);border-bottom:1px solid var(--t-border);height:58px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
+nav{position:sticky;top:0;z-index:900;background:var(--t-nav);backdrop-filter:blur(16px);border-bottom:1px solid var(--t-nav-border);height:58px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
 .nav-logo{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--black);cursor:pointer;flex-shrink:0;letter-spacing:-.3px;display:flex;align-items:center;gap:.5rem}
 .nav-logo img{height:32px;width:32px;object-fit:contain;flex-shrink:0}
 .nav-logo em{color:var(--blue);font-style:normal}
@@ -231,7 +231,7 @@ nav{position:sticky;top:0;z-index:900;background:var(--t-nav);backdrop-filter:bl
 
 /* SCHOLARSHIPS PAGE HEADER — light lavender, matches site's "dream university" hero treatment */
 #page-scholarships .page-hd{background:linear-gradient(165deg,var(--t-sch-a) 0%,var(--t-sch-mid) 45%,var(--t-sch-b) 100%);position:relative;overflow:hidden}
-#page-scholarships .page-hd::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(76,29,149,.14) 1px,transparent 1px);background-size:15px 15px;pointer-events:none}
+#page-scholarships .page-hd::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(76,29,149,.14) 1px,transparent 1px);background-size:15px 15px;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 75%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 75%,transparent 100%)}
 #page-scholarships .page-hd::after{content:'';position:absolute;top:-40%;right:-10%;width:60%;height:180%;background:radial-gradient(circle,rgba(37,99,235,.13),transparent 65%);pointer-events:none}
 #page-scholarships .page-hd-inner{position:relative;z-index:1}
 #page-scholarships .page-hd-eye{color:var(--t-sch-eye)}
@@ -2298,7 +2298,8 @@ var THEME_TOKENS={
 't-text':[[17,24,39,1],[232,234,243,1]],
 't-text-dim':[[107,114,128,1],[154,163,196,1]],
 't-text-mute':[[156,163,175,1],[107,116,148,1]],
-'t-nav':[[255,255,255,.94],[10,14,26,.9]]
+'t-nav':[[255,255,255,.94],[10,14,26,.9]],
+'t-nav-border':[[229,231,235,1],[10,14,26,0]]
 };
 THEME_TOKENS['t-sch-a']=[[244,240,253,1],[20,26,46,1]];
 THEME_TOKENS['t-sch-mid']=[[236,226,251,1],[15,20,36,1]];
