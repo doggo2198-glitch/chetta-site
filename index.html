@@ -421,6 +421,20 @@ html[data-theme="dark"] .dm-knob{transform:translateX(14px)}
 .testi-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);padding:1.5rem;position:relative;transition:all .25s var(--ease)}
 .testi-card:hover{border-color:rgba(37,99,235,.35);box-shadow:var(--shadowlg);transform:translateY(-3px)}
 .testi-card::after{content:'\201D';position:absolute;top:.6rem;right:1rem;font-family:'Instrument Serif',serif;font-size:3rem;color:var(--g100);line-height:1;pointer-events:none}
+.trust-sec{padding:5rem 2rem;background:var(--g50)}
+.trust-inner{max-width:1080px;margin:0 auto;text-align:center}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.15rem;margin-top:2.25rem}
+.trust-item{background:#fff;border-radius:var(--rxl);padding:2.25rem 1.25rem;box-shadow:0 1px 2px rgba(15,23,42,.04),0 1px 12px rgba(15,23,42,.05);transition:all .3s var(--ease)}
+.trust-item:hover{box-shadow:var(--shadowlg);transform:translateY(-5px)}
+.trust-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin:0 auto 1.1rem}
+.trust-icon.blue{background:var(--bluepale)}
+.trust-icon.purple{background:#f5f3ff}
+.trust-icon.green{background:var(--gpale)}
+.trust-icon.amber{background:var(--apale)}
+.trust-num{font-family:'Instrument Serif',serif;font-size:2.6rem;color:var(--blue);letter-spacing:-1px;line-height:1}
+.trust-label{font-size:.85rem;color:var(--g500);margin-top:.6rem;font-weight:500}
+@media(max-width:768px){.trust-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.trust-num{font-size:2.1rem}}
 .score-row{display:flex;align-items:center;gap:.65rem;margin-bottom:.9rem}
 .sc-from{font-size:1.35rem;font-weight:700;color:var(--g300);font-family:'Instrument Serif',serif}
 .sc-arr{color:var(--g300);font-size:.88rem}
@@ -643,6 +657,9 @@ html[data-theme="dark"] .testi-lbl{color:var(--d-text-mute)}
 html[data-theme="dark"] .sc-to{color:var(--d-text)}
 html[data-theme="dark"] .sc-from{color:var(--d-text-mute)}
 html[data-theme="dark"] .testi-av{background:var(--d-surface2);color:var(--d-text-dim)}
+html[data-theme="dark"] .trust-sec{background:var(--d-bg)}
+html[data-theme="dark"] .trust-item{background:var(--d-surface);box-shadow:0 1px 2px rgba(0,0,0,.2),0 1px 12px rgba(0,0,0,.25)}
+html[data-theme="dark"] .trust-label{color:var(--d-text-mute)}
 /* FAQ */
 html[data-theme="dark"] .faq-sec{background:var(--d-bg)}
 html[data-theme="dark"] .faq-list{background:var(--d-surface);border-color:var(--d-border)}
@@ -1029,29 +1046,72 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:var(--d-border)}
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testi-sec reveal">
-  <div class="testi-inner">
-    <div class="sec-eye" data-i18n="testi_eye">Student stories</div>
-    <h2 class="sec-title" data-i18n="testi_title">Real students. Real results.</h2>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="score-row"><span class="sc-from">1280</span><span class="sc-arr">→</span><span class="sc-to">1480</span><span class="sc-delta">+200</span></div>
-        <p class="testi-q" data-i18n="t1_q">"Chetta's AI helped me understand what MIT was looking for. I rewrote my essays three times based on its feedback — and I got in."</p>
-        <div class="testi-auth"><div class="testi-av">AK</div><div><div class="testi-name">Aisha K.</div><div class="testi-lbl">MIT '28</div></div></div>
+<section class="trust-sec reveal">
+  <div class="trust-inner">
+    <div class="sec-eye">Trusted worldwide</div>
+    <h2 class="sec-title">Trusted by 100,000+ students.</h2>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon blue">🎓</div>
+        <div class="trust-num" data-target="100000" data-suffix="+">0</div>
+        <div class="trust-label">Students</div>
       </div>
-      <div class="testi-card">
-        <div class="score-row"><span class="sc-from" style="font-size:1rem">No scholarship</span><span class="sc-arr">→</span><span class="sc-to" style="font-size:1rem">Full ride</span><span class="sc-delta">UCL</span></div>
-        <p class="testi-q" data-i18n="t2_q">"I found a full-ride scholarship through Chetta I'd never heard of. The step-by-step guide made applying easy. It covered four full years."</p>
-        <div class="testi-auth"><div class="testi-av">JO</div><div><div class="testi-name">James O.</div><div class="testi-lbl">UCL London '27</div></div></div>
+      <div class="trust-item">
+        <div class="trust-icon purple">🏛</div>
+        <div class="trust-num" data-target="500" data-suffix="+">0</div>
+        <div class="trust-label">Universities</div>
       </div>
-      <div class="testi-card">
-        <div class="score-row"><span class="sc-from">6.0</span><span class="sc-arr">→</span><span class="sc-to">7.5</span><span class="sc-delta">IELTS</span></div>
-        <p class="testi-q" data-i18n="t3_q">"The interview videos showed me how Oxford students think. Watching them changed how I wrote my personal statement completely."</p>
-        <div class="testi-auth"><div class="testi-av">PM</div><div><div class="testi-name">Priya M.</div><div class="testi-lbl">Oxford '28</div></div></div>
+      <div class="trust-item">
+        <div class="trust-icon green">💰</div>
+        <div class="trust-num" data-prefix="$" data-target="2" data-suffix="B+">0</div>
+        <div class="trust-label">Scholarships matched</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon amber">🌍</div>
+        <div class="trust-num" data-target="40" data-suffix="+">0</div>
+        <div class="trust-label">Countries</div>
       </div>
     </div>
   </div>
 </section>
+<script>
+(function(){
+  function animateCount(el){
+    var target=parseFloat(el.getAttribute('data-target'))||0;
+    var prefix=el.getAttribute('data-prefix')||'';
+    var suffix=el.getAttribute('data-suffix')||'';
+    var duration=1800;
+    var start=null;
+    function step(ts){
+      if(!start)start=ts;
+      var p=Math.min((ts-start)/duration,1);
+      var eased=1-Math.pow(1-p,3);
+      var current=Math.floor(target*eased);
+      el.textContent=prefix+current.toLocaleString('en-US')+suffix;
+      if(p<1){requestAnimationFrame(step);}
+      else{el.textContent=prefix+target.toLocaleString('en-US')+suffix;}
+    }
+    requestAnimationFrame(step);
+  }
+  function initTrustCounters(){
+    var nums=document.querySelectorAll('.trust-num');
+    if(!nums.length)return;
+    if('IntersectionObserver' in window){
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ animateCount(entry.target); obs.unobserve(entry.target); }
+        });
+      },{threshold:.4});
+      nums.forEach(function(n){obs.observe(n);});
+    } else {
+      nums.forEach(function(n){animateCount(n);});
+    }
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', initTrustCounters); }
+  else{ initTrustCounters(); }
+})();
+</script>
+
 
 <!-- FAQ -->
 <section class="faq-sec reveal">
