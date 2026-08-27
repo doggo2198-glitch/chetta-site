@@ -247,6 +247,49 @@ nav{position:sticky;top:0;z-index:900;background:var(--t-nav);backdrop-filter:bl
 .cards-sec{padding:2.25rem 2rem 4rem;background:var(--t-bg)}
 .cards-inner{max-width:1080px;margin:0 auto}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.15rem}
+#page-scholarships .cards-inner{max-width:1320px}
+
+/* SCHOLARSHIP FILTER SIDEBAR */
+.sch-layout{display:flex;align-items:flex-start;gap:2rem}
+.sch-filters{width:272px;flex-shrink:0;background:var(--t-surface);border:1.5px solid var(--t-border);border-radius:var(--rl);overflow:hidden;position:sticky;top:5.5rem}
+.sch-filters-hd{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.25rem;border-bottom:1px solid var(--t-border)}
+.sch-filters-title{font-weight:700;font-size:.95rem;color:var(--t-text)}
+.sch-clear{font-size:.78rem;color:var(--blue);background:none;border:none;cursor:pointer;font-weight:600;font-family:'DM Sans',sans-serif;padding:0}
+.sch-clear:hover{text-decoration:underline}
+.facc-scroll{max-height:calc(100vh - 12rem);overflow-y:auto}
+.facc-item{border-bottom:1px solid var(--t-border)}
+.facc-item:last-child{border-bottom:none}
+.facc-head{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:1rem 1.25rem;cursor:pointer;user-select:none;transition:background .15s}
+.facc-head:hover{background:var(--t-surface2)}
+.facc-item.open .facc-head{background:var(--t-surface2)}
+.facc-label{font-weight:700;font-size:.9rem;color:var(--t-text);display:flex;align-items:center;gap:.45rem}
+.facc-badge{background:var(--bluepale);color:var(--blue);font-size:.66rem;font-weight:700;border-radius:100px;padding:.08rem .48rem;line-height:1.5}
+.facc-icon{width:16px;height:16px;position:relative;flex-shrink:0}
+.facc-icon::before,.facc-icon::after{content:'';position:absolute;background:var(--t-text-dim);top:50%;left:50%;transform:translate(-50%,-50%);transition:transform .2s ease}
+.facc-icon::before{width:12px;height:2px}
+.facc-icon::after{width:2px;height:12px}
+.facc-item.open .facc-icon::after{transform:translate(-50%,-50%) scaleY(0)}
+.facc-body{max-height:0;overflow:hidden;transition:max-height .28s ease}
+.facc-item.open .facc-body{max-height:280px}
+.facc-body-inner{padding:.15rem 1.25rem 1.05rem;display:flex;flex-direction:column;gap:.6rem;max-height:242px;overflow-y:auto}
+.facc-opt{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--t-text-dim);cursor:pointer;line-height:1.3}
+.facc-opt:hover{color:var(--t-text)}
+.facc-opt input{accent-color:var(--blue);width:15px;height:15px;cursor:pointer;flex-shrink:0}
+.facc-opt-count{margin-left:auto;font-size:.72rem;color:var(--t-text-mute);flex-shrink:0}
+.facc-search{width:100%;padding:.4rem .6rem;border:1px solid var(--t-border);border-radius:7px;background:var(--t-surface2);color:var(--t-text);font-family:'DM Sans',sans-serif;font-size:.78rem;outline:none;margin-bottom:.2rem}
+.facc-empty{font-size:.78rem;color:var(--t-text-mute);padding:.2rem 0}
+.sch-results{flex:1;min-width:0}
+.sch-results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.sch-result-count{font-size:.83rem;color:var(--t-text-mute)}
+.sch-filters-toggle{display:none;align-items:center;gap:.4rem;background:var(--t-surface);border:1.5px solid var(--t-border);color:var(--t-text);padding:.5rem 1rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:600;cursor:pointer}
+.sch-filters-backdrop{display:none}
+@media(max-width:900px){
+  .sch-filters{position:fixed;top:0;left:0;bottom:0;width:min(320px,86vw);z-index:2000;border-radius:0;transform:translateX(-100%);transition:transform .25s ease;top:0;height:100vh}
+  .sch-filters.open{transform:translateX(0)}
+  .facc-scroll{max-height:calc(100vh - 4rem)}
+  .sch-filters-toggle{display:flex}
+  .sch-filters-backdrop.open{display:block;position:fixed;inset:0;background:rgba(10,10,15,.5);z-index:1999}
+}
 .u-card,.s-card{background:var(--t-surface);border:1.5px solid var(--t-border);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
 .u-card.card-saved{border-color:#ef4444;box-shadow:0 6px 22px rgba(239,68,68,.28)}
 .u-card.card-saved:hover{border-color:#dc2626;box-shadow:0 10px 28px rgba(239,68,68,.35);transform:translateY(-2px)}
@@ -924,13 +967,26 @@ html,body,*,*::before,*::after{transition:background-color .45s ease,color .45s 
     <h2 data-i18n="spage_title">Scholarship Finder</h2>
     <p data-i18n="spage_sub">Discover $2B+ in scholarships — click any to see eligibility, amounts, and how to apply.</p>
     <div class="search-row"><input class="s-input" type="text" id="sch-search" placeholder="Search scholarships..." oninput="filterSchs()"><button class="s-btn" onclick="filterSchs()" data-i18n="btn_search">Search</button></div>
-    <div class="filter-row">
-      <button class="f-chip active" onclick="filterSchType('all',this)" data-i18n="f_all">All</button>
-      <button class="f-chip" onclick="filterSchType('full',this)" data-i18n="f_full">Full Ride</button>
-      <button class="f-chip" onclick="filterSchType('partial',this)" data-i18n="f_partial">Partial</button>
+  </div></div>
+  <div class="cards-sec"><div class="cards-inner">
+    <div class="sch-layout">
+      <div class="sch-filters-backdrop" id="sch-filters-backdrop" onclick="toggleSchFilters(false)"></div>
+      <aside class="sch-filters" id="sch-filters">
+        <div class="sch-filters-hd">
+          <span class="sch-filters-title">Filters</span>
+          <button class="sch-clear" onclick="clearSchFilters()">Clear all</button>
+        </div>
+        <div class="facc-scroll" id="sch-filter-accordion"></div>
+      </aside>
+      <div class="sch-results">
+        <div class="sch-results-bar">
+          <button class="sch-filters-toggle" id="sch-filters-toggle" onclick="toggleSchFilters(true)">⚙ Filters</button>
+          <span class="sch-result-count" id="sch-result-count"></span>
+        </div>
+        <div class="cards-grid" id="sch-grid"></div>
+      </div>
     </div>
   </div></div>
-  <div class="cards-sec"><div class="cards-inner"><div class="cards-grid" id="sch-grid"></div></div></div>
 </div>
 
 <!-- INTERVIEWS PAGE -->
@@ -2231,11 +2287,145 @@ function renderVids(){
 }
 
 // ── FILTERS ──
-let aReg='all',aSchType='all',currentUniId=null;
+let aReg='all',currentUniId=null;
 function filterUnis(){const q=(document.getElementById('uni-search')?.value||'').toLowerCase();renderUnis(unis.filter(u=>(aReg==='all'||u.region===aReg)&&(!q||u.name.toLowerCase().includes(q)||u.loc.toLowerCase().includes(q))));}
 function filterRegion(r,b){aReg=r;document.querySelectorAll('#page-universities .f-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');filterUnis();}
-function filterSchs(){const q=document.getElementById('sch-search').value.toLowerCase();renderSchs(schs.filter(s=>(aSchType==='all'||s.type===aSchType)&&(!q||s.name.toLowerCase().includes(q)||s.provider.toLowerCase().includes(q))));}
-function filterSchType(tp,b){aSchType=tp;document.querySelectorAll('#page-scholarships .f-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');filterSchs();}
+
+// ── SCHOLARSHIP FILTER SIDEBAR ──
+// Derives filter facets from data already present on each scholarship
+// (provider/uni text, field, and reqs/desc copy) — nothing invented.
+const COUNTRY_PATTERNS=[
+  ['United States',/\bu\.?s\.?a?\.?\b|united states|american(?!a)/i],
+  ['United Kingdom',/united kingdom|\buk\b|britain|british|oxford|cambridge/i],
+  ['Canada',/canada|canadian|toronto|ubc|mcgill/i],
+  ['Germany',/germany|german/i],
+  ['Netherlands',/netherlands|dutch/i],
+  ['Australia',/australia/i],
+  ['New Zealand',/new zealand/i],
+  ['Switzerland',/switzerland|swiss|eth zurich|epfl/i],
+  ['France',/france|french/i],
+  ['China',/china|chinese|beijing|tsinghua|peking|hong kong/i],
+  ['Japan',/japan/i],
+  ['South Korea',/south korea|\bkorea\b|korean/i],
+  ['Singapore',/singapore|\bnus\b|\bntu\b/i],
+  ['Ireland',/ireland|dublin/i],
+  ['Hungary',/hungary|hungaricum/i],
+  ['Turkey',/t[üu]rkiye|turkish|turkey/i],
+  ['Europe (EU)',/erasmus|european commission|\beu\b/i]
+];
+function schDerived(s){
+  if(s._d)return s._d;
+  const blob=`${s.provider||''} ${s.uni||''} ${s.desc||''}`;
+  const reqBlob=((s.reqs||[]).join(' ')+' '+(s.desc||'')).toLowerCase();
+  let countries=COUNTRY_PATTERNS.filter(([,re])=>re.test(blob)).map(([n])=>n);
+  if(!countries.length)countries=['Other / International'];
+  let degree='Any Level';
+  const hasPhd=/\bphd\b|doctoral|doctorate/.test(reqBlob);
+  const hasGrad=/master'?s|postgraduate|graduate (study|program|degree|student)/.test(reqBlob);
+  const hasUndergrad=/high school senior|undergraduate|freshman|4-year college|bachelor'?s (degree )?scholarship/.test(reqBlob);
+  const levels=[hasUndergrad&&'Undergraduate',hasGrad&&'Graduate',hasPhd&&'PhD'].filter(Boolean);
+  degree=levels.length===1?levels[0]:(levels.length>1?'Any Level':'Any Level');
+  let stage='Not Specified';
+  if(/high school senior/.test(reqBlob))stage='High School Senior';
+  else if(/doctoral student/.test(reqBlob))stage='Doctoral Student';
+  else if(/hold(?:s|ing)? .*bachelor'?s degree|completed bachelor'?s/.test(reqBlob))stage="Bachelor's Degree Holder";
+  else if(/undergraduate student|currently enrolled/.test(reqBlob))stage='Undergraduate Student';
+  let gpaBucket='Not Specified';
+  const gpaMatch=reqBlob.match(/(\d\.\d{1,2})\+?\s*(?:gpa|grade point|cumulative)/);
+  if(gpaMatch){
+    const v=parseFloat(gpaMatch[1]);
+    gpaBucket=v>=3.75?'3.75+':v>=3.5?'3.5+':v>=3.3?'3.3+':v>=3.0?'3.0+':'Below 3.0';
+  }
+  const fieldTags=(s.field||'').split(',').map(x=>x.trim()).filter(Boolean);
+  return s._d={countries,degree,stage,gpaBucket,fieldTags};
+}
+
+const SCH_FILTER_CATEGORIES=[
+  {key:'countries',label:'Location',multi:true},
+  {key:'stage',label:'Academic Stage'},
+  {key:'gpaBucket',label:'GPA'},
+  {key:'type',label:'Scholarship Type',valueLabels:{full:'Full Ride',partial:'Partial'}},
+  {key:'degree',label:'Degree Level'},
+  {key:'fieldTags',label:'Fields of Study',multi:true},
+  {key:'uni',label:'College Choice',searchable:true}
+];
+let schSelected={},schAccOpen=new Set(),schUniSearch='';
+SCH_FILTER_CATEGORIES.forEach(c=>schSelected[c.key]=new Set());
+
+function schOptionValue(s,key){
+  if(key==='countries'||key==='fieldTags')return schDerived(s)[key];
+  if(key==='stage'||key==='gpaBucket'||key==='degree')return [schDerived(s)[key]];
+  return [s[key]];
+}
+function schMatchesFilters(s){
+  return SCH_FILTER_CATEGORIES.every(({key})=>{
+    const sel=schSelected[key];
+    if(!sel.size)return true;
+    const vals=schOptionValue(s,key);
+    return vals.some(v=>sel.has(v));
+  });
+}
+function buildSchFilterOptions(key){
+  const counts=new Map();
+  schs.forEach(s=>schOptionValue(s,key).forEach(v=>counts.set(v,(counts.get(v)||0)+1)));
+  return [...counts.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+}
+function renderSchFilterAccordion(){
+  const el=document.getElementById('sch-filter-accordion');if(!el)return;
+  el.innerHTML=SCH_FILTER_CATEGORIES.map(cat=>{
+    const open=schAccOpen.has(cat.key);
+    const selCount=schSelected[cat.key].size;
+    let options=buildSchFilterOptions(cat.key);
+    if(cat.searchable&&schUniSearch)options=options.filter(([v])=>v.toLowerCase().includes(schUniSearch.toLowerCase()));
+    const optsHtml=options.length?options.map(([val,count])=>{
+      const label=(cat.valueLabels&&cat.valueLabels[val])||val;
+      const checked=schSelected[cat.key].has(val);
+      const safe=val.replace(/"/g,'&quot;');
+      return `<label class="facc-opt"><input type="checkbox" ${checked?'checked':''} onchange="toggleSchFilterOpt('${cat.key}','${safe}',this.checked)">${label}<span class="facc-opt-count">${count}</span></label>`;
+    }).join(''):'<div class="facc-empty">No matches</div>';
+    return `<div class="facc-item${open?' open':''}">
+      <div class="facc-head" onclick="toggleSchAccordion('${cat.key}')">
+        <span class="facc-label">${cat.label}${selCount?`<span class="facc-badge">${selCount}</span>`:''}</span>
+        <span class="facc-icon"></span>
+      </div>
+      <div class="facc-body"><div class="facc-body-inner">
+        ${cat.searchable?`<input class="facc-search" type="text" placeholder="Search..." value="${schUniSearch.replace(/"/g,'&quot;')}" oninput="schUniSearch=this.value;renderSchFilterAccordion()">`:''}
+        ${optsHtml}
+      </div></div>
+    </div>`;
+  }).join('');
+}
+function toggleSchAccordion(key){
+  schAccOpen.has(key)?schAccOpen.delete(key):schAccOpen.add(key);
+  renderSchFilterAccordion();
+}
+function toggleSchFilterOpt(key,val,checked){
+  checked?schSelected[key].add(val):schSelected[key].delete(val);
+  renderSchFilterAccordion();
+  filterSchs();
+}
+function clearSchFilters(){
+  SCH_FILTER_CATEGORIES.forEach(c=>schSelected[c.key].clear());
+  schUniSearch='';
+  renderSchFilterAccordion();
+  filterSchs();
+}
+function toggleSchFilters(show){
+  document.getElementById('sch-filters')?.classList.toggle('open',show);
+  document.getElementById('sch-filters-backdrop')?.classList.toggle('open',show);
+}
+function initSchFilters(){
+  if(window._schFiltersInit)return;
+  window._schFiltersInit=true;
+  renderSchFilterAccordion();
+}
+function filterSchs(){
+  const q=(document.getElementById('sch-search')?.value||'').toLowerCase();
+  const filtered=schs.filter(s=>schMatchesFilters(s)&&(!q||s.name.toLowerCase().includes(q)||s.provider.toLowerCase().includes(q)));
+  renderSchs(filtered);
+  const countEl=document.getElementById('sch-result-count');
+  if(countEl)countEl.textContent=`${filtered.length} scholarship${filtered.length===1?'':'s'}`;
+}
 
 // ── MODALS ──
 function openM(id){document.getElementById(id).classList.add('open');}
@@ -2315,7 +2505,7 @@ function showPage(name){
   document.getElementById('nav-'+name)?.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   if(name==='universities')renderUnis(unis);
-  if(name==='scholarships')renderSchs(schs);
+  if(name==='scholarships'){initSchFilters();filterSchs();}
   if(name==='interviews')renderVids();
   if(name==='dashboard')renderDashboard();
 }
@@ -2522,7 +2712,7 @@ function applyLang(lang){
   const fm=document.getElementById('fbMsg');if(fm&&t.fb_msg_ph)fm.placeholder=t.fb_msg_ph;
   // re-render visible cards
   if(document.getElementById('uni-grid')?.children.length)renderUnis(unis.filter(u=>aReg==='all'||u.region===aReg));
-  if(document.getElementById('sch-grid')?.children.length)renderSchs(schs);
+  if(document.getElementById('sch-grid')?.children.length)filterSchs();
   if(document.getElementById('vid-grid')?.children.length)renderVids();
   // update chat static text
   const cn=document.querySelector('.chat-hd-name');if(cn)cn.textContent=t.ai_agent;
