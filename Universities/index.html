@@ -222,6 +222,33 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .filter-row{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.9rem}
 .f-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.55);padding:.28rem .8rem;border-radius:100px;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .f-chip:hover,.f-chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
+/* Explore-Colleges style filter categories (Universities page) — sits below the dark header, on white */
+.uf-bar{background:#fff;border-bottom:1px solid var(--g200,#e5e7eb)}
+.uf-bar-inner{max-width:1080px;margin:0 auto;padding:1.1rem 2rem}
+.uf-cats{display:flex;gap:.55rem;flex-wrap:wrap;align-items:center}
+.uf-cat-btn{background:#fff;border:1.5px solid var(--g200,#e5e7eb);color:var(--g900,#111827);padding:.5rem 1.1rem;border-radius:100px;font-size:.83rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.uf-cat-btn:hover{border-color:var(--g300,#d1d5db);background:var(--g50,#f9fafb)}
+.uf-cat-btn.open,.uf-cat-btn.has-val{background:var(--blue);border-color:var(--blue);color:#fff}
+.uf-clear-btn{background:none;border:none;color:var(--g400,#9ca3af);font-size:.78rem;font-weight:600;cursor:pointer;padding:.4rem .3rem;font-family:'DM Sans',sans-serif}
+.uf-clear-btn:hover{color:var(--g900,#111827)}
+.uf-panel-wrap{margin-top:.7rem}
+.uf-panel{background:#fff;border:1px solid var(--g200,#e5e7eb);border-radius:var(--rl,14px);padding:1.15rem 1.25rem;box-shadow:0 16px 40px rgba(0,0,0,.12);max-width:640px;max-height:340px;overflow-y:auto}
+.uf-panel-title{font-size:.78rem;font-weight:700;color:var(--g400,#9ca3af);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem}
+.uf-opt-grid{display:flex;flex-wrap:wrap;gap:.5rem}
+.uf-opt{background:var(--g50,#f9fafb);border:1.5px solid var(--g200,#e5e7eb);color:var(--g700,#374151);padding:.4rem .85rem;border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.uf-opt:hover{border-color:var(--blue)}
+.uf-opt.sel{background:var(--blue);border-color:var(--blue);color:#fff}
+.uf-search-mini{width:100%;padding:.55rem .8rem;border:1.5px solid var(--g200,#e5e7eb);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--g900,#111827);outline:none;margin-bottom:.8rem}
+.uf-search-mini:focus{border-color:var(--blue)}
+.uf-note{font-size:.8rem;color:var(--g500,#6b7280);line-height:1.55}
+.uf-toggle-row{display:flex;align-items:center;gap:.6rem;font-size:.86rem;color:var(--g700,#374151);font-weight:600;cursor:pointer}
+.uf-active-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.uf-active-pill{display:inline-flex;align-items:center;gap:.4rem;background:var(--bluepale,#eff6ff);border:1px solid rgba(37,99,235,.25);color:var(--blue);padding:.28rem .7rem;border-radius:100px;font-size:.74rem;font-weight:600}
+.uf-active-pill button{background:none;border:none;color:var(--blue);cursor:pointer;font-size:.8rem;line-height:1;padding:0}
+#backToTopBtn{position:fixed;bottom:28px;right:24px;width:46px;height:46px;border-radius:50%;background:var(--blue);color:#fff;border:none;font-size:1.2rem;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(37,99,235,.45);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s,transform .25s,visibility .25s;z-index:900}
+#backToTopBtn.show{opacity:1;visibility:visible;transform:translateY(0)}
+#backToTopBtn:hover{background:#1d4ed8;transform:translateY(-2px)}
+@media(max-width:640px){.uf-panel{max-width:none}#backToTopBtn{bottom:20px;right:16px;width:42px;height:42px}}
 
 /* CARDS */
 .cards-sec{padding:2.25rem 2rem 4rem;background:#fff}
@@ -776,20 +803,28 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
     <h2 data-i18n="upage_title">University Explorer</h2>
     <p data-i18n="upage_sub">Click any university for full details, acceptance rates, and scholarships.</p>
     <div class="search-row"><input class="s-input" type="text" id="uni-search" placeholder="Search by name or country..." oninput="filterUnis()"><button class="s-btn" onclick="filterUnis()" data-i18n="btn_search">Search</button><button class="compare-btn" onclick="if(requireAuth())window.location.href='/Universities/CompareUniversities'" data-i18n="btn_compare"><span class="cb-ico">⇄</span> Compare<span class="cb-badge">NEW</span></button></div>
-    <div class="filter-row">
-      <button class="f-chip active" onclick="filterRegion('all',this)" data-i18n="f_all">All</button>
-      <button class="f-chip" onclick="filterRegion('usa',this)">🇺🇸 USA</button>
-      <button class="f-chip" onclick="filterRegion('uk',this)">🇬🇧 UK</button>
-      <button class="f-chip" onclick="filterRegion('canada',this)">🇨🇦 Canada</button>
-      <button class="f-chip" onclick="filterRegion('europe',this)">🇪🇺 Europe</button>
-      <button class="f-chip" onclick="filterRegion('asia',this)">🌏 Asia</button>
-      <button class="f-chip" onclick="filterRegion('australia',this)">🇦🇺 Australia</button>
-      <button class="f-chip" onclick="filterRegion('latam',this)">🌎 Latin America</button>
-      <button class="f-chip" onclick="filterRegion('mideast',this)">🕌 Middle East & Africa</button>
+  </div></div>
+  <div class="uf-bar"><div class="uf-bar-inner">
+    <div class="uf-cats" id="uf-cats">
+      <button class="uf-cat-btn" data-cat="majors" onclick="toggleUniFilter('majors',this)">Majors</button>
+      <button class="uf-cat-btn" data-cat="location" onclick="toggleUniFilter('location',this)">Location</button>
+      <button class="uf-cat-btn" data-cat="type" onclick="toggleUniFilter('type',this)">Type</button>
+      <button class="uf-cat-btn" data-cat="afford" onclick="toggleUniFilter('afford',this)">Affordability</button>
+      <button class="uf-cat-btn" data-cat="campus" onclick="toggleUniFilter('campus',this)">Campus Life</button>
+      <button class="uf-cat-btn" data-cat="credit" onclick="toggleUniFilter('credit',this)">Credit</button>
+      <button class="uf-cat-btn" data-cat="admissions" onclick="toggleUniFilter('admissions',this)">Admissions</button>
+      <button class="uf-cat-btn" data-cat="rms" onclick="toggleUniFilter('rms',this)">Reach, Match, Safety</button>
+      <button class="uf-cat-btn" data-cat="degrees" onclick="toggleUniFilter('degrees',this)">Degrees</button>
+      <button class="uf-cat-btn" data-cat="commonapp" onclick="toggleUniFilter('commonapp',this)">Common App Members</button>
+      <button class="uf-clear-btn" id="uf-clear-btn" onclick="clearUniFilters()" style="display:none">Clear all ✕</button>
     </div>
+    <div class="uf-panel-wrap" id="uf-panel-wrap" style="display:none"><div class="uf-panel" id="uf-panel"></div></div>
+    <div class="uf-active-row" id="uf-active-row"></div>
   </div></div>
   <div class="cards-sec"><div class="cards-inner"><div class="cards-grid" id="uni-grid"></div></div></div>
 </div>
+
+<button id="backToTopBtn" onclick="scrollToTop()" aria-label="Back to top" title="Back to top">↑</button>
 
 <!-- DASHBOARD PAGE (multi-feature: overview, saved universities, ...) -->
 <div id="page-dashboard" class="page">
@@ -2171,10 +2206,149 @@ function renderVids(){
 
 // ── FILTERS ──
 let aReg='all',aSchType='all',currentUniId=null;
-function filterUnis(){const q=(document.getElementById('uni-search')?.value||'').toLowerCase();renderUnis(unis.filter(u=>(aReg==='all'||u.region===aReg)&&(!q||u.name.toLowerCase().includes(q)||u.loc.toLowerCase().includes(q))));}
-function filterRegion(r,b){aReg=r;document.querySelectorAll('#page-universities .f-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');filterUnis();}
 function filterSchs(){const q=document.getElementById('sch-search').value.toLowerCase();renderSchs(schs.filter(s=>(aSchType==='all'||s.type===aSchType)&&(!q||s.name.toLowerCase().includes(q)||s.provider.toLowerCase().includes(q))));}
 function filterSchType(tp,b){aSchType=tp;document.querySelectorAll('#page-scholarships .f-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');filterSchs();}
+
+// ── EXPLORE COLLEGES FILTER BAR (Universities page) ──
+const uniFilters={majors:new Set(),types:new Set(),campus:new Set(),afford:'any',admissions:'any',rms:'any',commonApp:false};
+let ALL_MAJORS=[],uniFilterOpenCat=null;
+function buildMajorsList(){const s=new Set();(typeof unis!=='undefined'?unis:[]).forEach(u=>(u.majors||[]).forEach(m=>s.add(m)));ALL_MAJORS=[...s].sort();}
+const REGION_OPTS=[['all','All'],['usa','🇺🇸 USA'],['uk','🇬🇧 UK'],['canada','🇨🇦 Canada'],['europe','🇪🇺 Europe'],['asia','🌏 Asia'],['australia','🇦🇺 Australia'],['latam','🌎 Latin America'],['mideast','🕌 Middle East & Africa']];
+const TYPE_OPTS=['Public','Private','Ivy League','Liberal Arts','Technical/Polytechnic','Medical','Business','Research University'];
+const CAMPUS_OPTS=['Very Small','Small','Medium','Large','Urban','Suburban','Rural'];
+const AFFORD_OPTS=[['any','Any tuition'],['under20','Under $20k/yr'],['20to40','$20k – $40k/yr'],['40to60','$40k – $60k/yr'],['60plus','$60k+/yr']];
+const ADMIT_OPTS=[['any','Any acceptance rate'],['under10','Under 10%'],['10to30','10% – 30%'],['30to60','30% – 60%'],['60plus','60%+']];
+const RMS_OPTS=[['any','Any'],['safety','Safety'],['match','Match'],['reach','Reach']];
+function normType(t){t=t||'';if(/ivy league/i.test(t))return'Ivy League';if(/liberal arts/i.test(t))return'Liberal Arts';if(/polytechnic|technical/i.test(t))return'Technical/Polytechnic';if(/medical/i.test(t))return'Medical';if(/business/i.test(t))return'Business';if(/public/i.test(t))return'Public';if(/private/i.test(t))return'Private';return'Research University';}
+function campusBucket(c){c=(c||'').toLowerCase();const b=[];if(c.includes('very small'))b.push('Very Small');else if(c.includes('small'))b.push('Small');if(c.includes('medium'))b.push('Medium');if(c.includes('large'))b.push('Large');if(c.includes('urban'))b.push('Urban');if(c.includes('suburban'))b.push('Suburban');if(c.includes('rural'))b.push('Rural');return b;}
+function isCommonApp(u){return(u.roadmap||[]).join(' ').includes('Common App');}
+function rmsBucket(u){if((u.diff||0)>=70)return'reach';if((u.diff||0)<40)return'safety';return'match';}
+
+function toggleUniFilter(cat,btn){
+  const wrap=document.getElementById('uf-panel-wrap');
+  if(uniFilterOpenCat===cat){closeUniFilterPanel();return;}
+  document.querySelectorAll('.uf-cat-btn').forEach(b=>b.classList.remove('open'));
+  btn.classList.add('open');
+  uniFilterOpenCat=cat;
+  wrap.style.display='block';
+  renderUniFilterPanel(cat);
+}
+function closeUniFilterPanel(){uniFilterOpenCat=null;document.getElementById('uf-panel-wrap').style.display='none';document.querySelectorAll('.uf-cat-btn').forEach(b=>b.classList.remove('open'));}
+function renderUniFilterPanel(cat){
+  const p=document.getElementById('uf-panel');let html='';
+  if(cat==='majors'){
+    html=`<div class="uf-panel-title">Filter by major</div><input class="uf-search-mini" id="uf-major-search" placeholder="Search majors..." oninput="renderMajorOpts(this.value)"><div class="uf-opt-grid" id="uf-major-opts"></div>`;
+    p.innerHTML=html;renderMajorOpts('');
+  }else if(cat==='location'){
+    html=`<div class="uf-panel-title">Filter by location</div><div class="uf-opt-grid">${REGION_OPTS.map(([v,l])=>`<button class="uf-opt ${aReg===v?'sel':''}" onclick="setUniRegion('${v}')">${l}</button>`).join('')}</div>`;
+    p.innerHTML=html;
+  }else if(cat==='type'){
+    html=`<div class="uf-panel-title">Filter by type</div><div class="uf-opt-grid">${TYPE_OPTS.map(v=>`<button class="uf-opt ${uniFilters.types.has(v)?'sel':''}" onclick="toggleSetVal(uniFilters.types,'${v}',this)">${v}</button>`).join('')}</div>`;
+    p.innerHTML=html;
+  }else if(cat==='afford'){
+    html=`<div class="uf-panel-title">Affordability (annual tuition)</div><div class="uf-opt-grid">${AFFORD_OPTS.map(([v,l])=>`<button class="uf-opt ${uniFilters.afford===v?'sel':''}" onclick="setUniRadio('afford','${v}')">${l}</button>`).join('')}</div>`;
+    p.innerHTML=html;
+  }else if(cat==='campus'){
+    html=`<div class="uf-panel-title">Campus life</div><div class="uf-opt-grid">${CAMPUS_OPTS.map(v=>`<button class="uf-opt ${uniFilters.campus.has(v)?'sel':''}" onclick="toggleSetVal(uniFilters.campus,'${v}',this)">${v}</button>`).join('')}</div>`;
+    p.innerHTML=html;
+  }else if(cat==='credit'){
+    html=`<div class="uf-panel-title">Credit</div><div class="uf-note">Detailed AP/IB credit-transfer filtering isn't available in our data yet — it's on the roadmap. In the meantime, open a university's profile to see its specific credit policy.</div>`;
+    p.innerHTML=html;
+  }else if(cat==='admissions'){
+    html=`<div class="uf-panel-title">Admissions (acceptance rate)</div><div class="uf-opt-grid">${ADMIT_OPTS.map(([v,l])=>`<button class="uf-opt ${uniFilters.admissions===v?'sel':''}" onclick="setUniRadio('admissions','${v}')">${l}</button>`).join('')}</div>`;
+    p.innerHTML=html;
+  }else if(cat==='rms'){
+    html=`<div class="uf-panel-title">Reach, Match, Safety</div><div class="uf-opt-grid">${RMS_OPTS.map(([v,l])=>`<button class="uf-opt ${uniFilters.rms===v?'sel':''}" onclick="setUniRadio('rms','${v}')">${l}</button>`).join('')}</div>`;
+    p.innerHTML=html;
+  }else if(cat==='degrees'){
+    html=`<div class="uf-panel-title">Degrees</div><div class="uf-note">Our catalog is currently undergraduate-focused, so a degree-level filter (Bachelor's / Master's / PhD) isn't meaningful yet — it's on the roadmap as we add graduate programs.</div>`;
+    p.innerHTML=html;
+  }else if(cat==='commonapp'){
+    html=`<div class="uf-panel-title">Common App Members</div><label class="uf-toggle-row"><input type="checkbox" id="uf-commonapp-cb" ${uniFilters.commonApp?'checked':''} onchange="uniFilters.commonApp=this.checked;afterUniFilterChange();"> Only show universities that accept the Common App</label>`;
+    p.innerHTML=html;
+  }
+}
+function renderMajorOpts(q){
+  q=(q||'').toLowerCase();
+  const list=(q?ALL_MAJORS.filter(m=>m.toLowerCase().includes(q)):ALL_MAJORS).slice(0,60);
+  document.getElementById('uf-major-opts').innerHTML=list.map(m=>`<button class="uf-opt ${uniFilters.majors.has(m)?'sel':''}" onclick="toggleSetVal(uniFilters.majors,'${m.replace(/'/g,"\\'")}',this)">${m}</button>`).join('')||'<div class="uf-note">No majors match your search.</div>';
+}
+function toggleSetVal(set,val,btn){set.has(val)?set.delete(val):set.add(val);btn.classList.toggle('sel');afterUniFilterChange();}
+function setUniRadio(key,val){uniFilters[key]=val;renderUniFilterPanel(uniFilterOpenCat);afterUniFilterChange();}
+function setUniRegion(v){aReg=v;renderUniFilterPanel('location');afterUniFilterChange();}
+function afterUniFilterChange(){updateUniFilterBadges();renderUniActivePills();filterUnis();}
+function updateUniFilterBadges(){
+  document.querySelectorAll('.uf-cat-btn[data-cat]').forEach(b=>{
+    const c=b.dataset.cat;let active=false;
+    if(c==='majors')active=uniFilters.majors.size>0;
+    else if(c==='location')active=aReg!=='all';
+    else if(c==='type')active=uniFilters.types.size>0;
+    else if(c==='afford')active=uniFilters.afford!=='any';
+    else if(c==='campus')active=uniFilters.campus.size>0;
+    else if(c==='admissions')active=uniFilters.admissions!=='any';
+    else if(c==='rms')active=uniFilters.rms!=='any';
+    else if(c==='commonapp')active=uniFilters.commonApp;
+    b.classList.toggle('has-val',active);
+  });
+  const anyActive=aReg!=='all'||uniFilters.majors.size||uniFilters.types.size||uniFilters.campus.size||uniFilters.afford!=='any'||uniFilters.admissions!=='any'||uniFilters.rms!=='any'||uniFilters.commonApp;
+  const clearBtn=document.getElementById('uf-clear-btn');if(clearBtn)clearBtn.style.display=anyActive?'inline-block':'none';
+}
+function renderUniActivePills(){
+  const row=document.getElementById('uf-active-row');if(!row)return;
+  const pills=[];
+  if(aReg!=='all'){const lbl=(REGION_OPTS.find(r=>r[0]===aReg)||[,aReg])[1];pills.push(['loc',lbl,()=>{aReg='all';}]);}
+  uniFilters.majors.forEach(m=>pills.push(['major:'+m,m,()=>uniFilters.majors.delete(m)]));
+  uniFilters.types.forEach(v=>pills.push(['type:'+v,v,()=>uniFilters.types.delete(v)]));
+  uniFilters.campus.forEach(v=>pills.push(['campus:'+v,v,()=>uniFilters.campus.delete(v)]));
+  if(uniFilters.afford!=='any')pills.push(['afford',(AFFORD_OPTS.find(a=>a[0]===uniFilters.afford)||[,''])[1],()=>{uniFilters.afford='any';}]);
+  if(uniFilters.admissions!=='any')pills.push(['admissions',(ADMIT_OPTS.find(a=>a[0]===uniFilters.admissions)||[,''])[1],()=>{uniFilters.admissions='any';}]);
+  if(uniFilters.rms!=='any')pills.push(['rms',(RMS_OPTS.find(a=>a[0]===uniFilters.rms)||[,''])[1],()=>{uniFilters.rms='any';}]);
+  if(uniFilters.commonApp)pills.push(['commonapp','Common App only',()=>{uniFilters.commonApp=false;}]);
+  row.innerHTML=pills.map((pl,i)=>`<span class="uf-active-pill">${pl[1]}<button onclick="removeUniPill(${i})">✕</button></span>`).join('');
+  row._removers=pills.map(pl=>pl[2]);
+}
+function removeUniPill(i){const fn=document.getElementById('uf-active-row')._removers?.[i];if(fn)fn();if(uniFilterOpenCat)renderUniFilterPanel(uniFilterOpenCat);afterUniFilterChange();}
+function clearUniFilters(){aReg='all';uniFilters.majors.clear();uniFilters.types.clear();uniFilters.campus.clear();uniFilters.afford='any';uniFilters.admissions='any';uniFilters.rms='any';uniFilters.commonApp=false;closeUniFilterPanel();afterUniFilterChange();}
+document.addEventListener('click',e=>{
+  if(uniFilterOpenCat&&!e.target.closest('.uf-cats')&&!e.target.closest('.uf-panel-wrap'))closeUniFilterPanel();
+});
+function filterUnis(){
+  const q=(document.getElementById('uni-search')?.value||'').toLowerCase();
+  const f=uniFilters;
+  renderUnis(unis.filter(u=>{
+    if(aReg!=='all'&&u.region!==aReg)return false;
+    if(q&&!(u.name.toLowerCase().includes(q)||u.loc.toLowerCase().includes(q)))return false;
+    if(f.majors.size&&!(u.majors||[]).some(m=>f.majors.has(m)))return false;
+    if(f.types.size&&!f.types.has(normType(u.type)))return false;
+    if(f.campus.size){const b=campusBucket(u.campusSize);if(!b.some(x=>f.campus.has(x)))return false;}
+    if(f.afford!=='any'){
+      const t=u.tuition||0;
+      if(f.afford==='under20'&&!(t<20000))return false;
+      if(f.afford==='20to40'&&!(t>=20000&&t<40000))return false;
+      if(f.afford==='40to60'&&!(t>=40000&&t<60000))return false;
+      if(f.afford==='60plus'&&!(t>=60000))return false;
+    }
+    if(f.admissions!=='any'){
+      const a=u.acc||0;
+      if(f.admissions==='under10'&&!(a<10))return false;
+      if(f.admissions==='10to30'&&!(a>=10&&a<30))return false;
+      if(f.admissions==='30to60'&&!(a>=30&&a<60))return false;
+      if(f.admissions==='60plus'&&!(a>=60))return false;
+    }
+    if(f.rms!=='any'&&rmsBucket(u)!==f.rms)return false;
+    if(f.commonApp&&!isCommonApp(u))return false;
+    return true;
+  }));
+}
+buildMajorsList();
+
+// ── BACK TO TOP ──
+(function(){
+  const btn=document.getElementById('backToTopBtn');
+  if(!btn)return;
+  window.addEventListener('scroll',()=>{btn.classList.toggle('show',window.scrollY>420);},{passive:true});
+})();
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 
 // ── MODALS ──
 function openM(id){document.getElementById(id).classList.add('open');}
@@ -2457,7 +2631,7 @@ function applyLang(lang){
   const ci=document.getElementById('chat-inp');if(ci)ci.placeholder=t.chat_ph||'Ask me anything...';
   const fm=document.getElementById('fbMsg');if(fm&&t.fb_msg_ph)fm.placeholder=t.fb_msg_ph;
   // re-render visible cards
-  if(document.getElementById('uni-grid')?.children.length)renderUnis(unis.filter(u=>aReg==='all'||u.region===aReg));
+  if(document.getElementById('uni-grid')?.children.length)filterUnis();
   if(document.getElementById('sch-grid')?.children.length)renderSchs(schs);
   if(document.getElementById('vid-grid')?.children.length)renderVids();
   // update chat static text
