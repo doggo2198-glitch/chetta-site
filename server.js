@@ -1,4 +1,3 @@
-
 import "dotenv/config";
 
 import express from "express";
@@ -12,21 +11,24 @@ import { generateRoadmap } from "./services/roadmapAnalyzer.js";
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "2mb" }));
 
 
-// ===============================
+// ============================================================
 // HOME CHECK
-// ===============================
+// ============================================================
 
 app.get("/", (req, res) => {
-    res.send("Backend is running!");
+    res.json({
+        status: "working",
+        message: "Backend is running!"
+    });
 });
 
 
-// ===============================
-// RENDER ENVIRONMENT TEST
-// ===============================
+// ============================================================
+// ENVIRONMENT TEST
+// ============================================================
 
 app.get("/test", (req, res) => {
     res.json({
@@ -38,13 +40,12 @@ app.get("/test", (req, res) => {
 });
 
 
-// ===============================
+// ============================================================
 // GROQ MODEL TEST
-// ===============================
+// ============================================================
 
 app.get("/test-groq", async (req, res) => {
     try {
-
         if (!process.env.GROQ_API_KEY) {
             return res.status(500).json({
                 success: false,
@@ -57,7 +58,7 @@ app.get("/test-groq", async (req, res) => {
             {
                 method: "GET",
                 headers: {
-                    "Authorization":
+                    Authorization:
                         `Bearer ${process.env.GROQ_API_KEY}`
                 }
             }
@@ -88,7 +89,6 @@ app.get("/test-groq", async (req, res) => {
         });
 
     } catch (error) {
-
         console.error("Groq model test failed:", error);
 
         res.status(500).json({
@@ -101,30 +101,99 @@ app.get("/test-groq", async (req, res) => {
 });
 
 
-// ===============================
+// ============================================================
 // VERIFY URL
-// ===============================
+// ============================================================
+//
+// Some websites block HEAD requests even though the URL works.
+// Therefore we first try HEAD, then fall back to GET.
+//
+// ============================================================
 
 async function verifyURL(url) {
-    try {
+    if (!url) {
+        return false;
+    }
 
-        const response = await fetch(url, {
+    try {
+        const headResponse = await fetch(url, {
             method: "HEAD",
-            redirect: "follow"
+            redirect: "follow",
+            signal: AbortSignal.timeout(8000)
         });
 
-        return response.ok;
+        if (headResponse.ok) {
+            return true;
+        }
+    } catch (error) {
+        // Try GET below
+    }
+
+    try {
+        const getResponse = await fetch(url, {
+            method: "GET",
+            redirect: "follow",
+            signal: AbortSignal.timeout(8000)
+        });
+
+        return getResponse.ok;
 
     } catch (error) {
-
         return false;
     }
 }
 
 
-// ===============================
+// ============================================================
+// CLEAN AI JSON
+// ============================================================
+//
+// Handles:
+// { ... }
+//
+// and:
+//
+// ```json
+// { ... }
+// ```
+//
+// ============================================================
+
+function cleanAIJson(text) {
+    if (typeof text !== "string") {
+        return text;
+    }
+
+    let cleaned = text.trim();
+
+    // Remove markdown code fences
+    cleaned = cleaned
+        .replace(/^```json\s*/i, "")
+        .replace(/^```\s*/i, "")
+        .replace(/\s*```$/i, "")
+        .trim();
+
+    // Sometimes the model puts text before/after JSON.
+    // Try to extract the main JSON object.
+    const firstBrace = cleaned.indexOf("{");
+    const lastBrace = cleaned.lastIndexOf("}");
+
+    if (
+        firstBrace !== -1 &&
+        lastBrace !== -1 &&
+        lastBrace > firstBrace
+    ) {
+        cleaned =
+            cleaned.slice(firstBrace, lastBrace + 1);
+    }
+
+    return cleaned;
+}
+
+
+// ============================================================
 // EXTRACURRICULAR FINDER
-// ===============================
+// ============================================================
 
 app.post("/api/opportunities", async (req, res) => {
 
@@ -138,17 +207,27 @@ app.post("/api/opportunities", async (req, res) => {
             country = ""
         } = req.body;
 
+
+        // --------------------------------------------------------
+        // SAFE INPUTS
+        // --------------------------------------------------------
+
         const safeInterests =
             Array.isArray(interests)
-                ? interests
+                ? interests.filter(Boolean)
                 : [];
 
         const safeWorkStyles =
             Array.isArray(workStyles)
-                ? workStyles
+                ? workStyles.filter(Boolean)
                 : [];
 
-        console.log("Extracurricular request:", {
+
+        console.log("\n======================================");
+        console.log("EXTRACURRICULAR REQUEST");
+        console.log("======================================");
+
+        console.log({
             major,
             interests: safeInterests,
             workStyles: safeWorkStyles,
@@ -157,25 +236,63 @@ app.post("/api/opportunities", async (req, res) => {
         });
 
 
-        // ===============================
-        // TAVILY SEARCH
-        // ===============================
+        // --------------------------------------------------------
+        // CHECK TAVILY KEY
+        // --------------------------------------------------------
+
+        if (!process.env.TAVILY_API_KEY) {
+
+            return res.status(500).json({
+                success: false,
+                error: "TAVILY_API_KEY is missing"
+            });
+        }
+
+
+        // --------------------------------------------------------
+        // CHECK GROQ KEY
+        // --------------------------------------------------------
+
+        if (!process.env.GROQ_API_KEY) {
+
+            return res.status(500).json({
+                success: false,
+                error: "GROQ_API_KEY is missing"
+            });
+        }
+
+
+        // --------------------------------------------------------
+        // BUILD SEARCH QUERY
+        // --------------------------------------------------------
 
         const query = `
-            ${major} extracurricular opportunities
+${major}
+${safeInterests.join(" ")}
+${safeWorkStyles.join(" ")}
+${city}, ${country}
 
-            ${safeInterests.join(" ")}
+extracurricular opportunities for high school students
+research internships
+student competitions
+hackathons
+volunteering
+summer programs
+academic programs
+youth programs
+student organizations
+leadership programs
+`;
 
-            ${city}, ${country}
-
-            high school students
-
-            research internships competitions
-            hackathons volunteering programs
-        `;
+        console.log("\nTavily query:");
+        console.log(query);
 
 
-        const response = await fetch(
+        // --------------------------------------------------------
+        // TAVILY SEARCH
+        // --------------------------------------------------------
+
+        const tavilyResponse = await fetch(
             "https://api.tavily.com/search",
             {
                 method: "POST",
@@ -193,87 +310,137 @@ app.post("/api/opportunities", async (req, res) => {
 
                     search_depth: "advanced",
 
-                    max_results: 8
+                    max_results: 8,
 
+                    include_answer: false,
+
+                    include_raw_content: false
                 })
             }
         );
 
 
-        // ===============================
-        // CHECK TAVILY RESPONSE
-        // ===============================
+        // --------------------------------------------------------
+        // TAVILY ERROR
+        // --------------------------------------------------------
 
-        if (!response.ok) {
+        if (!tavilyResponse.ok) {
 
             const errorText =
-                await response.text();
+                await tavilyResponse.text();
 
             console.error(
                 "Tavily error:",
-                response.status,
+                tavilyResponse.status,
                 errorText
             );
 
-            throw new Error(
-                `Tavily error: ${response.status}`
-            );
+            return res.status(500).json({
+                success: false,
+                error:
+                    `Tavily error: ${tavilyResponse.status}`
+            });
         }
 
 
-        const data =
-            await response.json();
+        const tavilyData =
+            await tavilyResponse.json();
+
+
+        const tavilyResults =
+            Array.isArray(tavilyData.results)
+                ? tavilyData.results
+                : [];
 
 
         console.log(
-            "Tavily results:",
-            data.results?.length || 0
+            "\nTavily results:",
+            tavilyResults.length
         );
 
 
-        // ===============================
-        // VERIFY SEARCH RESULT URLS
-        // ===============================
+        // --------------------------------------------------------
+        // PREPARE RESULTS
+        // --------------------------------------------------------
+        //
+        // IMPORTANT:
+        // Do not throw away Tavily results simply because HEAD
+        // verification fails.
+        //
+        // We keep the original results and mark them as verified.
+        //
+        // --------------------------------------------------------
 
         const checkedResults = [];
 
 
-        for (const result of data.results || []) {
+        for (const result of tavilyResults) {
 
-            if (!result.url) {
+            if (!result?.url) {
                 continue;
             }
 
             const valid =
                 await verifyURL(result.url);
 
-            if (valid) {
+            checkedResults.push({
 
-                checkedResults.push({
+                title:
+                    result.title ||
+                    "Untitled opportunity",
 
-                    title: result.title,
+                url:
+                    result.url,
 
-                    url: result.url,
+                content:
+                    result.content
+                        ?.slice(0, 1200) || "",
 
-                    content:
-                        result.content?.slice(0, 500) || ""
-
-                });
-            }
+                verified: valid
+            });
         }
 
 
         console.log(
-            "Verified results:",
+            "Checked results:",
             checkedResults.length
         );
 
+        console.log(
+            "Verified results:",
+            checkedResults.filter(
+                result => result.verified
+            ).length
+        );
 
-        // ===============================
-        // AI ANALYSIS
-        // ===============================
 
-        const recommendations =
+        // --------------------------------------------------------
+        // IF TAVILY FOUND NOTHING
+        // --------------------------------------------------------
+
+        if (checkedResults.length === 0) {
+
+            console.log(
+                "No Tavily results found."
+            );
+
+            return res.json({
+                success: true,
+                recommendations: []
+            });
+        }
+
+
+        // --------------------------------------------------------
+        // SEND RESULTS TO AI
+        // --------------------------------------------------------
+
+        console.log(
+            "\nSending results to Groq AI..."
+        );
+
+
+        const aiResults =
             await analyzeOpportunities(
 
                 checkedResults,
@@ -294,49 +461,223 @@ app.post("/api/opportunities", async (req, res) => {
             );
 
 
-        // ===============================
+        console.log(
+            "\nRaw AI response:"
+        );
+
+        console.log(aiResults);
+
+
+        // --------------------------------------------------------
         // PARSE AI RESPONSE
-        // ===============================
+        // --------------------------------------------------------
 
         let parsed;
 
         try {
 
+            const cleaned =
+                cleanAIJson(aiResults);
+
             parsed =
-                JSON.parse(recommendations);
+                typeof cleaned === "string"
+                    ? JSON.parse(cleaned)
+                    : cleaned;
 
         } catch (parseError) {
 
             console.error(
-                "AI JSON parsing failed:",
-                recommendations
+                "\nAI JSON parsing failed."
             );
 
-            throw new Error(
-                "AI returned invalid JSON"
+            console.error(
+                "Raw response:",
+                aiResults
+            );
+
+            // ----------------------------------------------------
+            // FALLBACK
+            // ----------------------------------------------------
+            //
+            // If AI produced invalid JSON, don't lose the Tavily
+            // results. Return them directly.
+            //
+            // ----------------------------------------------------
+
+            const fallback =
+                checkedResults.map(result => ({
+                    title: result.title,
+                    url: result.url,
+                    description: result.content
+                }));
+
+            return res.json({
+                success: true,
+                recommendations: fallback,
+                fallback: true
+            });
+        }
+
+
+        // --------------------------------------------------------
+        // EXTRACT OPPORTUNITIES
+        // --------------------------------------------------------
+
+        let opportunities = [];
+
+
+        if (Array.isArray(parsed)) {
+
+            opportunities = parsed;
+
+        } else if (
+            parsed &&
+            Array.isArray(parsed.opportunities)
+        ) {
+
+            opportunities =
+                parsed.opportunities;
+
+        } else if (
+            parsed &&
+            Array.isArray(parsed.recommendations)
+        ) {
+
+            opportunities =
+                parsed.recommendations;
+        }
+
+
+        console.log(
+            "\nAI opportunities:",
+            opportunities.length
+        );
+
+
+        // --------------------------------------------------------
+        // CRITICAL FALLBACK
+        // --------------------------------------------------------
+        //
+        // If Tavily found real results but AI returned:
+        //
+        // {
+        //   "opportunities": []
+        // }
+        //
+        // we DO NOT tell the frontend "no opportunities".
+        //
+        // Instead, return the verified/search results.
+        //
+        // --------------------------------------------------------
+
+        if (
+            opportunities.length === 0 &&
+            checkedResults.length > 0
+        ) {
+
+            console.log(
+                "AI returned 0 opportunities."
+            );
+
+            console.log(
+                "Using Tavily results as fallback."
+            );
+
+
+            opportunities =
+                checkedResults.map(result => ({
+
+                    title:
+                        result.title,
+
+                    url:
+                        result.url,
+
+                    description:
+                        result.content,
+
+                    verified:
+                        result.verified
+                }));
+        }
+
+
+        // --------------------------------------------------------
+        // REMOVE DUPLICATES
+        // --------------------------------------------------------
+
+        const uniqueOpportunities = [];
+
+        const seenUrls = new Set();
+
+
+        for (const opportunity of opportunities) {
+
+            if (!opportunity) {
+                continue;
+            }
+
+            const url =
+                opportunity.url ||
+                opportunity.link ||
+                "";
+
+
+            if (
+                url &&
+                seenUrls.has(url)
+            ) {
+                continue;
+            }
+
+
+            if (url) {
+                seenUrls.add(url);
+            }
+
+
+            uniqueOpportunities.push(
+                opportunity
             );
         }
 
 
-        // ===============================
+        // --------------------------------------------------------
         // RETURN RESULTS
-        // ===============================
+        // --------------------------------------------------------
 
-        res.json({
+        console.log(
+            "\nFinal opportunities:",
+            uniqueOpportunities.length
+        );
+
+        console.log(
+            "======================================\n"
+        );
+
+
+        return res.json({
+
+            success: true,
 
             recommendations:
-                parsed.opportunities || []
+                uniqueOpportunities
 
         });
+
 
     } catch (error) {
 
         console.error(
-            "Extracurricular search failed:",
-            error
+            "\nExtracurricular search failed:"
         );
 
-        res.status(500).json({
+        console.error(error);
+
+
+        return res.status(500).json({
+
+            success: false,
 
             error:
                 error.message ||
@@ -347,15 +688,16 @@ app.post("/api/opportunities", async (req, res) => {
 });
 
 
-// ===============================
+// ============================================================
 // PROFILE ANALYZER
-// ===============================
+// ============================================================
 
 app.post("/api/profile", async (req, res) => {
 
     try {
 
-        const profile = req.body;
+        const profile =
+            req.body;
 
         const analysis =
             await analyzeProfile(profile);
@@ -388,16 +730,18 @@ app.post("/api/profile", async (req, res) => {
 });
 
 
-// ===============================
+// ============================================================
 // UNIVERSITY ANALYZER
-// ===============================
+// ============================================================
 
 app.post("/api/universities", async (req, res) => {
 
     try {
 
         const universities =
-            await analyzeUniversities(req.body);
+            await analyzeUniversities(
+                req.body
+            );
 
         res.json({
 
@@ -427,9 +771,9 @@ app.post("/api/universities", async (req, res) => {
 });
 
 
-// ===============================
+// ============================================================
 // UNIVERSITY ROADMAP
-// ===============================
+// ============================================================
 
 app.post("/api/roadmap", async (req, res) => {
 
@@ -440,28 +784,40 @@ app.post("/api/roadmap", async (req, res) => {
         );
 
         const roadmap =
-            await generateRoadmap(req.body);
+            await generateRoadmap(
+                req.body
+            );
 
 
-        // ===============================
+        // --------------------------------------------------------
         // PARSE AI RESPONSE
-        // ===============================
+        // --------------------------------------------------------
 
         let parsed;
 
         try {
 
-            parsed =
-                typeof roadmap === "string"
-                    ? JSON.parse(roadmap)
-                    : roadmap;
+            if (typeof roadmap === "string") {
+
+                const cleaned =
+                    cleanAIJson(roadmap);
+
+                parsed =
+                    JSON.parse(cleaned);
+
+            } else {
+
+                parsed = roadmap;
+
+            }
 
         } catch (parseError) {
 
             console.error(
-                "Roadmap JSON parsing failed:",
-                roadmap
+                "Roadmap JSON parsing failed:"
             );
+
+            console.error(roadmap);
 
             throw new Error(
                 "Roadmap AI returned invalid JSON"
@@ -469,9 +825,9 @@ app.post("/api/roadmap", async (req, res) => {
         }
 
 
-        // ===============================
+        // --------------------------------------------------------
         // RETURN ROADMAP
-        // ===============================
+        // --------------------------------------------------------
 
         res.json({
 
@@ -501,12 +857,13 @@ app.post("/api/roadmap", async (req, res) => {
 });
 
 
-// ===============================
+// ============================================================
 // START SERVER
-// ===============================
+// ============================================================
 
 const PORT =
     process.env.PORT || 3000;
+
 
 app.listen(PORT, () => {
 
