@@ -1,3 +1,4 @@
+
 import Groq from "groq-sdk";
 
 const groq = new Groq({
@@ -21,16 +22,18 @@ export async function analyzeOpportunities(results, userInfo) {
             ? results
             : [];
 
-    const response = await groq.chat.completions.create({
+    const response =
+        await groq.chat.completions.create({
 
-        model: "llama-3.1-8b-instant",
+            // This model is available to your Groq API key
+            model: "openai/gpt-oss-20b",
 
-        messages: [
+            messages: [
 
-            {
-                role: "system",
+                {
+                    role: "system",
 
-                content: `
+                    content: `
 You are an AI extracurricular opportunity advisor for high school students.
 
 Your ONLY task is to recommend extracurricular opportunities.
@@ -125,25 +128,25 @@ No markdown.
 No explanations.
 No extra text.
 `
-            },
+                },
 
-            {
-                role: "user",
+                {
+                    role: "user",
 
-                content: `
+                    content: `
 Student Profile
 
 Major:
-${userInfo?.major || ""}
+${userInfo?.major || "Not provided"}
 
 Academic Interests:
-${safeInterests.join(", ")}
+${safeInterests.join(", ") || "Not provided"}
 
 Preferred Work Styles:
-${safeWorkStyles.join(", ")}
+${safeWorkStyles.join(", ") || "Not provided"}
 
 Location:
-${userInfo?.city || ""}, ${userInfo?.country || ""}
+${userInfo?.city || "Not provided"}, ${userInfo?.country || "Not provided"}
 
 Search Results:
 
@@ -160,33 +163,86 @@ Requirements:
   - a source URL
   - a verified contact method (Email, Phone, Telegram, Instagram, Facebook, or LinkedIn).
 `
+                }
+
+            ],
+
+            temperature: 0.2,
+
+            // Force the model to return JSON
+            response_format: {
+                type: "json_object"
             }
 
-        ],
+        });
 
-        temperature: 0.2
 
-    });
+    // ===============================
+    // CHECK RESPONSE
+    // ===============================
 
     if (
         !response.choices ||
         !response.choices[0] ||
         !response.choices[0].message
     ) {
-        throw new Error("Groq returned an empty response");
+        throw new Error(
+            "Groq returned an empty response"
+        );
     }
+
+
+    // ===============================
+    // GET AI RESPONSE
+    // ===============================
 
     let text =
         response.choices[0].message.content || "";
+
 
     text = text
         .replace(/```json/gi, "")
         .replace(/```/g, "")
         .trim();
 
+
     if (!text) {
-        throw new Error("Groq returned empty content");
+        throw new Error(
+            "Groq returned empty content"
+        );
     }
+
+
+    // ===============================
+    // VERIFY JSON
+    // ===============================
+
+    try {
+
+        const parsed =
+            JSON.parse(text);
+
+        if (
+            !parsed ||
+            !Array.isArray(parsed.opportunities)
+        ) {
+            throw new Error(
+                "Invalid opportunities structure"
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Opportunity AI returned invalid JSON:",
+            text
+        );
+
+        throw new Error(
+            "AI returned invalid opportunity JSON"
+        );
+    }
+
 
     return text;
 }
