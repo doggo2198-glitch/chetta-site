@@ -1,3 +1,4 @@
+
 import "dotenv/config";
 
 import express from "express";
@@ -38,11 +39,75 @@ app.get("/test", (req, res) => {
 
 
 // ===============================
+// GROQ MODEL TEST
+// ===============================
+
+app.get("/test-groq", async (req, res) => {
+    try {
+
+        if (!process.env.GROQ_API_KEY) {
+            return res.status(500).json({
+                success: false,
+                error: "GROQ_API_KEY is missing"
+            });
+        }
+
+        const response = await fetch(
+            "https://api.groq.com/openai/v1/models",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization":
+                        `Bearer ${process.env.GROQ_API_KEY}`
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Groq models error:", data);
+
+            return res.status(response.status).json({
+                success: false,
+                error: data
+            });
+        }
+
+        const models = (data.data || []).map(model => ({
+            id: model.id,
+            active: model.active,
+            owned_by: model.owned_by
+        }));
+
+        console.log("Available Groq models:", models);
+
+        res.json({
+            success: true,
+            models
+        });
+
+    } catch (error) {
+
+        console.error("Groq model test failed:", error);
+
+        res.status(500).json({
+            success: false,
+            error:
+                error.message ||
+                "Could not retrieve Groq models"
+        });
+    }
+});
+
+
+// ===============================
 // VERIFY URL
 // ===============================
 
 async function verifyURL(url) {
     try {
+
         const response = await fetch(url, {
             method: "HEAD",
             redirect: "follow"
@@ -51,6 +116,7 @@ async function verifyURL(url) {
         return response.ok;
 
     } catch (error) {
+
         return false;
     }
 }
@@ -72,14 +138,15 @@ app.post("/api/opportunities", async (req, res) => {
             country = ""
         } = req.body;
 
-
-        // Make sure these are actually arrays
         const safeInterests =
-            Array.isArray(interests) ? interests : [];
+            Array.isArray(interests)
+                ? interests
+                : [];
 
         const safeWorkStyles =
-            Array.isArray(workStyles) ? workStyles : [];
-
+            Array.isArray(workStyles)
+                ? workStyles
+                : [];
 
         console.log("Extracurricular request:", {
             major,
@@ -91,21 +158,20 @@ app.post("/api/opportunities", async (req, res) => {
 
 
         // ===============================
-        // TAVILY SEARCH QUERY
+        // TAVILY SEARCH
         // ===============================
 
         const query = `
+            ${major} extracurricular opportunities
 
-        ${major} extracurricular opportunities
+            ${safeInterests.join(" ")}
 
-        ${safeInterests.join(" ")}
+            ${city}, ${country}
 
-        ${city}, ${country}
+            high school students
 
-        high school students
-
-        research internships competitions hackathons volunteering programs
-
+            research internships competitions
+            hackathons volunteering programs
         `;
 
 
@@ -120,7 +186,8 @@ app.post("/api/opportunities", async (req, res) => {
 
                 body: JSON.stringify({
 
-                    api_key: process.env.TAVILY_API_KEY,
+                    api_key:
+                        process.env.TAVILY_API_KEY,
 
                     query,
 
@@ -139,7 +206,8 @@ app.post("/api/opportunities", async (req, res) => {
 
         if (!response.ok) {
 
-            const errorText = await response.text();
+            const errorText =
+                await response.text();
 
             console.error(
                 "Tavily error:",
@@ -153,7 +221,8 @@ app.post("/api/opportunities", async (req, res) => {
         }
 
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
 
         console.log(
@@ -175,9 +244,8 @@ app.post("/api/opportunities", async (req, res) => {
                 continue;
             }
 
-
-            const valid = await verifyURL(result.url);
-
+            const valid =
+                await verifyURL(result.url);
 
             if (valid) {
 
@@ -191,9 +259,7 @@ app.post("/api/opportunities", async (req, res) => {
                         result.content?.slice(0, 500) || ""
 
                 });
-
             }
-
         }
 
 
@@ -215,15 +281,16 @@ app.post("/api/opportunities", async (req, res) => {
                 {
                     major,
 
-                    interests: safeInterests,
+                    interests:
+                        safeInterests,
 
-                    workStyles: safeWorkStyles,
+                    workStyles:
+                        safeWorkStyles,
 
                     city,
 
                     country
                 }
-
             );
 
 
@@ -233,10 +300,10 @@ app.post("/api/opportunities", async (req, res) => {
 
         let parsed;
 
-
         try {
 
-            parsed = JSON.parse(recommendations);
+            parsed =
+                JSON.parse(recommendations);
 
         } catch (parseError) {
 
@@ -269,7 +336,6 @@ app.post("/api/opportunities", async (req, res) => {
             error
         );
 
-
         res.status(500).json({
 
             error:
@@ -277,9 +343,7 @@ app.post("/api/opportunities", async (req, res) => {
                 "Something went wrong"
 
         });
-
     }
-
 });
 
 
@@ -320,9 +384,7 @@ app.post("/api/profile", async (req, res) => {
                 "Profile analysis failed"
 
         });
-
     }
-
 });
 
 
@@ -361,9 +423,7 @@ app.post("/api/universities", async (req, res) => {
                 "University recommendation failed"
 
         });
-
     }
-
 });
 
 
@@ -375,16 +435,26 @@ app.post("/api/roadmap", async (req, res) => {
 
     try {
 
+        console.log(
+            "Roadmap request received"
+        );
+
         const roadmap =
             await generateRoadmap(req.body);
 
 
-        let parsed;
+        // ===============================
+        // PARSE AI RESPONSE
+        // ===============================
 
+        let parsed;
 
         try {
 
-            parsed = JSON.parse(roadmap);
+            parsed =
+                typeof roadmap === "string"
+                    ? JSON.parse(roadmap)
+                    : roadmap;
 
         } catch (parseError) {
 
@@ -398,6 +468,10 @@ app.post("/api/roadmap", async (req, res) => {
             );
         }
 
+
+        // ===============================
+        // RETURN ROADMAP
+        // ===============================
 
         res.json({
 
@@ -423,9 +497,7 @@ app.post("/api/roadmap", async (req, res) => {
                 "Roadmap generation failed"
 
         });
-
     }
-
 });
 
 
@@ -435,7 +507,6 @@ app.post("/api/roadmap", async (req, res) => {
 
 const PORT =
     process.env.PORT || 3000;
-
 
 app.listen(PORT, () => {
 
