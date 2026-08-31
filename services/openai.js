@@ -1,13 +1,66 @@
 import Groq from "groq-sdk";
 
-
-// ============================================================
-// GROQ CLIENT
-// ============================================================
-
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
+
+
+// ============================================================
+// HELPER
+// ============================================================
+
+function safeArray(value) {
+
+    if (Array.isArray(value)) {
+        return value.filter(Boolean);
+    }
+
+    if (
+        typeof value === "string" &&
+        value.trim()
+    ) {
+        return [value.trim()];
+    }
+
+    return [];
+}
+
+
+function cleanJSON(text) {
+
+    if (typeof text !== "string") {
+        return text;
+    }
+
+    let cleaned =
+        text.trim();
+
+    cleaned = cleaned
+        .replace(/^```json\s*/i, "")
+        .replace(/^```\s*/i, "")
+        .replace(/\s*```$/i, "")
+        .trim();
+
+    const first =
+        cleaned.indexOf("{");
+
+    const last =
+        cleaned.lastIndexOf("}");
+
+    if (
+        first !== -1 &&
+        last !== -1 &&
+        last > first
+    ) {
+        cleaned =
+            cleaned.slice(
+                first,
+                last + 1
+            );
+    }
+
+    return cleaned;
+}
 
 
 // ============================================================
@@ -19,19 +72,12 @@ export async function analyzeOpportunities(
     userInfo = {}
 ) {
 
-    // --------------------------------------------------------
-    // SAFE INPUTS
-    // --------------------------------------------------------
+    if (!process.env.GROQ_API_KEY) {
+        throw new Error(
+            "GROQ_API_KEY is missing"
+        );
+    }
 
-    const safeInterests =
-        Array.isArray(userInfo?.interests)
-            ? userInfo.interests.filter(Boolean)
-            : [];
-
-    const safeWorkStyles =
-        Array.isArray(userInfo?.workStyles)
-            ? userInfo.workStyles.filter(Boolean)
-            : [];
 
     const safeResults =
         Array.isArray(results)
@@ -43,16 +89,22 @@ export async function analyzeOpportunities(
             : [];
 
 
+    const interests =
+        safeArray(
+            userInfo?.interests
+        );
+
+    const workStyles =
+        safeArray(
+            userInfo?.workStyles
+        );
+
+
     console.log(
         "Opportunity AI received:",
-        safeResults.length,
-        "search results"
+        safeResults.length
     );
 
-
-    // --------------------------------------------------------
-    // NO RESULTS
-    // --------------------------------------------------------
 
     if (safeResults.length === 0) {
 
@@ -63,14 +115,12 @@ export async function analyzeOpportunities(
 
 
     // --------------------------------------------------------
-    // PREPARE SEARCH RESULTS
+    // FORMAT TAVILY RESULTS
     // --------------------------------------------------------
 
     const formattedResults =
         safeResults
-            .map((result, index) => {
-
-                return `
+            .map((result, index) => `
 RESULT ${index + 1}
 
 Title:
@@ -80,17 +130,18 @@ URL:
 ${result.url}
 
 Description:
-${result.content || "No description available"}
+${result.content || "No description"}
 
 Verified URL:
 ${result.verified ? "Yes" : "No"}
-`;
-            })
-            .join("\n-------------------------\n");
+`)
+            .join(
+                "\n-----------------------\n"
+            );
 
 
     // --------------------------------------------------------
-    // GROQ REQUEST
+    // GROQ
     // --------------------------------------------------------
 
     const response =
@@ -101,31 +152,15 @@ ${result.verified ? "Yes" : "No"}
 
             messages: [
 
-                // =================================================
-                // SYSTEM PROMPT
-                // =================================================
-
                 {
                     role: "system",
 
                     content: `
-You are an AI extracurricular opportunity advisor for high school students.
+You are an extracurricular opportunity advisor for high school students.
 
-Your ONLY job is to select real extracurricular opportunities from the supplied search results.
+Select REAL extracurricular opportunities from the provided search results.
 
-DO NOT recommend:
-
-- Universities
-- Colleges
-- Schools
-- Degree programs
-- Scholarships
-- University admissions
-- Academic degrees
-
-Recommend activities that a high school student can actually participate in, apply to, join, or volunteer for.
-
-Examples:
+ONLY recommend:
 
 - Research programs
 - Research internships
@@ -146,78 +181,50 @@ Examples:
 - Summer programs
 - Youth programs
 
+NEVER recommend:
 
-IMPORTANT RULES:
+- Universities
+- Colleges
+- Schools
+- Degree programs
+- Scholarships
+- University admissions
 
-1. ONLY use opportunities that appear in the supplied search results.
+CRITICAL RULES:
+
+1. ONLY use the supplied search results.
 
 2. NEVER invent an organization.
 
 3. NEVER invent a URL.
 
-4. The "source" field MUST contain one of the exact URLs supplied in the search results.
+4. The "source" MUST exactly match one of the supplied URLs.
 
-5. Do NOT change or create URLs.
+5. Do NOT modify URLs.
 
-6. Prefer opportunities located in the student's city.
+6. Prefer opportunities in the student's city.
 
-7. If there are not enough city opportunities, use opportunities from the student's country.
+7. Then prefer opportunities in the student's country.
 
-8. Use international opportunities only when appropriate.
+8. International opportunities are allowed when local opportunities are insufficient.
 
-9. The opportunity must be realistically relevant to a high school student.
+9. Do NOT reject a relevant opportunity just because contact information is missing.
 
-10. Do not reject a good opportunity simply because its contact information is missing.
+10. If contact information exists in the supplied result, include it.
 
-11. If the search result contains a real contact method, include it.
-
-12. If no contact method is available, set the contact type and value to "Not provided".
-
-13. NEVER invent contact information.
-
-14. Prefer results with contact information when choosing between otherwise similar opportunities.
-
-15. Return up to 6 of the BEST opportunities.
-
-16. If there are relevant search results, return them. Do NOT return an empty array merely because some information is missing.
-
-
-CONTACT RULES:
-
-Accepted contact methods:
-
-- Email
-- Phone
-- Telegram
-- Instagram
-- Facebook
-- LinkedIn
-
-A website URL is NOT a contact method.
-
-Only use contact information that actually appears in the supplied search result.
-
-If no contact information is present:
-
+11. If contact information does not exist, use:
 "type": "Not provided"
 "value": "Not provided"
 
+12. NEVER invent contact information.
 
-RELEVANCE:
+13. Return up to 6 opportunities.
 
-Prioritize opportunities based on:
+14. If relevant opportunities exist, DO NOT return an empty array.
 
-1. Student's city
-2. Student's country
-3. Student's interests
-4. Student's major
-5. Student's preferred work style
-6. Whether the opportunity is suitable for a high school student
+Return ONLY valid JSON.
 
-
-RETURN ONLY VALID JSON.
-
-Use EXACTLY this structure:
+EXACT FORMAT:
 
 {
   "opportunities": [
@@ -237,18 +244,12 @@ Use EXACTLY this structure:
   ]
 }
 
-Maximum 6 opportunities.
-
 No markdown.
 No explanations.
 No extra text.
 `
                 },
 
-
-                // =================================================
-                // USER PROMPT
-                // =================================================
 
                 {
                     role: "user",
@@ -259,15 +260,19 @@ STUDENT PROFILE
 Major:
 ${userInfo?.major || "Not provided"}
 
-Academic Interests:
-${safeInterests.length
-    ? safeInterests.join(", ")
-    : "Not provided"}
+Interests:
+${
+    interests.length
+        ? interests.join(", ")
+        : "Not provided"
+}
 
 Preferred Work Styles:
-${safeWorkStyles.length
-    ? safeWorkStyles.join(", ")
-    : "Not provided"}
+${
+    workStyles.length
+        ? workStyles.join(", ")
+        : "Not provided"
+}
 
 City:
 ${userInfo?.city || "Not provided"}
@@ -283,22 +288,20 @@ ${formattedResults}
 
 TASK
 
-Select the best extracurricular opportunities from the search results.
+Choose the best real extracurricular opportunities.
 
-Remember:
+Prefer:
+1. Student's city
+2. Student's country
+3. International opportunities
 
-- Use ONLY the supplied search results.
-- Use ONLY the supplied URLs.
-- Never invent URLs.
-- Never invent organizations.
-- Never invent contact information.
-- Prefer opportunities in the student's city.
-- Then prefer opportunities in the student's country.
-- Use international opportunities only when necessary.
-- Do not return an empty list if relevant opportunities exist.
-- Missing contact information is NOT a reason to reject an otherwise relevant opportunity.
+Use ONLY the supplied URLs.
 
-Return the JSON now.
+Do NOT invent contact information.
+
+Missing contact information is NOT a reason to reject an opportunity.
+
+If there are relevant results, return them.
 `
                 }
 
@@ -315,15 +318,8 @@ Return the JSON now.
         });
 
 
-    // ============================================================
-    // CHECK GROQ RESPONSE
-    // ============================================================
-
     if (
-        !response ||
-        !response.choices ||
-        !response.choices[0] ||
-        !response.choices[0].message
+        !response?.choices?.[0]?.message
     ) {
 
         throw new Error(
@@ -332,25 +328,21 @@ Return the JSON now.
     }
 
 
-    // ============================================================
-    // GET AI RESPONSE
-    // ============================================================
-
     let text =
-        response.choices[0].message.content || "";
+        response
+            .choices[0]
+            .message
+            .content || "";
 
 
-    text = text
-        .replace(/^```json\s*/i, "")
-        .replace(/^```\s*/i, "")
-        .replace(/\s*```$/i, "")
-        .trim();
+    text =
+        cleanJSON(text);
 
 
     if (!text) {
 
         throw new Error(
-            "Groq returned empty content"
+            "Groq returned empty opportunity content"
         );
     }
 
@@ -361,9 +353,9 @@ Return the JSON now.
     );
 
 
-    // ============================================================
-    // PARSE JSON
-    // ============================================================
+    // --------------------------------------------------------
+    // PARSE
+    // --------------------------------------------------------
 
     let parsed;
 
@@ -372,23 +364,18 @@ Return the JSON now.
         parsed =
             JSON.parse(text);
 
-    } catch (error) {
+    } catch {
 
         console.error(
-            "Opportunity AI returned invalid JSON:"
+            "Invalid opportunity JSON:",
+            text
         );
-
-        console.error(text);
 
         throw new Error(
             "AI returned invalid opportunity JSON"
         );
     }
 
-
-    // ============================================================
-    // VALIDATE STRUCTURE
-    // ============================================================
 
     if (
         !parsed ||
@@ -403,9 +390,9 @@ Return the JSON now.
     }
 
 
-    // ============================================================
-    // ONLY ALLOW ORIGINAL TAVILY URLS
-    // ============================================================
+    // --------------------------------------------------------
+    // ONLY ACCEPT ORIGINAL TAVILY URLS
+    // --------------------------------------------------------
 
     const allowedUrls =
         new Set(
@@ -415,7 +402,7 @@ Return the JSON now.
         );
 
 
-    const opportunities =
+    let opportunities =
         parsed.opportunities
             .filter(
                 opportunity =>
@@ -470,63 +457,53 @@ Return the JSON now.
             }));
 
 
-    // ============================================================
+    // --------------------------------------------------------
     // REMOVE DUPLICATES
-    // ============================================================
+    // --------------------------------------------------------
 
-    const uniqueOpportunities = [];
+    const seen =
+        new Set();
 
-    const seenUrls = new Set();
+    opportunities =
+        opportunities.filter(
+            opportunity => {
 
+                if (
+                    seen.has(
+                        opportunity.source
+                    )
+                ) {
+                    return false;
+                }
 
-    for (
-        const opportunity
-        of opportunities
-    ) {
+                seen.add(
+                    opportunity.source
+                );
 
-        if (
-            seenUrls.has(
-                opportunity.source
-            )
-        ) {
-            continue;
-        }
-
-        seenUrls.add(
-            opportunity.source
+                return true;
+            }
         );
 
-        uniqueOpportunities.push(
-            opportunity
-        );
-    }
 
-
-    // ============================================================
-    // IMPORTANT FALLBACK
-    // ============================================================
-    //
-    // If Groq returns 0 even though Tavily found results,
-    // return the Tavily results rather than showing
-    // "No opportunities found".
-    //
-    // ============================================================
+    // --------------------------------------------------------
+    // FALLBACK
+    // --------------------------------------------------------
 
     if (
-        uniqueOpportunities.length === 0 &&
+        opportunities.length === 0 &&
         safeResults.length > 0
     ) {
 
         console.log(
-            "AI returned zero opportunities."
+            "AI selected 0 opportunities."
         );
 
         console.log(
-            "Using Tavily fallback results."
+            "Returning Tavily fallback."
         );
 
 
-        const fallback =
+        opportunities =
             safeResults
                 .slice(0, 6)
                 .map(result => ({
@@ -537,10 +514,10 @@ Return the JSON now.
 
                     description:
                         result.content ||
-                        "See the source for more information.",
+                        "",
 
                     category:
-                        "Extracurricular Opportunity",
+                        "Extracurricular",
 
                     location:
                         userInfo?.city ||
@@ -548,7 +525,7 @@ Return the JSON now.
                         "Unknown",
 
                     whyRecommended:
-                        "This opportunity was found through the extracurricular search.",
+                        "Found through the extracurricular opportunity search.",
 
                     skills: [],
 
@@ -564,28 +541,18 @@ Return the JSON now.
                     source:
                         result.url
                 }));
-
-
-        return JSON.stringify({
-            opportunities: fallback
-        });
     }
 
 
-    // ============================================================
-    // FINAL RESULT
-    // ============================================================
-
     console.log(
         "Final AI opportunities:",
-        uniqueOpportunities.length
+        opportunities.length
     );
 
 
     return JSON.stringify({
 
-        opportunities:
-            uniqueOpportunities
+        opportunities
 
     });
 }

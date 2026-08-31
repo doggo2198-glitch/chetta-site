@@ -15,7 +15,7 @@ app.use(express.json({ limit: "2mb" }));
 
 
 // ============================================================
-// HOME CHECK
+// HOME
 // ============================================================
 
 app.get("/", (req, res) => {
@@ -56,7 +56,6 @@ app.get("/test-groq", async (req, res) => {
         const response = await fetch(
             "https://api.groq.com/openai/v1/models",
             {
-                method: "GET",
                 headers: {
                     Authorization:
                         `Bearer ${process.env.GROQ_API_KEY}`
@@ -67,78 +66,63 @@ app.get("/test-groq", async (req, res) => {
         const data = await response.json();
 
         if (!response.ok) {
-            console.error("Groq models error:", data);
-
             return res.status(response.status).json({
                 success: false,
                 error: data
             });
         }
 
-        const models = (data.data || []).map(model => ({
-            id: model.id,
-            active: model.active,
-            owned_by: model.owned_by
-        }));
-
-        console.log("Available Groq models:", models);
-
         res.json({
             success: true,
-            models
+            models: (data.data || []).map(model => ({
+                id: model.id,
+                active: model.active,
+                owned_by: model.owned_by
+            }))
         });
 
     } catch (error) {
-        console.error("Groq model test failed:", error);
+        console.error("Groq test failed:", error);
 
         res.status(500).json({
             success: false,
-            error:
-                error.message ||
-                "Could not retrieve Groq models"
+            error: error.message
         });
     }
 });
 
 
 // ============================================================
-// VERIFY URL
-// ============================================================
-//
-// Some websites block HEAD requests even though the URL works.
-// Therefore we first try HEAD, then fall back to GET.
-//
+// URL VERIFICATION
 // ============================================================
 
 async function verifyURL(url) {
-    if (!url) {
-        return false;
-    }
+    if (!url) return false;
 
     try {
-        const headResponse = await fetch(url, {
+        const response = await fetch(url, {
             method: "HEAD",
             redirect: "follow",
             signal: AbortSignal.timeout(8000)
         });
 
-        if (headResponse.ok) {
+        if (response.ok) {
             return true;
         }
-    } catch (error) {
-        // Try GET below
+    } catch {
+        // Try GET
     }
 
     try {
-        const getResponse = await fetch(url, {
+        const response = await fetch(url, {
             method: "GET",
             redirect: "follow",
             signal: AbortSignal.timeout(8000)
         });
 
-        return getResponse.ok;
+        return response.ok;
 
-    } catch (error) {
+    } catch {
         return false;
     }
 }
@@ -146,17 +130,6 @@ async function verifyURL(url) {
 
 // ============================================================
 // CLEAN AI JSON
-// ============================================================
-//
-// Handles:
-// { ... }
-//
-// and:
-//
-// ```json
-// { ... }
-// ```
-//
 // ============================================================
 
 function cleanAIJson(text) {
@@ -166,15 +139,12 @@ function cleanAIJson(text) {
 
     let cleaned = text.trim();
 
-    // Remove markdown code fences
     cleaned = cleaned
         .replace(/^```json\s*/i, "")
         .replace(/^```\s*/i, "")
         .replace(/\s*```$/i, "")
         .trim();
 
-    // Sometimes the model puts text before/after JSON.
-    // Try to extract the main JSON object.
     const firstBrace = cleaned.indexOf("{");
     const lastBrace = cleaned.lastIndexOf("}");
 
@@ -192,7 +162,7 @@ function cleanAIJson(text) {
 
 
 // ============================================================
-// EXTRACURRICULAR FINDER
+// EXTRACURRICULAR OPPORTUNITIES
 // ============================================================
 
 app.post("/api/opportunities", async (req, res) => {
@@ -208,10 +178,6 @@ app.post("/api/opportunities", async (req, res) => {
         } = req.body;
 
 
-        // --------------------------------------------------------
-        // SAFE INPUTS
-        // --------------------------------------------------------
-
         const safeInterests =
             Array.isArray(interests)
                 ? interests.filter(Boolean)
@@ -223,9 +189,9 @@ app.post("/api/opportunities", async (req, res) => {
                 : [];
 
 
-        console.log("\n======================================");
-        console.log("EXTRACURRICULAR REQUEST");
-        console.log("======================================");
+        console.log("\n================================");
+        console.log("OPPORTUNITY SEARCH");
+        console.log("================================");
 
         console.log({
             major,
@@ -236,25 +202,14 @@ app.post("/api/opportunities", async (req, res) => {
         });
 
 
-        // --------------------------------------------------------
-        // CHECK TAVILY KEY
-        // --------------------------------------------------------
-
         if (!process.env.TAVILY_API_KEY) {
-
             return res.status(500).json({
                 success: false,
                 error: "TAVILY_API_KEY is missing"
             });
         }
 
-
-        // --------------------------------------------------------
-        // CHECK GROQ KEY
-        // --------------------------------------------------------
-
         if (!process.env.GROQ_API_KEY) {
-
             return res.status(500).json({
                 success: false,
                 error: "GROQ_API_KEY is missing"
@@ -263,66 +218,65 @@ app.post("/api/opportunities", async (req, res) => {
 
 
         // --------------------------------------------------------
-        // BUILD SEARCH QUERY
+        // TAVILY QUERY
         // --------------------------------------------------------
 
         const query = `
 ${major}
 ${safeInterests.join(" ")}
 ${safeWorkStyles.join(" ")}
+
 ${city}, ${country}
 
-extracurricular opportunities for high school students
+high school extracurricular opportunities
 research internships
 student competitions
 hackathons
 volunteering
-summer programs
-academic programs
 youth programs
-student organizations
 leadership programs
+summer programs
+student organizations
 `;
 
-        console.log("\nTavily query:");
-        console.log(query);
+        console.log("Tavily query:", query);
 
 
         // --------------------------------------------------------
-        // TAVILY SEARCH
+        // TAVILY
         // --------------------------------------------------------
 
-        const tavilyResponse = await fetch(
-            "https://api.tavily.com/search",
-            {
-                method: "POST",
+        const tavilyResponse =
+            await fetch(
+                "https://api.tavily.com/search",
+                {
+                    method: "POST",
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                body: JSON.stringify({
+                    body: JSON.stringify({
+                        api_key:
+                            process.env.TAVILY_API_KEY,
 
-                    api_key:
-                        process.env.TAVILY_API_KEY,
+                        query,
 
-                    query,
+                        search_depth:
+                            "advanced",
 
-                    search_depth: "advanced",
+                        max_results: 8,
 
-                    max_results: 8,
+                        include_answer:
+                            false,
 
-                    include_answer: false,
+                        include_raw_content:
+                            false
+                    })
+                }
+            );
 
-                    include_raw_content: false
-                })
-            }
-        );
-
-
-        // --------------------------------------------------------
-        // TAVILY ERROR
-        // --------------------------------------------------------
 
         if (!tavilyResponse.ok) {
 
@@ -331,7 +285,6 @@ leadership programs
 
             console.error(
                 "Tavily error:",
-                tavilyResponse.status,
                 errorText
             );
 
@@ -348,40 +301,38 @@ leadership programs
 
 
         const tavilyResults =
-            Array.isArray(tavilyData.results)
+            Array.isArray(
+                tavilyData.results
+            )
                 ? tavilyData.results
                 : [];
 
 
         console.log(
-            "\nTavily results:",
+            "Tavily results:",
             tavilyResults.length
         );
 
 
         // --------------------------------------------------------
-        // PREPARE RESULTS
-        // --------------------------------------------------------
-        //
-        // IMPORTANT:
-        // Do not throw away Tavily results simply because HEAD
-        // verification fails.
-        //
-        // We keep the original results and mark them as verified.
-        //
+        // VERIFY URLs
         // --------------------------------------------------------
 
         const checkedResults = [];
 
-
-        for (const result of tavilyResults) {
+        for (
+            const result
+            of tavilyResults
+        ) {
 
             if (!result?.url) {
                 continue;
             }
 
-            const valid =
-                await verifyURL(result.url);
+            const verified =
+                await verifyURL(
+                    result.url
+                );
 
             checkedResults.push({
 
@@ -396,7 +347,7 @@ leadership programs
                     result.content
                         ?.slice(0, 1200) || "",
 
-                verified: valid
+                verified
             });
         }
 
@@ -409,20 +360,12 @@ leadership programs
         console.log(
             "Verified results:",
             checkedResults.filter(
-                result => result.verified
+                x => x.verified
             ).length
         );
 
 
-        // --------------------------------------------------------
-        // IF TAVILY FOUND NOTHING
-        // --------------------------------------------------------
-
         if (checkedResults.length === 0) {
-
-            console.log(
-                "No Tavily results found."
-            );
 
             return res.json({
                 success: true,
@@ -432,142 +375,58 @@ leadership programs
 
 
         // --------------------------------------------------------
-        // SEND RESULTS TO AI
+        // GROQ ANALYSIS
         // --------------------------------------------------------
 
-        console.log(
-            "\nSending results to Groq AI..."
-        );
-
-
-        const aiResults =
+        const aiResponse =
             await analyzeOpportunities(
-
                 checkedResults,
-
                 {
                     major,
-
                     interests:
                         safeInterests,
-
                     workStyles:
                         safeWorkStyles,
-
                     city,
-
                     country
                 }
             );
 
 
-        console.log(
-            "\nRaw AI response:"
-        );
-
-        console.log(aiResults);
-
-
-        // --------------------------------------------------------
-        // PARSE AI RESPONSE
-        // --------------------------------------------------------
-
         let parsed;
 
         try {
 
-            const cleaned =
-                cleanAIJson(aiResults);
-
             parsed =
-                typeof cleaned === "string"
-                    ? JSON.parse(cleaned)
-                    : cleaned;
+                JSON.parse(
+                    cleanAIJson(
+                        aiResponse
+                    )
+                );
 
-        } catch (parseError) {
-
-            console.error(
-                "\nAI JSON parsing failed."
-            );
+        } catch {
 
             console.error(
-                "Raw response:",
-                aiResults
+                "AI JSON error:",
+                aiResponse
             );
 
-            // ----------------------------------------------------
-            // FALLBACK
-            // ----------------------------------------------------
-            //
-            // If AI produced invalid JSON, don't lose the Tavily
-            // results. Return them directly.
-            //
-            // ----------------------------------------------------
-
-            const fallback =
-                checkedResults.map(result => ({
-                    title: result.title,
-                    url: result.url,
-                    description: result.content
-                }));
-
-            return res.json({
-                success: true,
-                recommendations: fallback,
-                fallback: true
-            });
+            throw new Error(
+                "AI returned invalid JSON"
+            );
         }
 
 
-        // --------------------------------------------------------
-        // EXTRACT OPPORTUNITIES
-        // --------------------------------------------------------
-
-        let opportunities = [];
-
-
-        if (Array.isArray(parsed)) {
-
-            opportunities = parsed;
-
-        } else if (
-            parsed &&
-            Array.isArray(parsed.opportunities)
-        ) {
-
-            opportunities =
-                parsed.opportunities;
-
-        } else if (
-            parsed &&
-            Array.isArray(parsed.recommendations)
-        ) {
-
-            opportunities =
-                parsed.recommendations;
-        }
-
-
-        console.log(
-            "\nAI opportunities:",
-            opportunities.length
-        );
+        let opportunities =
+            Array.isArray(
+                parsed.opportunities
+            )
+                ? parsed.opportunities
+                : [];
 
 
         // --------------------------------------------------------
-        // CRITICAL FALLBACK
-        // --------------------------------------------------------
-        //
-        // If Tavily found real results but AI returned:
-        //
-        // {
-        //   "opportunities": []
-        // }
-        //
-        // we DO NOT tell the frontend "no opportunities".
-        //
-        // Instead, return the verified/search results.
-        //
+        // FALLBACK
         // --------------------------------------------------------
 
         if (
@@ -580,88 +439,59 @@ leadership programs
             );
 
             console.log(
-                "Using Tavily results as fallback."
+                "Using Tavily fallback."
             );
 
 
             opportunities =
-                checkedResults.map(result => ({
+                checkedResults
+                    .slice(0, 6)
+                    .map(result => ({
 
-                    title:
-                        result.title,
+                        name:
+                            result.title,
 
-                    url:
-                        result.url,
+                        description:
+                            result.content,
 
-                    description:
-                        result.content,
+                        category:
+                            "Extracurricular",
 
-                    verified:
-                        result.verified
-                }));
+                        location:
+                            city ||
+                            country ||
+                            "Unknown",
+
+                        whyRecommended:
+                            "Found through the extracurricular opportunity search.",
+
+                        skills: [],
+
+                        contact: {
+                            type:
+                                "Not provided",
+                            value:
+                                "Not provided"
+                        },
+
+                        source:
+                            result.url
+                    }));
         }
 
 
-        // --------------------------------------------------------
-        // REMOVE DUPLICATES
-        // --------------------------------------------------------
-
-        const uniqueOpportunities = [];
-
-        const seenUrls = new Set();
-
-
-        for (const opportunity of opportunities) {
-
-            if (!opportunity) {
-                continue;
-            }
-
-            const url =
-                opportunity.url ||
-                opportunity.link ||
-                "";
-
-
-            if (
-                url &&
-                seenUrls.has(url)
-            ) {
-                continue;
-            }
-
-
-            if (url) {
-                seenUrls.add(url);
-            }
-
-
-            uniqueOpportunities.push(
-                opportunity
-            );
-        }
-
-
-        // --------------------------------------------------------
-        // RETURN RESULTS
-        // --------------------------------------------------------
-
         console.log(
-            "\nFinal opportunities:",
-            uniqueOpportunities.length
-        );
-
-        console.log(
-            "======================================\n"
+            "Final opportunities:",
+            opportunities.length
         );
 
 
-        return res.json({
+        res.json({
 
             success: true,
 
             recommendations:
-                uniqueOpportunities
+                opportunities
 
         });
 
@@ -669,13 +499,11 @@ leadership programs
     } catch (error) {
 
         console.error(
-            "\nExtracurricular search failed:"
+            "Extracurricular search failed:",
+            error
         );
 
-        console.error(error);
-
-
-        return res.status(500).json({
+        res.status(500).json({
 
             success: false,
 
@@ -689,18 +517,17 @@ leadership programs
 
 
 // ============================================================
-// PROFILE ANALYZER
+// PROFILE
 // ============================================================
 
 app.post("/api/profile", async (req, res) => {
 
     try {
 
-        const profile =
-            req.body;
-
         const analysis =
-            await analyzeProfile(profile);
+            await analyzeProfile(
+                req.body
+            );
 
         res.json({
 
@@ -731,7 +558,7 @@ app.post("/api/profile", async (req, res) => {
 
 
 // ============================================================
-// UNIVERSITY ANALYZER
+// UNIVERSITIES
 // ============================================================
 
 app.post("/api/universities", async (req, res) => {
@@ -772,7 +599,7 @@ app.post("/api/universities", async (req, res) => {
 
 
 // ============================================================
-// UNIVERSITY ROADMAP
+// ROADMAP
 // ============================================================
 
 app.post("/api/roadmap", async (req, res) => {
@@ -789,35 +616,25 @@ app.post("/api/roadmap", async (req, res) => {
             );
 
 
-        // --------------------------------------------------------
-        // PARSE AI RESPONSE
-        // --------------------------------------------------------
-
         let parsed;
 
         try {
 
-            if (typeof roadmap === "string") {
+            parsed =
+                typeof roadmap === "string"
+                    ? JSON.parse(
+                        cleanAIJson(
+                            roadmap
+                        )
+                    )
+                    : roadmap;
 
-                const cleaned =
-                    cleanAIJson(roadmap);
-
-                parsed =
-                    JSON.parse(cleaned);
-
-            } else {
-
-                parsed = roadmap;
-
-            }
-
-        } catch (parseError) {
+        } catch {
 
             console.error(
-                "Roadmap JSON parsing failed:"
+                "Roadmap JSON error:",
+                roadmap
             );
-
-            console.error(roadmap);
 
             throw new Error(
                 "Roadmap AI returned invalid JSON"
@@ -825,15 +642,12 @@ app.post("/api/roadmap", async (req, res) => {
         }
 
 
-        // --------------------------------------------------------
-        // RETURN ROADMAP
-        // --------------------------------------------------------
-
         res.json({
 
             success: true,
 
-            roadmap: parsed
+            roadmap:
+                parsed
 
         });
 
@@ -863,7 +677,6 @@ app.post("/api/roadmap", async (req, res) => {
 
 const PORT =
     process.env.PORT || 3000;
-
 
 app.listen(PORT, () => {
 
