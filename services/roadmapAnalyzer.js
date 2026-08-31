@@ -1,3 +1,4 @@
+
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
 
@@ -11,7 +12,8 @@ export async function generateRoadmap(data) {
 
     const response = await groq.chat.completions.create({
 
-        model: "llama-3.1-8b-instant",
+        // Available on your Render Groq API key
+        model: "openai/gpt-oss-20b",
 
         messages: [
 
@@ -111,6 +113,7 @@ RULES:
 - Each task must have a unique ID.
 - Task priority must be exactly "high", "medium", or "low".
 - Monthly priority must be exactly "high", "medium", or "low".
+- Main gap severity must be exactly "high", "medium", or "low".
 - Prioritize the highest-impact improvements first.
 - Do not recommend impossible or unrealistic achievements.
 - Do not guarantee admission.
@@ -137,58 +140,67 @@ RULES:
 
                 content: `
 University:
-${data.university}
+${data.university || "Not provided"}
 
 Intended Major:
-${data.major}
+${data.major || "Not provided"}
 
 Student Profile:
 
 GPA:
-${data.gpa}
+${data.gpa || "Not provided"}
 
 SAT / ACT:
-${data.satAct}
+${data.satAct || "Not provided"}
 
 IELTS / TOEFL:
-${data.english}
+${data.english || "Not provided"}
 
 AP / IB / A-Level / Other Courses:
-${data.courses}
+${data.courses || "Not provided"}
 
 Class Rank:
-${data.classRank}
+${data.classRank || "Not provided"}
 
 Extracurriculars:
-${data.extracurriculars}
+${data.extracurriculars || "Not provided"}
 
 Awards & Honors:
-${data.awards}
+${data.awards || "Not provided"}
 
 Leadership:
-${data.leadership}
+${data.leadership || "Not provided"}
 
 Research / Projects:
-${data.research}
+${data.research || "Not provided"}
 
 Essay:
-${data.essay}
+${data.essay || "Not provided"}
 
 Application Year:
-${data.applicationYear}
+${data.applicationYear || "Not provided"}
                 `
             }
 
         ],
 
-        temperature: 0.15
+        temperature: 0.15,
+
+        // Helps the model return structured JSON.
+        response_format: {
+            type: "json_object"
+        }
 
     });
 
-    let text = response.choices[0].message.content;
+    const text =
+        response.choices?.[0]?.message?.content;
 
-    text = text.replace(/```json/g, "");
-    text = text.replace(/```/g, "");
+    if (!text) {
+        throw new Error(
+            "Groq returned an empty roadmap response"
+        );
+    }
 
     return text.trim();
 }
