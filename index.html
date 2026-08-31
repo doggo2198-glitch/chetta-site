@@ -1077,7 +1077,6 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:var(--d-border)}
       </div>
     </div>
   </div>
-  </div>
 </section>
 
 <!-- TESTIMONIALS -->
@@ -2210,7 +2209,7 @@ const getDB=()=>JSON.parse(localStorage.getItem('cdb')||'{}');
 const saveDB=db=>localStorage.setItem('cdb',JSON.stringify(db));
 
 function openAuth(tab){document.getElementById('authOv').classList.add('open');switchTab(tab||'login');clearErrs();}
-function goFeature(url){if(currentUser){window.location.href=url;}else{openAuth('login');}}
+function goFeature(url){if(window.chettaUser){window.location.href=url;}else{openAuth('login');}}
 function closeAuth(){document.getElementById('authOv').classList.remove('open');}
 function switchTab(tab){['login','register','forgot'].forEach(t=>{document.getElementById('tab-'+t)?.classList.remove('active');document.getElementById('panel-'+t).classList.remove('active');});document.getElementById('tab-'+tab)?.classList.add('active');document.getElementById('panel-'+tab).classList.add('active');}
 function clearErrs(){document.querySelectorAll('.auth-err').forEach(e=>{e.classList.remove('show');e.textContent='';});}
