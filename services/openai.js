@@ -6,6 +6,21 @@ const groq = new Groq({
 
 export async function analyzeOpportunities(results, userInfo) {
 
+    const safeInterests =
+        Array.isArray(userInfo?.interests)
+            ? userInfo.interests
+            : [];
+
+    const safeWorkStyles =
+        Array.isArray(userInfo?.workStyles)
+            ? userInfo.workStyles
+            : [];
+
+    const safeResults =
+        Array.isArray(results)
+            ? results
+            : [];
+
     const response = await groq.chat.completions.create({
 
         model: "llama-3.1-8b-instant",
@@ -14,6 +29,7 @@ export async function analyzeOpportunities(results, userInfo) {
 
             {
                 role: "system",
+
                 content: `
 You are an AI extracurricular opportunity advisor for high school students.
 
@@ -51,7 +67,7 @@ Examples:
 Prioritize:
 1. Same city
 2. Same country
-3. International (only if necessary)
+3. International only if necessary
 
 Each opportunity MUST have BOTH:
 
@@ -113,31 +129,32 @@ No extra text.
 
             {
                 role: "user",
+
                 content: `
 Student Profile
 
 Major:
-${userInfo.major}
+${userInfo?.major || ""}
 
 Academic Interests:
-${userInfo.interests.join(", ")}
+${safeInterests.join(", ")}
 
 Preferred Work Styles:
-${(userInfo.workStyles || []).join(", ")}
+${safeWorkStyles.join(", ")}
 
 Location:
-${userInfo.city}, ${userInfo.country}
+${userInfo?.city || ""}, ${userInfo?.country || ""}
 
 Search Results:
 
-${JSON.stringify(results)}
+${JSON.stringify(safeResults)}
 
 Requirements:
 
 - Recommend ONLY extracurricular opportunities.
 - Use ONLY the provided search results.
-- Prefer opportunities in ${userInfo.city}.
-- Otherwise recommend opportunities elsewhere in ${userInfo.country}.
+- Prefer opportunities in ${userInfo?.city || "the student's city"}.
+- Otherwise recommend opportunities elsewhere in ${userInfo?.country || "the student's country"}.
 - Recommend international opportunities ONLY if no local ones exist.
 - Exclude any opportunity that lacks BOTH:
   - a source URL
@@ -145,14 +162,31 @@ Requirements:
 `
             }
 
-        ]
+        ],
+
+        temperature: 0.2
 
     });
 
-    let text = response.choices[0].message.content;
+    if (
+        !response.choices ||
+        !response.choices[0] ||
+        !response.choices[0].message
+    ) {
+        throw new Error("Groq returned an empty response");
+    }
 
-    text = text.replace(/```json/g, "");
-    text = text.replace(/```/g, "");
+    let text =
+        response.choices[0].message.content || "";
 
-    return text.trim();
+    text = text
+        .replace(/```json/gi, "")
+        .replace(/```/g, "")
+        .trim();
+
+    if (!text) {
+        throw new Error("Groq returned empty content");
+    }
+
+    return text;
 }
