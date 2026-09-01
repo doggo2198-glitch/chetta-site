@@ -425,12 +425,18 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .m-head-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .m-head-img.uc2-img-hidden{display:none}
 .m-head::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,41,.35) 0%,rgba(15,23,41,.9) 100%);z-index:1;pointer-events:none}
-.profile-wrap{padding:2.5rem 2rem 5rem;max-width:760px;margin:0 auto}
-.profile-card{background:#fff;border-radius:var(--rxl);overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.06);border:1px solid var(--g100)}
-.profile-card .m-head{min-height:230px;display:flex;flex-direction:column;justify-content:flex-end}
-.profile-loading{padding:3rem 1rem;text-align:center;color:var(--g400);font-size:.88rem}
-.profile-signin{padding:3rem 1.6rem;text-align:center}
-.profile-signin p{color:var(--g500);font-size:.88rem;margin-bottom:1.1rem}
+.profile-hero{position:relative;width:100%;min-height:400px;background:var(--g900);background-size:cover;background-position:center;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.profile-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,41,.45) 0%,rgba(15,23,41,.35) 35%,rgba(15,23,41,.96) 100%);z-index:1;pointer-events:none}
+.profile-hero-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;padding:1.4rem 1.6rem}
+.profile-back-btn{background:rgba(0,0,0,.32);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600;font-size:.85rem;padding:.55rem 1.1rem;border-radius:100px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;transition:background .15s}
+.profile-back-btn:hover{background:rgba(0,0,0,.5)}
+.profile-hero-bottom{position:relative;z-index:2;max-width:900px;width:100%;margin:0 auto;padding:0 2rem 2.4rem}
+.profile-hero .m-title{font-size:2.3rem}
+.profile-hero .m-loc{font-size:.95rem}
+.profile-body-wrap{max-width:900px;margin:0 auto;padding:2.2rem 2rem 5rem}
+.profile-loading{padding:5rem 1rem;text-align:center;color:var(--g400);font-size:.9rem}
+.profile-signin{padding:5rem 1.6rem;text-align:center;max-width:900px;margin:0 auto}
+.profile-signin p{color:var(--g500);font-size:.9rem;margin-bottom:1.1rem}
 .m-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.72);padding:.22rem .7rem;border-radius:100px;font-size:.73rem;font-weight:500}
 .m-content{padding:1.6rem}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.35rem}
@@ -1046,11 +1052,15 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
 
 <!-- PROFILE PAGE -->
 <div id="page-profile" class="page">
-  <div class="profile-wrap">
-    <button class="road-back-btn" onclick="if(document.referrer.includes('/Universities'))history.back();else window.location.href='/Universities/'">← <span data-i18n="profile_back">Back to Universities</span></button>
-    <div class="profile-card" id="profile-card">
-      <div class="profile-loading">Loading…</div>
+  <div class="profile-hero" id="profile-hero">
+    <div class="profile-hero-top">
+      <button class="profile-back-btn" onclick="if(document.referrer.includes('/Universities'))history.back();else window.location.href='/Universities/'">← <span data-i18n="profile_back">Back to Universities</span></button>
+      <button class="m-heart" id="pfHeart" style="position:relative;top:0;right:0" onclick="toggleSave(profileUniId,this)" title="Save university"></button>
     </div>
+    <div class="profile-hero-bottom" id="profile-hero-bottom"></div>
+  </div>
+  <div class="profile-body-wrap" id="profile-body-wrap">
+    <div class="profile-loading">Loading…</div>
   </div>
 </div>
 
@@ -2452,36 +2462,55 @@ window.imgFallback=function(el){
   if(i<list.length){el.dataset.i=i;el.src=list[i];}
   else{el.classList.add('uc2-img-hidden');}
 };
+function setHeroBackground(el,candidates){
+  let i=0;
+  (function tryNext(){
+    if(i>=candidates.length)return;
+    const test=new Image();
+    test.onload=()=>{el.style.backgroundImage=`url('${candidates[i]}')`;};
+    test.onerror=()=>{i++;tryNext();};
+    test.src=candidates[i];
+  })();
+}
+let profileUniId=null;
 function initProfilePage(){
   const params=new URLSearchParams(window.location.search);
   const id=Number(params.get('id'));
   const u=unis.find(x=>x.id===id);
-  const card=document.getElementById('profile-card');
-  if(!card)return;
+  const hero=document.getElementById('profile-hero');
+  const heroBottom=document.getElementById('profile-hero-bottom');
+  const bodyWrap=document.getElementById('profile-body-wrap');
+  const heartBtn=document.getElementById('pfHeart');
+  if(!bodyWrap)return;
   if(!u){
-    card.innerHTML=`<div class="profile-signin"><p data-i18n="profile_notfound">University not found.</p><button class="qb-btn primary" onclick="window.location.href='/Universities/'" data-i18n="profile_browse">Browse Universities</button></div>`;
+    if(heartBtn)heartBtn.style.display='none';
+    heroBottom.innerHTML='';
+    hero.style.minHeight='auto';
+    bodyWrap.innerHTML=`<div class="profile-signin"><p data-i18n="profile_notfound">University not found.</p><button class="qb-btn primary" onclick="window.location.href='/Universities/'" data-i18n="profile_browse">Browse Universities</button></div>`;
     return;
   }
+  profileUniId=u.id;
+  hero.style.minHeight='';
+  hero.style.backgroundImage='';
+  setHeroBackground(hero,imgCandidates(u));
+  const t=T();
+  heroBottom.innerHTML=`<div class="m-title">${u.name}</div><div class="m-loc">${u.loc} • ${u.type}</div><div class="m-badges"><span class="m-badge">${u.rank}</span><span class="m-badge">${u.type}</span></div>`;
+  if(heartBtn){
+    heartBtn.style.display='flex';
+    const isS=isSaved(u.id);
+    heartBtn.classList.toggle('saved',isS);
+    heartBtn.title=isS?'Remove from saved':'Save university';
+    heartBtn.innerHTML=heartSVG(isS);
+  }
   if(!window.chettaUser){
-    card.innerHTML=`<div class="profile-signin"><p data-i18n="profile_signin_msg">Sign in to view the full university profile.</p><button class="qb-btn primary" onclick="openAuth('login')" data-i18n="profile_signin_btn">Sign in</button></div>`;
+    bodyWrap.innerHTML=`<div class="profile-signin"><p data-i18n="profile_signin_msg">Sign in to view the full university profile.</p><button class="qb-btn primary" onclick="openAuth('login')" data-i18n="profile_signin_btn">Sign in</button></div>`;
     applyLang(currentLang);
     return;
   }
   document.title=`${u.name} — Chetta`;
-  const t=T();
-  const cands=imgCandidates(u);
   const dc=u.diff>=90?'#dc2626':u.diff>=70?'#d97706':'#16a34a';
   const dl=u.diff>=90?(t.diff_ext||'Extremely Selective'):u.diff>=70?(t.diff_very||'Very Selective'):(t.diff_sel||'Selective');
-  const isS=isSaved(u.id);
-  card.innerHTML=`
-    <div class="m-head">
-      <img class="m-head-img uc2-img-hidden" src="${cands[0]}" data-c="${cands.join('|||')}" data-i="0" alt="${u.name}" onerror="imgFallback(this)" onload="this.classList.remove('uc2-img-hidden')">
-      <button class="m-heart ${isS?'saved':''}" id="pfHeart" onclick="toggleSave(${u.id},this)" title="${isS?'Remove from saved':'Save university'}">${heartSVG(isS)}</button>
-      <div class="m-title">${u.name}</div>
-      <div class="m-loc">${u.loc} • ${u.type}</div>
-      <div class="m-badges"><span class="m-badge">${u.rank}</span><span class="m-badge">${u.type}</span></div>
-    </div>
-    <div class="m-content">
+  bodyWrap.innerHTML=`
       <div class="stats-row">
         <div class="s-box"><div class="s-box-val">${u.acc}%</div><div class="s-box-key">${t.mod_acc||'Acceptance Rate'}</div></div>
         <div class="s-box"><div class="s-box-val">$${u.tuition.toLocaleString()}</div><div class="s-box-key">${t.mod_tui||'Annual Tuition'}</div></div>
@@ -2507,8 +2536,7 @@ function initProfilePage(){
       <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`openSchFromProfile(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
       <a href="${u.url}" target="_blank" class="visit-lnk">${t.mod_visit||'Visit university website'} ↗</a>
       <a href="/Universities/CompareUniversities?a=${u.id}" class="visit-lnk" style="margin-top:.6rem">⇄ ${t.mod_compare||'Compare with another university'}</a>
-      <button class="visit-lnk" style="margin-top:.6rem;background:var(--g900)" onclick="window.location.href='/Roadmap/?id=${u.id}'">🗺️ ${t.card_roadmap||'Create Roadmap'}</button>
-    </div>`;
+      <button class="visit-lnk" style="margin-top:.6rem;background:var(--g900)" onclick="window.location.href='/Roadmap/?id=${u.id}'">🗺️ ${t.card_roadmap||'Create Roadmap'}</button>`;
 }
 function openSchFromProfile(id){
   openSch(id);
