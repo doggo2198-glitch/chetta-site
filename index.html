@@ -3398,6 +3398,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
   createUserWithEmailAndPassword,
   updateProfile,
   sendPasswordResetEmail,
@@ -3452,6 +3453,75 @@ window.updatePlanBadge = function () {
   }
 };
 
+/* AUTH ERROR MESSAGES (EN/UZ/RU) */
+const AUTH_ERR = {
+  en: {
+    google_exists: "This email is linked to a Google account. Please continue with Google instead.",
+    wrong: "Incorrect email or password. Please try again.",
+    inuse: "An account with this email already exists.",
+    weak: "Password should be at least 6 characters.",
+    invalid_email: "Please enter a valid email address.",
+    many: "Too many attempts. Please try again in a few minutes.",
+    generic: "Something went wrong. Please try again."
+  },
+  uz: {
+    google_exists: "Bu email Google hisobiga bog'langan. Google orqali kiring.",
+    wrong: "Email yoki parol noto'g'ri. Qayta urinib ko'ring.",
+    inuse: "Bu email bilan hisob allaqachon mavjud.",
+    weak: "Parol kamida 6 ta belgidan iborat bo'lishi kerak.",
+    invalid_email: "Iltimos, to'g'ri email manzilini kiriting.",
+    many: "Juda ko'p urinish. Bir necha daqiqadan so'ng qayta urinib ko'ring.",
+    generic: "Xatolik yuz berdi. Qayta urinib ko'ring."
+  },
+  ru: {
+    google_exists: "Этот email привязан к аккаунту Google. Войдите через Google.",
+    wrong: "Неверный email или пароль. Попробуйте снова.",
+    inuse: "Аккаунт с таким email уже существует.",
+    weak: "Пароль должен содержать не менее 6 символов.",
+    invalid_email: "Введите корректный email.",
+    many: "Слишком много попыток. Попробуйте позже.",
+    generic: "Что-то пошло не так. Попробуйте снова."
+  }
+};
+function authLang() {
+  try {
+    if (typeof currentLang !== "undefined" && currentLang) return currentLang;
+    const cl = localStorage.getItem("cl");
+    if (cl) return cl;
+  } catch (e) {}
+  return "en";
+}
+function authMsg(key) {
+  const lang = authLang();
+  return (AUTH_ERR[lang] && AUTH_ERR[lang][key]) || AUTH_ERR.en[key];
+}
+function authCodeToKey(code) {
+  switch (code) {
+    case "auth/wrong-password":
+    case "auth/invalid-credential":
+    case "auth/user-not-found":
+      return "wrong";
+    case "auth/email-already-in-use":
+      return "inuse";
+    case "auth/weak-password":
+      return "weak";
+    case "auth/invalid-email":
+    case "auth/missing-email":
+      return "invalid_email";
+    case "auth/too-many-requests":
+      return "many";
+    default:
+      return "generic";
+  }
+}
+async function existingProvidersFor(email) {
+  try {
+    return await fetchSignInMethodsForEmail(auth, email);
+  } catch (e) {
+    return [];
+  }
+}
+
 /* GOOGLE LOGIN */
 window.doGoogle = async function () {
   try {
@@ -3478,6 +3548,8 @@ window.doGoogle = async function () {
 
 /* EMAIL LOGIN */
 window.doLogin = async function () {
+  const err = document.getElementById("loginErr");
+  if (err) { err.textContent = ""; err.classList.remove("show"); }
   try {
     const email = document.getElementById("lEmail").value;
     const password = document.getElementById("lPass").value;
@@ -3486,18 +3558,35 @@ window.doLogin = async function () {
 
     if (typeof closeAuth === "function") closeAuth();
   } catch (e) {
-    const err = document.getElementById("loginErr");
-    if (err) err.textContent = e.message;
+    const email = document.getElementById("lEmail") ? document.getElementById("lEmail").value : "";
+    let msg;
+    if ((e.code === "auth/wrong-password" || e.code === "auth/invalid-credential" || e.code === "auth/user-not-found") && email) {
+      const methods = await existingProvidersFor(email);
+      msg = (methods.includes("google.com") && !methods.includes("password"))
+        ? authMsg("google_exists")
+        : authMsg(authCodeToKey(e.code));
+    } else {
+      msg = authMsg(authCodeToKey(e.code));
+    }
+    if (err) { err.textContent = msg; err.classList.add("show"); }
   }
 };
 
 /* REGISTER */
 window.doRegister = async function () {
+  const err = document.getElementById("regErr");
+  if (err) { err.textContent = ""; err.classList.remove("show"); }
   try {
     const firstName = document.getElementById("rFirst") ? document.getElementById("rFirst").value.trim() : "";
     const lastName = document.getElementById("rLast") ? document.getElementById("rLast").value.trim() : "";
     const email = document.getElementById("rEmail").value;
     const password = document.getElementById("rPass").value;
+
+    const existingMethods = await existingProvidersFor(email);
+    if (existingMethods.length > 0) {
+      if (err) { err.textContent = authMsg(existingMethods.includes("google.com") ? "google_exists" : "inuse"); err.classList.add("show"); }
+      return;
+    }
 
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     const fullName = (firstName + " " + lastName).trim();
@@ -3516,8 +3605,7 @@ window.doRegister = async function () {
 
     if (typeof closeAuth === "function") closeAuth();
   } catch (e) {
-    const err = document.getElementById("regErr");
-    if (err) { err.textContent = e.message; if (err.classList) err.classList.add("show"); }
+    if (err) { err.textContent = authMsg(authCodeToKey(e.code)); err.classList.add("show"); }
   }
 };
 
