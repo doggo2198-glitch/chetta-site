@@ -2166,7 +2166,7 @@ function uniCardHTML(u,savedSet,showHeart){
     <div class="uc2-divider"></div>
     <div class="uc2-foot">
       <div class="uc2-lang">${t.card_langs_lbl||'Languages'}<strong>EN · UZ · RU</strong></div>
-      <button class="uc2-viewbtn" onclick="event.stopPropagation();openUni(${u.id})">${(t.card_view||'View profile →').replace('View profile','View full profile')}</button>
+      <button class="uc2-viewbtn" onclick="event.stopPropagation();window.location.href='/Profile/?id=${u.id}'">${(t.card_view||'View profile →').replace('View profile','View full profile')}</button>
     </div></div>`;
 }
 function renderUnis(data){
