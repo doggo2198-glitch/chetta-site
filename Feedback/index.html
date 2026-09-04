@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feedback · Chetta</title>
 <link rel="icon" href="/favicon.ico">
+<script>(function(){try{var t=localStorage.getItem('chetta-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -93,6 +94,8 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .u-dd-item{display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;font-size:.83rem;color:var(--g700);cursor:pointer;transition:background .15s}
 .u-dd-item:hover{background:var(--g50)}
 .u-dd-item.danger{color:var(--red)}
+.dm-switch{width:32px;height:18px;border-radius:100px;background:var(--g300);position:relative;flex-shrink:0;margin-left:auto;transition:background .2s}
+.dm-knob{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
 
 /* ===== AUTH MODAL (matches chetta.xyz) ===== */
 .auth-ov{display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,15,.65);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:1rem}
@@ -166,6 +169,65 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pl-text{font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;color:#6b7280;letter-spacing:.2px}
 @keyframes pl-spin{to{transform:rotate(360deg)}}
 @media(prefers-color-scheme:dark){#pageLoader{background:#09090b}.pl-text{color:#9ca3af}}
+/* ══════ DARK MODE (shared nav/auth) ══════ */
+html[data-theme="dark"]{
+  --d-bg:#0a0e1a;--d-surface:#141a2e;--d-surface2:#1c2338;--d-border:#272f4c;
+  --d-text:#e8eaf3;--d-text-dim:#9aa3c4;--d-text-mute:#6b7494;
+  color-scheme:dark;
+}
+html[data-theme="dark"] body{background:var(--d-bg);color:var(--d-text)}
+html[data-theme="dark"] nav{background:rgba(10,14,26,.86);border-bottom-color:var(--d-border)}
+html[data-theme="dark"] nav.scrolled{box-shadow:0 8px 24px rgba(0,0,0,.45)}
+html[data-theme="dark"] .nav-logo{color:var(--d-text)}
+html[data-theme="dark"] .nl-btn{color:var(--d-text-dim)}
+html[data-theme="dark"] .nl-btn:hover{color:var(--d-text);background:var(--d-surface2)}
+html[data-theme="dark"] .nl-btn.active{color:var(--d-text)}
+html[data-theme="dark"] .lang-btn{background:var(--d-surface);border-color:var(--d-border);color:var(--d-text-dim)}
+html[data-theme="dark"] .lang-btn:hover{background:var(--d-surface2)}
+html[data-theme="dark"] .lang-dd{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .nav-dd-menu-inner{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .nav-dd-item{color:var(--d-text-dim)}
+html[data-theme="dark"] .nav-dd-item:hover{background:var(--d-surface2);color:var(--d-text)}
+html[data-theme="dark"] .lang-opt{color:var(--d-text-dim);border-color:var(--d-border)}
+html[data-theme="dark"] .lang-opt:hover{background:var(--d-surface2)}
+html[data-theme="dark"] .lang-native{color:var(--d-text-mute)}
+html[data-theme="dark"] .btn-ghost{border-color:var(--d-border);color:var(--d-text-dim)}
+html[data-theme="dark"] .btn-ghost:hover{background:var(--d-surface2);border-color:var(--d-border)}
+html[data-theme="dark"] .nav-uname{color:var(--d-text-dim)}
+html[data-theme="dark"] .nav-av{border-color:var(--d-border)}
+html[data-theme="dark"] .u-dd{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .u-dd-head{border-color:var(--d-border)}
+html[data-theme="dark"] .u-dd-name{color:var(--d-text)}
+html[data-theme="dark"] .u-dd-email{color:var(--d-text-mute)}
+html[data-theme="dark"] .u-dd-item{color:var(--d-text-dim);border-color:var(--d-border)}
+html[data-theme="dark"] .u-dd-item:hover{background:var(--d-surface2)}
+html[data-theme="dark"] .nav-links{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .nav-links .nl-btn.active{background:var(--d-surface2);color:var(--d-text)}
+html[data-theme="dark"] .auth-box{background:var(--d-surface)}
+html[data-theme="dark"] .auth-head{border-color:var(--d-border)}
+html[data-theme="dark"] .auth-logo{color:var(--d-text)}
+html[data-theme="dark"] .auth-tag{color:var(--d-text-mute)}
+html[data-theme="dark"] .auth-close{background:var(--d-surface2);color:var(--d-text-dim)}
+html[data-theme="dark"] .auth-close:hover{background:var(--d-border)}
+html[data-theme="dark"] .auth-tabs{border-color:var(--d-border)}
+html[data-theme="dark"] .auth-tab{color:var(--d-text-mute)}
+html[data-theme="dark"] .auth-tab.active{color:var(--d-text)}
+html[data-theme="dark"] .field-lbl{color:var(--d-text-dim)}
+html[data-theme="dark"] .field-in{background:var(--d-surface2);border-color:var(--d-border);color:var(--d-text)}
+html[data-theme="dark"] .social-btn{background:var(--d-surface2);border-color:var(--d-border);color:var(--d-text-dim)}
+html[data-theme="dark"] .forgot-lnk{color:#8ab4ff}
+html[data-theme="dark"] .dm-switch{background:var(--blue)}
+html[data-theme="dark"] .dm-knob{transform:translateX(14px)}
+html[data-theme="dark"] ::-webkit-scrollbar-track{background:var(--d-surface)}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:var(--d-border)}
+/* FEEDBACK PAGE */
+html[data-theme="dark"] .form-card{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .fb-note{color:var(--d-text-mute)}
+html[data-theme="dark"] .fb-success h3{color:var(--d-text)}
+html[data-theme="dark"] .fb-success p{color:var(--d-text-mute)}
+html[data-theme="dark"] .fb-success .btn-ghost{border-color:var(--d-border)}
+html[data-theme="dark"] .form-lbl,html[data-theme="dark"] .field-lbl{color:var(--d-text-dim)}
+html[data-theme="dark"] .form-in,html[data-theme="dark"] .form-ta{background:var(--d-surface2);border-color:var(--d-border);color:var(--d-text)}
 </style>
 </head>
 
@@ -175,6 +237,23 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
   <div class="pl-text">Loading...</div>
 </div>
 <noscript><style>#pageLoader{display:none}</style></noscript>
+<script>
+(function(){
+  function applyDarkSwitch(){
+    var isDark = document.documentElement.getAttribute('data-theme')==='dark';
+    var icon = document.getElementById('darkModeIcon');
+    if(icon) icon.textContent = isDark ? '☀️' : '🌙';
+  }
+  window.toggleDarkMode = function(){
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme')==='dark';
+    if(isDark){ html.removeAttribute('data-theme'); try{localStorage.setItem('chetta-theme','light');}catch(e){} }
+    else{ html.setAttribute('data-theme','dark'); try{localStorage.setItem('chetta-theme','dark');}catch(e){} }
+    applyDarkSwitch();
+  };
+  document.addEventListener('DOMContentLoaded', applyDarkSwitch);
+})();
+</script>
 <script>
 (function(){
   function hidePageLoader(){
@@ -253,6 +332,10 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
         <div class="u-dd-item" onclick="window.location.href='/Dashboard/'">📊 <span>Dashboard</span></div>
         <div class="u-dd-item" onclick="window.location.href='/Scholarships/'">🎓 <span>Scholarships</span></div>
         <div class="u-dd-item" onclick="window.location.href='/Pricing/'">✦ <span>Upgrade to Pro</span></div>
+        <div class="u-dd-item" id="darkModeItem" onclick="event.stopPropagation();toggleDarkMode()">
+          <span id="darkModeIcon">🌙</span> <span style="flex:1">Dark mode</span>
+          <span class="dm-switch" id="darkModeSwitch"><span class="dm-knob"></span></span>
+        </div>
         <div class="u-dd-item danger" onclick="signOut()">↩ <span>Sign out</span></div>
       </div>
     </div>
