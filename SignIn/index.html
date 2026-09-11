@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('chetta-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — Chetta</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#09090b;--navy:#0f1729;--blue:#2563eb;--blue2:#3b82f6;--bluepale:#eff6ff;
+  --blue-deep:#1e40af;--blue-glow:rgba(37,99,235,.35);
+  --white:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
+  --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
+  --red:#dc2626;--rpale:#fef2f2;
+  --shadow:0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.04);
+  --shadowlg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
+  --shadowxl:0 24px 64px rgba(15,23,41,.14),0 6px 16px rgba(15,23,41,.06);
+  --r:10px;--rl:16px;--rxl:22px;
+  --ease:cubic-bezier(.16,1,.3,1)
+}
+html{-webkit-overflow-scrolling:touch}
+body{font-family:'DM Sans',sans-serif;background:var(--g50);color:var(--g900);min-height:100vh;-webkit-font-smoothing:antialiased}
+::selection{background:var(--blue);color:#fff}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+a{text-decoration:none;color:inherit}
+
+.si-wrap{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px)}
+.si-hero{position:relative;background:linear-gradient(150deg,#1e3a8a 0%,var(--blue) 46%,#38bdf8 100%);display:flex;flex-direction:column;justify-content:space-between;padding:2.6rem;overflow:hidden}
+.si-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 25% 20%,rgba(255,255,255,.16),transparent 55%),radial-gradient(circle at 80% 85%,rgba(255,255,255,.12),transparent 50%);pointer-events:none}
+.si-hero-top{position:relative;z-index:1}
+.si-logo{font-family:'Instrument Serif',serif;font-size:1.6rem;color:#fff;display:inline-flex;align-items:center;gap:.5rem}
+.si-logo em{font-style:normal;color:#bfdbfe}
+.si-hero-mid{position:relative;z-index:1;color:#fff;max-width:420px}
+.si-hero-mid h1{font-family:'Instrument Serif',serif;font-size:2.6rem;line-height:1.15;font-weight:400;margin-bottom:1rem}
+.si-hero-mid p{font-size:.95rem;line-height:1.65;color:rgba(255,255,255,.85)}
+.si-hero-stats{position:relative;z-index:1;display:flex;gap:2rem}
+.si-hero-stats div b{display:block;font-size:1.4rem;font-family:'Instrument Serif',serif;color:#fff}
+.si-hero-stats div span{font-size:.78rem;color:rgba(255,255,255,.75)}
+
+.si-panel{background:#fff;display:flex;flex-direction:column;min-height:100vh}
+.si-panel-top{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 2.6rem 0}
+.si-back{font-family:'Instrument Serif',serif;font-size:1.3rem;color:var(--g900);display:none}
+.si-back em{font-style:normal;color:var(--blue)}
+
+.lang-sw{position:relative}
+.lang-btn{display:flex;align-items:center;gap:.3rem;background:var(--g100);border:1px solid var(--g200);color:var(--g600);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;padding:.35rem .7rem;border-radius:8px;cursor:pointer;transition:all .15s}
+.lang-btn:hover{background:var(--g200)}
+.lang-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--g200);border-radius:12px;box-shadow:var(--shadowlg);overflow:hidden;min-width:130px;z-index:20}
+.lang-sw.open .lang-menu{display:block}
+.lang-opt{display:flex;align-items:center;gap:.5rem;padding:.6rem .8rem;font-size:.8rem;font-weight:500;color:var(--g700);cursor:pointer;transition:background .12s}
+.lang-opt:hover{background:var(--g50)}
+.lang-opt.sel{color:var(--blue);font-weight:700}
+
+.si-tabs{display:flex;border-bottom:1px solid var(--g200);padding:0 2.6rem;margin-top:1.6rem}
+.si-tab{padding:.9rem 1.2rem;font-size:.92rem;font-weight:600;color:var(--g500);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
+.si-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+.si-body{flex:1;display:flex;flex-direction:column;padding:2.4rem 2.6rem 3rem;max-width:460px;width:100%}
+.si-h1{font-family:'Instrument Serif',serif;font-size:2.1rem;font-weight:400;margin-bottom:1.1rem}
+.si-intro{font-size:.9rem;line-height:1.65;color:var(--g700);margin-bottom:1.3rem}
+.si-intro b{color:var(--g900)}
+.si-intro a{color:var(--blue);text-decoration:underline;cursor:pointer}
+.si-req{font-size:.78rem;color:var(--g500);margin-bottom:1.6rem}
+.si-req .req-star{color:var(--red)}
+
+.si-panel-form{display:none}
+.si-panel-form.active{display:block}
+
+.si-field{margin-bottom:1.3rem}
+.si-lbl{display:block;font-size:.88rem;font-weight:600;color:var(--g900);margin-bottom:.45rem}
+.req-star{color:var(--red);margin-left:2px}
+.si-in{width:100%;padding:.75rem .85rem;border:1.5px solid var(--g300);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.92rem;color:var(--g900);transition:border-color .15s}
+.si-in:focus{border-color:var(--blue)}
+.si-two-col{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+
+.si-pass-row{display:flex;align-items:center;gap:.5rem;margin:-.5rem 0 1.4rem}
+.si-checkbox{width:16px;height:16px;border:1.5px solid var(--g300);border-radius:4px;cursor:pointer;accent-color:var(--blue)}
+.si-pass-row label{font-size:.85rem;color:var(--g700);cursor:pointer}
+
+.si-row-between{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.6rem}
+.si-forgot{font-size:.83rem;color:var(--blue);text-decoration:underline;cursor:pointer}
+
+.si-err{display:none;background:var(--rpale);color:var(--red);font-size:.82rem;padding:.7rem .9rem;border-radius:8px;margin-bottom:1.2rem;line-height:1.5}
+.si-err.show{display:block}
+
+.si-submit{width:100%;background:var(--blue);color:#fff;border:none;padding:.95rem;border-radius:999px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .15s;box-shadow:0 8px 20px rgba(37,99,235,.25)}
+.si-submit:hover{background:var(--blue-deep);transform:translateY(-1px)}
+.si-submit:disabled{opacity:.6;cursor:default;transform:none}
+
+.si-div{display:flex;align-items:center;gap:.9rem;margin:1.4rem 0;color:var(--g400);font-size:.8rem}
+.si-div::before,.si-div::after{content:'';flex:1;height:1px;background:var(--g200)}
+
+.si-social{width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;background:#fff;border:1.5px solid var(--g300);padding:.85rem;border-radius:999px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;color:var(--g800);cursor:pointer;transition:all .15s}
+.si-social:hover{background:var(--g50);border-color:var(--g400)}
+.si-social svg{width:18px;height:18px}
+
+.si-switch{margin-top:1.6rem;font-size:.87rem;color:var(--g600);text-align:center}
+.si-switch a{color:var(--blue);font-weight:600;text-decoration:underline;cursor:pointer}
+
+.si-terms{font-size:.72rem;color:var(--g500);margin-top:1rem;line-height:1.5}
+
+@media(max-width:860px){
+  .si-wrap{grid-template-columns:1fr}
+  .si-hero{display:none}
+  .si-panel-top{padding:1.2rem 1.3rem 0}
+  .si-back{display:block}
+  .si-tabs{padding:0 1.3rem;margin-top:1.2rem}
+  .si-body{padding:1.8rem 1.3rem 2.4rem;max-width:none}
+  .si-two-col{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="si-wrap">
+  <div class="si-hero">
+    <div class="si-hero-top"><a href="/" class="si-logo">Chetta<em>.</em></a></div>
+    <div class="si-hero-mid">
+      <h1 data-i18n="si_hero_h1">Your path to a top university.</h1>
+      <p data-i18n="si_hero_sub">Sign in to pick up your university list, scholarships, and application roadmap right where you left off.</p>
+    </div>
+    <div class="si-hero-stats">
+      <div><b>500+</b><span data-i18n="si_stat_uni">Universities</span></div>
+      <div><b>$2B+</b><span data-i18n="si_stat_sch">Scholarships</span></div>
+      <div><b>3</b><span data-i18n="si_stat_lang">Languages</span></div>
+    </div>
+  </div>
+
+  <div class="si-panel">
+    <div class="si-panel-top">
+      <a href="/" class="si-back">Chetta<em>.</em></a>
+      <div class="lang-sw" id="langSw">
+        <button class="lang-btn" onclick="toggleLangMenu(event)"><span id="cflag">🇬🇧</span> <span id="clbl">ENG</span></button>
+        <div class="lang-menu">
+          <div class="lang-opt" id="lang-en" onclick="setLang('en')">🇬🇧 English</div>
+          <div class="lang-opt" id="lang-uz" onclick="setLang('uz')">🇺🇿 O'zbek</div>
+          <div class="lang-opt" id="lang-ru" onclick="setLang('ru')">🇷🇺 Русский</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="si-tabs">
+      <div class="si-tab active" id="tab-login" onclick="switchTab('login')" data-i18n="si_tab_signin">Sign In</div>
+      <div class="si-tab" id="tab-register" onclick="switchTab('register')" data-i18n="si_tab_create">Create Account</div>
+      <div class="si-tab" id="tab-forgot" style="display:none" data-i18n="si_tab_forgot">Reset Password</div>
+    </div>
+
+    <div class="si-body">
+
+      <!-- LOGIN -->
+      <div class="si-panel-form active" id="panel-login">
+        <h1 class="si-h1" data-i18n="si_signin_title">Sign In</h1>
+        <p class="si-intro" data-i18n="si_signin_intro"><b>Welcome back.</b> Enter your email and password below to sign in, or <a onclick="switchTab('register')" data-i18n="si_create_link">create an account</a> to get started.</p>
+        <p class="si-req"><span class="req-star">*</span> <span data-i18n="si_required">Indicates required fields.</span></p>
+
+        <div class="si-err" id="loginErr"></div>
+
+        <div class="si-field">
+          <label class="si-lbl" data-i18n="si_email">Email<span class="req-star">*</span></label>
+          <input class="si-in" type="email" id="lEmail" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="si-field">
+          <label class="si-lbl" data-i18n="si_password">Password<span class="req-star">*</span></label>
+          <input class="si-in" type="password" id="lPass" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="si-row-between">
+          <div class="si-pass-row" style="margin:0">
+            <input type="checkbox" class="si-checkbox" id="showPassLogin" onchange="toggleShowPass('lPass',this)">
+            <label for="showPassLogin" data-i18n="si_show_pass">Show password</label>
+          </div>
+          <span class="si-forgot" onclick="switchTab('forgot')" data-i18n="si_forgot">Forgot password?</span>
+        </div>
+
+        <button class="si-submit" id="loginBtn" onclick="doLogin()" data-i18n="si_signin_btn">Sign in</button>
+        <div class="si-div" data-i18n="si_or">or</div>
+        <button class="si-social" onclick="doGoogle()">
+          <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.4 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.4 6.1 29.5 4 24 4c-7.5 0-14 4.2-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4C29.4 35.4 26.8 36 24 36c-5.3 0-9.7-3.1-11.3-7.8l-6.6 5.1C9.9 39.7 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.4 5.4C40.9 36.3 44 30.7 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+          <span data-i18n="si_google">Continue with Google</span>
+        </button>
+        <p class="si-switch"><span data-i18n="si_no_account">No account?</span> <a onclick="switchTab('register')" data-i18n="si_create_link2">Create one free</a></p>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="si-panel-form" id="panel-register">
+        <h1 class="si-h1" data-i18n="si_create_title">Create Account</h1>
+        <p class="si-intro" data-i18n="si_create_intro">Enter your details below to create your free Chetta account.</p>
+        <p class="si-req"><span class="req-star">*</span> <span data-i18n="si_required">Indicates required fields.</span></p>
+
+        <div class="si-err" id="regErr"></div>
+
+        <div class="si-two-col">
+          <div class="si-field">
+            <label class="si-lbl" data-i18n="si_first">First name<span class="req-star">*</span></label>
+            <input class="si-in" type="text" id="rFirst" autocomplete="given-name">
+          </div>
+          <div class="si-field">
+            <label class="si-lbl" data-i18n="si_last">Last name<span class="req-star">*</span></label>
+            <input class="si-in" type="text" id="rLast" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="si-field">
+          <label class="si-lbl" data-i18n="si_email">Email<span class="req-star">*</span></label>
+          <input class="si-in" type="email" id="rEmail" autocomplete="email">
+        </div>
+        <div class="si-field">
+          <label class="si-lbl" data-i18n="si_password">Password<span class="req-star">*</span></label>
+          <input class="si-in" type="password" id="rPass" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()">
+        </div>
+        <div class="si-pass-row" style="margin-bottom:1.5rem">
+          <input type="checkbox" class="si-checkbox" id="showPassReg" onchange="toggleShowPass('rPass',this)">
+          <label for="showPassReg" data-i18n="si_show_pass">Show password</label>
+        </div>
+
+        <button class="si-submit" onclick="doRegister()" data-i18n="si_create_btn">Create free account</button>
+        <div class="si-div" data-i18n="si_or">or</div>
+        <button class="si-social" onclick="doGoogle()">
+          <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.4 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.4 6.1 29.5 4 24 4c-7.5 0-14 4.2-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4C29.4 35.4 26.8 36 24 36c-5.3 0-9.7-3.1-11.3-7.8l-6.6 5.1C9.9 39.7 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.4 5.4C40.9 36.3 44 30.7 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+          <span data-i18n="si_google">Continue with Google</span>
+        </button>
+        <p class="si-terms" data-i18n="si_terms">By signing up you agree to our Terms and Privacy Policy.</p>
+        <p class="si-switch"><span data-i18n="si_have_account">Already have an account?</span> <a onclick="switchTab('login')" data-i18n="si_back_login2">Sign in</a></p>
+      </div>
+
+      <!-- FORGOT -->
+      <div class="si-panel-form" id="panel-forgot">
+        <h1 class="si-h1" data-i18n="si_forgot_title">Reset Password</h1>
+        <p class="si-intro" data-i18n="si_forgot_desc">Enter your email and we'll send you a link to reset your password.</p>
+        <div class="si-field">
+          <label class="si-lbl" data-i18n="si_email">Email<span class="req-star">*</span></label>
+          <input class="si-in" type="email" id="fEmail" onkeydown="if(event.key==='Enter')doForgot()">
+        </div>
+        <button class="si-submit" onclick="doForgot()" data-i18n="si_send_reset">Send reset link</button>
+        <p class="si-switch"><a onclick="switchTab('login')" data-i18n="si_back_login">← Back to sign in</a></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendPasswordResetEmail,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDPkGPVQOS46RcH8sQk2VbMCzFXyQCQZCY",
+  authDomain: "chetta-81630.firebaseapp.com",
+  projectId: "chetta-81630",
+  storageBucket: "chetta-81630.firebasestorage.app",
+  messagingSenderId: "504724785390",
+  appId: "1:504724785390:web:3e0abeaec0cd16a2ea8bff",
+  measurementId: "G-VGWQW8QNMD"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+
+function redirectTarget(){
+  try{
+    const params=new URLSearchParams(window.location.search);
+    const r=params.get('redirect');
+    if(r&&r.startsWith('/'))return r;
+  }catch(e){}
+  return '/';
+}
+
+// If already signed in, skip straight through
+onAuthStateChanged(auth, (u)=>{ if(u) window.location.href = redirectTarget(); });
+
+const AUTH_ERR = {
+  en:{google_exists:"This email is linked to a Google account. Please continue with Google instead.",wrong:"Incorrect email or password. Please try again.",inuse:"An account with this email already exists.",weak:"Password should be at least 6 characters.",invalid_email:"Please enter a valid email address.",many:"Too many attempts. Please try again in a few minutes.",generic:"Something went wrong. Please try again."},
+  uz:{google_exists:"Bu email Google hisobiga bog'langan. Google orqali kiring.",wrong:"Email yoki parol noto'g'ri. Qayta urinib ko'ring.",inuse:"Bu email bilan hisob allaqachon mavjud.",weak:"Parol kamida 6 ta belgidan iborat bo'lishi kerak.",invalid_email:"Iltimos, to'g'ri email manzilini kiriting.",many:"Juda ko'p urinish. Bir necha daqiqadan so'ng qayta urinib ko'ring.",generic:"Xatolik yuz berdi. Qayta urinib ko'ring."},
+  ru:{google_exists:"Этот email привязан к аккаунту Google. Войдите через Google.",wrong:"Неверный email или пароль. Попробуйте снова.",inuse:"Аккаунт с таким email уже существует.",weak:"Пароль должен содержать не менее 6 символов.",invalid_email:"Введите корректный email.",many:"Слишком много попыток. Попробуйте позже.",generic:"Что-то пошло не так. Попробуйте снова."}
+};
+function authLang(){try{const cl=localStorage.getItem('cl');if(cl)return cl;}catch(e){}return 'en';}
+function authMsg(key){const lang=authLang();return (AUTH_ERR[lang]&&AUTH_ERR[lang][key])||AUTH_ERR.en[key];}
+function authCodeToKey(code){
+  switch(code){
+    case "auth/wrong-password":case "auth/invalid-credential":case "auth/user-not-found":return "wrong";
+    case "auth/email-already-in-use":return "inuse";
+    case "auth/weak-password":return "weak";
+    case "auth/invalid-email":case "auth/missing-email":return "invalid_email";
+    case "auth/too-many-requests":return "many";
+    default:return "generic";
+  }
+}
+async function existingProvidersFor(email){try{return await fetchSignInMethodsForEmail(auth,email);}catch(e){return [];}}
+
+window.doGoogle = async function(){
+  try{
+    const result = await signInWithPopup(auth, provider);
+    const u = result.user;
+    try{
+      const snap = await getDoc(doc(db,"users",u.uid));
+      if(!snap.exists()){
+        const parts=(u.displayName||"").trim().split(" ");
+        await setDoc(doc(db,"users",u.uid),{firstName:parts[0]||"",lastName:parts.slice(1).join(" ")||"",email:u.email||"",plan:"standard",createdAt:new Date().toISOString()});
+      }
+    }catch(e2){console.error("Could not create user doc:",e2);}
+    window.location.href = redirectTarget();
+  }catch(e){ alert(e.message); }
+};
+
+window.doLogin = async function(){
+  const err=document.getElementById("loginErr");
+  if(err){err.textContent="";err.classList.remove("show");}
+  const btn=document.getElementById("loginBtn");
+  try{
+    const email=document.getElementById("lEmail").value;
+    const password=document.getElementById("lPass").value;
+    if(btn)btn.disabled=true;
+    await signInWithEmailAndPassword(auth,email,password);
+    window.location.href = redirectTarget();
+  }catch(e){
+    if(btn)btn.disabled=false;
+    const email=document.getElementById("lEmail")?document.getElementById("lEmail").value:"";
+    let msg;
+    if((e.code==="auth/wrong-password"||e.code==="auth/invalid-credential"||e.code==="auth/user-not-found")&&email){
+      const methods=await existingProvidersFor(email);
+      msg=(methods.includes("google.com")&&!methods.includes("password"))?authMsg("google_exists"):authMsg(authCodeToKey(e.code));
+    }else{
+      msg=authMsg(authCodeToKey(e.code));
+    }
+    if(err){err.textContent=msg;err.classList.add("show");}
+  }
+};
+
+window.doRegister = async function(){
+  const err=document.getElementById("regErr");
+  if(err){err.textContent="";err.classList.remove("show");}
+  try{
+    const firstName=document.getElementById("rFirst")?document.getElementById("rFirst").value.trim():"";
+    const lastName=document.getElementById("rLast")?document.getElementById("rLast").value.trim():"";
+    const email=document.getElementById("rEmail").value;
+    const password=document.getElementById("rPass").value;
+
+    const existingMethods=await existingProvidersFor(email);
+    if(existingMethods.length>0){
+      if(err){err.textContent=authMsg(existingMethods.includes("google.com")?"google_exists":"inuse");err.classList.add("show");}
+      return;
+    }
+
+    const cred=await createUserWithEmailAndPassword(auth,email,password);
+    const fullName=(firstName+" "+lastName).trim();
+    if(fullName){ try{await updateProfile(cred.user,{displayName:fullName});}catch(e2){console.error("updateProfile failed:",e2);} }
+    try{
+      await setDoc(doc(db,"users",cred.user.uid),{firstName,lastName,email,plan:"standard",createdAt:new Date().toISOString()});
+    }catch(e3){console.error("Could not create user doc:",e3);}
+
+    window.location.href = redirectTarget();
+  }catch(e){
+    if(err){err.textContent=authMsg(authCodeToKey(e.code));err.classList.add("show");}
+  }
+};
+
+window.doForgot = async function(){
+  try{
+    const email=document.getElementById("fEmail").value;
+    await sendPasswordResetEmail(auth,email);
+    alert(authLang()==='uz'?"Parolni tiklash havolasi yuborildi.":authLang()==='ru'?"Ссылка для сброса пароля отправлена.":"Password reset email sent.");
+  }catch(e){ alert(e.message); }
+};
+</script>
+
+<script>
+function toggleShowPass(id,cb){document.getElementById(id).type=cb.checked?'text':'password';}
+function switchTab(tab){
+  ['login','register','forgot'].forEach(t=>{
+    document.getElementById('tab-'+t)?.classList.remove('active');
+    document.getElementById('panel-'+t).classList.remove('active');
+  });
+  document.getElementById('panel-'+tab).classList.add('active');
+  if(tab==='forgot'){
+    document.getElementById('tab-forgot').style.display='block';
+    document.getElementById('tab-forgot').classList.add('active');
+  }else{
+    document.getElementById('tab-forgot').style.display='none';
+    document.getElementById('tab-'+tab)?.classList.add('active');
+  }
+}
+function toggleLangMenu(e){e.stopPropagation();document.getElementById('langSw').classList.toggle('open');}
+document.addEventListener('click',()=>document.getElementById('langSw').classList.remove('open'));
+
+const SI_LANGS={
+  en:{si_hero_h1:'Your path to a top university.',si_hero_sub:"Sign in to pick up your university list, scholarships, and application roadmap right where you left off.",si_stat_uni:'Universities',si_stat_sch:'Scholarships',si_stat_lang:'Languages',si_tab_signin:'Sign In',si_tab_create:'Create Account',si_tab_forgot:'Reset Password',si_signin_title:'Sign In',si_signin_intro:'<b>Welcome back.</b> Enter your email and password below to sign in, or <a onclick="switchTab(\'register\')">create an account</a> to get started.',si_required:'Indicates required fields.',si_email:'Email',si_password:'Password',si_show_pass:'Show password',si_forgot:'Forgot password?',si_signin_btn:'Sign in',si_or:'or',si_google:'Continue with Google',si_no_account:'No account?',si_create_link:'create an account',si_create_link2:'Create one free',si_create_title:'Create Account',si_create_intro:'Enter your details below to create your free Chetta account.',si_first:'First name',si_last:'Last name',si_create_btn:'Create free account',si_terms:'By signing up you agree to our Terms and Privacy Policy.',si_have_account:'Already have an account?',si_back_login2:'Sign in',si_forgot_title:'Reset Password',si_forgot_desc:"Enter your email and we'll send you a link to reset your password.",si_send_reset:'Send reset link',si_back_login:'← Back to sign in'},
+  uz:{si_hero_h1:"Top universitetga yo'lingiz.",si_hero_sub:"Universitetlar ro'yxatingiz, stipendiyalar va ariza yo'l xaritangizni davom ettirish uchun kiring.",si_stat_uni:'Universitetlar',si_stat_sch:'Stipendiyalar',si_stat_lang:'Tillar',si_tab_signin:'Kirish',si_tab_create:'Hisob yaratish',si_tab_forgot:'Parolni tiklash',si_signin_title:'Kirish',si_signin_intro:'<b>Xush kelibsiz.</b> Kirish uchun email va parolingizni kiriting, yoki boshlash uchun <a onclick="switchTab(\'register\')">hisob yarating</a>.',si_required:"Majburiy maydonlarni bildiradi.",si_email:'Email',si_password:'Parol',si_show_pass:'Parolni ko\'rsatish',si_forgot:'Parolni unutdingizmi?',si_signin_btn:'Kirish',si_or:'yoki',si_google:'Google orqali kirish',si_no_account:"Hisobingiz yo'qmi?",si_create_link:'hisob yarating',si_create_link2:'Bepul yarating',si_create_title:'Hisob yaratish',si_create_intro:"Bepul Chetta hisobingizni yaratish uchun ma'lumotlaringizni kiriting.",si_first:'Ism',si_last:'Familiya',si_create_btn:'Bepul hisob yaratish',si_terms:"Ro'yxatdan o'tib Shartlar va Maxfiylik siyosatiga rozisiz.",si_have_account:'Hisobingiz bormi?',si_back_login2:'Kirish',si_forgot_title:'Parolni tiklash',si_forgot_desc:"Emailingizni kiriting, tiklash havolasini yuboramiz.",si_send_reset:'Havolani yuborish',si_back_login:'← Kirishga qaytish'},
+  ru:{si_hero_h1:'Ваш путь в топ-университет.',si_hero_sub:'Войдите, чтобы продолжить со списком университетов, стипендиями и дорожной картой заявки.',si_stat_uni:'Университетов',si_stat_sch:'Стипендий',si_stat_lang:'Языков',si_tab_signin:'Войти',si_tab_create:'Создать аккаунт',si_tab_forgot:'Сброс пароля',si_signin_title:'Войти',si_signin_intro:'<b>С возвращением.</b> Введите email и пароль, чтобы войти, или <a onclick="switchTab(\'register\')">создайте аккаунт</a>, чтобы начать.',si_required:'Обязательные поля.',si_email:'Email',si_password:'Пароль',si_show_pass:'Показать пароль',si_forgot:'Забыли пароль?',si_signin_btn:'Войти',si_or:'или',si_google:'Войти через Google',si_no_account:'Нет аккаунта?',si_create_link:'создайте аккаунт',si_create_link2:'Создайте бесплатно',si_create_title:'Создать аккаунт',si_create_intro:'Введите данные ниже, чтобы создать бесплатный аккаунт Chetta.',si_first:'Имя',si_last:'Фамилия',si_create_btn:'Создать бесплатный аккаунт',si_terms:'Регистрируясь вы соглашаетесь с Условиями и Политикой конфиденциальности.',si_have_account:'Уже есть аккаунт?',si_back_login2:'Войти',si_forgot_title:'Сброс пароля',si_forgot_desc:'Введите email, и мы отправим ссылку для сброса пароля.',si_send_reset:'Отправить ссылку',si_back_login:'← Назад к входу'}
+};
+const langMeta={en:{f:'🇬🇧',l:'ENG'},uz:{f:'🇺🇿',l:'UZ'},ru:{f:'🇷🇺',l:'RU'}};
+function setLang(lang){
+  localStorage.setItem('cl',lang);
+  const t=SI_LANGS[lang]||SI_LANGS.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.innerHTML=t[k];});
+  document.getElementById('cflag').textContent=langMeta[lang].f;
+  document.getElementById('clbl').textContent=langMeta[lang].l;
+  ['en','uz','ru'].forEach(l=>document.getElementById('lang-'+l)?.classList.toggle('sel',l===lang));
+  document.getElementById('langSw').classList.remove('open');
+}
+setLang(localStorage.getItem('cl')||'en');
+</script>
+</body>
+</html>
