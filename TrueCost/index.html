@@ -134,6 +134,15 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 
 /* scholarships */
 .sch-card{border:1px solid var(--g200);border-radius:var(--r);padding:.9rem 1rem;margin-bottom:.7rem}
+.sch-card-compact{padding:.6rem .75rem;margin-bottom:.45rem}
+.sch-card-compact .sch-hd h4{font-size:.85rem}
+.sch-card-compact .sch-amt{font-size:.8rem}
+.sch-card-compact .sch-meta{margin:.3rem 0;gap:.35rem}
+.sch-card-compact .sch-meta span{font-size:.7rem;padding:.15rem .45rem}
+.sch-elig-line{font-size:.72rem;color:var(--g500);margin-bottom:.3rem}
+.sch-apply-compact{display:flex;align-items:center;gap:.4rem;font-size:.75rem;margin-bottom:.3rem;cursor:pointer}
+.sch-card-compact .sch-src{font-size:.72rem;margin-top:0}
+.sch-more-note{font-size:.78rem;color:var(--g500);text-align:center;padding:.5rem;background:var(--g50);border-radius:var(--r);margin-bottom:.7rem}
 .sch-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;flex-wrap:wrap}
 .sch-hd h4{font-size:.95rem;font-weight:700}
 .sch-hd .sch-amt{font-weight:700;font-size:.9rem;white-space:nowrap}
@@ -171,6 +180,10 @@ table.cmp tr.strong td{font-weight:700}
 .tooltip-wrap:hover .tt-box{display:block}
 
 footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;color:var(--g400);font-size:.78rem}
+
+#backToTop{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;border:none;font-size:1.1rem;display:none;align-items:center;justify-content:center;box-shadow:var(--shadowlg);z-index:500;transition:opacity .15s}
+#backToTop.show{display:flex}
+#backToTop:hover{background:#000}
 
 </style>
 </head>
@@ -275,6 +288,8 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
 </div>
 
 <footer>© 2025 Chetta. Data is informational and not a guarantee of cost, aid, or admission.</footer>
+
+<button id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
 
@@ -812,12 +827,12 @@ f_gpa:'GPA',f_sat:'SAT',f_act:'ACT',f_ielts:'IELTS',f_toefl:'TOEFL',f_major:'Int
 f_budget:'Max family budget / year',f_contrib:'Estimated family contribution',f_household:'People in household',f_numstudents:'Students attending university',
 s3_h:'Annual cost of attendance',verified:'Verified',estimate:'Estimated',userest:'User estimate',unavail:'Data unavailable',
 c_tuition:'Tuition',c_fees:'Mandatory university fees',c_housing:'Housing',c_food:'Food',c_books:'Books & supplies',c_insurance:'Health insurance',c_transport:'Transportation',c_personal:'Personal expenses',c_other:'Other published expenses',
-c_total:'Total estimated annual cost',c_4yr:'Estimated 4-year cost',c_4yr_note:'Projection based on holding costs constant — official multi-year figures are not available from the database.',
+c_total:'Total estimated annual cost',c_4yr:'Estimated 4-year cost',c_4yr_note:'Projection based on holding costs constant — official multi-year figures are not available from the database.',c_regional_note:'Housing, food, books, insurance, transportation, and personal costs are regional average estimates based on the university\'s location — edit any field to use your own numbers.',
 c_enter_estimate:'Enter your own estimate',
 s4_h:'Scholarships from our database',s4_none:'No scholarships in our database are currently tied to this university.',s4_general_h:'Portable / national scholarships (not tied to one university)',
 sch_amount:'Amount',sch_type:'Type',sch_field:'Field',sch_deadline:'Deadline',sch_view_src:'Official scholarship website →',sch_intl_yes:'🌎 International students eligible',sch_intl_unverified:'International eligibility: Not verified',
 sch_elig_open:'🟢 Open to your intended major',sch_elig_maybe:'🟡 Field restriction — check whether your major qualifies',sch_elig_unknown:'Eligibility cannot be determined from the available data.',
-sch_apply:'Apply this scholarship to my cost estimate below',sch_amount_unusable:'Amount format can\'t be safely used in the calculation below — shown for reference only.',sch_stack_note:'Scholarship combination rules are not verified — only one scholarship is applied at a time.',
+sch_apply:'Apply this scholarship to my cost estimate below',sch_amount_unusable:'Amount format can\'t be safely used in the calculation below — shown for reference only.',sch_stack_note:'Scholarship combination rules are not verified — only one scholarship is applied at a time.',sch_more_note:'+{n} more scholarships match this university — narrow your major above to refine the list.',back_to_top:'Back to top',
 s5_h:'Your estimated yearly cost',s5_4yr:'Estimated 4-year cost',s5_before:'Before scholarship',s5_after:'After scholarship',s5_scholarship:'Scholarship',
 s6_h:'International student costs',s6_sub:'These figures are not in our database — enter your own estimates if you have them.',c_intl_insurance:'International student health insurance',c_visa:'Visa-related costs',c_sevis:'SEVIS-related costs',c_flight:'Flight / travel estimate',c_relocation:'Initial relocation expenses',
 s7_h:'Affordability',s7_budget:'Your budget',s7_cost:'Estimated university cost',s7_gap:'Funding gap',s7_within:'🟢 Within your stated budget',s7_need:'🔴 You may need additional funding',s7_noBudget:'Enter your expected annual budget above to see whether this university fits your financial target.',
@@ -837,12 +852,12 @@ f_gpa:'GPA',f_sat:'SAT',f_act:'ACT',f_ielts:'IELTS',f_toefl:'TOEFL',f_major:'Mo\
 f_budget:'Yillik oilaviy byudjet maksimumi',f_contrib:'Taxminiy oilaviy hissa',f_household:'Oiladagi kishilar soni',f_numstudents:'Universitetda o\'qiydigan talabalar soni',
 s3_h:'Yillik o\'qish xarajati',verified:'Tasdiqlangan',estimate:'Taxminiy',userest:'Foydalanuvchi bahosi',unavail:'Ma\'lumot mavjud emas',
 c_tuition:'O\'qish haqi',c_fees:'Majburiy universitet to\'lovlari',c_housing:'Turar joy',c_food:'Ovqat',c_books:'Kitob va materiallar',c_insurance:'Sog\'liqni saqlash sug\'urtasi',c_transport:'Transport',c_personal:'Shaxsiy xarajatlar',c_other:'Boshqa e\'lon qilingan xarajatlar',
-c_total:'Jami taxminiy yillik xarajat',c_4yr:'Taxminiy 4 yillik xarajat',c_4yr_note:'Xarajatlar bir xil deb hisoblangan taxmin — rasmiy ko\'p yillik ma\'lumotlar bazada mavjud emas.',
+c_total:'Jami taxminiy yillik xarajat',c_4yr:'Taxminiy 4 yillik xarajat',c_4yr_note:'Xarajatlar bir xil deb hisoblangan taxmin — rasmiy ko\'p yillik ma\'lumotlar bazada mavjud emas.',c_regional_note:'Turar joy, ovqat, kitoblar, sug\'urta, transport va shaxsiy xarajatlar universitet joylashuviga asoslangan mintaqaviy o\'rtacha ko\'rsatkichlardir — o\'z raqamlaringizni kiritish uchun har qanday maydonni tahrirlang.',
 c_enter_estimate:'O\'z bahoyingizni kiriting',
 s4_h:'Bazamizdagi stipendiyalar',s4_none:'Hozircha bazamizda ushbu universitet bilan bog\'liq stipendiya yo\'q.',s4_general_h:'Universitetga bog\'liq bo\'lmagan / milliy stipendiyalar',
 sch_amount:'Miqdori',sch_type:'Turi',sch_field:'Yo\'nalish',sch_deadline:'Muddat',sch_view_src:'Rasmiy stipendiya veb-sayti →',sch_intl_yes:'🌎 Xalqaro talabalar uchun mos',sch_intl_unverified:'Xalqaro mosligi: Tasdiqlanmagan',
 sch_elig_open:'🟢 Sizning mutaxassisligingiz uchun ochiq',sch_elig_maybe:'🟡 Yo\'nalish cheklovi — mutaxassisligingiz mosligini tekshiring',sch_elig_unknown:'Mavjud ma\'lumotlar asosida mosligini aniqlab bo\'lmaydi.',
-sch_apply:'Ushbu stipendiyani xarajat hisobimga qo\'llash',sch_amount_unusable:'Miqdor formati quyidagi hisob-kitobda xavfsiz ishlatilmaydi — faqat ma\'lumot uchun ko\'rsatilgan.',sch_stack_note:'Stipendiyalarni birlashtirish qoidalari tasdiqlanmagan — bir vaqtning o\'zida faqat bitta stipendiya qo\'llaniladi.',
+sch_apply:'Ushbu stipendiyani xarajat hisobimga qo\'llash',sch_amount_unusable:'Miqdor formati quyidagi hisob-kitobda xavfsiz ishlatilmaydi — faqat ma\'lumot uchun ko\'rsatilgan.',sch_stack_note:'Stipendiyalarni birlashtirish qoidalari tasdiqlanmagan — bir vaqtning o\'zida faqat bitta stipendiya qo\'llaniladi.',sch_more_note:'+{n} ta stipendiya ushbu universitetga mos keladi — ro\'yxatni aniqlashtirish uchun yuqorida mutaxassisligingizni kiriting.',back_to_top:'Yuqoriga qaytish',
 s5_h:'Sizning taxminiy yillik xarajatingiz',s5_4yr:'Taxminiy 4 yillik xarajat',s5_before:'Stipendiyagacha',s5_after:'Stipendiyadan keyin',s5_scholarship:'Stipendiya',
 s6_h:'Xalqaro talaba xarajatlari',s6_sub:'Bu ko\'rsatkichlar bazamizda yo\'q — agar bo\'lsa, o\'z bahoyingizni kiriting.',c_intl_insurance:'Xalqaro talaba sog\'liqni saqlash sug\'urtasi',c_visa:'Viza bilan bog\'liq xarajatlar',c_sevis:'SEVIS bilan bog\'liq xarajatlar',c_flight:'Parvoz / sayohat bahosi',c_relocation:'Dastlabki ko\'chish xarajatlari',
 s7_h:'Moliyaviy imkoniyat',s7_budget:'Sizning byudjetingiz',s7_cost:'Taxminiy universitet xarajati',s7_gap:'Moliyalashtirish tafovuti',s7_within:'🟢 Belgilangan byudjetingiz doirasida',s7_need:'🔴 Sizga qo\'shimcha mablag\' kerak bo\'lishi mumkin',s7_noBudget:'Ushbu universitet moliyaviy maqsadingizga mosligini ko\'rish uchun yuqorida kutilayotgan yillik byudjetingizni kiriting.',
@@ -862,12 +877,12 @@ f_gpa:'GPA',f_sat:'SAT',f_act:'ACT',f_ielts:'IELTS',f_toefl:'TOEFL',f_major:'П�
 f_budget:'Максимальный семейный бюджет в год',f_contrib:'Предполагаемый вклад семьи',f_household:'Количество членов семьи',f_numstudents:'Студентов, обучающихся в университете',
 s3_h:'Годовая стоимость обучения',verified:'Подтверждено',estimate:'Оценка',userest:'Оценка пользователя',unavail:'Данные недоступны',
 c_tuition:'Плата за обучение',c_fees:'Обязательные университетские сборы',c_housing:'Жильё',c_food:'Питание',c_books:'Книги и материалы',c_insurance:'Медицинская страховка',c_transport:'Транспорт',c_personal:'Личные расходы',c_other:'Прочие опубликованные расходы',
-c_total:'Итоговая расчётная годовая стоимость',c_4yr:'Расчётная стоимость за 4 года',c_4yr_note:'Прогноз при условии неизменных расходов — официальных данных за несколько лет в базе данных нет.',
+c_total:'Итоговая расчётная годовая стоимость',c_4yr:'Расчётная стоимость за 4 года',c_4yr_note:'Прогноз при условии неизменных расходов — официальных данных за несколько лет в базе данных нет.',c_regional_note:'Жильё, питание, книги, страховка, транспорт и личные расходы — это средние региональные оценки на основе местоположения университета — отредактируйте любое поле, чтобы указать свои цифры.',
 c_enter_estimate:'Введите свою оценку',
 s4_h:'Стипендии из нашей базы данных',s4_none:'В нашей базе данных пока нет стипендий, связанных с этим университетом.',s4_general_h:'Портативные / национальные стипендии (не привязаны к одному университету)',
 sch_amount:'Сумма',sch_type:'Тип',sch_field:'Направление',sch_deadline:'Срок',sch_view_src:'Официальный сайт стипендии →',sch_intl_yes:'🌎 Доступно для иностранных студентов',sch_intl_unverified:'Доступность для иностранцев: не подтверждена',
 sch_elig_open:'🟢 Открыто для вашей специальности',sch_elig_maybe:'🟡 Ограничение по направлению — проверьте, подходит ли ваша специальность',sch_elig_unknown:'Соответствие критериям невозможно определить на основе имеющихся данных.',
-sch_apply:'Применить эту стипендию к моей оценке расходов ниже',sch_amount_unusable:'Формат суммы нельзя безопасно использовать в расчёте ниже — показано только для справки.',sch_stack_note:'Правила совмещения стипендий не подтверждены — единовременно применяется только одна стипендия.',
+sch_apply:'Применить эту стипендию к моей оценке расходов ниже',sch_amount_unusable:'Формат суммы нельзя безопасно использовать в расчёте ниже — показано только для справки.',sch_stack_note:'Правила совмещения стипендий не подтверждены — единовременно применяется только одна стипендия.',sch_more_note:'Ещё +{n} стипендий подходят этому университету — уточните специальность выше, чтобы сузить список.',back_to_top:'Наверх',
 s5_h:'Ваша расчётная годовая стоимость',s5_4yr:'Расчётная стоимость за 4 года',s5_before:'До стипендии',s5_after:'После стипендии',s5_scholarship:'Стипендия',
 s6_h:'Расходы для иностранных студентов',s6_sub:'Этих показателей нет в нашей базе данных — введите свою оценку, если она у вас есть.',c_intl_insurance:'Медицинская страховка для иностранных студентов',c_visa:'Расходы, связанные с визой',c_sevis:'Расходы, связанные с SEVIS',c_flight:'Оценка стоимости перелёта / поездки',c_relocation:'Первоначальные расходы на переезд',
 s7_h:'Доступность',s7_budget:'Ваш бюджет',s7_cost:'Расчётная стоимость университета',s7_gap:'Разрыв в финансировании',s7_within:'🟢 В рамках заявленного бюджета',s7_need:'🔴 Возможно, потребуется дополнительное финансирование',s7_noBudget:'Введите ожидаемый годовой бюджет выше, чтобы узнать, соответствует ли этот университет вашей финансовой цели.',
@@ -893,6 +908,7 @@ function applyI18n(){
     var k=el.getAttribute('data-i18n-ph');
     el.setAttribute('placeholder',tr(k));
   });
+  var btt=document.getElementById('backToTop'); if(btt){ btt.title=tr('back_to_top'); btt.setAttribute('aria-label',tr('back_to_top')); }
   document.getElementById('clbl').textContent=currentLang==='en'?'ENG':(currentLang==='uz'?'UZ':'RU');
   document.getElementById('cflag').textContent=currentLang==='en'?'🇬🇧':(currentLang==='uz'?'🇺🇿':'🇷🇺');
   ['en','uz','ru'].forEach(function(l){
@@ -968,6 +984,23 @@ const UNI_NAME_SET=(function(){var set={};UNIS_DATA.forEach(function(u){set[u.na
 function isGeneralSch(s){
   return !UNI_NAME_SET[s.uni];
 }
+// Classify a general scholarship's scope string into the region(s) it applies to,
+// so we don't show e.g. UK-only awards when comparing US universities.
+function classifyScholarshipRegions(uniStr){
+  var regions=[];
+  var tests=[
+    [/\bUS\b|USA|United States|HBCU|Tribal Colleges|North Carolina|Texas Public|Colorado Colleges|Duke University or UNC|Participating US|Any US|40\+ Partner Universities Nationwide/i,'usa'],
+    [/\bUK\b|United Kingdom|Scottish|Sussex|Royal Holloway|Plymouth|Brunel|Bangor|Strathclyde|Dundee|City St George|Heriot-Watt|Cranfield|Oxford or University of Cambridge|London Business School/i,'uk'],
+    [/Canadian|Canada/i,'canada'],
+    [/Australian/i,'australia'],
+    [/New Zealand/i,'australia'],
+    [/German|Dutch|Swiss|French|Hungarian|\bEU Universities\b|EPFL|INSEAD|Grandes Écoles/i,'europe'],
+    [/Turkish/i,'mideast'],
+    [/Korean|Japanese|Chinese|Peking|Tsinghua/i,'asia']
+  ];
+  tests.forEach(function(t){ if(t[0].test(uniStr)) regions.push(t[1]); });
+  return regions.length?regions:['worldwide'];
+}
 function parsePureAmount(amountStr){
   const m=amountStr.trim().match(/^\$([\d,]+)(\.\d+)?$/);
   if(!m) return null;
@@ -1000,8 +1033,39 @@ function collectProfile(){
   document.getElementById(id).addEventListener('change',function(){collectProfile();render();});
 });
 
+// Rough regional cost-of-living averages (annual, USD). These are NOT from the
+// university database — they are general estimates to give a starting point,
+// always labeled "Estimated" and always editable/overridable by the student.
+const REGION_ESTIMATES={
+  us_high:{housing:16000,food:6000,books:1300,insurance:3000,transport:1500,personal:2500,other:1000},
+  us_mid:{housing:11000,food:5000,books:1200,insurance:2500,transport:1200,personal:2000,other:800},
+  uk:{housing:12000,food:4500,books:1000,insurance:700,transport:900,personal:1800,other:700},
+  canada:{housing:10000,food:4500,books:1100,insurance:900,transport:1000,personal:1800,other:700},
+  australia:{housing:12000,food:5000,books:1100,insurance:600,transport:1200,personal:2000,other:800},
+  europe_free:{housing:8500,food:3800,books:700,insurance:1100,transport:900,personal:1500,other:600},
+  europe_paid:{housing:11000,food:4200,books:800,insurance:1200,transport:1000,personal:1700,other:700},
+  asia_developed:{housing:9000,food:3600,books:700,insurance:800,transport:900,personal:1500,other:600},
+  asia_affordable:{housing:4500,food:2200,books:500,insurance:500,transport:500,personal:900,other:400},
+  global_default:{housing:8000,food:3500,books:800,insurance:900,transport:900,personal:1500,other:600}
+};
+const HIGH_COST_US_CITIES=['New York','Cambridge','Stanford','Berkeley','San Francisco','Los Angeles','Chicago','Washington','Seattle','San Diego','Boston','Providence','Pasadena','Santa Barbara','Palo Alto','New Haven','Princeton','Philadelphia'];
+const ASIA_DEVELOPED=['Japan','Korea','Singapore','Hong Kong','Taiwan'];
+const EUROPE_FREE_TUITION=['Germany','Norway','Finland','Austria','Czech Republic'];
+function getCostBucket(uni){
+  if(uni.region==='usa'){
+    return HIGH_COST_US_CITIES.some(function(c){return uni.loc.indexOf(c)>-1})?'us_high':'us_mid';
+  }
+  if(uni.region==='uk') return 'uk';
+  if(uni.region==='canada') return 'canada';
+  if(uni.region==='australia') return 'australia';
+  if(uni.region==='asia') return ASIA_DEVELOPED.some(function(c){return uni.loc.indexOf(c)>-1})?'asia_developed':'asia_affordable';
+  if(uni.region==='europe') return EUROPE_FREE_TUITION.some(function(c){return uni.loc.indexOf(c)>-1})?'europe_free':'europe_paid';
+  return 'global_default';
+}
+
 function computeAnnualCost(uni){
   const mc=manualCosts[uni.id]||{};
+  const est=REGION_ESTIMATES[getCostBucket(uni)]||REGION_ESTIMATES.global_default;
   let total=uni.tuition||0;
   let breakdown=[{key:'c_tuition',val:uni.tuition,tag:'verified'}];
   MANUAL_COST_FIELDS.forEach(function(f){
@@ -1009,9 +1073,12 @@ function computeAnnualCost(uni){
     const v=mc[f];
     if(v!==undefined && v!==null && v!==''&&!isNaN(v)){
       total+=parseFloat(v);
-      breakdown.push({key:labelKey,val:parseFloat(v),tag:'userest'});
+      breakdown.push({key:labelKey,val:parseFloat(v),tag:'userest',field:f});
+    } else if(est[f]!==undefined){
+      total+=est[f];
+      breakdown.push({key:labelKey,val:est[f],tag:'estimate',field:f});
     } else {
-      breakdown.push({key:labelKey,val:null,tag:'unavail'});
+      breakdown.push({key:labelKey,val:null,tag:'unavail',field:f});
     }
   });
   return {total:total, breakdown:breakdown};
@@ -1055,18 +1122,18 @@ function renderUniPanel(uni){
   html+='<div class="cost-table">';
   cost.breakdown.forEach(function(row){
     const tagCls=row.tag;
-    const tagLbl=row.tag==='verified'?tr('verified'):(row.tag==='userest'?tr('userest'):tr('unavail'));
+    const tagLbl=row.tag==='verified'?tr('verified'):(row.tag==='userest'?tr('userest'):(row.tag==='estimate'?tr('estimate'):tr('unavail')));
     html+='<div class="cost-row"><div class="cr-lbl">'+tr(row.key)+' <span class="vtag '+tagCls+'">'+tagLbl+'</span></div>';
-    if(row.tag==='unavail'){
-      const field=row.key.replace('c_','');
-      html+='<div></div><input type="number" class="mini-input" placeholder="'+tr('c_enter_estimate')+'" data-uid="'+uni.id+'" data-field="'+field+'" onchange="onManualCostChange(event)">';
-    } else {
+    if(row.tag==='verified'){
       html+='<div></div><div class="cr-val">'+fmt(row.val)+'</div>';
+    } else {
+      html+='<div></div><input type="number" class="mini-input" placeholder="'+tr('c_enter_estimate')+'" value="'+(row.val!==null?row.val:'')+'" data-uid="'+uni.id+'" data-field="'+row.field+'" onchange="onManualCostChange(event)">';
     }
     html+='</div>';
   });
   html+='<div class="cost-row total"><div>'+tr('c_total')+'</div><div></div><div class="cr-val">'+fmt(cost.total)+'</div></div>';
   html+='</div>';
+  html+='<div style="font-size:.76rem;color:var(--g500);margin-bottom:.4rem">'+tr('c_regional_note')+'</div>';
   html+='<div style="font-size:.78rem;color:var(--g500);margin-bottom:1.1rem">'+tr('c_4yr')+': <strong>'+fmt(cost.total*4)+'</strong> — '+tr('c_4yr_note')+'</div>';
 
   // SCHOLARSHIPS
@@ -1074,26 +1141,11 @@ function renderUniPanel(uni){
   if(!scholarships.length){
     html+='<p style="font-size:.85rem;color:var(--g500);margin-bottom:1rem">'+tr('s4_none')+'</p>';
   } else {
-    scholarships.forEach(function(s){
-      const pureAmt=parsePureAmount(s.amount);
-      const fm=fieldMatch(s, profile.major);
-      const isApplied=appliedSch[uni.id]===s.id;
-      html+='<div class="sch-card">';
-      html+='<div class="sch-hd"><h4>'+s.name+'</h4><div class="sch-amt">'+s.amount+' <span class="vtag verified">'+tr('verified')+'</span></div></div>';
-      html+='<div class="sch-meta"><span>'+tr('sch_type')+': '+s.type+'</span><span>'+tr('sch_field')+': '+s.field+'</span><span>'+tr('sch_deadline')+': '+s.deadline+'</span></div>';
-      html+='<div class="sch-desc">'+s.desc+'</div>';
-      html+='<div style="font-size:.8rem;color:'+'var(--g500)'+'">'+tr('sch_intl_unverified')+'</div>';
-      if(fm==='open') html+='<div class="sch-elig green">'+tr('sch_elig_open')+'</div>';
-      else if(fm==='maybe') html+='<div class="sch-elig yellow">'+tr('sch_elig_maybe')+'</div>';
-      else html+='<div class="sch-elig">'+tr('sch_elig_unknown')+'</div>';
-      if(pureAmt){
-        html+='<div class="sch-apply-row"><label><input type="checkbox" '+(isApplied?'checked':'')+' onchange="onApplySch('+uni.id+','+s.id+',event)"> '+tr('sch_apply')+'</label></div>';
-      } else {
-        html+='<div style="font-size:.76rem;color:var(--g400);margin-top:.5rem">'+tr('sch_amount_unusable')+'</div>';
-      }
-      html+='<a class="sch-src" href="'+s.url+'" target="_blank" rel="noopener">'+tr('sch_view_src')+'</a>';
-      html+='</div>';
-    });
+    const shownSch=scholarships.slice(0,SCH_LIST_CAP);
+    shownSch.forEach(function(s){ html+=compactSchCard(s, uni.id); });
+    if(scholarships.length>SCH_LIST_CAP){
+      html+='<div class="sch-more-note">'+tr('sch_more_note').replace('{n}', scholarships.length-SCH_LIST_CAP)+'</div>';
+    }
     html+='<div style="font-size:.76rem;color:var(--g400);margin-bottom:1rem">'+tr('sch_stack_note')+'</div>';
   }
 
@@ -1160,23 +1212,43 @@ function onApplySch(uid, schId, e){
   render();
 }
 
+const SCH_LIST_CAP=10;
+function compactSchCard(s, uniIdForApply){
+  const pureAmt=parsePureAmount(s.amount);
+  const fm=fieldMatch(s, profile.major);
+  const eligCls=fm==='open'?'green':(fm==='maybe'?'yellow':'');
+  const eligTxt=fm==='open'?tr('sch_elig_open'):(fm==='maybe'?tr('sch_elig_maybe'):tr('sch_elig_unknown'));
+  let html='<div class="sch-card sch-card-compact">';
+  html+='<div class="sch-hd"><h4>'+s.name+'</h4><div class="sch-amt">'+s.amount+' <span class="vtag verified">'+tr('verified')+'</span></div></div>';
+  html+='<div class="sch-meta"><span>'+s.type+'</span><span>'+s.field+'</span><span>'+tr('sch_deadline')+': '+s.deadline+'</span></div>';
+  html+='<div class="sch-elig-line '+eligCls+'">'+eligTxt+' · '+tr('sch_intl_unverified')+'</div>';
+  if(uniIdForApply!==undefined && pureAmt){
+    const isApplied=appliedSch[uniIdForApply]===s.id;
+    html+='<label class="sch-apply-compact"><input type="checkbox" '+(isApplied?'checked':'')+' onchange="onApplySch('+uniIdForApply+','+s.id+',event)"> '+tr('sch_apply')+'</label>';
+  }
+  html+='<a class="sch-src" href="'+s.url+'" target="_blank" rel="noopener">'+tr('sch_view_src')+'</a>';
+  html+='</div>';
+  return html;
+}
 function renderGeneralScholarships(){
   const general=SCHS_DATA.filter(isGeneralSch);
   const wrap=document.getElementById('generalSchSection');
   const list=document.getElementById('generalSchList');
-  if(!selectedIds.length || !general.length){ wrap.style.display='none'; return; }
+  if(!selectedIds.length){ wrap.style.display='none'; return; }
+  const selectedRegions=[...new Set(selectedIds.map(function(id){return uniById(id).region}))];
+  const relevant=general.filter(function(s){
+    const regs=classifyScholarshipRegions(s.uni);
+    if(regs.indexOf('worldwide')>-1) return true;
+    return regs.some(function(r){return selectedRegions.indexOf(r)>-1});
+  });
+  if(!relevant.length){ wrap.style.display='none'; return; }
   wrap.style.display='block';
-  list.innerHTML=general.map(function(s){
-    const fm=fieldMatch(s, profile.major);
-    let elig='';
-    if(fm==='open') elig='<div class="sch-elig green">'+tr('sch_elig_open')+'</div>';
-    else if(fm==='maybe') elig='<div class="sch-elig yellow">'+tr('sch_elig_maybe')+'</div>';
-    else elig='<div class="sch-elig">'+tr('sch_elig_unknown')+'</div>';
-    return '<div class="sch-card"><div class="sch-hd"><h4>'+s.name+'</h4><div class="sch-amt">'+s.amount+' <span class="vtag verified">'+tr('verified')+'</span></div></div>'+
-      '<div class="sch-meta"><span>'+tr('sch_type')+': '+s.type+'</span><span>'+tr('sch_field')+': '+s.field+'</span><span>'+tr('sch_deadline')+': '+s.deadline+'</span></div>'+
-      '<div class="sch-desc">'+s.desc+'</div><div style="font-size:.8rem;color:var(--g500)">'+tr('sch_intl_unverified')+'</div>'+elig+
-      '<a class="sch-src" href="'+s.url+'" target="_blank" rel="noopener">'+tr('sch_view_src')+'</a></div>';
-  }).join('');
+  const shown=relevant.slice(0,SCH_LIST_CAP);
+  let html=shown.map(function(s){return compactSchCard(s)}).join('');
+  if(relevant.length>SCH_LIST_CAP){
+    html+='<div class="sch-more-note">'+tr('sch_more_note').replace('{n}', relevant.length-SCH_LIST_CAP)+'</div>';
+  }
+  list.innerHTML=html;
 }
 
 function renderComparison(){
@@ -1219,6 +1291,11 @@ function render(){
 }
 document.getElementById('resetBtn').addEventListener('click',function(){
   selectedIds=[]; manualCosts={}; appliedSch={}; render();
+});
+
+window.addEventListener('scroll', function(){
+  var btn=document.getElementById('backToTop');
+  if(window.scrollY>500) btn.classList.add('show'); else btn.classList.remove('show');
 });
 
 applyI18n();
