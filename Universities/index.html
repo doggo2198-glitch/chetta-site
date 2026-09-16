@@ -219,6 +219,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .compare-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 26px rgba(124,58,237,.55);animation-play-state:paused}
 .compare-btn .cb-ico{font-size:1rem;display:inline-block;animation:cbSwap 2.4s ease-in-out infinite}
 .compare-btn .cb-badge{position:absolute;top:-9px;right:-8px;background:#f59e0b;color:#1a1408;font-size:.58rem;font-weight:800;letter-spacing:.3px;padding:.14rem .42rem;border-radius:100px;box-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+@media(max-width:560px){.search-row{flex-wrap:wrap}.search-row .s-input{flex-basis:100%}.search-row .s-btn{flex:1}.search-row .compare-btn{flex:1;justify-content:center}}
 @keyframes cbGlow{0%,100%{box-shadow:0 4px 16px rgba(124,58,237,.4)}50%{box-shadow:0 4px 22px rgba(124,58,237,.75),0 0 0 5px rgba(124,58,237,.12)}}
 @keyframes cbSwap{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
 @media(prefers-reduced-motion:reduce){.compare-btn,.compare-btn .cb-ico{animation:none}}
@@ -255,7 +256,11 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .uf-clear-btn{background:none;border:none;color:var(--g400,#9ca3af);font-size:.78rem;font-weight:600;cursor:pointer;padding:.4rem .3rem;font-family:'DM Sans',sans-serif}
 .uf-clear-btn:hover{color:var(--g900,#111827)}
 .uf-panel-wrap{margin-top:.7rem}
-.uf-panel{background:#fff;border:1px solid var(--g200,#e5e7eb);border-radius:var(--rl,14px);padding:1.15rem 1.25rem;box-shadow:0 16px 40px rgba(0,0,0,.12);max-width:640px;max-height:340px;overflow-y:auto}
+.uf-panel{background:#fff;border:1px solid var(--g200,#e5e7eb);border-radius:var(--rl,14px);padding:1.15rem 1.25rem;box-shadow:0 16px 40px rgba(0,0,0,.12);max-width:640px;max-height:340px;overflow-y:auto;animation:ufPanelIn .16s ease-out}
+@keyframes ufPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes uCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.u-card{animation:uCardIn .28s ease-out backwards}
+@media(prefers-reduced-motion:reduce){.u-card,.uf-panel{animation:none}}
 .uf-panel-title{font-size:.78rem;font-weight:700;color:var(--g400,#9ca3af);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem}
 .uf-opt-grid{display:flex;flex-wrap:wrap;gap:.5rem}
 .uf-opt{background:var(--g50,#f9fafb);border:1.5px solid var(--g200,#e5e7eb);color:var(--g700,#374151);padding:.4rem .85rem;border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
@@ -2448,13 +2453,14 @@ window.imgFallback=function(el){
     el.classList.add('uc2-img-hidden');
   }
 };
-function uniCardHTML(u,savedSet,showHeart){
+function uniCardHTML(u,savedSet,showHeart,i){
   if(showHeart===undefined)showHeart=true;
+  if(i===undefined)i=0;
   const t=T();
   const s=savedSet.has(u.id);
   const rms=rmsBucket(u);
   const rmsLbl=rms==='reach'?'Reach':rms==='safety'?'Safety':'Match';
-  return `<div class="u-card ${s?'card-saved':''}" onclick="openUni(${u.id})" tabindex="0" role="button" aria-label="${u.name}, ${u.loc}" onkeydown="if(event.key==='Enter')openUni(${u.id})">
+  return `<div class="u-card ${s?'card-saved':''}" style="animation-delay:${Math.min(i*22,220)}ms" onclick="openUni(${u.id})" tabindex="0" role="button" aria-label="${u.name}, ${u.loc}" onkeydown="if(event.key==='Enter')openUni(${u.id})">
     <div class="uc2-photo">
       <span class="rms-badge rms-${rms}">${rmsLbl}</span>
       <img src="${imgCandidates(u)[0]}" data-c="${imgCandidates(u).join('|||')}" data-i="0" alt="${u.name}" loading="lazy" onerror="imgFallback(this)">
@@ -2486,7 +2492,7 @@ function uniCardHTML(u,savedSet,showHeart){
 function renderUnis(data){
   const g=document.getElementById('uni-grid');if(!g)return;
   const savedSet=new Set(getSaved());
-  g.innerHTML=data.map(u=>uniCardHTML(u,savedSet)).join('');
+  g.innerHTML=data.map((u,i)=>uniCardHTML(u,savedSet,true,i)).join('');
   const empty=document.getElementById('uni-empty');
   if(empty)empty.classList.toggle('show',data.length===0);
   const cnt=document.getElementById('uni-results-count');
