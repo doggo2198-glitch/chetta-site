@@ -219,6 +219,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .compare-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 26px rgba(124,58,237,.55);animation-play-state:paused}
 .compare-btn .cb-ico{font-size:1rem;display:inline-block;animation:cbSwap 2.4s ease-in-out infinite}
 .compare-btn .cb-badge{position:absolute;top:-9px;right:-8px;background:#f59e0b;color:#1a1408;font-size:.58rem;font-weight:800;letter-spacing:.3px;padding:.14rem .42rem;border-radius:100px;box-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+@media(max-width:560px){.search-row{flex-wrap:wrap}.search-row .s-input{flex-basis:100%}.search-row .s-btn{flex:1}.search-row .compare-btn{flex:1;justify-content:center}}
 @keyframes cbGlow{0%,100%{box-shadow:0 4px 16px rgba(124,58,237,.4)}50%{box-shadow:0 4px 22px rgba(124,58,237,.75),0 0 0 5px rgba(124,58,237,.12)}}
 @keyframes cbSwap{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
 @media(prefers-reduced-motion:reduce){.compare-btn,.compare-btn .cb-ico{animation:none}}
@@ -226,16 +227,40 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .f-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.55);padding:.28rem .8rem;border-radius:100px;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .f-chip:hover,.f-chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
 /* Explore-Colleges style filter categories (Universities page) — sits below the dark header, on white */
-.uf-bar{background:#fff;border-bottom:1px solid var(--g200,#e5e7eb)}
+.uf-bar{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--g200,#e5e7eb);position:sticky;top:58px;z-index:120;transition:box-shadow .2s}
+.uf-bar.uf-scrolled{box-shadow:0 6px 18px rgba(0,0,0,.06)}
 .uf-bar-inner{max-width:1080px;margin:0 auto;padding:1.1rem 2rem}
-.uf-cats{display:flex;gap:.55rem;flex-wrap:wrap;align-items:center}
-.uf-cat-btn{background:#fff;border:1.5px solid var(--g200,#e5e7eb);color:var(--g900,#111827);padding:.5rem 1.1rem;border-radius:100px;font-size:.83rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.uf-cats{display:flex;gap:.55rem;flex-wrap:nowrap;overflow-x:auto;align-items:center;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -.15rem;padding:.15rem}
+.uf-cats::-webkit-scrollbar{display:none}
+.uf-cat-btn{background:#fff;border:1.5px solid var(--g200,#e5e7eb);color:var(--g900,#111827);padding:.5rem 1.1rem;border-radius:100px;font-size:.83rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;flex-shrink:0}
 .uf-cat-btn:hover{border-color:var(--g300,#d1d5db);background:var(--g50,#f9fafb)}
+.uf-cat-btn:focus-visible,.s-input:focus-visible,.s-btn:focus-visible,.compare-btn:focus-visible,.sort-sel:focus-visible{outline:2px solid var(--blue2);outline-offset:2px}
 .uf-cat-btn.open,.uf-cat-btn.has-val{background:var(--blue);border-color:var(--blue);color:#fff}
+.results-row{max-width:1080px;margin:0 auto;padding:1.2rem 2rem 0;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.results-count{font-size:.85rem;color:var(--g500);font-weight:600}
+.results-count strong{color:var(--g900)}
+.sort-wrap{display:flex;align-items:center;gap:.5rem;font-size:.83rem;color:var(--g500);font-weight:600}
+.sort-sel{border:1.5px solid var(--g200);background:#fff;border-radius:9px;padding:.45rem .7rem;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:700;color:var(--g900);cursor:pointer}
+.uni-empty{display:none;text-align:center;padding:4rem 1rem;color:var(--g500)}
+.uni-empty.show{display:block}
+.uni-empty-ico{font-size:2.6rem;margin-bottom:.9rem;opacity:.7}
+.uni-empty h3{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g900);margin-bottom:.4rem}
+.uni-empty p{font-size:.88rem;margin-bottom:1.1rem}
+.uni-empty button{background:var(--blue);color:#fff;border:none;padding:.6rem 1.3rem;border-radius:100px;font-weight:700;font-size:.83rem;cursor:pointer}
+.rms-badge{position:absolute;top:.7rem;left:.7rem;z-index:5;font-size:.66rem;font-weight:800;letter-spacing:.3px;padding:.28rem .6rem;border-radius:100px;text-transform:uppercase;backdrop-filter:blur(4px)}
+.rms-badge.rms-reach{background:rgba(220,38,38,.85);color:#fff}
+.rms-badge.rms-match{background:rgba(217,119,6,.85);color:#fff}
+.rms-badge.rms-safety{background:rgba(22,163,74,.85);color:#fff}
+.u-card:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
+@media(max-width:768px){.results-row{padding:1rem 1.1rem 0}.uf-bar-inner{padding:.9rem 1.1rem}}
 .uf-clear-btn{background:none;border:none;color:var(--g400,#9ca3af);font-size:.78rem;font-weight:600;cursor:pointer;padding:.4rem .3rem;font-family:'DM Sans',sans-serif}
 .uf-clear-btn:hover{color:var(--g900,#111827)}
 .uf-panel-wrap{margin-top:.7rem}
-.uf-panel{background:#fff;border:1px solid var(--g200,#e5e7eb);border-radius:var(--rl,14px);padding:1.15rem 1.25rem;box-shadow:0 16px 40px rgba(0,0,0,.12);max-width:640px;max-height:340px;overflow-y:auto}
+.uf-panel{background:#fff;border:1px solid var(--g200,#e5e7eb);border-radius:var(--rl,14px);padding:1.15rem 1.25rem;box-shadow:0 16px 40px rgba(0,0,0,.12);max-width:640px;max-height:340px;overflow-y:auto;animation:ufPanelIn .16s ease-out}
+@keyframes ufPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes uCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.u-card{animation:uCardIn .28s ease-out backwards}
+@media(prefers-reduced-motion:reduce){.u-card,.uf-panel{animation:none}}
 .uf-panel-title{font-size:.78rem;font-weight:700;color:var(--g400,#9ca3af);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem}
 .uf-opt-grid{display:flex;flex-wrap:wrap;gap:.5rem}
 .uf-opt{background:var(--g50,#f9fafb);border:1.5px solid var(--g200,#e5e7eb);color:var(--g700,#374151);padding:.4rem .85rem;border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
@@ -1122,7 +1147,26 @@ html[data-theme="dark"] .skill-item-bar{background:var(--d-surface2)}
     <div class="uf-panel-wrap" id="uf-panel-wrap" style="display:none"><div class="uf-panel" id="uf-panel"></div></div>
     <div class="uf-active-row" id="uf-active-row"></div>
   </div></div>
-  <div class="cards-sec"><div class="cards-inner"><div class="cards-grid" id="uni-grid"></div></div></div>
+  <div class="results-row">
+    <div class="results-count" id="uni-results-count"></div>
+    <div class="sort-wrap">Sort by
+      <select class="sort-sel" id="uni-sort" onchange="filterUnis()">
+        <option value="match">Best match</option>
+        <option value="acc-asc">Acceptance rate: Low to high</option>
+        <option value="acc-desc">Acceptance rate: High to low</option>
+        <option value="name">Name: A–Z</option>
+      </select>
+    </div>
+  </div>
+  <div class="cards-sec"><div class="cards-inner">
+    <div class="cards-grid" id="uni-grid"></div>
+    <div class="uni-empty" id="uni-empty">
+      <div class="uni-empty-ico">🔍</div>
+      <h3>No universities match yet</h3>
+      <p>Try adjusting your search or clearing a few filters.</p>
+      <button onclick="document.getElementById('uni-search').value='';clearUniFilters()">Clear all filters</button>
+    </div>
+  </div></div>
 </div>
 
 <button id="backToTopBtn" onclick="scrollToTop()" aria-label="Back to top" title="Back to top">↑</button>
@@ -2409,12 +2453,16 @@ window.imgFallback=function(el){
     el.classList.add('uc2-img-hidden');
   }
 };
-function uniCardHTML(u,savedSet,showHeart){
+function uniCardHTML(u,savedSet,showHeart,i){
   if(showHeart===undefined)showHeart=true;
+  if(i===undefined)i=0;
   const t=T();
   const s=savedSet.has(u.id);
-  return `<div class="u-card ${s?'card-saved':''}" onclick="openUni(${u.id})">
+  const rms=rmsBucket(u);
+  const rmsLbl=rms==='reach'?'Reach':rms==='safety'?'Safety':'Match';
+  return `<div class="u-card ${s?'card-saved':''}" style="animation-delay:${Math.min(i*22,220)}ms" onclick="openUni(${u.id})" tabindex="0" role="button" aria-label="${u.name}, ${u.loc}" onkeydown="if(event.key==='Enter')openUni(${u.id})">
     <div class="uc2-photo">
+      <span class="rms-badge rms-${rms}">${rmsLbl}</span>
       <img src="${imgCandidates(u)[0]}" data-c="${imgCandidates(u).join('|||')}" data-i="0" alt="${u.name}" loading="lazy" onerror="imgFallback(this)">
       <div class="uc2-iconrow">
         <button class="uc2-expand" onclick="event.stopPropagation();openUni(${u.id})" title="${t.card_view||'View profile'}">${EXPAND_SVG}</button>
@@ -2444,7 +2492,11 @@ function uniCardHTML(u,savedSet,showHeart){
 function renderUnis(data){
   const g=document.getElementById('uni-grid');if(!g)return;
   const savedSet=new Set(getSaved());
-  g.innerHTML=data.map(u=>uniCardHTML(u,savedSet)).join('');
+  g.innerHTML=data.map((u,i)=>uniCardHTML(u,savedSet,true,i)).join('');
+  const empty=document.getElementById('uni-empty');
+  if(empty)empty.classList.toggle('show',data.length===0);
+  const cnt=document.getElementById('uni-results-count');
+  if(cnt)cnt.innerHTML=data.length?`<strong>${data.length}</strong> ${data.length===1?'university':'universities'} found`:'';
 }
 function renderDashboard(){
   const g=document.getElementById('dash-grid');if(!g)return;
@@ -2639,7 +2691,14 @@ function filterUnis(){
     if(f.rms!=='any'&&rmsBucket(u)!==f.rms)return false;
     if(f.commonApp&&!isCommonApp(u))return false;
     return true;
-  }));
+  }).sort(sortUnisFn()));
+}
+function sortUnisFn(){
+  const mode=document.getElementById('uni-sort')?.value||'match';
+  if(mode==='acc-asc')return(a,b)=>(a.acc||0)-(b.acc||0);
+  if(mode==='acc-desc')return(a,b)=>(b.acc||0)-(a.acc||0);
+  if(mode==='name')return(a,b)=>a.name.localeCompare(b.name);
+  return(a,b)=>0;
 }
 buildMajorsList();
 
@@ -2648,6 +2707,11 @@ buildMajorsList();
   const btn=document.getElementById('backToTopBtn');
   if(!btn)return;
   window.addEventListener('scroll',()=>{btn.classList.toggle('show',window.scrollY>420);},{passive:true});
+})();
+(function(){
+  const bar=document.querySelector('.uf-bar');
+  if(!bar)return;
+  window.addEventListener('scroll',()=>{bar.classList.toggle('uf-scrolled',window.scrollY>140);},{passive:true});
 })();
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 
