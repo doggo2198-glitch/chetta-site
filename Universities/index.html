@@ -222,18 +222,16 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .page-hd h2{font-family:'Instrument Serif',serif;font-size:2rem;color:#fff;letter-spacing:-.4px;margin-bottom:.4rem}
 .page-hd p{color:rgba(255,255,255,.45);font-size:.88rem}
 .search-row{display:flex;gap:.55rem;margin-top:1.4rem;max-width:580px}
-.s-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:9px;padding:.65rem .95rem;color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;transition:border-color .15s}
-.s-input::placeholder{color:rgba(255,255,255,.28)}
-.s-input:focus{border-color:rgba(255,255,255,.38)}
-.s-btn{background:var(--blue);color:#fff;border:none;padding:.65rem 1.2rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
-.s-btn:hover{background:#1d4ed8}
-.compare-btn{position:relative;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;padding:.65rem 1.25rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 4px 16px rgba(124,58,237,.4);transition:transform .15s,box-shadow .15s;animation:cbGlow 2.4s ease-in-out infinite}
-.compare-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 26px rgba(124,58,237,.55);animation-play-state:paused}
-.compare-btn .cb-ico{font-size:1rem;display:inline-block;animation:cbSwap 2.4s ease-in-out infinite}
-.compare-btn .cb-badge{position:absolute;top:-9px;right:-8px;background:#f59e0b;color:#1a1408;font-size:.58rem;font-weight:800;letter-spacing:.3px;padding:.14rem .42rem;border-radius:100px;box-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+.s-input{flex:1;background:var(--g50,#f9fafb);border:1.5px solid var(--g200,#e5e7eb);border-radius:9px;padding:.65rem .95rem;color:var(--g900,#111827);font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;transition:border-color .15s,background .15s}
+.s-input::placeholder{color:var(--g400,#9ca3af)}
+.s-input:focus{border-color:var(--g300,#d1d5db);background:#fff}
+.s-btn{background:#fff;color:var(--g900,#111827);border:1.5px solid var(--g200,#e5e7eb);padding:.65rem 1.2rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s,border-color .15s}
+.s-btn:hover{background:var(--g50,#f9fafb);border-color:var(--g300,#d1d5db)}
+.compare-btn{position:relative;background:#fff;color:var(--g900,#111827);border:1.5px solid var(--g200,#e5e7eb);padding:.65rem 1.25rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;transition:background .15s,border-color .15s}
+.compare-btn:hover{background:var(--g50,#f9fafb);border-color:var(--g300,#d1d5db)}
+.compare-btn .cb-ico{font-size:1rem;display:inline-block;color:var(--g500,#6b7280)}
+.compare-btn .cb-badge{position:absolute;top:-8px;right:-8px;background:var(--g900,#111827);color:#fff;font-size:.56rem;font-weight:700;letter-spacing:.3px;padding:.13rem .4rem;border-radius:100px;pointer-events:none}
 @media(max-width:560px){.search-row{flex-wrap:wrap}.search-row .s-input{flex-basis:100%}.search-row .s-btn{flex:1}.search-row .compare-btn{flex:1;justify-content:center}}
-@keyframes cbGlow{0%,100%{box-shadow:0 4px 16px rgba(124,58,237,.4)}50%{box-shadow:0 4px 22px rgba(124,58,237,.75),0 0 0 5px rgba(124,58,237,.12)}}
-@keyframes cbSwap{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
 @media(prefers-reduced-motion:reduce){.compare-btn,.compare-btn .cb-ico{animation:none}}
 .filter-row{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.9rem}
 .f-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.55);padding:.28rem .8rem;border-radius:100px;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
@@ -1158,7 +1156,7 @@ html[data-theme="dark"] .skill-item-bar{background:var(--d-surface2)}
     <div class="uf-active-row" id="uf-active-row"></div>
   </div></div>
   <div class="search-bar-sticky" id="search-bar-sticky"><div class="search-bar-sticky-inner">
-    <div class="search-row"><input class="s-input" type="text" id="uni-search" placeholder="Search by name or country..." oninput="filterUnis()"><button class="s-btn" onclick="filterUnis()" data-i18n="btn_search">Search</button><button class="compare-btn" onclick="if(requireAuth())window.location.href='/Universities/CompareUniversities'" data-i18n="btn_compare"><span class="cb-ico">⇄</span> Compare<span class="cb-badge">NEW</span></button></div>
+    <div class="search-row"><input class="s-input" type="text" id="uni-search" placeholder="Try “MIT” or “Canada”..." oninput="filterUnis()"><button class="s-btn" onclick="filterUnis()" data-i18n="btn_search">Search</button><button class="compare-btn" onclick="if(requireAuth())window.location.href='/Universities/CompareUniversities'" data-i18n="btn_compare"><span class="cb-ico">⇄</span> Compare<span class="cb-badge">NEW</span></button></div>
   </div></div>
   <div class="results-row">
     <div class="results-count" id="uni-results-count"></div>
