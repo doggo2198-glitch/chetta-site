@@ -136,6 +136,18 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 
 /* PAGE SYSTEM */
 .page{display:none}.page.active{display:block}
+.uprof-back-bar{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--g200,#e5e7eb);position:sticky;top:58px;z-index:120}
+.uprof-back-bar-inner{max-width:820px;margin:0 auto;padding:.85rem 2rem}
+.uprof-back{background:none;border:none;color:var(--g600);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;padding:.3rem .2rem}
+.uprof-back:hover{color:var(--blue)}
+.uprof-hero{background:var(--g900);padding:2.4rem 2rem;position:relative;overflow:hidden}
+.uprof-hero-inner{max-width:820px;margin:0 auto;position:relative;z-index:2}
+.uprof-hero-img{width:100%;max-height:260px;object-fit:cover;border-radius:14px;margin-bottom:1.3rem;box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.uprof-hero h1{font-family:'Instrument Serif',serif;font-size:2.1rem;color:#fff;letter-spacing:-.4px;margin-bottom:.35rem}
+.uprof-hero-loc{color:rgba(255,255,255,.5);font-size:.9rem;margin-bottom:.9rem}
+.uprof-body-wrap{background:var(--g50,#f9fafb);padding:2.2rem 2rem 4rem}
+.uprof-body{max-width:820px;margin:0 auto;background:#fff;border:1px solid var(--g200);border-radius:16px;padding:1.8rem 2rem}
+@media(max-width:768px){.uprof-back-bar-inner,.uprof-hero-inner,.uprof-body{padding-left:0;padding-right:0}.uprof-hero{padding:1.8rem 1.1rem}.uprof-body-wrap{padding:1.6rem 1.1rem 3rem}.uprof-body{padding:1.3rem 1.2rem}}
 
 /* HERO */
 .hero{padding:5rem 2rem 3.5rem;text-align:center;background:#fff;position:relative;overflow:hidden}
@@ -227,8 +239,12 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .f-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.55);padding:.28rem .8rem;border-radius:100px;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .f-chip:hover,.f-chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
 /* Explore-Colleges style filter categories (Universities page) — sits below the dark header, on white */
-.uf-bar{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--g200,#e5e7eb);position:sticky;top:58px;z-index:120;transition:box-shadow .2s}
-.uf-bar.uf-scrolled{box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.uf-bar{background:#fff;border-bottom:1px solid var(--g200,#e5e7eb)}
+.search-bar-sticky{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--g200,#e5e7eb);position:sticky;top:58px;z-index:120;transition:box-shadow .2s}
+.search-bar-sticky.uf-scrolled{box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.search-bar-sticky-inner{max-width:1080px;margin:0 auto;padding:.9rem 2rem}
+.search-bar-sticky .search-row{margin-top:0;max-width:none}
+@media(max-width:768px){.search-bar-sticky-inner{padding:.8rem 1.1rem}}
 .uf-bar-inner{max-width:1080px;margin:0 auto;padding:1.1rem 2rem}
 .uf-cats{display:flex;gap:.55rem;flex-wrap:nowrap;overflow-x:auto;align-items:center;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -.15rem;padding:.15rem}
 .uf-cats::-webkit-scrollbar{display:none}
@@ -247,10 +263,6 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .uni-empty h3{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g900);margin-bottom:.4rem}
 .uni-empty p{font-size:.88rem;margin-bottom:1.1rem}
 .uni-empty button{background:var(--blue);color:#fff;border:none;padding:.6rem 1.3rem;border-radius:100px;font-weight:700;font-size:.83rem;cursor:pointer}
-.rms-badge{position:absolute;top:.7rem;left:.7rem;z-index:5;font-size:.66rem;font-weight:800;letter-spacing:.3px;padding:.28rem .6rem;border-radius:100px;text-transform:uppercase;backdrop-filter:blur(4px)}
-.rms-badge.rms-reach{background:rgba(220,38,38,.85);color:#fff}
-.rms-badge.rms-match{background:rgba(217,119,6,.85);color:#fff}
-.rms-badge.rms-safety{background:rgba(22,163,74,.85);color:#fff}
 .u-card:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
 @media(max-width:768px){.results-row{padding:1rem 1.1rem 0}.uf-bar-inner{padding:.9rem 1.1rem}}
 .uf-clear-btn{background:none;border:none;color:var(--g400,#9ca3af);font-size:.78rem;font-weight:600;cursor:pointer;padding:.4rem .3rem;font-family:'DM Sans',sans-serif}
@@ -1128,7 +1140,6 @@ html[data-theme="dark"] .skill-item-bar{background:var(--d-surface2)}
     <div class="page-hd-eye" data-i18n="upage_eye">Explore</div>
     <h2 data-i18n="upage_title">University Explorer</h2>
     <p data-i18n="upage_sub">Click any university for full details, acceptance rates, and scholarships.</p>
-    <div class="search-row"><input class="s-input" type="text" id="uni-search" placeholder="Search by name or country..." oninput="filterUnis()"><button class="s-btn" onclick="filterUnis()" data-i18n="btn_search">Search</button><button class="compare-btn" onclick="if(requireAuth())window.location.href='/Universities/CompareUniversities'" data-i18n="btn_compare"><span class="cb-ico">⇄</span> Compare<span class="cb-badge">NEW</span></button></div>
   </div></div>
   <div class="uf-bar"><div class="uf-bar-inner">
     <div class="uf-cats" id="uf-cats">
@@ -1139,13 +1150,15 @@ html[data-theme="dark"] .skill-item-bar{background:var(--d-surface2)}
       <button class="uf-cat-btn" data-cat="campus" onclick="toggleUniFilter('campus',this)">Campus Life</button>
       <button class="uf-cat-btn" data-cat="credit" onclick="toggleUniFilter('credit',this)">Credit</button>
       <button class="uf-cat-btn" data-cat="admissions" onclick="toggleUniFilter('admissions',this)">Admissions</button>
-      <button class="uf-cat-btn" data-cat="rms" onclick="toggleUniFilter('rms',this)">Reach, Match, Safety</button>
       <button class="uf-cat-btn" data-cat="degrees" onclick="toggleUniFilter('degrees',this)">Degrees</button>
       <button class="uf-cat-btn" data-cat="commonapp" onclick="toggleUniFilter('commonapp',this)">Common App Members</button>
       <button class="uf-clear-btn" id="uf-clear-btn" onclick="clearUniFilters()" style="display:none">Clear all ✕</button>
     </div>
     <div class="uf-panel-wrap" id="uf-panel-wrap" style="display:none"><div class="uf-panel" id="uf-panel"></div></div>
     <div class="uf-active-row" id="uf-active-row"></div>
+  </div></div>
+  <div class="search-bar-sticky" id="search-bar-sticky"><div class="search-bar-sticky-inner">
+    <div class="search-row"><input class="s-input" type="text" id="uni-search" placeholder="Search by name or country..." oninput="filterUnis()"><button class="s-btn" onclick="filterUnis()" data-i18n="btn_search">Search</button><button class="compare-btn" onclick="if(requireAuth())window.location.href='/Universities/CompareUniversities'" data-i18n="btn_compare"><span class="cb-ico">⇄</span> Compare<span class="cb-badge">NEW</span></button></div>
   </div></div>
   <div class="results-row">
     <div class="results-count" id="uni-results-count"></div>
@@ -1167,6 +1180,15 @@ html[data-theme="dark"] .skill-item-bar{background:var(--d-surface2)}
       <button onclick="document.getElementById('uni-search').value='';clearUniFilters()">Clear all filters</button>
     </div>
   </div></div>
+</div>
+
+<!-- UNIVERSITY PROFILE PAGE (dedicated page, opened via ?uni=ID) -->
+<div id="page-uniprofile" class="page">
+  <div class="uprof-back-bar"><div class="uprof-back-bar-inner">
+    <button class="uprof-back" onclick="window.location.href=window.location.pathname">← Back to results</button>
+  </div></div>
+  <div class="uprof-hero" id="uprof-hero"></div>
+  <div class="uprof-body-wrap"><div class="uprof-body" id="uprof-body"></div></div>
 </div>
 
 <button id="backToTopBtn" onclick="scrollToTop()" aria-label="Back to top" title="Back to top">↑</button>
@@ -2458,14 +2480,11 @@ function uniCardHTML(u,savedSet,showHeart,i){
   if(i===undefined)i=0;
   const t=T();
   const s=savedSet.has(u.id);
-  const rms=rmsBucket(u);
-  const rmsLbl=rms==='reach'?'Reach':rms==='safety'?'Safety':'Match';
-  return `<div class="u-card ${s?'card-saved':''}" style="animation-delay:${Math.min(i*22,220)}ms" onclick="openUni(${u.id})" tabindex="0" role="button" aria-label="${u.name}, ${u.loc}" onkeydown="if(event.key==='Enter')openUni(${u.id})">
+  return `<div class="u-card ${s?'card-saved':''}" style="animation-delay:${Math.min(i*22,220)}ms" onclick="goToUniPage(${u.id})" tabindex="0" role="button" aria-label="${u.name}, ${u.loc}" onkeydown="if(event.key==='Enter')goToUniPage(${u.id})">
     <div class="uc2-photo">
-      <span class="rms-badge rms-${rms}">${rmsLbl}</span>
       <img src="${imgCandidates(u)[0]}" data-c="${imgCandidates(u).join('|||')}" data-i="0" alt="${u.name}" loading="lazy" onerror="imgFallback(this)">
       <div class="uc2-iconrow">
-        <button class="uc2-expand" onclick="event.stopPropagation();openUni(${u.id})" title="${t.card_view||'View profile'}">${EXPAND_SVG}</button>
+        <button class="uc2-expand" onclick="event.stopPropagation();goToUniPage(${u.id})" title="${t.card_view||'View profile'}">${EXPAND_SVG}</button>
         ${showHeart?`<button class="save-heart ${s?'saved':''}" onclick="event.stopPropagation();toggleSave(${u.id},this)" title="${s?'Remove from saved':'Save university'}">${heartSVG(s)}</button>`:''}
       </div>
       <div class="uc2-emoji">${u.emoji}</div>
@@ -2479,14 +2498,14 @@ function uniCardHTML(u,savedSet,showHeart,i){
     </div>
     <div class="uc2-divider"></div>
     <div class="uc2-list">
-      <div class="uc2-list-item" onclick="event.stopPropagation();openUniSection(${u.id},'majors')">${t.mod_majors||'Popular Majors'}${CHEVRON_SVG}</div>
-      <div class="uc2-list-item" onclick="event.stopPropagation();openUniSection(${u.id},'road')">${t.mod_road||'Application Roadmap'}${CHEVRON_SVG}</div>
-      <div class="uc2-list-item" onclick="event.stopPropagation();openUniSection(${u.id},'schs')">${t.mod_schs||'Available Scholarships'}${CHEVRON_SVG}</div>
+      <div class="uc2-list-item" onclick="event.stopPropagation();goToUniPage(${u.id},'majors')">${t.mod_majors||'Popular Majors'}${CHEVRON_SVG}</div>
+      <div class="uc2-list-item" onclick="event.stopPropagation();goToUniPage(${u.id},'road')">${t.mod_road||'Application Roadmap'}${CHEVRON_SVG}</div>
+      <div class="uc2-list-item" onclick="event.stopPropagation();goToUniPage(${u.id},'schs')">${t.mod_schs||'Available Scholarships'}${CHEVRON_SVG}</div>
     </div>
     <div class="uc2-divider"></div>
     <div class="uc2-foot">
       <div class="uc2-lang">${t.card_langs_lbl||'Languages'}<strong>EN · UZ · RU</strong></div>
-      <button class="uc2-viewbtn" onclick="event.stopPropagation();window.location.href='/Profile/?id=${u.id}'">${(t.card_view||'View profile →').replace('View profile','View full profile')}</button>
+      <button class="uc2-viewbtn" onclick="event.stopPropagation();goToUniPage(${u.id})">${(t.card_view||'View profile →').replace('View profile','View full profile')}</button>
     </div></div>`;
 }
 function renderUnis(data){
@@ -2563,7 +2582,7 @@ function filterSchs(){const q=document.getElementById('sch-search').value.toLowe
 function filterSchType(tp,b){aSchType=tp;document.querySelectorAll('#page-scholarships .f-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');filterSchs();}
 
 // ── EXPLORE COLLEGES FILTER BAR (Universities page) ──
-const uniFilters={majors:new Set(),types:new Set(),campus:new Set(),afford:'any',admissions:'any',rms:'any',commonApp:false};
+const uniFilters={majors:new Set(),types:new Set(),campus:new Set(),afford:'any',admissions:'any',commonApp:false};
 let ALL_MAJORS=[],uniFilterOpenCat=null;
 function buildMajorsList(){const s=new Set();(typeof unis!=='undefined'?unis:[]).forEach(u=>(u.majors||[]).forEach(m=>s.add(m)));ALL_MAJORS=[...s].sort();}
 const REGION_OPTS=[['all','All'],['usa','🇺🇸 USA'],['uk','🇬🇧 UK'],['canada','🇨🇦 Canada'],['europe','🇪🇺 Europe'],['asia','🌏 Asia'],['australia','🇦🇺 Australia'],['latam','🌎 Latin America'],['mideast','🕌 Middle East & Africa']];
@@ -2571,11 +2590,9 @@ const TYPE_OPTS=['Public','Private','Ivy League','Liberal Arts','Technical/Polyt
 const CAMPUS_OPTS=['Very Small','Small','Medium','Large','Urban','Suburban','Rural'];
 const AFFORD_OPTS=[['any','Any tuition'],['under20','Under $20k/yr'],['20to40','$20k – $40k/yr'],['40to60','$40k – $60k/yr'],['60plus','$60k+/yr']];
 const ADMIT_OPTS=[['any','Any acceptance rate'],['under10','Under 10%'],['10to30','10% – 30%'],['30to60','30% – 60%'],['60plus','60%+']];
-const RMS_OPTS=[['any','Any'],['safety','Safety'],['match','Match'],['reach','Reach']];
 function normType(t){t=t||'';if(/ivy league/i.test(t))return'Ivy League';if(/liberal arts/i.test(t))return'Liberal Arts';if(/polytechnic|technical/i.test(t))return'Technical/Polytechnic';if(/medical/i.test(t))return'Medical';if(/business/i.test(t))return'Business';if(/public/i.test(t))return'Public';if(/private/i.test(t))return'Private';return'Research University';}
 function campusBucket(c){c=(c||'').toLowerCase();const b=[];if(c.includes('very small'))b.push('Very Small');else if(c.includes('small'))b.push('Small');if(c.includes('medium'))b.push('Medium');if(c.includes('large'))b.push('Large');if(c.includes('urban'))b.push('Urban');if(c.includes('suburban'))b.push('Suburban');if(c.includes('rural'))b.push('Rural');return b;}
 function isCommonApp(u){return(u.roadmap||[]).join(' ').includes('Common App');}
-function rmsBucket(u){if((u.diff||0)>=70)return'reach';if((u.diff||0)<40)return'safety';return'match';}
 
 function toggleUniFilter(cat,btn){
   const wrap=document.getElementById('uf-panel-wrap');
@@ -2610,9 +2627,6 @@ function renderUniFilterPanel(cat){
   }else if(cat==='admissions'){
     html=`<div class="uf-panel-title">Admissions (acceptance rate)</div><div class="uf-opt-grid">${ADMIT_OPTS.map(([v,l])=>`<button class="uf-opt ${uniFilters.admissions===v?'sel':''}" onclick="setUniRadio('admissions','${v}')">${l}</button>`).join('')}</div>`;
     p.innerHTML=html;
-  }else if(cat==='rms'){
-    html=`<div class="uf-panel-title">Reach, Match, Safety</div><div class="uf-opt-grid">${RMS_OPTS.map(([v,l])=>`<button class="uf-opt ${uniFilters.rms===v?'sel':''}" onclick="setUniRadio('rms','${v}')">${l}</button>`).join('')}</div>`;
-    p.innerHTML=html;
   }else if(cat==='degrees'){
     html=`<div class="uf-panel-title">Degrees</div><div class="uf-note">Our catalog is currently undergraduate-focused, so a degree-level filter (Bachelor's / Master's / PhD) isn't meaningful yet — it's on the roadmap as we add graduate programs.</div>`;
     p.innerHTML=html;
@@ -2639,11 +2653,10 @@ function updateUniFilterBadges(){
     else if(c==='afford')active=uniFilters.afford!=='any';
     else if(c==='campus')active=uniFilters.campus.size>0;
     else if(c==='admissions')active=uniFilters.admissions!=='any';
-    else if(c==='rms')active=uniFilters.rms!=='any';
     else if(c==='commonapp')active=uniFilters.commonApp;
     b.classList.toggle('has-val',active);
   });
-  const anyActive=aReg!=='all'||uniFilters.majors.size||uniFilters.types.size||uniFilters.campus.size||uniFilters.afford!=='any'||uniFilters.admissions!=='any'||uniFilters.rms!=='any'||uniFilters.commonApp;
+  const anyActive=aReg!=='all'||uniFilters.majors.size||uniFilters.types.size||uniFilters.campus.size||uniFilters.afford!=='any'||uniFilters.admissions!=='any'||uniFilters.commonApp;
   const clearBtn=document.getElementById('uf-clear-btn');if(clearBtn)clearBtn.style.display=anyActive?'inline-block':'none';
 }
 function renderUniActivePills(){
@@ -2655,13 +2668,12 @@ function renderUniActivePills(){
   uniFilters.campus.forEach(v=>pills.push(['campus:'+v,v,()=>uniFilters.campus.delete(v)]));
   if(uniFilters.afford!=='any')pills.push(['afford',(AFFORD_OPTS.find(a=>a[0]===uniFilters.afford)||[,''])[1],()=>{uniFilters.afford='any';}]);
   if(uniFilters.admissions!=='any')pills.push(['admissions',(ADMIT_OPTS.find(a=>a[0]===uniFilters.admissions)||[,''])[1],()=>{uniFilters.admissions='any';}]);
-  if(uniFilters.rms!=='any')pills.push(['rms',(RMS_OPTS.find(a=>a[0]===uniFilters.rms)||[,''])[1],()=>{uniFilters.rms='any';}]);
   if(uniFilters.commonApp)pills.push(['commonapp','Common App only',()=>{uniFilters.commonApp=false;}]);
   row.innerHTML=pills.map((pl,i)=>`<span class="uf-active-pill">${pl[1]}<button onclick="removeUniPill(${i})">✕</button></span>`).join('');
   row._removers=pills.map(pl=>pl[2]);
 }
 function removeUniPill(i){const fn=document.getElementById('uf-active-row')._removers?.[i];if(fn)fn();if(uniFilterOpenCat)renderUniFilterPanel(uniFilterOpenCat);afterUniFilterChange();}
-function clearUniFilters(){aReg='all';uniFilters.majors.clear();uniFilters.types.clear();uniFilters.campus.clear();uniFilters.afford='any';uniFilters.admissions='any';uniFilters.rms='any';uniFilters.commonApp=false;closeUniFilterPanel();afterUniFilterChange();}
+function clearUniFilters(){aReg='all';uniFilters.majors.clear();uniFilters.types.clear();uniFilters.campus.clear();uniFilters.afford='any';uniFilters.admissions='any';uniFilters.commonApp=false;closeUniFilterPanel();afterUniFilterChange();}
 document.addEventListener('click',e=>{
   if(uniFilterOpenCat&&!e.target.closest('.uf-cats')&&!e.target.closest('.uf-panel-wrap'))closeUniFilterPanel();
 });
@@ -2688,7 +2700,6 @@ function filterUnis(){
       if(f.admissions==='30to60'&&!(a>=30&&a<60))return false;
       if(f.admissions==='60plus'&&!(a>=60))return false;
     }
-    if(f.rms!=='any'&&rmsBucket(u)!==f.rms)return false;
     if(f.commonApp&&!isCommonApp(u))return false;
     return true;
   }).sort(sortUnisFn()));
@@ -2709,7 +2720,7 @@ buildMajorsList();
   window.addEventListener('scroll',()=>{btn.classList.toggle('show',window.scrollY>420);},{passive:true});
 })();
 (function(){
-  const bar=document.querySelector('.uf-bar');
+  const bar=document.getElementById('search-bar-sticky');
   if(!bar)return;
   window.addEventListener('scroll',()=>{bar.classList.toggle('uf-scrolled',window.scrollY>140);},{passive:true});
 })();
@@ -2726,26 +2737,27 @@ function requireAuth(){
   openAuth('login');
   return false;
 }
-function openUni(id){
+function goToUniPage(id,section){
   if(!requireAuth())return;
-  const u=unis.find(x=>x.id===id);if(!u)return;
-  currentUniId=id;
-  const t=T();
-  const mImg=document.getElementById('mUImg');
-  if(mImg){
-    const cands=imgCandidates(u);
-    mImg.dataset.c=cands.join('|||');
-    mImg.dataset.i='0';
-    mImg.classList.remove('uc2-img-hidden');
-    mImg.src=cands[0];
-    mImg.alt=u.name;
-  }
-  document.getElementById('mUN').textContent=u.name;
-  document.getElementById('mUL').textContent=`${u.loc} • ${u.type}`;
-  document.getElementById('mUB').innerHTML=`<span class="m-badge">${u.rank}</span><span class="m-badge">${u.type}</span>`;
+  window.location.href=window.location.pathname+'?uni='+id+(section?('&sec='+section):'');
+}
+function uniProfileHeroHTML(u){
+  const cands=imgCandidates(u);
+  return `<div class="uprof-hero-inner">
+    <img class="uprof-hero-img" src="${cands[0]}" data-c="${cands.join('|||')}" data-i="0" alt="${u.name}" onerror="imgFallback(this)">
+    <h1>${u.name}</h1>
+    <div class="uprof-hero-loc">${u.loc} • ${u.type}</div>
+    <div class="m-badges"><span class="m-badge">${u.rank}</span><span class="m-badge">${u.type}</span></div>
+  </div>`;
+}
+function uniProfileBodyHTML(u,t){
   const dc=u.diff>=90?'#dc2626':u.diff>=70?'#d97706':'#16a34a';
   const dl=u.diff>=90?(t.diff_ext||'Extremely Selective'):u.diff>=70?(t.diff_very||'Very Selective'):(t.diff_sel||'Selective');
-  document.getElementById('uni-mbody').innerHTML=`
+  const s=isSaved(u.id);
+  return `
+    <div style="display:flex;justify-content:flex-end;margin-bottom:.6rem">
+      <button class="save-heart uprof-heart ${s?'saved':''}" id="uprofHeart" onclick="toggleSave(${u.id},this)" title="${s?'Remove from saved':'Save university'}">${heartSVG(s)}</button>
+    </div>
     <div class="stats-row">
       <div class="s-box"><div class="s-box-val">${u.acc}%</div><div class="s-box-key">${t.mod_acc||'Acceptance Rate'}</div></div>
       <div class="s-box"><div class="s-box-val">$${u.tuition.toLocaleString()}</div><div class="s-box-key">${t.mod_tui||'Annual Tuition'}</div></div>
@@ -2768,18 +2780,26 @@ function openUni(id){
     <div class="m-sec" id="mSecRoad">📋 ${t.mod_road||'Application Roadmap'}</div>
     <div class="roadmap">${u.roadmap.map((s,i)=>`<div class="rm-item"><div class="rm-left"><div class="rm-circle">${i+1}</div>${i<u.roadmap.length-1?'<div class="rm-line"></div>':''}</div><div class="rm-text">${s}</div></div>`).join('')}</div>
     <div class="m-sec" id="mSecSchs">🎓 ${t.mod_schs||'Available Scholarships'}</div>
-    <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`closeM('uni-ov');openSch(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
+    <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`openSch(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
     <a href="${u.url}" target="_blank" class="visit-lnk">${t.mod_visit||'Visit university website'} ↗</a>
     <a href="/Universities/CompareUniversities?a=${u.id}" class="visit-lnk" style="margin-top:.6rem">⇄ ${t.mod_compare||'Compare with another university'}</a>`;
-  openM('uni-ov');
-  updateModalHeart();
 }
-function openUniSection(id,section){
-  openUni(id);
-  const ids={majors:'mSecMajors',road:'mSecRoad',schs:'mSecSchs'};
-  const elId=ids[section];if(!elId)return;
-  setTimeout(()=>{document.getElementById(elId)?.scrollIntoView({behavior:'smooth',block:'start'});},220);
+function renderUniProfilePage(id,section){
+  if(!requireAuth()){window.location.href=window.location.pathname;return;}
+  const u=unis.find(x=>x.id===Number(id));
+  if(!u){window.location.href=window.location.pathname;return;}
+  currentUniId=u.id;
+  const t=T();
+  document.getElementById('uprof-hero').innerHTML=uniProfileHeroHTML(u);
+  document.getElementById('uprof-body').innerHTML=uniProfileBodyHTML(u,t);
+  document.title=u.name+' — Chetta';
+  if(section){
+    const ids={majors:'mSecMajors',road:'mSecRoad',schs:'mSecSchs'};
+    const elId=ids[section];
+    if(elId)setTimeout(()=>{document.getElementById(elId)?.scrollIntoView({behavior:'smooth',block:'start'});},80);
+  }
 }
+
 
 function openSch(id){
   const s=schs.find(x=>x.id===id);if(!s)return;
@@ -3026,7 +3046,16 @@ document.getElementById('page-home').insertAdjacentHTML('beforeend','<footer></f
 // ── INIT ──
 applyLang(currentLang);
 updateNav();
-showPage('universities'); // this copy's default page
+(function(){
+  const _up=new URLSearchParams(window.location.search);
+  const _uid=_up.get('uni');
+  if(_uid!=null && unis.some(x=>x.id===Number(_uid))){
+    showPage('uniprofile');
+    renderUniProfilePage(Number(_uid),_up.get('sec'));
+  }else{
+    showPage('universities'); // this copy's default page
+  }
+})();
 // AI ready — no API key needed
 
 
