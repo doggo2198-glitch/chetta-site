@@ -2895,7 +2895,7 @@ function refreshSimSave(uid){
   const u=unis.find(x=>x.id===uid);
   if(u)renderSimilarUnis(u);
 }
-function simView(id){openUni(id);}
+function simView(id){window.location.href='/Profile/?id='+id;}
 function openUniSection(id,section){
   openUni(id);
   const ids={majors:'mSecMajors',road:'mSecRoad',schs:'mSecSchs'};
