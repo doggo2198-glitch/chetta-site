@@ -437,6 +437,36 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .profile-hero .m-title{font-size:2.3rem}
 .profile-hero .m-loc{font-size:.95rem}
 .profile-body-wrap{max-width:900px;margin:0 auto;padding:2.2rem 2rem 5rem}
+.pf-toc-bar{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--g200,#e5e7eb);position:sticky;top:58px;z-index:120}
+.pf-toc-bar-inner{max-width:900px;margin:0 auto;padding:.8rem 2rem}
+.pf-toc{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none}
+.pf-toc::-webkit-scrollbar{display:none}
+.pf-toc a{flex-shrink:0;background:var(--g50);border:1px solid var(--g200);color:var(--g700);font-size:.76rem;font-weight:700;padding:.38rem .8rem;border-radius:100px;text-decoration:none;white-space:nowrap;cursor:pointer;transition:all .15s}
+.pf-toc a:hover{background:var(--g100);border-color:var(--g300)}
+.rank-crit-list{list-style:none;padding:0;margin:.9rem 0 0;display:grid;gap:.6rem}
+.rank-crit-list li{font-size:.85rem;color:var(--g600);display:flex;gap:.55rem;align-items:flex-start;line-height:1.55}
+.rank-crit-list li strong{color:var(--g900);font-weight:700}
+.rank-crit-list li::before{content:'•';color:var(--blue);font-weight:900;line-height:1.55}
+.rank-crit-note{font-size:.78rem;color:var(--g400);margin-top:.8rem;font-style:italic}
+.sim-scroll{display:flex;gap:1rem;overflow-x:auto;padding:.3rem .15rem 1rem;margin:0 -.15rem;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.sim-scroll::-webkit-scrollbar{height:6px}
+.sim-scroll::-webkit-scrollbar-thumb{background:var(--g200);border-radius:100px}
+.sim-card{flex:0 0 230px;scroll-snap-align:start;border:1px solid var(--g200);border-radius:14px;overflow:hidden;background:#fff;transition:box-shadow .15s,transform .15s;cursor:pointer}
+.sim-card:hover{box-shadow:0 10px 26px rgba(0,0,0,.1);transform:translateY(-2px)}
+.sim-photo{position:relative;height:118px}
+.sim-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.sim-photo-name{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;font-weight:700;font-size:.83rem;padding:1.6rem .7rem .5rem;line-height:1.25}
+.sim-actions{display:flex;border-bottom:1px solid var(--g100)}
+.sim-actions button{flex:1;background:none;border:none;padding:.5rem 0;font-size:.71rem;font-weight:700;color:var(--g500);display:flex;align-items:center;justify-content:center;gap:.3rem;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sim-actions button:first-child{border-right:1px solid var(--g100)}
+.sim-actions button:hover{background:var(--g50)}
+.sim-actions button.saved{color:#e11d48}
+.sim-actions button .sim-heart-ico svg{width:12px;height:12px;display:block}
+.sim-facts{padding:.7rem .8rem .3rem;display:grid;gap:.4rem}
+.sim-fact{font-size:.75rem;color:var(--g600)}
+.sim-view{display:block;width:calc(100% - 1.6rem);margin:.7rem .8rem .8rem;background:var(--amber);color:#fff;text-align:center;font-weight:700;font-size:.78rem;padding:.55rem 0;border-radius:8px;border:none;cursor:pointer;transition:background .15s}
+.sim-view:hover{background:#b45f04}
+@media(max-width:768px){.pf-toc-bar-inner{padding:.7rem 1.1rem}}
 .profile-loading{padding:5rem 1rem;text-align:center;color:var(--g400);font-size:.9rem}
 .profile-spinner{width:38px;height:38px;border:3px solid var(--g200);border-top-color:var(--blue);border-radius:50%;margin:0 auto 1.1rem;animation:roadspin .8s linear infinite}
 .profile-signin{padding:5rem 1.6rem;text-align:center;max-width:900px;margin:0 auto}
@@ -818,6 +848,18 @@ html[data-theme="dark"] .chip{background:rgba(59,130,246,.14)}
 html[data-theme="dark"] .rm-text{color:var(--d-text-dim)}
 html[data-theme="dark"] .sch-row{border:1px solid var(--d-border)}
 html[data-theme="dark"] .sch-row:hover{background:rgba(59,130,246,.14)}
+html[data-theme="dark"] .pf-toc-bar{background:rgba(10,14,26,.86);border-bottom-color:var(--d-border)}
+html[data-theme="dark"] .pf-toc a{background:var(--d-surface);border-color:var(--d-border);color:var(--d-text-dim)}
+html[data-theme="dark"] .pf-toc a:hover{background:var(--d-surface2);border-color:var(--d-border)}
+html[data-theme="dark"] .rank-crit-list li{color:var(--d-text-mute)}
+html[data-theme="dark"] .rank-crit-list li strong{color:var(--d-text)}
+html[data-theme="dark"] .rank-crit-note{color:var(--d-text-mute)}
+html[data-theme="dark"] .sim-card{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .sim-actions{border-bottom-color:var(--d-border)}
+html[data-theme="dark"] .sim-actions button{color:var(--d-text-mute)}
+html[data-theme="dark"] .sim-actions button:first-child{border-right-color:var(--d-border)}
+html[data-theme="dark"] .sim-actions button:hover{background:var(--d-surface2)}
+html[data-theme="dark"] .sim-fact{color:var(--d-text-mute)}
 html[data-theme="dark"] .sch-rname{color:var(--d-text)}
 html[data-theme="dark"] .sch-ramt{color:var(--d-text-mute)}
 html[data-theme="dark"] .checklist li{color:var(--d-text-dim)}
@@ -1396,6 +1438,7 @@ html[data-theme="dark"] .skill-item-bar{background:var(--d-surface2)}
     </div>
     <div class="profile-hero-bottom" id="profile-hero-bottom"></div>
   </div>
+  <div class="pf-toc-bar" id="pf-toc-bar" style="display:none"><div class="pf-toc-bar-inner"><div class="pf-toc" id="pf-toc"></div></div></div>
   <div class="profile-body-wrap" id="profile-body-wrap">
     <div class="profile-loading"><div class="profile-spinner"></div>Loading…</div>
   </div>
@@ -2866,14 +2909,29 @@ function initProfilePage(){
   const dc=u.diff>=90?'#dc2626':u.diff>=70?'#d97706':'#16a34a';
   const dl=u.diff>=90?(t.diff_ext||'Extremely Selective'):u.diff>=70?(t.diff_very||'Very Selective'):(t.diff_sel||'Selective');
   bodyWrap.innerHTML=`
+      <div class="m-sec" id="sec-overview" style="margin-top:0">🏫 Overview</div>
       <div class="stats-row">
         <div class="s-box"><div class="s-box-val">${u.acc}%</div><div class="s-box-key">${t.mod_acc||'Acceptance Rate'}</div></div>
         <div class="s-box"><div class="s-box-val">$${u.tuition.toLocaleString()}</div><div class="s-box-key">${t.mod_tui||'Annual Tuition'}</div></div>
         <div class="s-box"><div class="s-box-val" style="font-size:1.1rem">${u.sat}</div><div class="s-box-key">${t.mod_sat||'SAT Range'}</div></div>
       </div>
-      <div class="diff-wrap"><div class="diff-lbls"><span>${t.mod_diff||'Difficulty'}</span><span style="color:${dc};font-weight:700">${dl} (${u.diff}/100)</span></div><div class="diff-track"><div class="diff-fill" style="width:${u.diff}%"></div></div></div>
       <p class="m-desc">${u.desc}</p>
-      <div class="m-sec">🌍 ${t.mod_life||'Life at'} ${u.short}</div>
+      <div class="m-sec" id="sec-ranking">🏆 Ranking &amp; Admissions</div>
+      <div class="diff-wrap"><div class="diff-lbls"><span>${t.mod_diff||'Difficulty'}</span><span style="color:${dc};font-weight:700">${dl} (${u.diff}/100)</span></div><div class="diff-track"><div class="diff-fill" style="width:${u.diff}%"></div></div></div>
+      <p class="m-desc">${u.name} is currently ranked <strong>${u.rank}</strong>, with a minimum expected profile of <strong>${u.sat}</strong> (SAT) and <strong>${u.gpa}</strong> (GPA), as a ${u.type.toLowerCase()}.</p>
+      <ul class="rank-crit-list">
+        <li><strong>Academic &amp; employer reputation</strong> — global surveys of faculty and employers rating the institution's teaching and graduate quality.</li>
+        <li><strong>Faculty-to-student ratio</strong> — how much individual teaching attention students typically receive.</li>
+        <li><strong>Research citations</strong> — how often the university's published research is cited by others in its field.</li>
+        <li><strong>International outlook</strong> — the share of international faculty and students, and the strength of global research partnerships.</li>
+        <li><strong>Employment outcomes</strong> — how effectively graduates are placed into strong careers after leaving.</li>
+      </ul>
+      <p class="rank-crit-note">General methodology categories used by major global rankings (e.g. QS World University Rankings) — actual weightings vary by ranking body and year.</p>
+      <div class="m-sec" id="sec-majors">📚 ${t.mod_majors||'Programmes'}</div>
+      <p class="m-desc">${u.name} offers ${u.majors.length}+ programmes of study, including:</p>
+      <div class="chips-row">${u.majors.slice(0,6).map(m=>`<span class="chip">${m}</span>`).join('')}</div>
+      <div class="m-sec" id="sec-campus">📍 Location &amp; Campus Life</div>
+      <p class="m-desc">${u.name} is located in <strong>${u.loc}</strong>.</p>
       <div class="life-grid">
         <div class="life-item"><span class="life-ico">☀️</span><div><div class="life-lbl">Weather</div><div class="life-val">${u.weather||'—'}</div></div></div>
         <div class="life-item"><span class="life-ico">🏫</span><div><div class="life-lbl">Campus Size</div><div class="life-val">${u.campusSize||'—'}</div></div></div>
@@ -2883,15 +2941,65 @@ function initProfilePage(){
         <div class="life-item"><span class="life-ico">🛡️</span><div><div class="life-lbl">Safety</div><div class="life-val">${u.safety||'—'}</div></div></div>
         <div class="life-item"><span class="life-ico">😊</span><div><div class="life-lbl">Student Satisfaction</div><div class="life-val">${u.satisfaction||'—'}</div></div></div>
       </div>
-      <div class="m-sec">📚 ${t.mod_majors||'Popular Majors'}</div>
-      <div class="chips-row">${u.majors.slice(0,6).map(m=>`<span class="chip">${m}</span>`).join('')}</div>
-      <div class="m-sec">📋 ${t.mod_road||'Application Roadmap'}</div>
+      <div class="m-sec" id="sec-road">📋 ${t.mod_road||'Application Roadmap'}</div>
       <div class="roadmap">${u.roadmap.map((s,i)=>`<div class="rm-item"><div class="rm-left"><div class="rm-circle">${i+1}</div>${i<u.roadmap.length-1?'<div class="rm-line"></div>':''}</div><div class="rm-text">${s}</div></div>`).join('')}</div>
-      <div class="m-sec">🎓 ${t.mod_schs||'Available Scholarships'}</div>
+      <div class="m-sec" id="sec-schs">🎓 ${t.mod_schs||'Available Scholarships'}</div>
       <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`openSchFromProfile(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
       <a href="${u.url}" target="_blank" class="visit-lnk">${t.mod_visit||'Visit university website'} ↗</a>
       <a href="/Universities/CompareUniversities?a=${u.id}" class="visit-lnk" style="margin-top:.6rem">⇄ ${t.mod_compare||'Compare with another university'}</a>
-      <button class="visit-lnk" style="margin-top:.6rem;background:var(--g900)" onclick="window.location.href='/Roadmap/?id=${u.id}'">🗺️ ${t.card_roadmap||'Create Roadmap'}</button>`;
+      <button class="visit-lnk" style="margin-top:.6rem;background:var(--g900)" onclick="window.location.href='/Roadmap/?id=${u.id}'">🗺️ ${t.card_roadmap||'Create Roadmap'}</button>
+      <div class="m-sec" id="sec-similar">🎓 Similar Universities</div>
+      ${similarUnisHTML(u)}`;
+  const tocBar=document.getElementById('pf-toc-bar');
+  const tocEl=document.getElementById('pf-toc');
+  if(tocBar&&tocEl){
+    tocBar.style.display='';
+    tocEl.innerHTML=pfTocHTML();
+  }
+  if(window.location.hash){
+    const target=document.getElementById(window.location.hash.slice(1));
+    if(target)setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),80);
+  }
+}
+function pfTocHTML(){
+  const items=[['sec-overview','Overview'],['sec-ranking','Ranking & Admissions'],['sec-majors','Programmes'],['sec-campus','Location & Campus Life'],['sec-road','Application Roadmap'],['sec-schs','Scholarships'],['sec-similar','Similar Universities']];
+  return items.map(([id,label])=>`<a onclick="document.getElementById('${id}')?.scrollIntoView({behavior:'smooth',block:'start'})">${label}</a>`).join('');
+}
+function similarUnisHTML(u){
+  let sim=unis.filter(x=>x.id!==u.id&&x.region===u.region);
+  if(sim.length<4){
+    const more=unis.filter(x=>x.id!==u.id&&x.type===u.type&&!sim.some(s=>s.id===x.id));
+    sim=sim.concat(more);
+  }
+  sim=sim.slice(0,8);
+  if(!sim.length)return '<p class="m-desc">No similar universities found yet.</p>';
+  return `<div class="sim-scroll">${sim.map(su=>{
+    const cands=imgCandidates(su);
+    const sSaved=isSaved(su.id);
+    return `<div class="sim-card" onclick="window.location.href='/Profile/?id=${su.id}'">
+      <div class="sim-photo"><img src="${cands[0]}" data-c="${cands.join('|||')}" data-i="0" alt="${su.name}" loading="lazy" onerror="imgFallback(this)"><div class="sim-photo-name">${su.name}</div></div>
+      <div class="sim-actions">
+        <button class="${sSaved?'saved':''}" onclick="event.stopPropagation();toggleSimSave(${su.id},this)"><span class="sim-heart-ico">${heartSVG(sSaved)}</span> Shortlist</button>
+        <button onclick="event.stopPropagation();window.location.href='/Universities/CompareUniversities?a=${su.id}'">⇄ Compare</button>
+      </div>
+      <div class="sim-facts">
+        <div class="sim-fact">📍 ${su.loc}</div>
+        <div class="sim-fact">🏆 ${su.rank}</div>
+        <div class="sim-fact">🎓 ${su.majors.length} programmes</div>
+      </div>
+      <button class="sim-view" onclick="event.stopPropagation();window.location.href='/Profile/?id=${su.id}'">View University</button>
+    </div>`;
+  }).join('')}</div>`;
+}
+function toggleSimSave(id,btnEl){
+  let saved=getSaved();
+  const wasSaved=saved.includes(id);
+  saved=wasSaved?saved.filter(x=>x!==id):[...saved,id];
+  setSaved(saved);
+  const nowSaved=!wasSaved;
+  btnEl.classList.toggle('saved',nowSaved);
+  const ico=btnEl.querySelector('.sim-heart-ico');
+  if(ico)ico.innerHTML=heartSVG(nowSaved);
 }
 function openSchFromProfile(id){
   openSch(id);
