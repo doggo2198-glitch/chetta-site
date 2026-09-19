@@ -478,17 +478,44 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .crit-cell span{font-size:.8rem;color:var(--g600);line-height:1.5}
 .rank-view-btn{display:inline-flex;align-items:center;gap:.4rem;background:none;border:1.5px solid var(--g300);color:var(--g900);font-weight:700;font-size:.82rem;padding:.55rem 1.1rem;border-radius:100px;text-decoration:none;margin-top:.9rem;transition:all .15s}
 .rank-view-btn:hover{background:var(--g50);border-color:var(--g400)}
-.prog-level-tabs{display:flex;gap:.5rem;margin:.9rem 0}
-.prog-level-tab{background:var(--g50);border:1px solid var(--g200);color:var(--g700);font-weight:700;font-size:.82rem;padding:.5rem 1.1rem;border-radius:100px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
-.prog-level-tab:hover:not(.active){background:var(--g100)}
-.prog-level-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
-.prog-list{display:none;flex-direction:column;gap:.7rem}
-.prog-list.active{display:flex}
-.prog-card{border:1px solid var(--g200);border-radius:12px;padding:1rem 1.1rem}
-.prog-card-name{font-weight:700;color:var(--g900);font-size:.92rem;margin-bottom:.7rem}
-.prog-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.7rem}
-.prog-fact-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.3px;color:var(--g400);font-weight:600;margin-bottom:.2rem}
-.prog-fact-val{font-size:.83rem;color:var(--g900);font-weight:600}
+.prog-lvl-acc{border:1px solid var(--g200);border-radius:12px;margin-top:1rem;overflow:hidden;background:linear-gradient(180deg,#fff,var(--g50))}
+.prog-lvl-hd{display:flex;align-items:center;gap:.6rem;padding:1rem 1.2rem;cursor:pointer;font-weight:700;color:var(--g900);font-size:.95rem;user-select:none}
+.prog-lvl-hd .lvl-ico{font-size:1.1rem}
+.prog-lvl-hd .chev{margin-left:auto;transition:transform .2s;color:var(--g500);flex-shrink:0}
+.prog-lvl-acc.open>.prog-lvl-hd .chev{transform:rotate(180deg)}
+.prog-lvl-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.prog-lvl-acc.open>.prog-lvl-body{max-height:8000px}
+.prog-lvl-inner{padding:0 0 .3rem}
+.prog-cat-acc{border-top:1px solid var(--g200)}
+.prog-cat-hd{display:flex;align-items:center;padding:.9rem 1.2rem;cursor:pointer;font-weight:700;color:var(--g900);font-size:.88rem;user-select:none}
+.prog-cat-hd .chev{margin-left:auto;transition:transform .2s;color:var(--g500);flex-shrink:0}
+.prog-cat-acc.open>.prog-cat-hd .chev{transform:rotate(180deg)}
+.prog-cat-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.prog-cat-acc.open>.prog-cat-body{max-height:4000px}
+.prog-cat-inner{padding:0 1.2rem .6rem}
+.prog-item-acc{border-top:1px solid var(--g100)}
+.prog-item-hd{display:flex;align-items:center;padding:.8rem .2rem;cursor:pointer;font-weight:700;color:var(--g800,var(--g900));font-size:.86rem;user-select:none}
+.prog-item-hd .chev{margin-left:auto;transition:transform .2s;color:var(--g500);flex-shrink:0}
+.prog-item-acc.open>.prog-item-hd .chev{transform:rotate(180deg)}
+.prog-item-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.prog-item-acc.open>.prog-item-body{max-height:1200px}
+.prog-item-inner{padding:.3rem 0 1.1rem}
+.prog-panel{background:var(--g900);border-radius:12px;padding:1.2rem 1.3rem;margin-bottom:.9rem}
+.prog-panel-name{color:#fff;font-weight:700;font-size:1.02rem;display:flex;align-items:center;gap:.4rem;margin-bottom:1rem}
+.prog-panel-btns{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.prog-btn-outline{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);color:#fff;font-weight:700;font-size:.78rem;padding:.5rem .9rem;border-radius:8px;text-decoration:none}
+.prog-btn-outline:hover{background:rgba(255,255,255,.16)}
+.prog-btn-solid{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue);color:#fff;font-weight:700;font-size:.78rem;padding:.5rem 1rem;border-radius:8px;text-decoration:none;border:none;cursor:pointer}
+.prog-btn-solid:hover{background:#1d4ed8}
+.prog-mini-action{display:inline-flex;align-items:center;gap:.35rem;background:none;border:none;color:rgba(255,255,255,.75);font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.prog-mini-action:last-child{margin-left:auto}
+.prog-mini-action.saved{color:#f87171}
+.prog-mini-action .prog-heart-ico svg{width:13px;height:13px;display:block}
+.prog-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.prog-stat-box{background:var(--g50);border-radius:8px;padding:.8rem .5rem;text-align:center}
+.prog-stat-lbl{font-size:.7rem;color:var(--g500);margin-bottom:.25rem}
+.prog-stat-val{font-size:.85rem;font-weight:700;color:var(--g900)}
+@media(max-width:480px){.prog-mini-action:last-child{margin-left:0}}
 @media(max-width:560px){.crit-grid-2col{grid-template-columns:1fr}}
 .sim-scroll{display:flex;gap:1rem;overflow-x:auto;padding:.3rem .15rem 1rem;margin:0 -.15rem;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
 .sim-scroll::-webkit-scrollbar{height:6px}
@@ -918,12 +945,15 @@ html[data-theme="dark"] .crit-cell strong{color:var(--d-text)}
 html[data-theme="dark"] .crit-cell span{color:var(--d-text-mute)}
 html[data-theme="dark"] .rank-view-btn{border-color:var(--d-border);color:var(--d-text)}
 html[data-theme="dark"] .rank-view-btn:hover{background:var(--d-surface2);border-color:var(--d-border)}
-html[data-theme="dark"] .prog-level-tab{background:var(--d-bg);border-color:var(--d-border);color:var(--d-text-dim)}
-html[data-theme="dark"] .prog-level-tab:hover:not(.active){background:var(--d-surface2)}
-html[data-theme="dark"] .prog-card{border-color:var(--d-border)}
-html[data-theme="dark"] .prog-card-name{color:var(--d-text)}
-html[data-theme="dark"] .prog-fact-lbl{color:var(--d-text-mute)}
-html[data-theme="dark"] .prog-fact-val{color:var(--d-text)}
+html[data-theme="dark"] .prog-lvl-acc{background:linear-gradient(180deg,var(--d-surface),var(--d-bg));border-color:var(--d-border)}
+html[data-theme="dark"] .prog-lvl-hd{color:var(--d-text)}
+html[data-theme="dark"] .prog-cat-acc{border-top-color:var(--d-border)}
+html[data-theme="dark"] .prog-cat-hd{color:var(--d-text)}
+html[data-theme="dark"] .prog-item-acc{border-top-color:var(--d-border)}
+html[data-theme="dark"] .prog-item-hd{color:var(--d-text-dim)}
+html[data-theme="dark"] .prog-stat-box{background:var(--d-bg)}
+html[data-theme="dark"] .prog-stat-lbl{color:var(--d-text-mute)}
+html[data-theme="dark"] .prog-stat-val{color:var(--d-text)}
 html[data-theme="dark"] .sim-card{background:var(--d-surface);border-color:var(--d-border)}
 html[data-theme="dark"] .sim-actions{border-bottom-color:var(--d-border)}
 html[data-theme="dark"] .sim-actions button{color:var(--d-text-mute)}
@@ -2953,28 +2983,76 @@ function progDurations(u){
   const shortCycle=/United Kingdom|UK|Germany|France|Netherlands|Switzerland|Italy|Spain|Sweden|Denmark|Belgium|Austria|Finland|Norway|Poland|Portugal|Ireland|Czech/i.test(country);
   return {bachelorYears:shortCycle?3:4, masterYears:shortCycle?1:2};
 }
-function programmeCardsHTML(u,level){
-  const {bachelorYears,masterYears}=progDurations(u);
-  const years=level==='bachelor'?bachelorYears:masterYears;
+function categorizeMajor(m){
+  const s=m.toLowerCase();
+  if(/art|humanit|philosoph|literat|history|language|linguist|design|music/.test(s))return'Arts and Humanities';
+  if(/business|management|finance|econom|account|marketing|entrepreneur/.test(s))return'Business and Management';
+  if(/engineer|technology|computer|data|software|robot|it\b/.test(s))return'Engineering and Technology';
+  if(/medic|health|nursing|biolog|pharma|clinical/.test(s))return'Medicine and Health';
+  if(/law|politic|social|international relations|policy|psycholog/.test(s))return'Social Sciences and Law';
+  if(/physic|chemistry|math|science|environment/.test(s))return'Natural Sciences';
+  return'Other Programmes';
+}
+function toggleAcc2(hd){
+  hd.parentElement.classList.toggle('open');
+}
+function toggleProgSave(id,btnEl){
+  let saved=getSaved();
+  const wasSaved=saved.includes(id);
+  saved=wasSaved?saved.filter(x=>x!==id):[...saved,id];
+  setSaved(saved);
+  const nowSaved=!wasSaved;
+  btnEl.classList.toggle('saved',nowSaved);
+  const ico=btnEl.querySelector('.prog-heart-ico');
+  if(ico)ico.innerHTML=heartSVG(nowSaved);
+}
+function programmeItemHTML(u,level,majorName,ci,mi,years){
   const totalCost=u.tuition*years;
-  return u.majors.slice(0,8).map(m=>`
-    <div class="prog-card">
-      <div class="prog-card-name">${m} <span style="color:var(--g400);font-weight:500">(${level==='bachelor'?'BSc/BA':'MSc/MA'})</span></div>
-      <div class="prog-facts">
-        <div><div class="prog-fact-lbl">Study Level</div><div class="prog-fact-val">${level==='bachelor'?'Undergraduate':'Graduate'}</div></div>
-        <div><div class="prog-fact-lbl">Duration</div><div class="prog-fact-val">${years} year${years>1?'s':''}</div></div>
-        <div><div class="prog-fact-lbl">Study Mode</div><div class="prog-fact-val">Full-time, on-campus</div></div>
-        <div><div class="prog-fact-lbl">Starting Month</div><div class="prog-fact-val">September (Fall)</div></div>
-        <div><div class="prog-fact-lbl">Cost / Year</div><div class="prog-fact-val">$${u.tuition.toLocaleString()}</div></div>
-        <div><div class="prog-fact-lbl">Est. Total Cost</div><div class="prog-fact-val">$${totalCost.toLocaleString()}</div></div>
+  const s=isSaved(u.id);
+  return `<div class="prog-item-acc" id="pi-${level}-${ci}-${mi}">
+    <div class="prog-item-hd" onclick="toggleAcc2(this)">${majorName}<span class="chev">▾</span></div>
+    <div class="prog-item-body"><div class="prog-item-inner">
+      <div class="prog-panel">
+        <div class="prog-panel-name">${majorName} <a href="${u.url}" target="_blank" rel="noopener" style="color:rgba(255,255,255,.55);text-decoration:none">↗</a></div>
+        <div class="prog-panel-btns">
+          <a class="prog-btn-outline" href="${u.url}" target="_blank" rel="noopener">↗ Official Website</a>
+          <a class="prog-btn-solid" href="${u.url}" target="_blank" rel="noopener">Go to Programme</a>
+          <button class="prog-mini-action ${s?'saved':''}" onclick="event.stopPropagation();toggleProgSave(${u.id},this)"><span class="prog-heart-ico">${heartSVG(s)}</span> Shortlist</button>
+          <button class="prog-mini-action" onclick="event.stopPropagation();window.location.href='/Universities/CompareUniversities?a=${u.id}'">⇄ Compare</button>
+        </div>
       </div>
+      <div class="prog-stats-grid">
+        <div class="prog-stat-box"><div class="prog-stat-lbl">Study Level</div><div class="prog-stat-val">${level==='bachelor'?'Bachelors':'Masters'}</div></div>
+        <div class="prog-stat-box"><div class="prog-stat-lbl">Course Intensity</div><div class="prog-stat-val">Full Time</div></div>
+        <div class="prog-stat-box"><div class="prog-stat-lbl">Study Mode</div><div class="prog-stat-val">On-campus</div></div>
+        <div class="prog-stat-box"><div class="prog-stat-lbl">Programme Duration</div><div class="prog-stat-val">${years*12} Months</div></div>
+        <div class="prog-stat-box"><div class="prog-stat-lbl">Tuition fees (Est.)</div><div class="prog-stat-val">$${u.tuition.toLocaleString()}/yr</div></div>
+        <div class="prog-stat-box"><div class="prog-stat-lbl">Starting Month</div><div class="prog-stat-val">September</div></div>
+      </div>
+    </div></div>
+  </div>`;
+}
+function programmeCategoryHTML(u,level,years){
+  const groups={};
+  u.majors.forEach(m=>{const c=categorizeMajor(m);(groups[c]=groups[c]||[]).push(m);});
+  return Object.keys(groups).map((cat,ci)=>`
+    <div class="prog-cat-acc" id="pc-${level}-${ci}">
+      <div class="prog-cat-hd" onclick="toggleAcc2(this)">${cat} (${groups[cat].length})<span class="chev">▾</span></div>
+      <div class="prog-cat-body"><div class="prog-cat-inner">
+        ${groups[cat].map((m,mi)=>programmeItemHTML(u,level,m,ci,mi,years)).join('')}
+      </div></div>
     </div>`).join('');
 }
-function switchProgLevel(btn,level){
-  btn.parentElement.querySelectorAll('.prog-level-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.prog-list').forEach(el=>el.classList.remove('active'));
-  document.getElementById('prog-list-'+level)?.classList.add('active');
+function programmeLevelHTML(u,level){
+  const {bachelorYears,masterYears}=progDurations(u);
+  const years=level==='bachelor'?bachelorYears:masterYears;
+  const count=u.majors.length;
+  return `<div class="prog-lvl-acc ${level==='bachelor'?'open':''}" id="pl-${level}">
+    <div class="prog-lvl-hd" onclick="toggleAcc2(this)"><span class="lvl-ico">${level==='bachelor'?'🎓':'📖'}</span> ${level==='bachelor'?"Bachelor's":"Master's"} (${count})<span class="chev">▾</span></div>
+    <div class="prog-lvl-body"><div class="prog-lvl-inner">
+      ${programmeCategoryHTML(u,level,years)}
+    </div></div>
+  </div>`;
 }
 function initProfilePage(){
   const params=new URLSearchParams(window.location.search);
@@ -3022,14 +3100,10 @@ function initProfilePage(){
       </div>
       <p class="m-desc">${u.desc}</p>
       <div class="m-sec" id="sec-majors">📚 ${t.mod_majors||'Programmes'}</div>
-      <p class="m-desc">${u.name} offers ${u.majors.length}+ programmes of study, including:</p>
-      <div class="prog-level-tabs">
-        <button class="prog-level-tab active" onclick="switchProgLevel(this,'bachelor')">Bachelor's</button>
-        <button class="prog-level-tab" onclick="switchProgLevel(this,'master')">Master's</button>
-      </div>
-      <div class="prog-list active" id="prog-list-bachelor">${programmeCardsHTML(u,'bachelor')}</div>
-      <div class="prog-list" id="prog-list-master">${programmeCardsHTML(u,'master')}</div>
-      <p class="rank-crit-note">Duration, study mode, and starting month shown are typical patterns for this level and country — some programmes also offer Spring/January intakes. Confirm exact details, and check for scholarships or aid you may qualify for, on the university's official programme pages. Cost estimates use the published annual tuition shown above.</p>
+      <p class="m-desc">${u.name} offers ${u.majors.length}+ programmes of study across the following levels:</p>
+      ${programmeLevelHTML(u,'bachelor')}
+      ${programmeLevelHTML(u,'master')}
+      <p class="rank-crit-note">Study mode, course intensity, duration, tuition, and starting month shown are typical patterns for this level and country — some programmes also offer Spring/January intakes or online/hybrid delivery. Confirm exact details, and check for scholarships or aid you may qualify for, on the university's official programme pages.</p>
       <div class="m-sec" id="sec-uinfo">🏛️ University Information</div>
       <div class="uinfo-acc open">
         <div class="uinfo-acc-hd" onclick="toggleAcc(this)">Admission<span class="chev">▾</span></div>
