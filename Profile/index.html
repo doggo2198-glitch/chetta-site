@@ -469,6 +469,16 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .rank-crit-list li strong{color:var(--g900);font-weight:700}
 .rank-crit-list li::before{content:'•';color:var(--blue);font-weight:900;line-height:1.55}
 .rank-crit-note{font-size:.78rem;color:var(--g400);margin-top:.8rem;font-style:italic}
+.rank-badges{display:flex;gap:.8rem;flex-wrap:wrap;margin:.9rem 0 1.2rem}
+.rank-badge{flex:1;min-width:130px;background:#fff;border:1px solid var(--g200);border-radius:12px;padding:.9rem 1rem}
+.rank-badge-val{font-family:'Instrument Serif',serif;font-size:1.5rem;color:var(--g900);line-height:1.15}
+.rank-badge-lbl{font-size:.72rem;color:var(--g500);margin-top:.3rem;line-height:1.3}
+.crit-grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1.6rem;margin-top:1rem}
+.crit-cell strong{display:block;color:var(--g900);font-size:.85rem;margin-bottom:.2rem}
+.crit-cell span{font-size:.8rem;color:var(--g600);line-height:1.5}
+.rank-view-btn{display:inline-flex;align-items:center;gap:.4rem;background:none;border:1.5px solid var(--g300);color:var(--g900);font-weight:700;font-size:.82rem;padding:.55rem 1.1rem;border-radius:100px;text-decoration:none;margin-top:.9rem;transition:all .15s}
+.rank-view-btn:hover{background:var(--g50);border-color:var(--g400)}
+@media(max-width:560px){.crit-grid-2col{grid-template-columns:1fr}}
 .sim-scroll{display:flex;gap:1rem;overflow-x:auto;padding:.3rem .15rem 1rem;margin:0 -.15rem;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
 .sim-scroll::-webkit-scrollbar{height:6px}
 .sim-scroll::-webkit-scrollbar-thumb{background:var(--g200);border-radius:100px}
@@ -890,6 +900,13 @@ html[data-theme="dark"] .admit-val{color:var(--d-text)}
 html[data-theme="dark"] .rank-crit-list li{color:var(--d-text-mute)}
 html[data-theme="dark"] .rank-crit-list li strong{color:var(--d-text)}
 html[data-theme="dark"] .rank-crit-note{color:var(--d-text-mute)}
+html[data-theme="dark"] .rank-badge{background:var(--d-bg);border-color:var(--d-border)}
+html[data-theme="dark"] .rank-badge-val{color:var(--d-text)}
+html[data-theme="dark"] .rank-badge-lbl{color:var(--d-text-mute)}
+html[data-theme="dark"] .crit-cell strong{color:var(--d-text)}
+html[data-theme="dark"] .crit-cell span{color:var(--d-text-mute)}
+html[data-theme="dark"] .rank-view-btn{border-color:var(--d-border);color:var(--d-text)}
+html[data-theme="dark"] .rank-view-btn:hover{background:var(--d-surface2);border-color:var(--d-border)}
 html[data-theme="dark"] .sim-card{background:var(--d-surface);border-color:var(--d-border)}
 html[data-theme="dark"] .sim-actions{border-bottom-color:var(--d-border)}
 html[data-theme="dark"] .sim-actions button{color:var(--d-text-mute)}
@@ -2966,14 +2983,15 @@ function initProfilePage(){
       <div class="uinfo-acc open">
         <div class="uinfo-acc-hd" onclick="toggleAcc(this)">Admission<span class="chev">▾</span></div>
         <div class="uinfo-acc-body"><div class="uinfo-acc-inner">
-          <div class="admit-lvl-lbl">Typical accepted range</div>
+          <div class="admit-lvl-lbl">Bachelor / Undergraduate — typical accepted range</div>
           <div class="admit-grid">
             <div class="admit-box"><div class="admit-lbl">SAT</div><div class="admit-val">${u.sat}</div></div>
             <div class="admit-box"><div class="admit-lbl">GPA</div><div class="admit-val">${u.gpa}</div></div>
+            <div class="admit-box"><div class="admit-lbl">IELTS (Est.)</div><div class="admit-val">${u.diff>=90?'7.0 – 7.5+':u.diff>=70?'6.5 – 7.0':'6.0 – 6.5'}</div></div>
             <div class="admit-box"><div class="admit-lbl">Acceptance Rate</div><div class="admit-val">${u.acc}%</div></div>
             <div class="admit-box"><div class="admit-lbl">Selectivity</div><div class="admit-val" style="font-size:.95rem;color:${dc}">${dl}</div></div>
           </div>
-          <p class="rank-crit-note">Chetta doesn't have this university's specific TOEFL/IELTS/Duolingo/PTE cutoffs yet — check its official admissions page for exact English-proficiency requirements.</p>
+          <p class="rank-crit-note">IELTS is Chetta's estimated typical band for this selectivity tier, not ${u.short}'s official published score — Chetta doesn't have this university's specific TOEFL/IELTS/Duolingo/PTE cutoffs yet, so confirm exact English-proficiency requirements on its official admissions page.</p>
         </div></div>
       </div>
       <div class="m-sec" id="sec-cost">💵 Cost of Living</div>
@@ -2986,16 +3004,22 @@ function initProfilePage(){
       <div class="m-sec" id="sec-schs">🎓 ${t.mod_schs||'Available Scholarships'}</div>
       <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`openSchFromProfile(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
       <div class="m-sec" id="sec-ranking">🏆 Rankings &amp; Ratings</div>
+      <div class="rank-badges">
+        <div class="rank-badge"><div class="rank-badge-val">${u.rank}</div><div class="rank-badge-lbl">Global Ranking</div></div>
+        <div class="rank-badge"><div class="rank-badge-val">${u.acc}%</div><div class="rank-badge-lbl">Acceptance Rate</div></div>
+        <div class="rank-badge"><div class="rank-badge-val" style="color:${dc}">${u.diff}/100</div><div class="rank-badge-lbl">Selectivity Score</div></div>
+      </div>
       <div class="diff-wrap"><div class="diff-lbls"><span>${t.mod_diff||'Difficulty'}</span><span style="color:${dc};font-weight:700">${dl} (${u.diff}/100)</span></div><div class="diff-track"><div class="diff-fill" style="width:${u.diff}%"></div></div></div>
       <p class="m-desc">${u.name} is currently ranked <strong>${u.rank}</strong>, with a minimum expected profile of <strong>${u.sat}</strong> (SAT) and <strong>${u.gpa}</strong> (GPA), as a ${u.type.toLowerCase()}.</p>
-      <ul class="rank-crit-list">
-        <li><strong>Academic &amp; employer reputation</strong> — global surveys of faculty and employers rating the institution's teaching and graduate quality.</li>
-        <li><strong>Faculty-to-student ratio</strong> — how much individual teaching attention students typically receive.</li>
-        <li><strong>Research citations</strong> — how often the university's published research is cited by others in its field.</li>
-        <li><strong>International outlook</strong> — the share of international faculty and students, and the strength of global research partnerships.</li>
-        <li><strong>Employment outcomes</strong> — how effectively graduates are placed into strong careers after leaving.</li>
-      </ul>
-      <p class="rank-crit-note">General methodology categories used by major global rankings (e.g. QS World University Rankings) — actual weightings vary by ranking body and year.</p>
+      <div class="crit-grid-2col">
+        <div class="crit-cell"><strong>Academic &amp; employer reputation</strong><span>Global surveys of faculty and employers rating the institution's teaching and graduate quality.</span></div>
+        <div class="crit-cell"><strong>Faculty-to-student ratio</strong><span>How much individual teaching attention students typically receive.</span></div>
+        <div class="crit-cell"><strong>Research citations</strong><span>How often the university's published research is cited by others in its field.</span></div>
+        <div class="crit-cell"><strong>International outlook</strong><span>The share of international faculty and students, and the strength of global research partnerships.</span></div>
+        <div class="crit-cell"><strong>Employment outcomes</strong><span>How effectively graduates are placed into strong careers after leaving.</span></div>
+      </div>
+      <p class="rank-crit-note">General methodology categories used by major global rankings (e.g. QS World University Rankings) — Chetta doesn't have this university's exact per-category QS scores yet, so actual numbers and weightings will vary by ranking body and year.</p>
+      <a class="rank-view-btn" href="https://www.google.com/search?q=${encodeURIComponent(u.name+' QS World University Ranking')}" target="_blank" rel="noopener">View official rankings ↗</a>
       <div class="m-sec" id="sec-campus">📍 Campus Locations</div>
       <div class="camp-loc-card">
         <div class="camp-loc-title">${u.name} Campus</div>
