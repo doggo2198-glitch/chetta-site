@@ -438,13 +438,18 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .profile-hero .m-loc{font-size:.95rem}
 .pf-layout{max-width:1180px;margin:0 auto;padding:2.2rem 2rem 5rem;display:flex;align-items:flex-start;gap:2rem}
 .pf-sidebar{flex:0 0 250px;position:sticky;top:78px}
-.pf-sidebar-card{background:#fff;border:1px solid var(--g200);border-radius:16px;padding:1.5rem 1.3rem}
-.pf-sidebar-title{font-family:'Instrument Serif',serif;font-size:1.35rem;color:var(--g900);margin-bottom:1rem}
-.pf-toc{display:flex;flex-direction:column;gap:.1rem}
+.pf-sidebar-card{padding:0 .1rem}
+.pf-sidebar-title{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g900);margin-bottom:1.1rem;padding-left:.65rem}
+.pf-toc{display:flex;flex-direction:column;gap:.05rem}
 .pf-toc a{padding:.55rem .65rem;border-radius:8px;font-size:.86rem;color:var(--g600);font-weight:500;cursor:pointer;text-decoration:none;border-left:3px solid transparent;transition:all .15s;white-space:nowrap}
 .pf-toc a:hover{background:var(--g50);color:var(--g900)}
 .pf-toc a.active{background:var(--bluepale);color:var(--blue);font-weight:700;border-left-color:var(--blue)}
 .profile-body-wrap{flex:1;min-width:0;background:#fff;border:1px solid var(--g200);border-radius:16px;padding:1.9rem 2.1rem}
+.camp-loc-card{background:var(--g50);border:1px solid var(--g200);border-radius:12px;padding:1.1rem 1.2rem;margin:.9rem 0 1.2rem}
+.camp-loc-title{font-weight:700;color:var(--g900);font-size:.95rem;margin-bottom:.4rem}
+.camp-loc-addr{color:var(--g600);font-size:.85rem;line-height:1.6;margin-bottom:.8rem}
+.camp-loc-btn{display:inline-flex;align-items:center;gap:.4rem;background:#fff;border:1px solid var(--g200);color:var(--g900);font-size:.82rem;font-weight:600;padding:.5rem 1rem;border-radius:8px;text-decoration:none;transition:all .15s}
+.camp-loc-btn:hover{border-color:var(--g300);background:var(--g100)}
 .uinfo-acc{border:1px solid var(--g200);border-radius:12px;margin-top:1rem;overflow:hidden}
 .uinfo-acc-hd{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.1rem;background:var(--g50);cursor:pointer;font-weight:700;color:var(--g900);font-size:.92rem;user-select:none}
 .uinfo-acc-hd .chev{transition:transform .2s;color:var(--g500);flex-shrink:0}
@@ -865,7 +870,11 @@ html[data-theme="dark"] .chip{background:rgba(59,130,246,.14)}
 html[data-theme="dark"] .rm-text{color:var(--d-text-dim)}
 html[data-theme="dark"] .sch-row{border:1px solid var(--d-border)}
 html[data-theme="dark"] .sch-row:hover{background:rgba(59,130,246,.14)}
-html[data-theme="dark"] .pf-sidebar-card{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .camp-loc-card{background:var(--d-bg);border-color:var(--d-border)}
+html[data-theme="dark"] .camp-loc-title{color:var(--d-text)}
+html[data-theme="dark"] .camp-loc-addr{color:var(--d-text-mute)}
+html[data-theme="dark"] .camp-loc-btn{background:var(--d-surface);border-color:var(--d-border);color:var(--d-text)}
+html[data-theme="dark"] .camp-loc-btn:hover{background:var(--d-surface2)}
 html[data-theme="dark"] .pf-sidebar-title{color:var(--d-text)}
 html[data-theme="dark"] .pf-toc a{color:var(--d-text-dim)}
 html[data-theme="dark"] .pf-toc a:hover{background:var(--d-surface2);color:var(--d-text)}
@@ -2988,7 +2997,11 @@ function initProfilePage(){
       </ul>
       <p class="rank-crit-note">General methodology categories used by major global rankings (e.g. QS World University Rankings) — actual weightings vary by ranking body and year.</p>
       <div class="m-sec" id="sec-campus">📍 Campus Locations</div>
-      <p class="m-desc">${u.name} is located in <strong>${u.loc}</strong>.</p>
+      <div class="camp-loc-card">
+        <div class="camp-loc-title">${u.name} Campus</div>
+        <div class="camp-loc-addr">${u.loc}</div>
+        <a class="camp-loc-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(u.name+' campus, '+u.loc)}" target="_blank" rel="noopener">Open in Maps ↗</a>
+      </div>
       <div class="life-grid">
         <div class="life-item"><span class="life-ico">🔬</span><div><div class="life-lbl">Research Opportunities</div><div class="life-val">${u.research||'—'}</div></div></div>
         <div class="life-item"><span class="life-ico">💼</span><div><div class="life-lbl">Employment Outcomes</div><div class="life-val">${u.employment||'—'}</div></div></div>
