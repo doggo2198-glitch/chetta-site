@@ -436,13 +436,29 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .profile-hero-bottom{position:relative;z-index:2;max-width:900px;width:100%;margin:0 auto;padding:0 2rem 2.4rem}
 .profile-hero .m-title{font-size:2.3rem}
 .profile-hero .m-loc{font-size:.95rem}
-.profile-body-wrap{max-width:900px;margin:0 auto;padding:2.2rem 2rem 5rem}
-.pf-toc-bar{background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--g200,#e5e7eb);position:sticky;top:58px;z-index:120}
-.pf-toc-bar-inner{max-width:900px;margin:0 auto;padding:.8rem 2rem}
-.pf-toc{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none}
-.pf-toc::-webkit-scrollbar{display:none}
-.pf-toc a{flex-shrink:0;background:var(--g50);border:1px solid var(--g200);color:var(--g700);font-size:.76rem;font-weight:700;padding:.38rem .8rem;border-radius:100px;text-decoration:none;white-space:nowrap;cursor:pointer;transition:all .15s}
-.pf-toc a:hover{background:var(--g100);border-color:var(--g300)}
+.pf-layout{max-width:1180px;margin:0 auto;padding:2.2rem 2rem 5rem;display:flex;align-items:flex-start;gap:2rem}
+.pf-sidebar{flex:0 0 250px;position:sticky;top:78px}
+.pf-sidebar-card{background:#fff;border:1px solid var(--g200);border-radius:16px;padding:1.5rem 1.3rem}
+.pf-sidebar-title{font-family:'Instrument Serif',serif;font-size:1.35rem;color:var(--g900);margin-bottom:1rem}
+.pf-toc{display:flex;flex-direction:column;gap:.1rem}
+.pf-toc a{padding:.55rem .65rem;border-radius:8px;font-size:.86rem;color:var(--g600);font-weight:500;cursor:pointer;text-decoration:none;border-left:3px solid transparent;transition:all .15s;white-space:nowrap}
+.pf-toc a:hover{background:var(--g50);color:var(--g900)}
+.pf-toc a.active{background:var(--bluepale);color:var(--blue);font-weight:700;border-left-color:var(--blue)}
+.profile-body-wrap{flex:1;min-width:0;background:#fff;border:1px solid var(--g200);border-radius:16px;padding:1.9rem 2.1rem}
+.uinfo-acc{border:1px solid var(--g200);border-radius:12px;margin-top:1rem;overflow:hidden}
+.uinfo-acc-hd{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.1rem;background:var(--g50);cursor:pointer;font-weight:700;color:var(--g900);font-size:.92rem;user-select:none}
+.uinfo-acc-hd .chev{transition:transform .2s;color:var(--g500);flex-shrink:0}
+.uinfo-acc.open .uinfo-acc-hd .chev{transform:rotate(180deg)}
+.uinfo-acc-body{max-height:0;overflow:hidden;transition:max-height .28s ease}
+.uinfo-acc.open .uinfo-acc-body{max-height:700px}
+.uinfo-acc-inner{padding:1.1rem}
+.admit-lvl-lbl{font-size:.76rem;font-weight:700;color:var(--g700);margin-bottom:.55rem}
+.admit-lvl-lbl:not(:first-child){margin-top:1.1rem}
+.admit-grid{display:flex;flex-wrap:wrap;background:var(--g50);border:1px solid var(--g200);border-radius:10px;overflow:hidden}
+.admit-box{flex:1;min-width:100px;text-align:center;padding:.9rem .5rem;border-right:1px solid var(--g200);border-bottom:1px solid var(--g200)}
+.admit-box:last-child{border-right:none}
+.admit-lbl{font-size:.63rem;text-transform:uppercase;letter-spacing:.4px;color:var(--g400);margin-bottom:.35rem;font-weight:600}
+.admit-val{font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--g900)}
 .rank-crit-list{list-style:none;padding:0;margin:.9rem 0 0;display:grid;gap:.6rem}
 .rank-crit-list li{font-size:.85rem;color:var(--g600);display:flex;gap:.55rem;align-items:flex-start;line-height:1.55}
 .rank-crit-list li strong{color:var(--g900);font-weight:700}
@@ -464,9 +480,10 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .sim-actions button .sim-heart-ico svg{width:12px;height:12px;display:block}
 .sim-facts{padding:.7rem .8rem .3rem;display:grid;gap:.4rem}
 .sim-fact{font-size:.75rem;color:var(--g600)}
-.sim-view{display:block;width:calc(100% - 1.6rem);margin:.7rem .8rem .8rem;background:var(--amber);color:#fff;text-align:center;font-weight:700;font-size:.78rem;padding:.55rem 0;border-radius:8px;border:none;cursor:pointer;transition:background .15s}
-.sim-view:hover{background:#b45f04}
-@media(max-width:768px){.pf-toc-bar-inner{padding:.7rem 1.1rem}}
+.sim-view{display:block;width:calc(100% - 1.6rem);margin:.7rem .8rem .8rem;background:var(--blue);color:#fff;text-align:center;font-weight:700;font-size:.78rem;padding:.55rem 0;border-radius:8px;border:none;cursor:pointer;transition:background .15s}
+.sim-view:hover{background:#1d4ed8}
+@media(max-width:900px){.pf-layout{flex-direction:column;padding:1.6rem 1.1rem 3rem;gap:1.1rem}.pf-sidebar{position:static;flex:none;width:100%}.pf-sidebar-card{padding:1rem 1.1rem}.pf-toc{flex-direction:row;overflow-x:auto;gap:.4rem;scrollbar-width:none}.pf-toc::-webkit-scrollbar{display:none}.pf-toc a{flex-shrink:0;border-left:none;border:1px solid var(--g200);border-radius:100px}.pf-toc a.active{border-color:var(--blue)}.profile-body-wrap{padding:1.3rem 1.2rem;width:100%}}
+
 .profile-loading{padding:5rem 1rem;text-align:center;color:var(--g400);font-size:.9rem}
 .profile-spinner{width:38px;height:38px;border:3px solid var(--g200);border-top-color:var(--blue);border-radius:50%;margin:0 auto 1.1rem;animation:roadspin .8s linear infinite}
 .profile-signin{padding:5rem 1.6rem;text-align:center;max-width:900px;margin:0 auto}
@@ -848,9 +865,19 @@ html[data-theme="dark"] .chip{background:rgba(59,130,246,.14)}
 html[data-theme="dark"] .rm-text{color:var(--d-text-dim)}
 html[data-theme="dark"] .sch-row{border:1px solid var(--d-border)}
 html[data-theme="dark"] .sch-row:hover{background:rgba(59,130,246,.14)}
-html[data-theme="dark"] .pf-toc-bar{background:rgba(10,14,26,.86);border-bottom-color:var(--d-border)}
-html[data-theme="dark"] .pf-toc a{background:var(--d-surface);border-color:var(--d-border);color:var(--d-text-dim)}
-html[data-theme="dark"] .pf-toc a:hover{background:var(--d-surface2);border-color:var(--d-border)}
+html[data-theme="dark"] .pf-sidebar-card{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .pf-sidebar-title{color:var(--d-text)}
+html[data-theme="dark"] .pf-toc a{color:var(--d-text-dim)}
+html[data-theme="dark"] .pf-toc a:hover{background:var(--d-surface2);color:var(--d-text)}
+html[data-theme="dark"] .pf-toc a.active{background:rgba(59,130,246,.16);color:#93c5fd}
+html[data-theme="dark"] .profile-body-wrap{background:var(--d-surface);border-color:var(--d-border)}
+html[data-theme="dark"] .uinfo-acc{border-color:var(--d-border)}
+html[data-theme="dark"] .uinfo-acc-hd{background:var(--d-bg);color:var(--d-text)}
+html[data-theme="dark"] .admit-lvl-lbl{color:var(--d-text-dim)}
+html[data-theme="dark"] .admit-grid{background:var(--d-bg);border-color:var(--d-border)}
+html[data-theme="dark"] .admit-box{border-color:var(--d-border)}
+html[data-theme="dark"] .admit-lbl{color:var(--d-text-mute)}
+html[data-theme="dark"] .admit-val{color:var(--d-text)}
 html[data-theme="dark"] .rank-crit-list li{color:var(--d-text-mute)}
 html[data-theme="dark"] .rank-crit-list li strong{color:var(--d-text)}
 html[data-theme="dark"] .rank-crit-note{color:var(--d-text-mute)}
@@ -1438,9 +1465,16 @@ html[data-theme="dark"] .skill-item-bar{background:var(--d-surface2)}
     </div>
     <div class="profile-hero-bottom" id="profile-hero-bottom"></div>
   </div>
-  <div class="pf-toc-bar" id="pf-toc-bar" style="display:none"><div class="pf-toc-bar-inner"><div class="pf-toc" id="pf-toc"></div></div></div>
-  <div class="profile-body-wrap" id="profile-body-wrap">
-    <div class="profile-loading"><div class="profile-spinner"></div>Loading…</div>
+  <div class="pf-layout" id="pf-layout">
+    <aside class="pf-sidebar" id="pf-sidebar" style="display:none">
+      <div class="pf-sidebar-card">
+        <div class="pf-sidebar-title">Table of contents</div>
+        <nav class="pf-toc" id="pf-toc"></nav>
+      </div>
+    </aside>
+    <div class="profile-body-wrap" id="profile-body-wrap">
+      <div class="profile-loading"><div class="profile-spinner"></div>Loading…</div>
+    </div>
   </div>
 </div>
 
@@ -2916,7 +2950,33 @@ function initProfilePage(){
         <div class="s-box"><div class="s-box-val" style="font-size:1.1rem">${u.sat}</div><div class="s-box-key">${t.mod_sat||'SAT Range'}</div></div>
       </div>
       <p class="m-desc">${u.desc}</p>
-      <div class="m-sec" id="sec-ranking">🏆 Ranking &amp; Admissions</div>
+      <div class="m-sec" id="sec-majors">📚 ${t.mod_majors||'Programmes'}</div>
+      <p class="m-desc">${u.name} offers ${u.majors.length}+ programmes of study, including:</p>
+      <div class="chips-row">${u.majors.slice(0,6).map(m=>`<span class="chip">${m}</span>`).join('')}</div>
+      <div class="m-sec" id="sec-uinfo">🏛️ University Information</div>
+      <div class="uinfo-acc open">
+        <div class="uinfo-acc-hd" onclick="toggleAcc(this)">Admission<span class="chev">▾</span></div>
+        <div class="uinfo-acc-body"><div class="uinfo-acc-inner">
+          <div class="admit-lvl-lbl">Typical accepted range</div>
+          <div class="admit-grid">
+            <div class="admit-box"><div class="admit-lbl">SAT</div><div class="admit-val">${u.sat}</div></div>
+            <div class="admit-box"><div class="admit-lbl">GPA</div><div class="admit-val">${u.gpa}</div></div>
+            <div class="admit-box"><div class="admit-lbl">Acceptance Rate</div><div class="admit-val">${u.acc}%</div></div>
+            <div class="admit-box"><div class="admit-lbl">Selectivity</div><div class="admit-val" style="font-size:.95rem;color:${dc}">${dl}</div></div>
+          </div>
+          <p class="rank-crit-note">Chetta doesn't have this university's specific TOEFL/IELTS/Duolingo/PTE cutoffs yet — check its official admissions page for exact English-proficiency requirements.</p>
+        </div></div>
+      </div>
+      <div class="m-sec" id="sec-cost">💵 Cost of Living</div>
+      <div class="admit-grid" style="margin-top:.5rem">
+        <div class="admit-box"><div class="admit-lbl">Annual Tuition</div><div class="admit-val">$${u.tuition.toLocaleString()}</div></div>
+        <div class="admit-box"><div class="admit-lbl">Campus Size</div><div class="admit-val" style="font-size:.95rem">${u.campusSize||'—'}</div></div>
+        <div class="admit-box"><div class="admit-lbl">Weather</div><div class="admit-val" style="font-size:.95rem">${u.weather||'—'}</div></div>
+      </div>
+      <p class="rank-crit-note">Tuition shown is the published annual sticker price and doesn't include housing, food, or other living costs, which vary by city.</p>
+      <div class="m-sec" id="sec-schs">🎓 ${t.mod_schs||'Available Scholarships'}</div>
+      <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`openSchFromProfile(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
+      <div class="m-sec" id="sec-ranking">🏆 Rankings &amp; Ratings</div>
       <div class="diff-wrap"><div class="diff-lbls"><span>${t.mod_diff||'Difficulty'}</span><span style="color:${dc};font-weight:700">${dl} (${u.diff}/100)</span></div><div class="diff-track"><div class="diff-fill" style="width:${u.diff}%"></div></div></div>
       <p class="m-desc">${u.name} is currently ranked <strong>${u.rank}</strong>, with a minimum expected profile of <strong>${u.sat}</strong> (SAT) and <strong>${u.gpa}</strong> (GPA), as a ${u.type.toLowerCase()}.</p>
       <ul class="rank-crit-list">
@@ -2927,14 +2987,9 @@ function initProfilePage(){
         <li><strong>Employment outcomes</strong> — how effectively graduates are placed into strong careers after leaving.</li>
       </ul>
       <p class="rank-crit-note">General methodology categories used by major global rankings (e.g. QS World University Rankings) — actual weightings vary by ranking body and year.</p>
-      <div class="m-sec" id="sec-majors">📚 ${t.mod_majors||'Programmes'}</div>
-      <p class="m-desc">${u.name} offers ${u.majors.length}+ programmes of study, including:</p>
-      <div class="chips-row">${u.majors.slice(0,6).map(m=>`<span class="chip">${m}</span>`).join('')}</div>
-      <div class="m-sec" id="sec-campus">📍 Location &amp; Campus Life</div>
+      <div class="m-sec" id="sec-campus">📍 Campus Locations</div>
       <p class="m-desc">${u.name} is located in <strong>${u.loc}</strong>.</p>
       <div class="life-grid">
-        <div class="life-item"><span class="life-ico">☀️</span><div><div class="life-lbl">Weather</div><div class="life-val">${u.weather||'—'}</div></div></div>
-        <div class="life-item"><span class="life-ico">🏫</span><div><div class="life-lbl">Campus Size</div><div class="life-val">${u.campusSize||'—'}</div></div></div>
         <div class="life-item"><span class="life-ico">🔬</span><div><div class="life-lbl">Research Opportunities</div><div class="life-val">${u.research||'—'}</div></div></div>
         <div class="life-item"><span class="life-ico">💼</span><div><div class="life-lbl">Employment Outcomes</div><div class="life-val">${u.employment||'—'}</div></div></div>
         <div class="life-item"><span class="life-ico">🛂</span><div><div class="life-lbl">Visa Friendliness</div><div class="life-val">${u.visaFriendly||'—'}</div></div></div>
@@ -2943,29 +2998,45 @@ function initProfilePage(){
       </div>
       <div class="m-sec" id="sec-road">📋 ${t.mod_road||'Application Roadmap'}</div>
       <div class="roadmap">${u.roadmap.map((s,i)=>`<div class="rm-item"><div class="rm-left"><div class="rm-circle">${i+1}</div>${i<u.roadmap.length-1?'<div class="rm-line"></div>':''}</div><div class="rm-text">${s}</div></div>`).join('')}</div>
-      <div class="m-sec" id="sec-schs">🎓 ${t.mod_schs||'Available Scholarships'}</div>
-      <div class="sch-list">${u.scholarships.map(sn=>{const sc=schs.find(x=>x.name===sn);return`<div class="sch-row" onclick="${sc?`openSchFromProfile(${sc.id})`:''}"><div><div class="sch-rname">${sn}</div><div class="sch-ramt">${sc?sc.amount:'—'}</div></div><span>→</span></div>`}).join('')}</div>
       <a href="${u.url}" target="_blank" class="visit-lnk">${t.mod_visit||'Visit university website'} ↗</a>
       <a href="/Universities/CompareUniversities?a=${u.id}" class="visit-lnk" style="margin-top:.6rem">⇄ ${t.mod_compare||'Compare with another university'}</a>
       <button class="visit-lnk" style="margin-top:.6rem;background:var(--g900)" onclick="window.location.href='/Roadmap/?id=${u.id}'">🗺️ ${t.card_roadmap||'Create Roadmap'}</button>
       <div class="m-sec" id="sec-similar">🎓 Similar Universities</div>
       ${similarUnisHTML(u)}`;
-  const tocBar=document.getElementById('pf-toc-bar');
+  const sidebar=document.getElementById('pf-sidebar');
   const tocEl=document.getElementById('pf-toc');
-  if(tocBar&&tocEl){
-    tocBar.style.display='';
+  if(sidebar&&tocEl){
+    sidebar.style.display='';
     tocEl.innerHTML=pfTocHTML();
+    initTocScrollSpy();
   }
   if(window.location.hash){
     const target=document.getElementById(window.location.hash.slice(1));
     if(target)setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),80);
   }
 }
+function toggleAcc(hdEl){
+  hdEl.closest('.uinfo-acc').classList.toggle('open');
+}
 function pfTocHTML(){
-  const items=[['sec-overview','Overview'],['sec-ranking','Ranking & Admissions'],['sec-majors','Programmes'],['sec-campus','Location & Campus Life'],['sec-road','Application Roadmap'],['sec-schs','Scholarships'],['sec-similar','Similar Universities']];
-  return items.map(([id,label])=>`<a onclick="document.getElementById('${id}')?.scrollIntoView({behavior:'smooth',block:'start'})">${label}</a>`).join('');
+  const items=[['sec-overview','Overview'],['sec-majors','Programmes'],['sec-uinfo','University Information'],['sec-cost','Cost of Living'],['sec-schs','Scholarships'],['sec-ranking','Rankings & Ratings'],['sec-campus','Campus Locations'],['sec-similar','Similar Universities']];
+  return items.map(([id,label],i)=>`<a data-toc="${id}" class="${i===0?'active':''}" onclick="document.getElementById('${id}')?.scrollIntoView({behavior:'smooth',block:'start'})">${label}</a>`).join('');
+}
+function initTocScrollSpy(){
+  const links=document.querySelectorAll('#pf-toc a[data-toc]');
+  if(!links.length||!('IntersectionObserver' in window))return;
+  const secIds=Array.from(links).map(a=>a.dataset.toc);
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        links.forEach(a=>a.classList.toggle('active',a.dataset.toc===en.target.id));
+      }
+    });
+  },{rootMargin:'-96px 0px -70% 0px',threshold:0});
+  secIds.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
 }
 function similarUnisHTML(u){
+
   let sim=unis.filter(x=>x.id!==u.id&&x.region===u.region);
   if(sim.length<4){
     const more=unis.filter(x=>x.id!==u.id&&x.type===u.type&&!sim.some(s=>s.id===x.id));
