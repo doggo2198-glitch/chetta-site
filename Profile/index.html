@@ -478,6 +478,17 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .crit-cell span{font-size:.8rem;color:var(--g600);line-height:1.5}
 .rank-view-btn{display:inline-flex;align-items:center;gap:.4rem;background:none;border:1.5px solid var(--g300);color:var(--g900);font-weight:700;font-size:.82rem;padding:.55rem 1.1rem;border-radius:100px;text-decoration:none;margin-top:.9rem;transition:all .15s}
 .rank-view-btn:hover{background:var(--g50);border-color:var(--g400)}
+.prog-level-tabs{display:flex;gap:.5rem;margin:.9rem 0}
+.prog-level-tab{background:var(--g50);border:1px solid var(--g200);color:var(--g700);font-weight:700;font-size:.82rem;padding:.5rem 1.1rem;border-radius:100px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.prog-level-tab:hover:not(.active){background:var(--g100)}
+.prog-level-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.prog-list{display:none;flex-direction:column;gap:.7rem}
+.prog-list.active{display:flex}
+.prog-card{border:1px solid var(--g200);border-radius:12px;padding:1rem 1.1rem}
+.prog-card-name{font-weight:700;color:var(--g900);font-size:.92rem;margin-bottom:.7rem}
+.prog-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.7rem}
+.prog-fact-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.3px;color:var(--g400);font-weight:600;margin-bottom:.2rem}
+.prog-fact-val{font-size:.83rem;color:var(--g900);font-weight:600}
 @media(max-width:560px){.crit-grid-2col{grid-template-columns:1fr}}
 .sim-scroll{display:flex;gap:1rem;overflow-x:auto;padding:.3rem .15rem 1rem;margin:0 -.15rem;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
 .sim-scroll::-webkit-scrollbar{height:6px}
@@ -907,6 +918,12 @@ html[data-theme="dark"] .crit-cell strong{color:var(--d-text)}
 html[data-theme="dark"] .crit-cell span{color:var(--d-text-mute)}
 html[data-theme="dark"] .rank-view-btn{border-color:var(--d-border);color:var(--d-text)}
 html[data-theme="dark"] .rank-view-btn:hover{background:var(--d-surface2);border-color:var(--d-border)}
+html[data-theme="dark"] .prog-level-tab{background:var(--d-bg);border-color:var(--d-border);color:var(--d-text-dim)}
+html[data-theme="dark"] .prog-level-tab:hover:not(.active){background:var(--d-surface2)}
+html[data-theme="dark"] .prog-card{border-color:var(--d-border)}
+html[data-theme="dark"] .prog-card-name{color:var(--d-text)}
+html[data-theme="dark"] .prog-fact-lbl{color:var(--d-text-mute)}
+html[data-theme="dark"] .prog-fact-val{color:var(--d-text)}
 html[data-theme="dark"] .sim-card{background:var(--d-surface);border-color:var(--d-border)}
 html[data-theme="dark"] .sim-actions{border-bottom-color:var(--d-border)}
 html[data-theme="dark"] .sim-actions button{color:var(--d-text-mute)}
@@ -2931,6 +2948,34 @@ function setHeroBackground(el,candidates){
   })();
 }
 let profileUniId=null;
+function progDurations(u){
+  const country=(u.loc.split(',').pop()||'').trim();
+  const shortCycle=/United Kingdom|UK|Germany|France|Netherlands|Switzerland|Italy|Spain|Sweden|Denmark|Belgium|Austria|Finland|Norway|Poland|Portugal|Ireland|Czech/i.test(country);
+  return {bachelorYears:shortCycle?3:4, masterYears:shortCycle?1:2};
+}
+function programmeCardsHTML(u,level){
+  const {bachelorYears,masterYears}=progDurations(u);
+  const years=level==='bachelor'?bachelorYears:masterYears;
+  const totalCost=u.tuition*years;
+  return u.majors.slice(0,8).map(m=>`
+    <div class="prog-card">
+      <div class="prog-card-name">${m} <span style="color:var(--g400);font-weight:500">(${level==='bachelor'?'BSc/BA':'MSc/MA'})</span></div>
+      <div class="prog-facts">
+        <div><div class="prog-fact-lbl">Study Level</div><div class="prog-fact-val">${level==='bachelor'?'Undergraduate':'Graduate'}</div></div>
+        <div><div class="prog-fact-lbl">Duration</div><div class="prog-fact-val">${years} year${years>1?'s':''}</div></div>
+        <div><div class="prog-fact-lbl">Study Mode</div><div class="prog-fact-val">Full-time, on-campus</div></div>
+        <div><div class="prog-fact-lbl">Starting Month</div><div class="prog-fact-val">September (Fall)</div></div>
+        <div><div class="prog-fact-lbl">Cost / Year</div><div class="prog-fact-val">$${u.tuition.toLocaleString()}</div></div>
+        <div><div class="prog-fact-lbl">Est. Total Cost</div><div class="prog-fact-val">$${totalCost.toLocaleString()}</div></div>
+      </div>
+    </div>`).join('');
+}
+function switchProgLevel(btn,level){
+  btn.parentElement.querySelectorAll('.prog-level-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.prog-list').forEach(el=>el.classList.remove('active'));
+  document.getElementById('prog-list-'+level)?.classList.add('active');
+}
 function initProfilePage(){
   const params=new URLSearchParams(window.location.search);
   const id=Number(params.get('id'));
@@ -2978,7 +3023,13 @@ function initProfilePage(){
       <p class="m-desc">${u.desc}</p>
       <div class="m-sec" id="sec-majors">📚 ${t.mod_majors||'Programmes'}</div>
       <p class="m-desc">${u.name} offers ${u.majors.length}+ programmes of study, including:</p>
-      <div class="chips-row">${u.majors.slice(0,6).map(m=>`<span class="chip">${m}</span>`).join('')}</div>
+      <div class="prog-level-tabs">
+        <button class="prog-level-tab active" onclick="switchProgLevel(this,'bachelor')">Bachelor's</button>
+        <button class="prog-level-tab" onclick="switchProgLevel(this,'master')">Master's</button>
+      </div>
+      <div class="prog-list active" id="prog-list-bachelor">${programmeCardsHTML(u,'bachelor')}</div>
+      <div class="prog-list" id="prog-list-master">${programmeCardsHTML(u,'master')}</div>
+      <p class="rank-crit-note">Duration, study mode, and starting month shown are typical patterns for this level and country — some programmes also offer Spring/January intakes. Confirm exact details, and check for scholarships or aid you may qualify for, on the university's official programme pages. Cost estimates use the published annual tuition shown above.</p>
       <div class="m-sec" id="sec-uinfo">🏛️ University Information</div>
       <div class="uinfo-acc open">
         <div class="uinfo-acc-hd" onclick="toggleAcc(this)">Admission<span class="chev">▾</span></div>
