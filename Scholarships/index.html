@@ -2574,20 +2574,7 @@ function openUni(id){
 }
 
 function openSch(id){
-  const s=schs.find(x=>x.id===id);if(!s)return;
-  const t=T();
-  document.getElementById('mSN').textContent=s.name;
-  document.getElementById('mSS').textContent=`${s.provider} • ${s.uni}`;
-  document.getElementById('mSA').innerHTML=`<span class="amt-pill">${s.amount}</span>`;
-  document.getElementById('sch-mbody').innerHTML=`
-    <p class="m-desc">${s.desc}</p>
-    <div class="m-sec">✅ ${t.mod_elig||'Eligibility'}</div>
-    <ul class="checklist">${s.reqs.map(r=>`<li>${r}</li>`).join('')}</ul>
-    <div class="m-sec" style="margin-top:1.3rem">📋 ${t.mod_howto||'How to Apply'}</div>
-    <div class="apply-steps">${s.steps.map((st,i)=>`<div class="a-step"><div class="a-circle">${i+1}</div><div class="a-text">${st}</div></div>`).join('')}</div>
-    <div class="dl-box" style="margin-top:1.2rem"><strong>${t.mod_dl||'⏰ Deadline:'}</strong> <span style="color:var(--red)">${s.deadline}</span><br><strong>${t.mod_field||'📚 Field:'}</strong> ${s.field}</div>
-    <a href="${s.url}" target="_blank" class="visit-lnk">${t.mod_svis||'Official scholarship website'} ↗</a>`;
-  openM('sch-ov');
+  window.location.href='/ScholarshipProfile/?id='+id;
 }
 
 function openVid(id){
