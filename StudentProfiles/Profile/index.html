@@ -62,6 +62,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pd-highlight{font-size:1.05rem;font-weight:600;color:var(--g900);line-height:1.45;padding:.9rem 1rem;background:var(--g50);border-radius:var(--r);margin-bottom:1.1rem}
 
 .pd-stats{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem}
+.pd-stats-note{font-size:.78rem;color:var(--g400);font-style:italic;margin-bottom:1.3rem}
 .pd-stat-pill{font-size:.78rem;font-weight:600;background:var(--g100);color:var(--g700);padding:.32rem .8rem;border-radius:20px}
 
 .pd-section-lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--g400);margin-bottom:.5rem;margin-top:1.3rem}
@@ -253,7 +254,7 @@ const PROFILES = [
   {
     id:'joshi', name:'Malvika Joshi', region:'global', tags:['admitted'], year:'2016',
     initials:'MJ',
-    stats:{},
+    stats:{}, statsNote:'No conventional GPA/SAT — admitted based on 3× International Olympiad in Informatics medals.',
     accepted:['MIT (Computer Science)'],
     waitlisted:[], rejected:[],
     highlight:'Admitted to MIT with no high school certificate — on Olympiad medals alone',
@@ -271,6 +272,7 @@ nav_back:'← All Profiles',
 crumb_all:'Student Profiles /',
 schools_a:'Admitted to',schools_w:'Waitlisted at',schools_r:'Rejected by',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+stats_undisclosed:'Specific GPA/SAT/ACT scores were not published for this case — see the source for full context.',
 source_lbl:'Source:',
 prev_btn:'← Previous profile',next_btn:'Next profile →',
 nf_h:'Profile not found',nf_s:'This profile may have been moved or removed.',nf_btn:'View all profiles',
@@ -281,6 +283,7 @@ nav_back:'← Barcha profillar',
 crumb_all:'Talaba profillari /',
 schools_a:'Qabul qilingan',schools_w:'Kutish ro\'yxatida',schools_r:'Rad etilgan',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+stats_undisclosed:'Ushbu holat uchun aniq GPA/SAT/ACT ko\'rsatkichlari e\'lon qilinmagan — to\'liq ma\'lumot uchun manbaga qarang.',
 source_lbl:'Manba:',
 prev_btn:'← Oldingi profil',next_btn:'Keyingi profil →',
 nf_h:'Profil topilmadi',nf_s:'Bu profil ko\'chirilgan yoki o\'chirilgan bo\'lishi mumkin.',nf_btn:'Barcha profillarni ko\'rish',
@@ -291,6 +294,7 @@ nav_back:'← Все профили',
 crumb_all:'Профили студентов /',
 schools_a:'Принят(а) в',schools_w:'Список ожидания в',schools_r:'Отказ от',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+stats_undisclosed:'Точные баллы GPA/SAT/ACT для этого случая не публиковались — подробности см. в источнике.',
 source_lbl:'Источник:',
 prev_btn:'← Предыдущий профиль',next_btn:'Следующий профиль →',
 nf_h:'Профиль не найден',nf_s:'Возможно, этот профиль был перемещён или удалён.',nf_btn:'Смотреть все профили',
@@ -376,7 +380,7 @@ function renderProfile(){
       '<div class="pd-badges">'+badgeHtml(p.tags)+'</div>'+
     '</div>'+
     '<div class="pd-highlight">'+p.highlight+'</div>'+
-    (stats?'<div class="pd-stats">'+stats+'</div>':'')+
+    (stats?'<div class="pd-stats">'+stats+'</div>':'<div class="pd-stats-note">'+(p.statsNote||tr('stats_undisclosed'))+'</div>')+
     schoolBlock(tr('schools_a'), p.accepted, 'a')+
     schoolBlock(tr('schools_w'), p.waitlisted, 'w')+
     schoolBlock(tr('schools_r'), p.rejected, 'r')+
