@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('chetta-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Profile — Chetta</title>
+<meta name="description" content="Full admissions profile: stats, schools, story, and source.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#09090b;--navy:#0f1729;--blue:#2563eb;--blue2:#3b82f6;--bluepale:#eff6ff;
+  --white:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
+  --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
+  --green:#16a34a;--gpale:#f0fdf4;--amber:#d97706;--apale:#fffbeb;--red:#dc2626;--rpale:#fef2f2;
+  --shadow:0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.04);
+  --shadowlg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
+  --r:10px;--rl:16px;--rxl:22px
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--g900);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--g200);height:58px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--black);cursor:pointer;flex-shrink:0;letter-spacing:-.3px;display:flex;align-items:center;gap:.5rem}
+.nav-logo img{height:32px;width:32px;object-fit:contain;flex-shrink:0}
+.nav-logo em{color:var(--blue);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:.6rem;margin-left:auto}
+.back-link{display:flex;align-items:center;gap:.35rem;background:none;border:1px solid var(--g200);color:var(--g700);font-size:.83rem;font-weight:500;padding:.4rem .9rem;border-radius:8px;transition:all .15s}
+.back-link:hover{border-color:var(--g300);background:var(--g50)}
+.lang-sw{position:relative}
+.lang-btn{display:flex;align-items:center;gap:.3rem;background:none;border:1px solid var(--g200);border-radius:8px;padding:.4rem .7rem;font-size:.78rem;font-weight:600;color:var(--g700)}
+.lang-btn:hover{border-color:var(--g300)}
+.lang-dd{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--g200);border-radius:10px;box-shadow:var(--shadowlg);min-width:150px;display:none;overflow:hidden;z-index:50}
+.lang-dd.open{display:block}
+.lang-opt{display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;font-size:.82rem;cursor:pointer}
+.lang-opt:hover{background:var(--g50)}
+.lang-opt.sel{background:var(--bluepale);font-weight:600}
+
+.wrap{max-width:820px;margin:0 auto;padding:2.2rem 1.5rem 5rem}
+.crumb{font-size:.82rem;color:var(--g500);margin-bottom:1.2rem}
+.crumb a{color:var(--blue);font-weight:600}
+
+.pd-card{border:1px solid var(--g200);border-radius:var(--rxl);padding:1.9rem 2rem;background:#fff}
+.pd-hd{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.pd-avatar{width:64px;height:64px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.3rem;color:#fff;background:var(--g700)}
+.pd-avatar.admitted{background:var(--green)}
+.pd-avatar.rejected{background:var(--red)}
+.pd-avatar.waitlisted{background:var(--amber)}
+.pd-name{font-family:'Instrument Serif',serif;font-size:1.7rem;letter-spacing:-.3px}
+.pd-meta{font-size:.85rem;color:var(--g500);margin-top:.15rem}
+.pd-badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-left:auto}
+.pd-badge{font-size:.7rem;font-weight:700;padding:.25rem .65rem;border-radius:20px;white-space:nowrap}
+.pd-badge.admitted{background:var(--gpale);color:var(--green)}
+.pd-badge.rejected{background:var(--rpale);color:var(--red)}
+.pd-badge.waitlisted{background:var(--apale);color:var(--amber)}
+
+.pd-highlight{font-size:1.05rem;font-weight:600;color:var(--g900);line-height:1.45;padding:.9rem 1rem;background:var(--g50);border-radius:var(--r);margin-bottom:1.1rem}
+
+.pd-stats{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem}
+.pd-stat-pill{font-size:.78rem;font-weight:600;background:var(--g100);color:var(--g700);padding:.32rem .8rem;border-radius:20px}
+
+.pd-section-lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--g400);margin-bottom:.5rem;margin-top:1.3rem}
+.pd-sch-list{display:flex;flex-wrap:wrap;gap:.45rem}
+.pd-sch-tag{font-size:.82rem;font-weight:600;padding:.3rem .75rem;border-radius:9px}
+.pd-sch-tag.a{background:var(--gpale);color:var(--green)}
+.pd-sch-tag.r{background:var(--rpale);color:var(--red)}
+.pd-sch-tag.w{background:var(--apale);color:var(--amber)}
+
+.pd-story{font-size:.96rem;color:var(--g700);line-height:1.75}
+
+.pd-src-box{margin-top:1.5rem;padding:1rem 1.1rem;border:1px dashed var(--g300);border-radius:var(--r);font-size:.82rem;color:var(--g500)}
+.pd-src-box a{color:var(--blue);font-weight:700}
+
+.pd-nav{display:flex;justify-content:space-between;margin-top:1.5rem;gap:.8rem}
+.pd-nav-btn{flex:1;border:1px solid var(--g200);border-radius:var(--r);padding:.7rem 1rem;font-size:.83rem;font-weight:600;color:var(--g700);text-align:center;transition:all .15s}
+.pd-nav-btn:hover{border-color:var(--g300);background:var(--g50)}
+
+.not-found{text-align:center;padding:4rem 1rem}
+.not-found .nf-ico{font-size:2.4rem;margin-bottom:.7rem}
+
+footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;color:var(--g400);font-size:.78rem;margin-top:2rem}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><img src="/favicon.png" alt="Chetta logo" onerror="this.style.display='none'">Chetta<em>.</em></a>
+  <div class="nav-right">
+    <div class="lang-sw" id="langSw">
+      <button class="lang-btn" onclick="toggleLangMenu(event)"><span id="cflag">🇬🇧</span> <span id="clbl">ENG</span></button>
+      <div class="lang-dd" id="langDd">
+        <div class="lang-opt sel" onclick="setLang('en')" id="lang-en">🇬🇧 <span>English</span></div>
+        <div class="lang-opt" onclick="setLang('uz')" id="lang-uz">🇺🇿 <span>O'zbek</span></div>
+        <div class="lang-opt" onclick="setLang('ru')" id="lang-ru">🇷🇺 <span>Русский</span></div>
+      </div>
+    </div>
+    <a class="back-link" href="/StudentProfiles/" data-i18n="nav_back">← All Profiles</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="crumb"><a href="/StudentProfiles/" data-i18n="crumb_all">Student Profiles</a> <span id="crumbName"></span></div>
+  <div id="content"></div>
+</div>
+
+<footer data-i18n="footer_text">© 2025 Chetta. Profiles sourced from public news coverage — see the source link above.</footer>
+
+<script src="/StudentProfiles/data.js"></script>
+<script>
+// ---------------- i18n ----------------
+const LANGS = {
+en:{
+nav_back:'← All Profiles',
+crumb_all:'Student Profiles /',
+schools_a:'Admitted to',schools_w:'Waitlisted at',schools_r:'Rejected by',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+source_lbl:'Source:',
+prev_btn:'← Previous profile',next_btn:'Next profile →',
+nf_h:'Profile not found',nf_s:'This profile may have been moved or removed.',nf_btn:'View all profiles',
+footer_text:'© 2025 Chetta. Profiles sourced from public news coverage — see the source link above.'
+},
+uz:{
+nav_back:'← Barcha profillar',
+crumb_all:'Talaba profillari /',
+schools_a:'Qabul qilingan',schools_w:'Kutish ro\'yxatida',schools_r:'Rad etilgan',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+source_lbl:'Manba:',
+prev_btn:'← Oldingi profil',next_btn:'Keyingi profil →',
+nf_h:'Profil topilmadi',nf_s:'Bu profil ko\'chirilgan yoki o\'chirilgan bo\'lishi mumkin.',nf_btn:'Barcha profillarni ko\'rish',
+footer_text:'© 2025 Chetta. Profillar ommaviy yangiliklardan olingan — yuqoridagi manba havolasiga qarang.'
+},
+ru:{
+nav_back:'← Все профили',
+crumb_all:'Профили студентов /',
+schools_a:'Принят(а) в',schools_w:'Список ожидания в',schools_r:'Отказ от',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+source_lbl:'Источник:',
+prev_btn:'← Предыдущий профиль',next_btn:'Следующий профиль →',
+nf_h:'Профиль не найден',nf_s:'Возможно, этот профиль был перемещён или удалён.',nf_btn:'Смотреть все профили',
+footer_text:'© 2025 Chetta. Профили взяты из открытых новостных источников — см. ссылку на источник выше.'
+}
+};
+let currentLang=localStorage.getItem('cl')||'en';
+function T(){return LANGS[currentLang]||LANGS.en}
+function tr(key){return (T()[key]!==undefined?T()[key]:(LANGS.en[key]!==undefined?LANGS.en[key]:key))}
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    el.textContent=tr(k);
+  });
+  document.getElementById('clbl').textContent=currentLang==='en'?'ENG':(currentLang==='uz'?'UZ':'RU');
+  document.getElementById('cflag').textContent=currentLang==='en'?'🇬🇧':(currentLang==='uz'?'🇺🇿':'🇷🇺');
+  ['en','uz','ru'].forEach(function(l){
+    var el=document.getElementById('lang-'+l);
+    if(el) el.classList.toggle('sel', l===currentLang);
+  });
+}
+function setLang(l){currentLang=l;try{localStorage.setItem('cl',l)}catch(e){}applyI18n();renderProfile();document.getElementById('langDd').classList.remove('open')}
+function toggleLangMenu(e){e.stopPropagation();document.getElementById('langDd').classList.toggle('open')}
+document.addEventListener('click',function(){document.getElementById('langDd').classList.remove('open')});
+
+// ---------------- RENDER ----------------
+function statPillsHtml(stats){
+  var out=[];
+  if(stats.gpa) out.push('<span class="pd-stat-pill">'+tr('stat_gpa')+': '+stats.gpa+'</span>');
+  if(stats.sat) out.push('<span class="pd-stat-pill">'+tr('stat_sat')+': '+stats.sat+'</span>');
+  if(stats.act) out.push('<span class="pd-stat-pill">'+tr('stat_act')+': '+stats.act+'</span>');
+  return out.join('');
+}
+function badgeHtml(tags){
+  var order=['admitted','waitlisted','rejected'];
+  var lbl={admitted:{en:'✅ Admitted',uz:'✅ Qabul qilingan',ru:'✅ Принят(а)'},
+           waitlisted:{en:'🕒 Waitlisted',uz:'🕒 Kutish ro\'yxatida',ru:'🕒 Список ожидания'},
+           rejected:{en:'❌ Rejected',uz:'❌ Rad etilgan',ru:'❌ Отказ'}};
+  return order.filter(function(t){return tags.indexOf(t)>-1;}).map(function(t){
+    return '<span class="pd-badge '+t+'">'+lbl[t][currentLang]+'</span>';
+  }).join('');
+}
+function primaryTag(tags){
+  if(tags.indexOf('admitted')>-1) return 'admitted';
+  if(tags.indexOf('waitlisted')>-1) return 'waitlisted';
+  return 'rejected';
+}
+function schoolBlock(label, list, cls){
+  if(!list.length) return '';
+  return '<div class="pd-section-lbl">'+label+'</div><div class="pd-sch-list">'+
+    list.map(function(s){return '<span class="pd-sch-tag '+cls+'">'+s+'</span>';}).join('')+
+  '</div>';
+}
+
+function renderProfile(){
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id');
+  var idx = PROFILES.findIndex(function(p){return p.id===id;});
+  var content = document.getElementById('content');
+  var crumbName = document.getElementById('crumbName');
+  if(idx===-1){
+    crumbName.textContent='';
+    content.innerHTML =
+      '<div class="not-found">'+
+        '<div class="nf-ico">🔎</div>'+
+        '<div style="font-weight:700;font-size:1.1rem;margin-bottom:.4rem" data-i18n="nf_h">'+tr('nf_h')+'</div>'+
+        '<div style="color:var(--g500);margin-bottom:1.2rem" data-i18n="nf_s">'+tr('nf_s')+'</div>'+
+        '<a class="back-link" href="/StudentProfiles/" data-i18n="nf_btn">'+tr('nf_btn')+'</a>'+
+      '</div>';
+    return;
+  }
+  var p = PROFILES[idx];
+  crumbName.textContent = p.name.replace(/"/g,'');
+  document.title = p.name.replace(/"/g,'') + ' — Chetta';
+  var stats = statPillsHtml(p.stats);
+  var prev = PROFILES[idx-1];
+  var next = PROFILES[idx+1];
+  content.innerHTML =
+  '<div class="pd-card">'+
+    '<div class="pd-hd">'+
+      '<div class="pd-avatar '+primaryTag(p.tags)+'">'+p.initials+'</div>'+
+      '<div><div class="pd-name">'+p.name+'</div><div class="pd-meta">'+p.year+'</div></div>'+
+      '<div class="pd-badges">'+badgeHtml(p.tags)+'</div>'+
+    '</div>'+
+    '<div class="pd-highlight">'+p.highlight+'</div>'+
+    (stats?'<div class="pd-stats">'+stats+'</div>':'')+
+    schoolBlock(tr('schools_a'), p.accepted, 'a')+
+    schoolBlock(tr('schools_w'), p.waitlisted, 'w')+
+    schoolBlock(tr('schools_r'), p.rejected, 'r')+
+    '<div class="pd-section-lbl">&nbsp;</div>'+
+    '<div class="pd-story">'+p.story+'</div>'+
+    '<div class="pd-src-box">'+tr('source_lbl')+' <a href="'+p.sourceUrl+'" target="_blank" rel="noopener">'+p.sourceName+'</a></div>'+
+  '</div>'+
+  '<div class="pd-nav">'+
+    (prev? '<a class="pd-nav-btn" href="/StudentProfiles/Profile/?id='+prev.id+'">'+tr('prev_btn')+'</a>' : '<span></span>')+
+    (next? '<a class="pd-nav-btn" href="/StudentProfiles/Profile/?id='+next.id+'">'+tr('next_btn')+'</a>' : '<span></span>')+
+  '</div>';
+}
+
+applyI18n();
+renderProfile();
+</script>
+</body>
+</html>
