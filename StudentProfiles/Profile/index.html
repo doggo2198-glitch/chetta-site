@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('chetta-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Profile — Chetta</title>
+<meta name="description" content="Full admissions profile: stats, schools, story, and source.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#09090b;--navy:#0f1729;--blue:#2563eb;--blue2:#3b82f6;--bluepale:#eff6ff;
+  --white:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
+  --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
+  --green:#16a34a;--gpale:#f0fdf4;--amber:#d97706;--apale:#fffbeb;--red:#dc2626;--rpale:#fef2f2;
+  --shadow:0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.04);
+  --shadowlg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
+  --r:10px;--rl:16px;--rxl:22px
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--g900);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--g200);height:58px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--black);cursor:pointer;flex-shrink:0;letter-spacing:-.3px;display:flex;align-items:center;gap:.5rem}
+.nav-logo img{height:32px;width:32px;object-fit:contain;flex-shrink:0}
+.nav-logo em{color:var(--blue);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:.6rem;margin-left:auto}
+.back-link{display:flex;align-items:center;gap:.35rem;background:none;border:1px solid var(--g200);color:var(--g700);font-size:.83rem;font-weight:500;padding:.4rem .9rem;border-radius:8px;transition:all .15s}
+.back-link:hover{border-color:var(--g300);background:var(--g50)}
+.lang-sw{position:relative}
+.lang-btn{display:flex;align-items:center;gap:.3rem;background:none;border:1px solid var(--g200);border-radius:8px;padding:.4rem .7rem;font-size:.78rem;font-weight:600;color:var(--g700)}
+.lang-btn:hover{border-color:var(--g300)}
+.lang-dd{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--g200);border-radius:10px;box-shadow:var(--shadowlg);min-width:150px;display:none;overflow:hidden;z-index:50}
+.lang-dd.open{display:block}
+.lang-opt{display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;font-size:.82rem;cursor:pointer}
+.lang-opt:hover{background:var(--g50)}
+.lang-opt.sel{background:var(--bluepale);font-weight:600}
+
+.wrap{max-width:820px;margin:0 auto;padding:2.2rem 1.5rem 5rem}
+.crumb{font-size:.82rem;color:var(--g500);margin-bottom:1.2rem}
+.crumb a{color:var(--blue);font-weight:600}
+
+.pd-card{border:1px solid var(--g200);border-radius:var(--rxl);padding:1.9rem 2rem;background:#fff}
+.pd-hd{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.pd-avatar{width:64px;height:64px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.3rem;color:#fff;background:var(--g700)}
+.pd-avatar.admitted{background:var(--green)}
+.pd-avatar.rejected{background:var(--red)}
+.pd-avatar.waitlisted{background:var(--amber)}
+.pd-name{font-family:'Instrument Serif',serif;font-size:1.7rem;letter-spacing:-.3px}
+.pd-meta{font-size:.85rem;color:var(--g500);margin-top:.15rem}
+.pd-badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-left:auto}
+.pd-badge{font-size:.7rem;font-weight:700;padding:.25rem .65rem;border-radius:20px;white-space:nowrap}
+.pd-badge.admitted{background:var(--gpale);color:var(--green)}
+.pd-badge.rejected{background:var(--rpale);color:var(--red)}
+.pd-badge.waitlisted{background:var(--apale);color:var(--amber)}
+
+.pd-highlight{font-size:1.05rem;font-weight:600;color:var(--g900);line-height:1.45;padding:.9rem 1rem;background:var(--g50);border-radius:var(--r);margin-bottom:1.1rem}
+
+.pd-stats{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem}
+.pd-stats-note{font-size:.78rem;color:var(--g400);font-style:italic;margin-bottom:1.3rem}
+.pd-stat-pill{font-size:.78rem;font-weight:600;background:var(--g100);color:var(--g700);padding:.32rem .8rem;border-radius:20px}
+
+.pd-section-lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--g400);margin-bottom:.5rem;margin-top:1.3rem}
+.pd-sch-list{display:flex;flex-wrap:wrap;gap:.45rem}
+.pd-sch-tag{font-size:.82rem;font-weight:600;padding:.3rem .75rem;border-radius:9px}
+.pd-sch-tag.a{background:var(--gpale);color:var(--green)}
+.pd-sch-tag.r{background:var(--rpale);color:var(--red)}
+.pd-sch-tag.w{background:var(--apale);color:var(--amber)}
+
+.pd-story{font-size:.96rem;color:var(--g700);line-height:1.75}
+
+.pd-src-box{margin-top:1.5rem;padding:1rem 1.1rem;border:1px dashed var(--g300);border-radius:var(--r);font-size:.82rem;color:var(--g500)}
+.pd-src-box a{color:var(--blue);font-weight:700}
+
+.pd-nav{display:flex;justify-content:space-between;margin-top:1.5rem;gap:.8rem}
+.pd-nav-btn{flex:1;border:1px solid var(--g200);border-radius:var(--r);padding:.7rem 1rem;font-size:.83rem;font-weight:600;color:var(--g700);text-align:center;transition:all .15s}
+.pd-nav-btn:hover{border-color:var(--g300);background:var(--g50)}
+
+.not-found{text-align:center;padding:4rem 1rem}
+.not-found .nf-ico{font-size:2.4rem;margin-bottom:.7rem}
+
+footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;color:var(--g400);font-size:.78rem;margin-top:2rem}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><img src="/favicon.png" alt="Chetta logo" onerror="this.style.display='none'">Chetta<em>.</em></a>
+  <div class="nav-right">
+    <div class="lang-sw" id="langSw">
+      <button class="lang-btn" onclick="toggleLangMenu(event)"><span id="cflag">🇬🇧</span> <span id="clbl">ENG</span></button>
+      <div class="lang-dd" id="langDd">
+        <div class="lang-opt sel" onclick="setLang('en')" id="lang-en">🇬🇧 <span>English</span></div>
+        <div class="lang-opt" onclick="setLang('uz')" id="lang-uz">🇺🇿 <span>O'zbek</span></div>
+        <div class="lang-opt" onclick="setLang('ru')" id="lang-ru">🇷🇺 <span>Русский</span></div>
+      </div>
+    </div>
+    <a class="back-link" href="/StudentProfiles/" data-i18n="nav_back">← All Profiles</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="crumb"><a href="/StudentProfiles/" data-i18n="crumb_all">Student Profiles</a> <span id="crumbName"></span></div>
+  <div id="content"></div>
+</div>
+
+<footer data-i18n="footer_text">© 2025 Chetta. Profiles sourced from public news coverage — see the source link above.</footer>
+
+<script>
+// Shared data for /StudentProfiles/ and /StudentProfiles/Profile/
+// Every entry is a real, publicly reported case. Sources are linked in the UI.
+const PROFILES = [
+  {
+    id:'enin', name:'Kwasi Enin', region:'global', tags:['admitted'], year:'2014',
+    initials:'KE',
+    stats:{sat:'2250/2400 (old scale)'},
+    accepted:['Brown','Columbia','Cornell','Dartmouth','Harvard','Princeton','Yale','UPenn','Duke','3 SUNY campuses'],
+    waitlisted:[], rejected:[],
+    highlight:'Admitted to all 8 Ivy League schools',
+    story:'A Long Island senior and violist, Enin applied to and was admitted by all eight Ivy League schools plus Duke and three SUNY campuses. He chose Yale, citing its atmosphere, music opportunities, and financial aid package.',
+    sourceName:'NBC New York', sourceUrl:'https://www.nbcnews.com/news/amp/ncna94006'
+  },
+  {
+    id:'hsiao', name:'Cassandra Hsiao', region:'global', tags:['admitted'], year:'2017',
+    initials:'CH',
+    stats:{gpa:'4.67'},
+    accepted:['Brown','Columbia','Cornell','Dartmouth','Harvard','Princeton','Yale','UPenn','Stanford','NYU','Johns Hopkins','Northwestern','USC'],
+    waitlisted:[], rejected:[],
+    highlight:'Admitted to all 8 Ivies plus Stanford, NYU, Johns Hopkins, Northwestern and USC',
+    story:'A first-generation immigrant who moved from Malaysia to California at age five, Hsiao built her Common App essay around how her family communicates across languages at home — described as messy but full of feeling. She enrolled at Yale.',
+    sourceName:'The Daily Pennsylvanian', sourceUrl:'https://www.thedp.com/article/2017/04/student-wrote-essay-got-into-all-eight-ivy-leagues'
+  },
+  {
+    id:'botwe', name:'Jeramy Botwe', region:'global', tags:['admitted'], year:'2025',
+    initials:'JB',
+    stats:{gpa:'4.51'},
+    accepted:['Brown','Columbia','Cornell','Dartmouth','Harvard','Princeton','Yale','UPenn','Stanford','UChicago','UT Austin','U Houston'],
+    waitlisted:[], rejected:[],
+    highlight:'Valedictorian admitted to all 8 Ivies — 15 acceptances total',
+    story:'A Texas valedictorian and National Honor Society president, Botwe led his student council, ran a community-service club, and co-captained a science club. The son of a Ghanaian immigrant who joined the U.S. Air Force, he was accepted everywhere he applied.',
+    sourceName:'The Daily Pennsylvanian', sourceUrl:'https://www.thedp.com/article/2019/04/ivy-league-harvard-yale-penn-princeton-dartmouth-cornell-columbia-brown-acceptance'
+  },
+  {
+    id:'stinson', name:'Brittany Stinson', region:'global', tags:['admitted'], year:'2016',
+    initials:'BS',
+    stats:{gpa:'4.0'},
+    accepted:['Yale','Columbia','UPenn','Dartmouth','Cornell','Stanford','Johns Hopkins','Northwestern'],
+    waitlisted:[], rejected:[],
+    highlight:'5 Ivies plus Stanford off one unconventional essay',
+    story:'A Delaware valedictorian who took eight AP courses, Stinson wrote her personal statement around childhood memories of trips to Costco, using the warehouse store as a lens for her curiosity about science, history, and philosophy — a topic she chose specifically to avoid a clichéd essay.',
+    sourceName:'ABC News / Good Morning America', sourceUrl:'https://www.goodmorningamerica.com/news/story/student-accepted-ivy-league-schools-penning-essay-love/story?id=38255470'
+  },
+  {
+    id:'sobirov', name:'Abdulaziz Sobirov', region:'uz', tags:['admitted'], year:'2024',
+    initials:'AS',
+    stats:{},
+    accepted:['Harvard ($366,000 scholarship)'],
+    waitlisted:[], rejected:[],
+    highlight:'Harvard, full scholarship — from Khiva, Uzbekistan',
+    story:'A Presidential School Tashkent senior originally from Khiva, Sobirov captained a national quiz-bowl (Zakovat) champion team and built engineering and robotics projects. His Harvard admissions reader specifically praised his robotics work and drive to help others through innovation.',
+    sourceName:'Gazeta.uz', sourceUrl:'https://gazeta.uz/en/2024/06/23/us-universities'
+  },
+  {
+    id:'olloyorova', name:'Munira Olloyorova', region:'uz', tags:['admitted'], year:'2026',
+    initials:'MO',
+    stats:{},
+    accepted:['University of Pennsylvania ($348,000 full-ride grant)'],
+    waitlisted:[], rejected:[],
+    highlight:'UPenn, full 4-year scholarship',
+    story:'A student at WIUT Academic Lyceum in Tashkent, Olloyorova was admitted to UPenn\'s College of Arts and Sciences with a grant covering all four years of tuition and living costs.',
+    sourceName:'WIUT Academic Lyceum', sourceUrl:'https://lyceum.wiut.uz/en/news/1128-348k-to-liq-grant-sohibasi-olloyorova-munira-3'
+  },
+  {
+    id:'baxshilloyev', name:'Amirbek Baxshilloyev', region:'uz', tags:['admitted'], year:'2026',
+    initials:'AB',
+    stats:{},
+    accepted:['Stanford','Caltech','Brown (combined $1.2M in scholarship offers)'],
+    waitlisted:[], rejected:[],
+    highlight:'Stanford, Caltech and Brown — from a regular public school in Bukhara',
+    story:'Baxshilloyev, from Bukhara, studied at an ordinary secondary school rather than an elite lyceum. With mentoring from the Freshman Academy program, he was admitted to study nuclear engineering at three of the world\'s most selective universities.',
+    sourceName:'Gov.uz (Youth Affairs Agency)', sourceUrl:'https://gov.uz/en/yoshlar/news/view/147132'
+  },
+  {
+    id:'wang', name:'Michael Wang', region:'global', tags:['rejected'], year:'2013',
+    initials:'MW',
+    stats:{act:'36 (perfect)'},
+    accepted:[], waitlisted:[], rejected:['Harvard','Princeton','Yale','Stanford'],
+    highlight:'Rejected by every Ivy he applied to, despite a near-perfect record',
+    story:'Ranked second in his California high school class, Wang had a perfect ACT score, was a national debate qualifier, won his state\'s AMC 12 math competition, sang at a presidential inauguration, and tutored underprivileged children. He enrolled at Williams College instead, and his case became widely cited in the national debate over Asian-American admission rates.',
+    sourceName:'Reported via LoveTheSAT (The Guardian, 2015)', sourceUrl:'https://www.lovethesat.com/perfect-scores-dont-guarantee-anything'
+  },
+  {
+    id:'younger', name:'Kaitlyn Younger', region:'global', tags:['rejected'], year:'2022',
+    initials:'KY',
+    stats:{gpa:'3.95 (unweighted)',sat:'1550'},
+    accepted:[], waitlisted:[], rejected:['Stanford','Harvard','Yale','Brown','Cornell','UPenn','USC','UC Berkeley','Northwestern'],
+    highlight:'1550 SAT, 3.95 GPA, 11 APs — rejected by 9 top schools',
+    story:'A Texas student with 11 AP classes, Younger was rejected from every reach school on her list despite academic credentials her teachers considered more than competitive. Her results, first profiled by The Wall Street Journal, became a widely cited example of how strong stats alone no longer guarantee admission at the most selective schools. She enrolled at Arizona State University.',
+    sourceName:'NextGen Admit (citing The Wall Street Journal)', sourceUrl:'https://nextgenadmit.com/college-admissions-explained-why-top-students-get-rejected-from-every-ivy-league/'
+  },
+  {
+    id:'patel', name:'Shaan Patel', region:'global', tags:['rejected'], year:'~2007',
+    initials:'SP',
+    stats:{sat:'1600 (perfect)'},
+    accepted:[], waitlisted:[], rejected:['Harvard','Princeton','Brown (accelerated medical program)','Stanford'],
+    highlight:'Perfect SAT, rejected everywhere he applied to the Ivy League',
+    story:'Despite a perfect SAT score, Patel was turned down by Harvard, Princeton, a competitive medical program at Brown, and Stanford. He went on to found the test-prep company Prep Expert and later secured a $250,000 investment from Mark Cuban on "Shark Tank."',
+    sourceName:'Business Insider, via Yahoo Finance', sourceUrl:'https://finance.yahoo.com/news/perfect-sat-couldnt-guy-ivy-153908046.html'
+  },
+  {
+    id:'limmy', name:'"Limmy" (TikTok creator)', region:'global', tags:['waitlisted','rejected'], year:'2023',
+    initials:'L',
+    stats:{sat:'1590'},
+    accepted:[], waitlisted:['Princeton','Brown'], rejected:['Harvard','Yale','Columbia','Cornell','UPenn','Dartmouth (deferred, then rejected)'],
+    highlight:'Valedictorian, 1590 SAT — waitlisted at 2 Ivies, rejected by the rest',
+    story:'A high school valedictorian with a 1590 SAT score, Limmy documented his full set of Ivy League results on TikTok: waitlisted at Princeton and Brown, rejected outright by four more, and deferred before being rejected at Dartmouth — a widely shared example of how thin the margin can be even for near-perfect applicants.',
+    sourceName:'YourTango', sourceUrl:'https://www.yourtango.com/news/valedictorian-high-sat-score-rejected-every-ivy-league-school'
+  },
+  {
+    id:'nicholas', name:'"Nicholas" (case study, name changed)', region:'global', tags:['rejected'], year:'~2021',
+    initials:'N',
+    stats:{gpa:'4.2',act:'36 (perfect)'},
+    accepted:[], waitlisted:[], rejected:['Nearly every top-15 school he applied to'],
+    highlight:'Perfect ACT and school-wide leadership — nearly every reach school said no',
+    story:'A salutatorian at a top New York City private school, Nicholas edited the school newspaper, served as student body president, and founded three clubs. Confident in his profile, he applied almost exclusively to top-15 schools with a single safety school — and was rejected from nearly all of his reach schools, illustrating how stats and titles alone don\'t guarantee outcomes at the most selective level.',
+    sourceName:'Command Education (admissions consultancy case study)', sourceUrl:'https://www.commandeducation.com/why-the-ivy-league-rejected-your-schools-valedictorian/'
+  },
+  {
+    id:'weiss', name:'Suzy Weiss', region:'global', tags:['rejected'], year:'2013',
+    initials:'SW',
+    stats:{gpa:'4.5'},
+    accepted:['University of Michigan','Indiana University','Penn State','University of Wisconsin'],
+    waitlisted:[], rejected:['Harvard','Princeton','UPenn','Yale','Vanderbilt'],
+    highlight:'4.5 GPA, rejected by every reach school — wrote a viral op-ed about it',
+    story:'A Pittsburgh high school senior with a 4.5 GPA, Weiss was turned down by every elite school she applied to. Her satirical Wall Street Journal op-ed about the experience, "To (All) the Colleges That Rejected Me," went viral and sparked a national debate about what selective admissions actually reward. She enrolled at the University of Michigan.',
+    sourceName:'MLive (Ann Arbor News)', sourceUrl:'https://www.annarbor.com/news/high-schooler-who-wrote-op-ed-about-college-rejection-pays-enrollment-deposit-to-the-university-of-m'
+  },
+  {
+    id:'candelario', name:'Amado Candelario', region:'global', tags:['admitted'], year:'2019',
+    initials:'AC',
+    stats:{},
+    accepted:['Harvard'],
+    waitlisted:[], rejected:[],
+    highlight:'First-gen, low-income Chicago public-school student — the only one from his school to reach Harvard that year',
+    story:'The son of a Mexican immigrant mother, Candelario grew up in Chicago\'s West Lawn neighborhood and used the QuestBridge and Chicago Scholars prep programs to apply. His tweet about being the only student from his neighborhood public high school admitted to Harvard\'s class of 2023 went viral, spotlighting how rarely low-income, first-generation students reach the most selective colleges.',
+    sourceName:'NBC News', sourceUrl:'https://www.nbcnews.com/news/latino/young-latino-dreamed-going-harvard-he-s-there-his-tweet-n1059761'
+  },
+  {
+    id:'joshi', name:'Malvika Joshi', region:'global', tags:['admitted'], year:'2016',
+    initials:'MJ',
+    stats:{}, statsNote:'No conventional GPA/SAT — admitted based on 3× International Olympiad in Informatics medals.',
+    accepted:['MIT (Computer Science)'],
+    waitlisted:[], rejected:[],
+    highlight:'Admitted to MIT with no high school certificate — on Olympiad medals alone',
+    story:'Unschooled from age 12 by her mother in Mumbai, Joshi had no Class 10 or 12 certificate and couldn\'t qualify for India\'s top engineering institutes as a result. A three-time medalist at the International Olympiad in Informatics, she was admitted to MIT\'s computer science program largely on the strength of those results, with a scholarship.',
+    sourceName:'The Better India', sourceUrl:'https://www.thebetterindia.com/66709/malvika-joshi-homeschooling-mit/amp/'
+  }
+];
+
+</script>
+<script>
+// ---------------- i18n ----------------
+const LANGS = {
+en:{
+nav_back:'← All Profiles',
+crumb_all:'Student Profiles /',
+schools_a:'Admitted to',schools_w:'Waitlisted at',schools_r:'Rejected by',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+stats_undisclosed:'Specific GPA/SAT/ACT scores were not published for this case — see the source for full context.',
+source_lbl:'Source:',
+prev_btn:'← Previous profile',next_btn:'Next profile →',
+nf_h:'Profile not found',nf_s:'This profile may have been moved or removed.',nf_btn:'View all profiles',
+footer_text:'© 2025 Chetta. Profiles sourced from public news coverage — see the source link above.'
+},
+uz:{
+nav_back:'← Barcha profillar',
+crumb_all:'Talaba profillari /',
+schools_a:'Qabul qilingan',schools_w:'Kutish ro\'yxatida',schools_r:'Rad etilgan',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+stats_undisclosed:'Ushbu holat uchun aniq GPA/SAT/ACT ko\'rsatkichlari e\'lon qilinmagan — to\'liq ma\'lumot uchun manbaga qarang.',
+source_lbl:'Manba:',
+prev_btn:'← Oldingi profil',next_btn:'Keyingi profil →',
+nf_h:'Profil topilmadi',nf_s:'Bu profil ko\'chirilgan yoki o\'chirilgan bo\'lishi mumkin.',nf_btn:'Barcha profillarni ko\'rish',
+footer_text:'© 2025 Chetta. Profillar ommaviy yangiliklardan olingan — yuqoridagi manba havolasiga qarang.'
+},
+ru:{
+nav_back:'← Все профили',
+crumb_all:'Профили студентов /',
+schools_a:'Принят(а) в',schools_w:'Список ожидания в',schools_r:'Отказ от',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',
+stats_undisclosed:'Точные баллы GPA/SAT/ACT для этого случая не публиковались — подробности см. в источнике.',
+source_lbl:'Источник:',
+prev_btn:'← Предыдущий профиль',next_btn:'Следующий профиль →',
+nf_h:'Профиль не найден',nf_s:'Возможно, этот профиль был перемещён или удалён.',nf_btn:'Смотреть все профили',
+footer_text:'© 2025 Chetta. Профили взяты из открытых новостных источников — см. ссылку на источник выше.'
+}
+};
+let currentLang=localStorage.getItem('cl')||'en';
+function T(){return LANGS[currentLang]||LANGS.en}
+function tr(key){return (T()[key]!==undefined?T()[key]:(LANGS.en[key]!==undefined?LANGS.en[key]:key))}
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    el.textContent=tr(k);
+  });
+  document.getElementById('clbl').textContent=currentLang==='en'?'ENG':(currentLang==='uz'?'UZ':'RU');
+  document.getElementById('cflag').textContent=currentLang==='en'?'🇬🇧':(currentLang==='uz'?'🇺🇿':'🇷🇺');
+  ['en','uz','ru'].forEach(function(l){
+    var el=document.getElementById('lang-'+l);
+    if(el) el.classList.toggle('sel', l===currentLang);
+  });
+}
+function setLang(l){currentLang=l;try{localStorage.setItem('cl',l)}catch(e){}applyI18n();renderProfile();document.getElementById('langDd').classList.remove('open')}
+function toggleLangMenu(e){e.stopPropagation();document.getElementById('langDd').classList.toggle('open')}
+document.addEventListener('click',function(){document.getElementById('langDd').classList.remove('open')});
+
+// ---------------- RENDER ----------------
+function statPillsHtml(stats){
+  var out=[];
+  if(stats.gpa) out.push('<span class="pd-stat-pill">'+tr('stat_gpa')+': '+stats.gpa+'</span>');
+  if(stats.sat) out.push('<span class="pd-stat-pill">'+tr('stat_sat')+': '+stats.sat+'</span>');
+  if(stats.act) out.push('<span class="pd-stat-pill">'+tr('stat_act')+': '+stats.act+'</span>');
+  return out.join('');
+}
+function badgeHtml(tags){
+  var order=['admitted','waitlisted','rejected'];
+  var lbl={admitted:{en:'✅ Admitted',uz:'✅ Qabul qilingan',ru:'✅ Принят(а)'},
+           waitlisted:{en:'🕒 Waitlisted',uz:'🕒 Kutish ro\'yxatida',ru:'🕒 Список ожидания'},
+           rejected:{en:'❌ Rejected',uz:'❌ Rad etilgan',ru:'❌ Отказ'}};
+  return order.filter(function(t){return tags.indexOf(t)>-1;}).map(function(t){
+    return '<span class="pd-badge '+t+'">'+lbl[t][currentLang]+'</span>';
+  }).join('');
+}
+function primaryTag(tags){
+  if(tags.indexOf('admitted')>-1) return 'admitted';
+  if(tags.indexOf('waitlisted')>-1) return 'waitlisted';
+  return 'rejected';
+}
+function schoolBlock(label, list, cls){
+  if(!list.length) return '';
+  return '<div class="pd-section-lbl">'+label+'</div><div class="pd-sch-list">'+
+    list.map(function(s){return '<span class="pd-sch-tag '+cls+'">'+s+'</span>';}).join('')+
+  '</div>';
+}
+
+function renderProfile(){
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id');
+  var idx = PROFILES.findIndex(function(p){return p.id===id;});
+  var content = document.getElementById('content');
+  var crumbName = document.getElementById('crumbName');
+  if(idx===-1){
+    crumbName.textContent='';
+    content.innerHTML =
+      '<div class="not-found">'+
+        '<div class="nf-ico">🔎</div>'+
+        '<div style="font-weight:700;font-size:1.1rem;margin-bottom:.4rem" data-i18n="nf_h">'+tr('nf_h')+'</div>'+
+        '<div style="color:var(--g500);margin-bottom:1.2rem" data-i18n="nf_s">'+tr('nf_s')+'</div>'+
+        '<a class="back-link" href="/StudentProfiles/" data-i18n="nf_btn">'+tr('nf_btn')+'</a>'+
+      '</div>';
+    return;
+  }
+  var p = PROFILES[idx];
+  crumbName.textContent = p.name.replace(/"/g,'');
+  document.title = p.name.replace(/"/g,'') + ' — Chetta';
+  var stats = statPillsHtml(p.stats);
+  var prev = PROFILES[idx-1];
+  var next = PROFILES[idx+1];
+  content.innerHTML =
+  '<div class="pd-card">'+
+    '<div class="pd-hd">'+
+      '<div class="pd-avatar '+primaryTag(p.tags)+'">'+p.initials+'</div>'+
+      '<div><div class="pd-name">'+p.name+'</div><div class="pd-meta">'+p.year+'</div></div>'+
+      '<div class="pd-badges">'+badgeHtml(p.tags)+'</div>'+
+    '</div>'+
+    '<div class="pd-highlight">'+p.highlight+'</div>'+
+    (stats?'<div class="pd-stats">'+stats+'</div>':'<div class="pd-stats-note">'+(p.statsNote||tr('stats_undisclosed'))+'</div>')+
+    schoolBlock(tr('schools_a'), p.accepted, 'a')+
+    schoolBlock(tr('schools_w'), p.waitlisted, 'w')+
+    schoolBlock(tr('schools_r'), p.rejected, 'r')+
+    '<div class="pd-section-lbl">&nbsp;</div>'+
+    '<div class="pd-story">'+p.story+'</div>'+
+    '<div class="pd-src-box">'+tr('source_lbl')+' <a href="'+p.sourceUrl+'" target="_blank" rel="noopener">'+p.sourceName+'</a></div>'+
+  '</div>'+
+  '<div class="pd-nav">'+
+    (prev? '<a class="pd-nav-btn" href="/StudentProfiles/Profile/?id='+prev.id+'">'+tr('prev_btn')+'</a>' : '<span></span>')+
+    (next? '<a class="pd-nav-btn" href="/StudentProfiles/Profile/?id='+next.id+'">'+tr('next_btn')+'</a>' : '<span></span>')+
+  '</div>';
+}
+
+applyI18n();
+renderProfile();
+</script>
+</body>
+</html>
