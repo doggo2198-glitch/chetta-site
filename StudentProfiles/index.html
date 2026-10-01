@@ -57,10 +57,14 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 
 /* filters */
 .filter-bar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1.4rem}
+.search-input{border:1.5px solid var(--g200);border-radius:20px;padding:.45rem 1rem;font-size:.82rem;font-family:inherit;min-width:220px;flex:1 1 220px;color:var(--g900)}
+.search-input:focus{outline:none;border-color:var(--blue2)}
+.stats-strip{font-size:.78rem;color:var(--g500);border-top:1px solid var(--g100);padding-top:.8rem;margin-top:.2rem}
+.stats-strip b{color:var(--g800);font-weight:700}
 .filter-grp{display:flex;gap:.4rem;flex-wrap:wrap}
 .filter-chip{background:#fff;border:1.5px solid var(--g200);color:var(--g700);font-size:.82rem;font-weight:600;padding:.45rem .95rem;border-radius:20px;transition:all .15s}
 .filter-chip:hover{border-color:var(--g300)}
-.filter-chip.active{background:var(--g900);border-color:var(--g900);color:#fff}
+.filter-chip.active{background:var(--g900);border-color:var(--g900);color:#fff;box-shadow:0 2px 8px rgba(17,24,39,.25)}
 .filter-sep{width:1px;height:22px;background:var(--g200);margin:0 .2rem}
 .country-select{background:#fff;border:1.5px solid var(--g200);color:var(--g700);font-size:.82rem;font-weight:600;padding:.42rem 2rem .42rem .9rem;border-radius:20px;cursor:pointer;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right .6rem center;background-size:16px}
 .country-select:hover{border-color:var(--g300)}
@@ -81,21 +85,26 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 /* profile cards */
 .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
 @media(max-width:820px){.profile-grid{grid-template-columns:1fr}}
-.pf-card{border:1px solid var(--g200);border-radius:var(--rxl);padding:1.35rem 1.4rem;background:#fff;display:flex;flex-direction:column;gap:.75rem;cursor:pointer;transition:box-shadow .15s,border-color .15s}
-.pf-card:hover{border-color:var(--g300);box-shadow:var(--shadow)}
+.pf-card{position:relative;overflow:hidden;border:1px solid var(--g200);border-radius:var(--rxl);padding:1.4rem 1.4rem 1.35rem;background:#fff;display:flex;flex-direction:column;gap:.75rem;cursor:pointer;transition:box-shadow .2s,border-color .2s,transform .2s;animation:pfFadeIn .25s ease both}
+.pf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--g300)}
+.pf-card.admitted::before{background:linear-gradient(90deg,var(--green),#4ade80)}
+.pf-card.waitlisted::before{background:linear-gradient(90deg,var(--amber),#fbbf24)}
+.pf-card.rejected::before{background:linear-gradient(90deg,var(--red),#f87171)}
+.pf-card:hover{border-color:var(--g300);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+@keyframes pfFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .pf-hd{display:flex;align-items:center;gap:.8rem}
-.pf-avatar{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;color:#fff;background:var(--g700)}
-.pf-avatar.admitted{background:var(--green)}
-.pf-avatar.rejected{background:var(--red)}
-.pf-avatar.waitlisted{background:var(--amber)}
+.pf-avatar{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;color:#fff;background:var(--g700);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.pf-avatar.admitted{background:linear-gradient(135deg,#22c55e,#15803d)}
+.pf-avatar.rejected{background:linear-gradient(135deg,#f87171,#b91c1c)}
+.pf-avatar.waitlisted{background:linear-gradient(135deg,#fbbf24,#b45309)}
 .pf-name{font-weight:700;font-size:1rem}
 .pf-meta{font-size:.76rem;color:var(--g500)}
 .pf-badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-left:auto}
-.pf-badge{font-size:.66rem;font-weight:700;padding:.2rem .55rem;border-radius:20px;white-space:nowrap}
+.pf-badge{font-size:.66rem;font-weight:700;padding:.22rem .6rem;border-radius:20px;white-space:nowrap;letter-spacing:.1px}
 .pf-badge.admitted{background:var(--gpale);color:var(--green)}
 .pf-badge.rejected{background:var(--rpale);color:var(--red)}
 .pf-badge.waitlisted{background:var(--apale);color:var(--amber)}
-.pf-highlight{font-size:.86rem;font-weight:600;color:var(--g900);line-height:1.4}
+.pf-highlight{font-family:'Instrument Serif',serif;font-size:1.05rem;font-weight:400;color:var(--g900);line-height:1.35;letter-spacing:-.1px}
 .pf-stats{display:flex;flex-wrap:wrap;gap:.4rem}
 .pf-stat-pill{font-size:.7rem;font-weight:600;background:var(--g100);color:var(--g700);padding:.22rem .6rem;border-radius:20px}
 .pf-schools{display:flex;flex-direction:column;gap:.4rem}
@@ -108,8 +117,8 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pf-story{font-size:.85rem;color:var(--g600);line-height:1.55}
 .pf-src{font-size:.75rem;color:var(--blue);font-weight:600;margin-top:.1rem;display:inline-block}
 .pf-src:hover{text-decoration:underline}
-.pf-cta{font-size:.8rem;font-weight:700;color:var(--blue);margin-top:.15rem;display:flex;align-items:center;gap:.3rem}
-.pf-card:hover .pf-cta{text-decoration:underline}
+.pf-cta{font-size:.8rem;font-weight:700;color:var(--blue);margin-top:.2rem;padding-top:.75rem;border-top:1px solid var(--g100);display:flex;align-items:center;gap:.3rem;transition:gap .15s}
+.pf-card:hover .pf-cta{gap:.5rem}
 
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--g500)}
 .empty-state .es-ico{font-size:2.2rem;margin-bottom:.6rem}
@@ -153,6 +162,7 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
 
   <div class="card">
     <div class="filter-bar">
+      <input type="search" id="searchInput" class="search-input" data-i18n-ph="search_ph" placeholder="Search by name, country, or keyword…" autocomplete="off">
       <div class="filter-grp" id="outcomeFilters">
         <button class="filter-chip active" data-f="all" data-i18n="f_all">All</button>
         <button class="filter-chip" data-f="admitted" data-i18n="f_admitted">✅ Admitted</button>
@@ -165,8 +175,15 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
           <option value="all" data-i18n="c_all">🌍 All countries</option>
         </select>
       </div>
+      <div class="filter-sep"></div>
+      <select class="country-select" id="sortSelect">
+        <option value="newest" data-i18n="sort_newest">Newest first</option>
+        <option value="oldest" data-i18n="sort_oldest">Oldest first</option>
+        <option value="az" data-i18n="sort_az">Name A–Z</option>
+      </select>
       <div class="result-count" id="resultCount"></div>
     </div>
+    <div class="stats-strip" id="statsStrip"></div>
   </div>
 
   <div class="card">
@@ -202,6 +219,7 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
     <div class="es-ico">🔎</div>
     <div class="es-t" data-i18n="empty_h">No profiles match this filter</div>
     <div data-i18n="empty_s">Try a different outcome or region filter above.</div>
+    <button class="back-link" id="clearFiltersBtn" style="margin-top:1rem" data-i18n="clear_filters">Clear filters</button>
   </div>
 
   <div class="card footnote" data-i18n="sp_footnote">
@@ -420,13 +438,13 @@ const PROFILES = [
   {
     id:'collins', name:'Ita Collins', region:'global', tags:['admitted'], year:'2026', country:'South Africa',
     initials:'IC',
-    stats:{}, statsNote:'Specific GPA/SAT scores were not published for this case — see the source for full context.',
+    stats:{}, statsNote:'Specific GPA/SAT scores were not published for this case, though she was named to the IEB Outstanding List — see the source for full context.',
     accepted:['Harvard','Stanford','UPenn','Brown','Carnegie Mellon','Harvey Mudd College'],
     waitlisted:[], rejected:[],
     highlight:'Head Girl with nine distinctions — sparked an Ivy League bidding war for her talents',
-    extracurriculars:['2025 Head Girl of Roedean School (Johannesburg, South Africa)','Graduated with nine distinctions','Worked with Crimson Education mentors on her application strategy'],
-    essay:'Her application deliberately favored narrative depth over a checklist of achievements — refining a few existing accomplishments into a coherent personal story rather than padding her resume with extra activities.',
-    story:'Ita Collins, the 2025 Head Girl of Roedean School in South Africa, graduated with nine distinctions and received offers from Harvard, Stanford, UPenn, Brown, Carnegie Mellon, and Harvey Mudd College. She will study Environmental Studies at Harvard, combining science and policy with a public health focus.',
+    extracurriculars:['2025 Head Girl of Roedean School (Johannesburg, South Africa)','Graduated with nine distinctions and was named to the IEB (Independent Examinations Board) Outstanding List','Served on the Student Representative Council','Active in environmental activism and multiple school sports','Completed an internship at the Wits Reproductive Health Institute','Worked with Crimson Education mentors on her application strategy'],
+    essay:'Her application deliberately favored narrative depth over a checklist of achievements — she and her advisors focused on which of her existing activities (environmental work, the Wits internship, her SRC role) carried the most weight, rather than padding her resume with extra activities.',
+    story:'Ita Collins, the 2025 Head Girl of Roedean School in South Africa, graduated with nine distinctions and a spot on the IEB Outstanding List, and received offers from Harvard, Stanford, UPenn, Brown, Carnegie Mellon, and Harvey Mudd College. She will study Environmental Studies at Harvard, combining science and policy with a public health focus drawn from her internship experience.',
     sourceName:'IOL / Weekend Argus (South Africa)', sourceUrl:'https://iol.co.za/weekend-argus/2026-06-18-how-a-south-african-matriculant-secured-admission-to-harvard-university/'
   },
   {
@@ -584,6 +602,42 @@ const PROFILES = [
     essay:'Not publicly detailed in available coverage.',
     story:'A Torrance, California high school senior and longtime social media creator, Laeno had dreamed of attending UCLA since middle school, visiting its campus and dance clinics throughout high school. On April 2, 2024, she was accepted to Cal State Long Beach, UC Santa Cruz, UC Riverside, Cal Poly San Luis Obispo, and San Diego State, but rejected from UCLA. Her filmed reaction went viral, reaching over 47 million views, and she has since spoken publicly about her decision to share the rejection alongside the acceptances rather than hide it.',
     sourceName:'ABC News / Good Morning America', sourceUrl:'https://abcnews.go.com/living/story/18-year-wanted-share-rejection-dream-school-109165726'
+  },
+  {
+    id:'tuksanov', name:'Parviz Tuksanov', region:'uz', country:'Uzbekistan', tags:['admitted'], year:'2025',
+    initials:'PT',
+    stats:{sat:'1600 (Dec 2024) — first perfect score in Uzbekistan; earlier 1560',ielts:'8.5 (Aug 2022, age 16)'},
+    accepted:['NYU Abu Dhabi (Class of 2029)'],
+    waitlisted:[], rejected:[],
+    highlight:'Uzbekistan\'s first perfect 1600 SAT — self-taught from a regular public school in Bukhara, now at NYU Abu Dhabi',
+    academics:[
+      'Attended general secondary School No. 2 in Bukhara — not a specialized, private or international school',
+      'Started learning English in 4th grade; scored IELTS 8.5 at age 16 (August 2022)',
+      'Began SAT prep on his own with Khan Academy, YouTube lessons, podcasts and books, because no SAT courses or tutors existed in Bukhara at the time',
+      'His practice scores reportedly stalled around 1350 for more than three months before he joined Freshman Academy\'s Digital SAT program in April 2023',
+      'June 2023 SAT: 1560 (790 Math / 770 Reading & Writing)',
+      'December 2024 SAT, retaken alongside his own students: 1600 — the first perfect score ever recorded by an Uzbekistani',
+      'His view on why 1600 is rare: with only 98 questions, a single mistake rules it out, and most test-takers stop retaking once they pass 1500',
+      'Reviewed 25+ past SAT tests with his students before the final attempt to fix his time management',
+      'Research: winner of the "CIS Leaders" competition, and was working on a paper on factors affecting consumer behavior in post-Soviet Central Asia',
+      'Stated academic interests before applying: economics and psychology; at NYU Abu Dhabi his public bio lists Economics/Finance and Politics'
+    ],
+    background:[
+      'From Bukhara, Uzbekistan; 18 years old when he set the SAT record',
+      'His mother publicly urged Uzbek parents to invest in their children\'s education rather than lavish wedding spending, citing her son as the example',
+      'On February 14, 2025, President Shavkat Mirziyoyev congratulated him at a meeting with young people and thanked his parents and coaches',
+      'The size of his NYU Abu Dhabi financial aid package has not been published'
+    ],
+    extracurriculars:[
+      'Taught SAT classes at Ad Astra School in Bukhara (established September 2022), which he has been described as founding; small groups, weekly mock tests, admission by math test plus interview',
+      'Worked for two years as an SAT mentor to peers, which he credits with sharpening his own skills',
+      'Featured in Ad Astra School\'s podcast series (Ep. 3 in January 2024 and Ep. 45 in December 2024)',
+      'At NYU Abu Dhabi: peer tutor in the social sciences and SAT instructor while carrying a heavy course load and searching for internships',
+      'Runs a Telegram channel (3,000+ subscribers) on SAT strategy, college life, reading and AI policy'
+    ],
+    essay:'His application essay was not published. What is public: before applying he described his interests as economics and psychology, and was researching consumer behavior in post-Soviet Central Asia.',
+    story:'Parviz Tuksanov (also spelled Tuksonov or To\'qsonov) grew up in Bukhara and studied at a regular public school, where he began learning English in fourth grade. He earned an IELTS 8.5 at 16, taught himself the SAT from free online resources, scored 1560 in 2023, and then taught SAT classes to peers. In December 2024 he retook the exam alongside his own students and scored 1600, the first perfect result in Uzbekistan\'s history. The President of Uzbekistan congratulated him publicly two months later. He enrolled at NYU Abu Dhabi in the Class of 2029, according to his own public Telegram channel and LinkedIn profile; NYUAD\'s financial aid amount for him has not been published.',
+    sourceName:'Kun.uz (interview), Ta\'lim xabarlari, Freshman Academy', sourceUrl:'https://kun.uz/en/news/2025/01/14/uzbekistans-first-perfect-sat-scorer-shares-his-journey'
   }
 ];
 
@@ -605,7 +659,9 @@ st_accrate:'Avg. acceptance rate',st_sat5050:'Middle-50% SAT',st_harvard:'Harvar
 schools_a:'Admitted',schools_w:'Waitlisted',schools_r:'Rejected',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_year:'Cycle',
 source_lbl:'Source:',
-empty_h:'No profiles match this filter',empty_s:'Try a different outcome or region filter above.',
+empty_h:'No profiles match this filter',empty_s:'Try a different outcome or region filter above.',clear_filters:'Clear filters',
+search_ph:'Search by name, country, or keyword…',sort_newest:'Newest first',sort_oldest:'Oldest first',sort_az:'Name A–Z',
+strip_profiles:'profiles',strip_countries:'countries',
 result_n:'{n} profiles',view_profile:'View full profile',
 sp_footnote:'These stories are shared for context and inspiration, not as a formula. Admissions committees weigh essays, recommendations, context, and institutional priorities in ways that can\'t be reverse-engineered from any single profile — including the ones above. Use Chetta\'s Profile Analyzer to see how your own academic and extracurricular profile compares to real admitted-class data.',
 footer_text:'© 2025 Chetta. Profiles sourced from public news coverage — see links under each card.'
@@ -624,7 +680,9 @@ st_accrate:'O\'rtacha qabul darajasi',st_sat5050:'O\'rta 50% SAT',st_harvard:'Ga
 schools_a:'Qabul qilingan',schools_w:'Kutish ro\'yxatida',schools_r:'Rad etilgan',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_year:'Yil',
 source_lbl:'Manba:',
-empty_h:'Ushbu filtrga mos profil topilmadi',empty_s:'Yuqorida boshqa natija yoki mintaqa filtrini sinab ko\'ring.',
+empty_h:'Ushbu filtrga mos profil topilmadi',empty_s:'Yuqorida boshqa natija yoki mintaqa filtrini sinab ko\'ring.',clear_filters:'Filtrlarni tozalash',
+search_ph:'Ism, davlat yoki kalit so\'z bo\'yicha qidirish…',sort_newest:'Avval yangilari',sort_oldest:'Avval eskilari',sort_az:'Ism A–Z',
+strip_profiles:'profil',strip_countries:'davlat',
 result_n:'{n} ta profil',view_profile:'To\'liq profilni ko\'rish',
 sp_footnote:'Ushbu hikoyalar formula sifatida emas, balki kontekst va ilhom uchun berilmoqda. Qabul komissiyalari insholar, tavsiyalar, kontekst va institutsional ustuvorliklarni hisobga oladi — bularni yuqoridagi biror profildan qayta yaratib bo\'lmaydi. O\'z akademik va qo\'shimcha faoliyat profilingizni haqiqiy qabul qilingan sinf ma\'lumotlari bilan solishtirish uchun Chetta Profile Analyzer\'dan foydalaning.',
 footer_text:'© 2025 Chetta. Profillar ommaviy yangiliklardan olingan — har bir karta ostidagi havolalarga qarang.'
@@ -643,7 +701,9 @@ st_accrate:'Средний процент поступления',st_sat5050:'С
 schools_a:'Приняты',schools_w:'Список ожидания',schools_r:'Отказ',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_year:'Год',
 source_lbl:'Источник:',
-empty_h:'Нет профилей по этому фильтру',empty_s:'Попробуйте другой фильтр результата или региона выше.',
+empty_h:'Нет профилей по этому фильтру',empty_s:'Попробуйте другой фильтр результата или региона выше.',clear_filters:'Сбросить фильтры',
+search_ph:'Поиск по имени, стране или ключевому слову…',sort_newest:'Сначала новые',sort_oldest:'Сначала старые',sort_az:'Имя А–Я',
+strip_profiles:'профилей',strip_countries:'стран',
 result_n:'{n} профилей',view_profile:'Смотреть полный профиль',
 sp_footnote:'Эти истории приведены для контекста и вдохновения, а не как формула. Приёмные комиссии учитывают эссе, рекомендации, контекст и институциональные приоритеты так, что это невозможно вывести из одного профиля — включая перечисленные выше. Используйте Profile Analyzer от Chetta, чтобы сравнить свой академический и внеучебный профиль с данными реальных принятых классов.',
 footer_text:'© 2025 Chetta. Профили взяты из открытых новостных источников — см. ссылки под каждой карточкой.'
@@ -656,6 +716,10 @@ function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var k=el.getAttribute('data-i18n');
     el.textContent=tr(k);
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-ph');
+    el.setAttribute('placeholder', tr(k));
   });
   document.getElementById('clbl').textContent=currentLang==='en'?'ENG':(currentLang==='uz'?'UZ':'RU');
   document.getElementById('cflag').textContent=currentLang==='en'?'🇬🇧':(currentLang==='uz'?'🇺🇿':'🇷🇺');
@@ -674,6 +738,19 @@ document.addEventListener('click',function(){document.getElementById('langDd').c
 // ---------------- RENDER ----------------
 let activeOutcome='all';
 let activeCountry='all';
+let activeSort='newest';
+let searchQuery='';
+
+var COUNTRY_FLAGS = {
+  'United States':'🇺🇸','Uzbekistan':'🇺🇿','Nigeria':'🇳🇬','Vietnam':'🇻🇳','Ghana':'🇬🇭',
+  'Brazil':'🇧🇷','Philippines':'🇵🇭','South Africa':'🇿🇦','Zimbabwe':'🇿🇼','Kyrgyzstan':'🇰🇬'
+};
+function flagFor(country){ return COUNTRY_FLAGS[country] || '🌍'; }
+
+function parseYear(y){
+  var m = String(y).match(/\d{4}/);
+  return m ? parseInt(m[0],10) : 0;
+}
 
 function statPillsHtml(stats){
   var out=[];
@@ -707,7 +784,7 @@ function populateCountrySelect(){
   countries.forEach(function(c){
     var opt = document.createElement('option');
     opt.value = c;
-    opt.textContent = c;
+    opt.textContent = flagFor(c)+' '+c;
     sel.appendChild(opt);
   });
   sel.value = activeCountry;
@@ -716,10 +793,10 @@ function populateCountrySelect(){
 function cardHtml(p){
   var stats = statPillsHtml(p.stats);
   return '' +
-  '<div class="pf-card" onclick="goToProfile(\''+p.id+'\')">' +
+  '<div class="pf-card '+primaryTag(p.tags)+'" onclick="goToProfile(\''+p.id+'\')">' +
     '<div class="pf-hd">' +
       '<div class="pf-avatar '+primaryTag(p.tags)+'">'+p.initials+'</div>' +
-      '<div><div class="pf-name">'+p.name+'</div><div class="pf-meta">'+p.year+' · '+p.country+'</div></div>' +
+      '<div><div class="pf-name">'+p.name+'</div><div class="pf-meta">'+p.year+' · '+flagFor(p.country)+' '+p.country+'</div></div>' +
       '<div class="pf-badges">'+badgeHtml(p.tags)+'</div>' +
     '</div>' +
     '<div class="pf-highlight">'+p.highlight+'</div>' +
@@ -728,11 +805,43 @@ function cardHtml(p){
   '</div>';
 }
 
+function matchesSearch(p, q){
+  if(!q) return true;
+  q = q.toLowerCase();
+  var haystack = [p.name, p.country, p.highlight, p.year].join(' ').toLowerCase();
+  return haystack.indexOf(q) > -1;
+}
+
+function updateStatsStrip(list){
+  var countries = new Set(list.map(function(p){return p.country;})).size;
+  var admitted = list.filter(function(p){return p.tags.indexOf('admitted')>-1;}).length;
+  var rejected = list.filter(function(p){return p.tags.indexOf('rejected')>-1;}).length;
+  var waitlisted = list.filter(function(p){return p.tags.indexOf('waitlisted')>-1;}).length;
+  document.getElementById('statsStrip').innerHTML =
+    '<b>'+list.length+'</b> '+tr('strip_profiles')+' · <b>'+countries+'</b> '+tr('strip_countries')+
+    ' · <b>'+admitted+'</b> '+tr('f_admitted')+' · <b>'+waitlisted+'</b> '+tr('f_waitlisted')+' · <b>'+rejected+'</b> '+tr('f_rejected');
+}
+
+function syncUrl(){
+  var params = new URLSearchParams();
+  if(activeOutcome!=='all') params.set('outcome', activeOutcome);
+  if(activeCountry!=='all') params.set('country', activeCountry);
+  if(activeSort!=='newest') params.set('sort', activeSort);
+  if(searchQuery) params.set('q', searchQuery);
+  var qs = params.toString();
+  history.replaceState(null, '', qs ? ('?'+qs) : window.location.pathname);
+}
+
 function render(){
   var filtered = PROFILES.filter(function(p){
     var outcomeOk = activeOutcome==='all' || p.tags.indexOf(activeOutcome)>-1;
     var countryOk = activeCountry==='all' || p.country===activeCountry;
-    return outcomeOk && countryOk;
+    return outcomeOk && countryOk && matchesSearch(p, searchQuery);
+  });
+  filtered.sort(function(a,b){
+    if(activeSort==='az') return a.name.localeCompare(b.name);
+    if(activeSort==='oldest') return parseYear(a.year)-parseYear(b.year);
+    return parseYear(b.year)-parseYear(a.year);
   });
   var grid = document.getElementById('profileGrid');
   var empty = document.getElementById('emptyState');
@@ -746,7 +855,31 @@ function render(){
     grid.innerHTML = filtered.map(cardHtml).join('');
   }
   document.getElementById('resultCount').textContent = tr('result_n').replace('{n}', filtered.length);
+  updateStatsStrip(filtered);
+  syncUrl();
 }
+
+function clearFilters(){
+  activeOutcome='all'; activeCountry='all'; searchQuery='';
+  document.getElementById('searchInput').value='';
+  document.getElementById('countrySelect').value='all';
+  Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){ b.classList.toggle('active', b.getAttribute('data-f')==='all'); });
+  render();
+}
+
+function restoreFromUrl(){
+  var params = new URLSearchParams(window.location.search);
+  var o = params.get('outcome'); var c = params.get('country'); var s = params.get('sort'); var q = params.get('q');
+  if(o){ activeOutcome=o; }
+  if(c){ activeCountry=c; }
+  if(s){ activeSort=s; }
+  if(q){ searchQuery=q; }
+}
+
+restoreFromUrl();
+document.getElementById('sortSelect').value = activeSort;
+document.getElementById('searchInput').value = searchQuery;
+Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){ b.classList.toggle('active', b.getAttribute('data-f')===activeOutcome); });
 
 document.getElementById('outcomeFilters').addEventListener('click', function(e){
   var btn = e.target.closest('[data-f]');
@@ -759,6 +892,18 @@ populateCountrySelect();
 document.getElementById('countrySelect').addEventListener('change', function(e){
   activeCountry = e.target.value;
   render();
+});
+document.getElementById('sortSelect').addEventListener('change', function(e){
+  activeSort = e.target.value;
+  render();
+});
+document.getElementById('clearFiltersBtn').addEventListener('click', clearFilters);
+
+var searchDebounce;
+document.getElementById('searchInput').addEventListener('input', function(e){
+  clearTimeout(searchDebounce);
+  var val = e.target.value;
+  searchDebounce = setTimeout(function(){ searchQuery = val.trim(); render(); }, 180);
 });
 
 window.addEventListener('scroll', function(){
