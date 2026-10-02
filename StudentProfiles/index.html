@@ -171,7 +171,7 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
       </div>
       <div class="filter-sep"></div>
       <div class="filter-grp" id="regionFilters">
-        <select class="country-select" id="countrySelect" data-i18n-country-all="c_all">
+        <select class="country-select" id="countrySelect">
           <option value="all" data-i18n="c_all">🌍 All countries</option>
         </select>
       </div>
@@ -777,7 +777,7 @@ stats_title:'What admitted classes actually look like',
 stats_sub:'Common Data Set figures for recent admitted/enrolled classes — for context alongside the individual stories below.',
 st_accrate:'Avg. acceptance rate',st_sat5050:'Middle-50% SAT',st_harvard:'Harvard, recent cycle',st_avggpa:'Avg. enrolled GPA',st_classrank:'Top 10% of class (of those ranked)',
 schools_a:'Admitted',schools_w:'Waitlisted',schools_r:'Rejected',
-stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_year:'Cycle',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',stat_year:'Cycle',
 source_lbl:'Source:',
 empty_h:'No profiles match this filter',empty_s:'Try a different outcome or region filter above.',clear_filters:'Clear filters',
 search_ph:'Search by name, country, or keyword…',sort_newest:'Newest first',sort_oldest:'Oldest first',sort_az:'Name A–Z',
@@ -798,7 +798,7 @@ stats_title:'Qabul qilingan sinflar aslida qanday ko\'rinadi',
 stats_sub:'So\'nggi qabul qilingan/o\'qishga kirgan sinflar bo\'yicha umumiy ma\'lumotlar to\'plami — quyidagi individual hikoyalar uchun kontekst sifatida.',
 st_accrate:'O\'rtacha qabul darajasi',st_sat5050:'O\'rta 50% SAT',st_harvard:'Garvard, so\'nggi tsikl',st_avggpa:'O\'rtacha GPA',st_classrank:'Sinfning eng yaxshi 10% (reytingi borlar orasida)',
 schools_a:'Qabul qilingan',schools_w:'Kutish ro\'yxatida',schools_r:'Rad etilgan',
-stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_year:'Yil',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',stat_year:'Yil',
 source_lbl:'Manba:',
 empty_h:'Ushbu filtrga mos profil topilmadi',empty_s:'Yuqorida boshqa natija yoki mintaqa filtrini sinab ko\'ring.',clear_filters:'Filtrlarni tozalash',
 search_ph:'Ism, davlat yoki kalit so\'z bo\'yicha qidirish…',sort_newest:'Avval yangilari',sort_oldest:'Avval eskilari',sort_az:'Ism A–Z',
@@ -819,7 +819,7 @@ stats_title:'Как на самом деле выглядят принятые �
 stats_sub:'Данные Common Data Set по недавним принятым/зачисленным классам — для контекста наряду с историями ниже.',
 st_accrate:'Средний процент поступления',st_sat5050:'Средние 50% SAT',st_harvard:'Гарвард, последний цикл',st_avggpa:'Средний GPA зачисленных',st_classrank:'Топ-10% класса (среди указавших ранг)',
 schools_a:'Приняты',schools_w:'Список ожидания',schools_r:'Отказ',
-stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_year:'Год',
+stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',stat_year:'Год',
 source_lbl:'Источник:',
 empty_h:'Нет профилей по этому фильтру',empty_s:'Попробуйте другой фильтр результата или региона выше.',clear_filters:'Сбросить фильтры',
 search_ph:'Поиск по имени, стране или ключевому слову…',sort_newest:'Сначала новые',sort_oldest:'Сначала старые',sort_az:'Имя А–Я',
@@ -877,6 +877,7 @@ function statPillsHtml(stats){
   if(stats.gpa) out.push('<span class="pf-stat-pill">'+tr('stat_gpa')+': '+stats.gpa+'</span>');
   if(stats.sat) out.push('<span class="pf-stat-pill">'+tr('stat_sat')+': '+stats.sat+'</span>');
   if(stats.act) out.push('<span class="pf-stat-pill">'+tr('stat_act')+': '+stats.act+'</span>');
+  if(stats.ielts) out.push('<span class="pf-stat-pill">'+tr('stat_ielts')+': '+stats.ielts+'</span>');
   return out.join('');
 }
 
