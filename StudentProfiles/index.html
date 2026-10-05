@@ -91,6 +91,9 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pf-card.waitlisted::before{background:linear-gradient(90deg,var(--amber),#fbbf24)}
 .pf-card.rejected::before{background:linear-gradient(90deg,var(--red),#f87171)}
 .pf-card:hover{border-color:var(--g300);box-shadow:var(--shadowlg);transform:translateY(-2px)}
+.pf-card:focus{outline:none}
+.pf-card:focus-visible{outline:2px solid var(--blue2);outline-offset:3px;border-color:var(--blue2)}
+.search-input:focus-visible,.country-select:focus-visible,.filter-chip:focus-visible,.back-link:focus-visible{outline:2px solid var(--blue2);outline-offset:2px}
 @keyframes pfFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .pf-hd{display:flex;align-items:center;gap:.8rem}
 .pf-avatar{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;color:#fff;background:var(--g700);box-shadow:0 2px 6px rgba(0,0,0,.12)}
@@ -104,7 +107,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pf-badge.admitted{background:var(--gpale);color:var(--green)}
 .pf-badge.rejected{background:var(--rpale);color:var(--red)}
 .pf-badge.waitlisted{background:var(--apale);color:var(--amber)}
-.pf-highlight{font-family:'Instrument Serif',serif;font-size:1.05rem;font-weight:400;color:var(--g900);line-height:1.35;letter-spacing:-.1px}
+.pf-highlight{font-family:'Instrument Serif',serif;font-size:1.05rem;font-weight:400;color:var(--g900);line-height:1.35;letter-spacing:-.1px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pf-stats{display:flex;flex-wrap:wrap;gap:.4rem}
 .pf-stat-pill{font-size:.7rem;font-weight:600;background:var(--g100);color:var(--g700);padding:.22rem .6rem;border-radius:20px}
 .pf-schools{display:flex;flex-direction:column;gap:.4rem}
@@ -123,6 +126,10 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--g500)}
 .empty-state .es-ico{font-size:2.2rem;margin-bottom:.6rem}
 .empty-state .es-t{font-weight:700;color:var(--g800);margin-bottom:.3rem}
+
+.show-more-wrap{display:none;justify-content:center;margin-top:.4rem}
+.show-more-btn{background:#fff;border:1.5px solid var(--g200);color:var(--g900);font-weight:700;font-size:.85rem;padding:.7rem 1.6rem;border-radius:24px;transition:all .15s}
+.show-more-btn:hover{border-color:var(--g300);background:var(--g50);box-shadow:var(--shadow)}
 
 .footnote{font-size:.78rem;color:var(--g500);line-height:1.6;padding:1.2rem 1.4rem}
 
@@ -162,28 +169,28 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
 
   <div class="card">
     <div class="filter-bar">
-      <input type="search" id="searchInput" class="search-input" data-i18n-ph="search_ph" placeholder="Search by name, country, or keyword…" autocomplete="off">
-      <div class="filter-grp" id="outcomeFilters">
-        <button class="filter-chip active" data-f="all" data-i18n="f_all">All</button>
-        <button class="filter-chip" data-f="admitted" data-i18n="f_admitted">✅ Admitted</button>
-        <button class="filter-chip" data-f="waitlisted" data-i18n="f_waitlisted">🕒 Waitlisted</button>
-        <button class="filter-chip" data-f="rejected" data-i18n="f_rejected">❌ Rejected</button>
+      <input type="search" id="searchInput" class="search-input" data-i18n-ph="search_ph" placeholder="Search by name, country, or keyword…" autocomplete="off" aria-label="Search profiles">
+      <div class="filter-grp" id="outcomeFilters" role="group" aria-label="Filter by outcome">
+        <button class="filter-chip active" data-f="all" data-i18n="f_all" aria-pressed="true">All</button>
+        <button class="filter-chip" data-f="admitted" data-i18n="f_admitted" aria-pressed="false">✅ Admitted</button>
+        <button class="filter-chip" data-f="waitlisted" data-i18n="f_waitlisted" aria-pressed="false">🕒 Waitlisted</button>
+        <button class="filter-chip" data-f="rejected" data-i18n="f_rejected" aria-pressed="false">❌ Rejected</button>
       </div>
       <div class="filter-sep"></div>
       <div class="filter-grp" id="regionFilters">
-        <select class="country-select" id="countrySelect">
+        <select class="country-select" id="countrySelect" aria-label="Filter by country">
           <option value="all" data-i18n="c_all">🌍 All countries</option>
         </select>
       </div>
       <div class="filter-sep"></div>
-      <select class="country-select" id="sortSelect">
+      <select class="country-select" id="sortSelect" aria-label="Sort profiles">
         <option value="newest" data-i18n="sort_newest">Newest first</option>
         <option value="oldest" data-i18n="sort_oldest">Oldest first</option>
         <option value="az" data-i18n="sort_az">Name A–Z</option>
       </select>
-      <div class="result-count" id="resultCount"></div>
+      <div class="result-count" id="resultCount" aria-live="polite"></div>
     </div>
-    <div class="stats-strip" id="statsStrip"></div>
+    <div class="stats-strip" id="statsStrip" aria-live="polite"></div>
   </div>
 
   <div class="card">
@@ -214,12 +221,15 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
     </div>
   </div>
 
-  <div id="profileGrid" class="profile-grid"></div>
+  <div id="profileGrid" class="profile-grid" aria-live="polite"></div>
   <div id="emptyState" class="empty-state" style="display:none">
     <div class="es-ico">🔎</div>
     <div class="es-t" data-i18n="empty_h">No profiles match this filter</div>
     <div data-i18n="empty_s">Try a different outcome or region filter above.</div>
     <button class="back-link" id="clearFiltersBtn" style="margin-top:1rem" data-i18n="clear_filters">Clear filters</button>
+  </div>
+  <div class="show-more-wrap" id="showMoreWrap">
+    <button class="show-more-btn" id="showMoreBtn"></button>
   </div>
 
   <div class="card footnote" data-i18n="sp_footnote">
@@ -782,7 +792,7 @@ source_lbl:'Source:',
 empty_h:'No profiles match this filter',empty_s:'Try a different outcome or region filter above.',clear_filters:'Clear filters',
 search_ph:'Search by name, country, or keyword…',sort_newest:'Newest first',sort_oldest:'Oldest first',sort_az:'Name A–Z',
 strip_profiles:'profiles',strip_countries:'countries',
-result_n:'{n} profiles',view_profile:'View full profile',
+result_n:'{n} profiles',view_profile:'View full profile',show_more:'Show {n} more profiles',
 sp_footnote:'These stories are shared for context and inspiration, not as a formula. Admissions committees weigh essays, recommendations, context, and institutional priorities in ways that can\'t be reverse-engineered from any single profile — including the ones above. Use Chetta\'s Profile Analyzer to see how your own academic and extracurricular profile compares to real admitted-class data.',
 footer_text:'© 2025 Chetta. Profiles sourced from public news coverage — see links under each card.'
 },
@@ -803,7 +813,7 @@ source_lbl:'Manba:',
 empty_h:'Ushbu filtrga mos profil topilmadi',empty_s:'Yuqorida boshqa natija yoki mintaqa filtrini sinab ko\'ring.',clear_filters:'Filtrlarni tozalash',
 search_ph:'Ism, davlat yoki kalit so\'z bo\'yicha qidirish…',sort_newest:'Avval yangilari',sort_oldest:'Avval eskilari',sort_az:'Ism A–Z',
 strip_profiles:'profil',strip_countries:'davlat',
-result_n:'{n} ta profil',view_profile:'To\'liq profilni ko\'rish',
+result_n:'{n} ta profil',view_profile:'To\'liq profilni ko\'rish',show_more:'Yana {n} ta profil',
 sp_footnote:'Ushbu hikoyalar formula sifatida emas, balki kontekst va ilhom uchun berilmoqda. Qabul komissiyalari insholar, tavsiyalar, kontekst va institutsional ustuvorliklarni hisobga oladi — bularni yuqoridagi biror profildan qayta yaratib bo\'lmaydi. O\'z akademik va qo\'shimcha faoliyat profilingizni haqiqiy qabul qilingan sinf ma\'lumotlari bilan solishtirish uchun Chetta Profile Analyzer\'dan foydalaning.',
 footer_text:'© 2025 Chetta. Profillar ommaviy yangiliklardan olingan — har bir karta ostidagi havolalarga qarang.'
 },
@@ -824,7 +834,7 @@ source_lbl:'Источник:',
 empty_h:'Нет профилей по этому фильтру',empty_s:'Попробуйте другой фильтр результата или региона выше.',clear_filters:'Сбросить фильтры',
 search_ph:'Поиск по имени, стране или ключевому слову…',sort_newest:'Сначала новые',sort_oldest:'Сначала старые',sort_az:'Имя А–Я',
 strip_profiles:'профилей',strip_countries:'стран',
-result_n:'{n} профилей',view_profile:'Смотреть полный профиль',
+result_n:'{n} профилей',view_profile:'Смотреть полный профиль',show_more:'Показать ещё {n}',
 sp_footnote:'Эти истории приведены для контекста и вдохновения, а не как формула. Приёмные комиссии учитывают эссе, рекомендации, контекст и институциональные приоритеты так, что это невозможно вывести из одного профиля — включая перечисленные выше. Используйте Profile Analyzer от Chetta, чтобы сравнить свой академический и внеучебный профиль с данными реальных принятых классов.',
 footer_text:'© 2025 Chetta. Профили взяты из открытых новостных источников — см. ссылки под каждой карточкой.'
 }
@@ -860,6 +870,8 @@ let activeOutcome='all';
 let activeCountry='all';
 let activeSort='newest';
 let searchQuery='';
+let visibleCount=12;
+var PAGE_SIZE=12;
 
 var COUNTRY_FLAGS = {
   'United States':'🇺🇸','Uzbekistan':'🇺🇿','Nigeria':'🇳🇬','Vietnam':'🇻🇳','Ghana':'🇬🇭',
@@ -913,8 +925,9 @@ function populateCountrySelect(){
 
 function cardHtml(p){
   var stats = statPillsHtml(p.stats);
+  var label = (tr('view_profile')+': '+p.name+', '+p.year+', '+p.country).replace(/"/g,'');
   return '' +
-  '<div class="pf-card '+primaryTag(p.tags)+'" onclick="goToProfile(\''+p.id+'\')">' +
+  '<div class="pf-card '+primaryTag(p.tags)+'" onclick="goToProfile(\''+p.id+'\')" tabindex="0" role="link" aria-label="'+label+'" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();goToProfile(\''+p.id+'\')}">' +
     '<div class="pf-hd">' +
       '<div class="pf-avatar '+primaryTag(p.tags)+'">'+p.initials+'</div>' +
       '<div><div class="pf-name">'+p.name+'</div><div class="pf-meta">'+p.year+' · '+flagFor(p.country)+' '+p.country+'</div></div>' +
@@ -953,7 +966,8 @@ function syncUrl(){
   history.replaceState(null, '', qs ? ('?'+qs) : window.location.pathname);
 }
 
-function render(){
+function render(resetPage){
+  if(resetPage!==false) visibleCount = PAGE_SIZE;
   var filtered = PROFILES.filter(function(p){
     var outcomeOk = activeOutcome==='all' || p.tags.indexOf(activeOutcome)>-1;
     var countryOk = activeCountry==='all' || p.country===activeCountry;
@@ -966,25 +980,45 @@ function render(){
   });
   var grid = document.getElementById('profileGrid');
   var empty = document.getElementById('emptyState');
+  var showMoreWrap = document.getElementById('showMoreWrap');
+  var showMoreBtn = document.getElementById('showMoreBtn');
   if(filtered.length===0){
     grid.innerHTML='';
     grid.style.display='none';
     empty.style.display='block';
+    showMoreWrap.style.display='none';
   } else {
     grid.style.display='grid';
     empty.style.display='none';
-    grid.innerHTML = filtered.map(cardHtml).join('');
+    var visible = filtered.slice(0, visibleCount);
+    grid.innerHTML = visible.map(cardHtml).join('');
+    var remaining = filtered.length - visible.length;
+    if(remaining>0){
+      showMoreWrap.style.display='flex';
+      showMoreBtn.textContent = tr('show_more').replace('{n}', remaining);
+    } else {
+      showMoreWrap.style.display='none';
+    }
   }
   document.getElementById('resultCount').textContent = tr('result_n').replace('{n}', filtered.length);
   updateStatsStrip(filtered);
   syncUrl();
 }
 
+function showMore(){
+  visibleCount += PAGE_SIZE;
+  render(false);
+}
+
 function clearFilters(){
   activeOutcome='all'; activeCountry='all'; searchQuery='';
   document.getElementById('searchInput').value='';
   document.getElementById('countrySelect').value='all';
-  Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){ b.classList.toggle('active', b.getAttribute('data-f')==='all'); });
+  Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){
+    var isAll = b.getAttribute('data-f')==='all';
+    b.classList.toggle('active', isAll);
+    b.setAttribute('aria-pressed', isAll ? 'true' : 'false');
+  });
   render();
 }
 
@@ -1000,15 +1034,23 @@ function restoreFromUrl(){
 restoreFromUrl();
 document.getElementById('sortSelect').value = activeSort;
 document.getElementById('searchInput').value = searchQuery;
-Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){ b.classList.toggle('active', b.getAttribute('data-f')===activeOutcome); });
+Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){
+  var isActive = b.getAttribute('data-f')===activeOutcome;
+  b.classList.toggle('active', isActive);
+  b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+});
 
 document.getElementById('outcomeFilters').addEventListener('click', function(e){
   var btn = e.target.closest('[data-f]');
   if(!btn) return;
   activeOutcome = btn.getAttribute('data-f');
-  Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){ b.classList.toggle('active', b===btn); });
+  Array.prototype.forEach.call(document.querySelectorAll('#outcomeFilters .filter-chip'), function(b){
+    b.classList.toggle('active', b===btn);
+    b.setAttribute('aria-pressed', b===btn ? 'true' : 'false');
+  });
   render();
 });
+document.getElementById('showMoreBtn').addEventListener('click', showMore);
 populateCountrySelect();
 document.getElementById('countrySelect').addEventListener('change', function(e){
   activeCountry = e.target.value;
