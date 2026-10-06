@@ -122,9 +122,10 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pf-cta{font-size:.78rem;font-weight:600;color:var(--g400);margin-top:.1rem;padding-top:.7rem;border-top:1px solid var(--g100);transition:color .15s}
 .pf-card:hover .pf-cta{color:var(--blue)}
 
-.empty-state{text-align:center;padding:3rem 1rem;color:var(--g500)}
-.empty-state .es-ico{font-size:2.2rem;margin-bottom:.6rem}
-.empty-state .es-t{font-weight:700;color:var(--g800);margin-bottom:.3rem}
+.empty-state{text-align:center;padding:3.2rem 1rem 2.6rem;color:var(--g500)}
+.empty-state .es-ico{font-size:1.6rem;margin-bottom:.8rem;opacity:.5}
+.empty-state .es-t{font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--g900);margin-bottom:.35rem}
+.empty-state .back-link{margin-top:1.1rem;display:inline-flex}
 
 .show-more-wrap{display:none;justify-content:center;margin-top:.4rem}
 .show-more-btn{background:#fff;border:1.5px solid var(--g200);color:var(--g900);font-weight:700;font-size:.85rem;padding:.7rem 1.6rem;border-radius:24px;transition:all .15s}
@@ -201,21 +202,21 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
         <div class="stat-row"><span data-i18n="st_accrate">Avg. acceptance rate</span><span>~7%</span></div>
         <div class="stat-row"><span data-i18n="st_sat5050">Middle-50% SAT</span><span>1480–1580</span></div>
         <div class="stat-row"><span data-i18n="st_harvard">Harvard, recent cycle</span><span>4.5% (43k+ applied)</span></div>
-        <div class="stat-src">Source: <a href="https://www.bestcolleges.com/blog/good-sat-score-ivy-league/" target="_blank" rel="noopener">BestColleges</a>, <a href="https://zinkerz.com/blog/breaking-down-ivy-league-admissions-key-stats-and-trends/" target="_blank" rel="noopener">Zinkerz</a></div>
+        <div class="stat-src"><span data-i18n="source_lbl">Source:</span> <a href="https://www.bestcolleges.com/blog/good-sat-score-ivy-league/" target="_blank" rel="noopener">BestColleges</a>, <a href="https://zinkerz.com/blog/breaking-down-ivy-league-admissions-key-stats-and-trends/" target="_blank" rel="noopener">Zinkerz</a></div>
       </div>
       <div class="stat-box">
         <h4>Stanford, Class of 2029</h4>
         <div class="stat-row"><span data-i18n="st_accrate">Acceptance rate</span><span>3.8%</span></div>
         <div class="stat-row"><span data-i18n="st_avggpa">Avg. enrolled GPA</span><span>3.9 (73% had 4.0)</span></div>
         <div class="stat-row"><span data-i18n="st_sat5050">Middle-50% SAT</span><span>1520–1570</span></div>
-        <div class="stat-src">Source: <a href="https://empowerly.com/applications/stanford-acceptance-rate-class-2029/" target="_blank" rel="noopener">Stanford Common Data Set, via Empowerly</a></div>
+        <div class="stat-src"><span data-i18n="source_lbl">Source:</span> <a href="https://empowerly.com/applications/stanford-acceptance-rate-class-2029/" target="_blank" rel="noopener">Stanford Common Data Set, via Empowerly</a></div>
       </div>
       <div class="stat-box">
         <h4>MIT, recent cycle</h4>
         <div class="stat-row"><span data-i18n="st_accrate">Regular Decision rate</span><span>~3.5%</span></div>
         <div class="stat-row"><span data-i18n="st_sat5050">Middle-50% SAT</span><span>1520–1570</span></div>
         <div class="stat-row"><span data-i18n="st_classrank">Top 10% of class (of those ranked)</span><span>96%</span></div>
-        <div class="stat-src">Source: <a href="https://www.crimsoneducation.org/ap/how-to-get-into/mit/requirements" target="_blank" rel="noopener">MIT Common Data Set, via Crimson Education</a></div>
+        <div class="stat-src"><span data-i18n="source_lbl">Source:</span> <a href="https://www.crimsoneducation.org/ap/how-to-get-into/mit/requirements" target="_blank" rel="noopener">MIT Common Data Set, via Crimson Education</a></div>
       </div>
     </div>
   </div>
@@ -225,7 +226,7 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
     <div class="es-ico">🔎</div>
     <div class="es-t" data-i18n="empty_h">No profiles match this filter</div>
     <div data-i18n="empty_s">Try a different outcome or region filter above.</div>
-    <button class="back-link" id="clearFiltersBtn" style="margin-top:1rem" data-i18n="clear_filters">Clear filters</button>
+    <button class="back-link" id="clearFiltersBtn" data-i18n="clear_filters">Clear filters</button>
   </div>
   <div class="show-more-wrap" id="showMoreWrap">
     <button class="show-more-btn" id="showMoreBtn"></button>
