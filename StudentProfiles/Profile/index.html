@@ -66,12 +66,20 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pd-name{font-family:'Instrument Serif',serif;font-size:1.7rem;letter-spacing:-.3px}
 .pd-meta{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem}
 .pd-meta-tag{font-size:.74rem;font-weight:600;color:var(--g600);border:1px solid var(--g200);border-radius:4px;padding:.1rem .45rem}
-.pd-badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-left:auto;flex-shrink:0}
+.pd-corner{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;flex-shrink:0}
+.pd-badges{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end}
 .pd-badge{font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:4px;white-space:nowrap;display:inline-flex;align-items:center}
 .pd-badge svg{width:11px;height:11px;margin-right:.3rem;flex-shrink:0}
 .pd-badge.admitted{background:var(--gpale);color:var(--green)}
 .pd-badge.rejected{background:var(--rpale);color:var(--red)}
 .pd-badge.waitlisted{background:var(--apale);color:var(--amber)}
+.pd-corner-logos{display:flex;align-items:center}
+.pd-corner-logo{width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px var(--g200);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-left:-9px;position:relative;flex-shrink:0;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.pd-corner-logos .pd-corner-logo:first-child{margin-left:0}
+.pd-corner-logo:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--g300),0 3px 7px rgba(0,0,0,.12);z-index:5}
+.pd-corner-logo img{width:100%;height:100%;object-fit:contain;padding:3.5px;background:#fff}
+.pd-corner-logo-fb{display:none;width:100%;height:100%;align-items:center;justify-content:center;background:var(--g100);color:var(--g600);font-size:.56rem;font-weight:700}
+.pd-corner-more{width:28px;height:28px;border-radius:50%;background:var(--g700);color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:-9px;border:2px solid #fff;box-shadow:0 0 0 1px var(--g200);flex-shrink:0}
 
 .pd-highlight{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.3rem;font-weight:400;color:var(--g900);line-height:1.4;border-left:2px solid var(--g200);padding-left:1rem;margin-bottom:1.3rem}
 
@@ -79,7 +87,15 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pd-stats-note{font-size:.78rem;color:var(--g400);font-style:italic;margin-bottom:1.3rem}
 .pd-stat-pill{font-size:.78rem;font-weight:600;color:var(--g600);border:1px solid var(--g200);padding:.28rem .7rem;border-radius:4px}
 
+.pd-tabs{display:flex;flex-wrap:wrap;gap:.3rem;background:var(--bluepale);border-radius:999px;padding:.3rem;margin:1.6rem 0 1.3rem;width:fit-content;max-width:100%}
+.pd-tab{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:var(--blue);background:transparent;border:none;border-radius:999px;padding:.5rem 1rem;cursor:pointer;transition:background .15s var(--ease),color .15s var(--ease);font-family:inherit;white-space:nowrap}
+.pd-tab svg{width:14px;height:14px;flex-shrink:0}
+.pd-tab:hover{background:rgba(255,255,255,.6)}
+.pd-tab.active{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.pd-tab-panel{animation:pdfade .25s var(--ease)}
+@keyframes pdfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .pd-section-lbl{font-size:.8rem;font-weight:600;color:var(--g500);border-left:2px solid var(--blue2);padding-left:.6rem;margin-bottom:.6rem;margin-top:1.5rem}
+.pd-tab-panel .pd-section-lbl:first-child{margin-top:0}
 .pd-sch-list{display:flex;flex-wrap:wrap;gap:.45rem}
 .pd-sch-tag{font-size:.82rem;font-weight:600;padding:.3rem .7rem .3rem .3rem;border-radius:4px;display:inline-flex;align-items:center;gap:.4rem}
 .pd-sch-tag.a{background:var(--gpale);color:var(--green)}
@@ -675,7 +691,7 @@ nav_back:'← All Profiles',
 crumb_all:'Student Profiles /',
 schools_a:'Admitted to',schools_w:'Waitlisted at',schools_r:'Rejected by',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',
-ec_lbl:'Extracurriculars & Achievements',essay_lbl:'Essay / Application Angle',story_lbl:'The Full Story',acad_lbl:'Academic Profile',bg_lbl:'Background & Family',
+ec_lbl:'Extracurriculars & Achievements',essay_lbl:'Essay / Application Angle',story_lbl:'The Full Story',acad_lbl:'Academic Profile',bg_lbl:'Background & Family',tab_academics:'Academics',tab_activities:'Activities',tab_admissions:'Decisions',tab_more:'Additional information',
 stats_undisclosed:'Specific GPA/SAT/ACT scores were not published for this case — see the source for full context.',
 source_lbl:'Source:',
 prev_btn:'← Previous profile',next_btn:'Next profile →',
@@ -688,7 +704,7 @@ nav_back:'← Barcha profillar',
 crumb_all:'Talaba profillari /',
 schools_a:'Qabul qilingan',schools_w:'Kutish ro\'yxatida',schools_r:'Rad etilgan',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',
-ec_lbl:'Qo\'shimcha faoliyat va yutuqlar',essay_lbl:'Insho / Ariza yondashuvi',story_lbl:'To\'liq hikoya',acad_lbl:'Akademik profil',bg_lbl:'Kelib chiqishi va oila',
+ec_lbl:'Qo\'shimcha faoliyat va yutuqlar',essay_lbl:'Insho / Ariza yondashuvi',story_lbl:'To\'liq hikoya',acad_lbl:'Akademik profil',bg_lbl:'Kelib chiqishi va oila',tab_academics:'Akademik',tab_activities:'Faoliyat',tab_admissions:'Qarorlar',tab_more:'Qo\'shimcha ma\'lumot',
 stats_undisclosed:'Ushbu holat uchun aniq GPA/SAT/ACT ko\'rsatkichlari e\'lon qilinmagan — to\'liq ma\'lumot uchun manbaga qarang.',
 source_lbl:'Manba:',
 prev_btn:'← Oldingi profil',next_btn:'Keyingi profil →',
@@ -701,7 +717,7 @@ nav_back:'← Все профили',
 crumb_all:'Профили студентов /',
 schools_a:'Принят(а) в',schools_w:'Список ожидания в',schools_r:'Отказ от',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',
-ec_lbl:'Внеучебная деятельность и достижения',essay_lbl:'Эссе / Подход к заявке',story_lbl:'Полная история',acad_lbl:'Академический профиль',bg_lbl:'Происхождение и семья',
+ec_lbl:'Внеучебная деятельность и достижения',essay_lbl:'Эссе / Подход к заявке',story_lbl:'Полная история',acad_lbl:'Академический профиль',bg_lbl:'Происхождение и семья',tab_academics:'Академика',tab_activities:'Активности',tab_admissions:'Решения',tab_more:'Дополнительно',
 stats_undisclosed:'Точные баллы GPA/SAT/ACT для этого случая не публиковались — подробности см. в источнике.',
 source_lbl:'Источник:',
 prev_btn:'← Предыдущий профиль',next_btn:'Следующий профиль →',
@@ -739,6 +755,10 @@ var ICO_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 var ICO_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></svg>';
 var ICO_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
 var ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+var ICO_CAP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>';
+var ICO_STAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+var ICO_TROPHY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H4a2 2 0 0 0 2 4"/><path d="M17 5h3a2 2 0 0 1-2 4"/></svg>';
+var ICO_DOC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>';
 
 // ---------------- university logo lookup ----------------
 var SCHOOL_DOMAINS = [
@@ -815,6 +835,38 @@ function schoolLogoIconHtml(label, domain){
     '</span>';
   }
   return '<span class="pd-sch-logo"><span class="pd-sch-logo-fb" style="display:flex">'+init+'</span></span>';
+}
+function cornerLogoHtml(label, domain){
+  var init = label.replace(/[^A-Za-z ]/g,'').trim().split(/\s+/).map(function(w){return w[0];}).slice(0,2).join('').toUpperCase() || '?';
+  var safeLabel = label.replace(/"/g,'');
+  if(domain){
+    var fallbackSrc = 'https://www.google.com/s2/favicons?domain='+domain+'&sz=64';
+    return '<span class="pd-corner-logo" title="'+safeLabel+'">'+
+      '<img src="https://logos.hunter.io/'+domain+'" alt="" loading="lazy" style="display:none" data-fb="'+fallbackSrc+'" '+
+      'onload="this.style.display=\'block\';this.nextElementSibling.style.display=\'none\';" '+
+      'onerror="var fb=this.getAttribute(\'data-fb\');if(fb){this.removeAttribute(\'data-fb\');this.src=fb;}else{this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';}">'+
+      '<span class="pd-corner-logo-fb" style="display:flex">'+init+'</span>'+
+    '</span>';
+  }
+  return '<span class="pd-corner-logo" title="'+safeLabel+'"><span class="pd-corner-logo-fb" style="display:flex">'+init+'</span></span>';
+}
+function cornerLogosHtml(list, max){
+  max = max || 5;
+  var named = [];
+  var extra = 0;
+  (list||[]).forEach(function(raw){
+    var norm = normalizeSchool(raw);
+    if(/^(and\b|\d+\s*(other|more)\b|nearly every|more\s*\()/i.test(norm) || norm.length<2){ extra++; return; }
+    named.push(norm);
+  });
+  var shown = named.slice(0, max);
+  extra += named.length - shown.length;
+  var html = shown.map(function(norm){
+    var m = lookupSchool(norm);
+    return cornerLogoHtml(m?m.name:norm, m?m.domain:null);
+  }).join('');
+  if(extra>0) html += '<span class="pd-corner-more">+'+extra+'</span>';
+  return html;
 }
 
 function statPillsHtml(stats){
@@ -919,31 +971,65 @@ function renderProfile(){
   var stats = statPillsHtml(p.stats);
   var prev = PROFILES[idx-1];
   var next = PROFILES[idx+1];
+  var cornerLogos = cornerLogosHtml(p.accepted);
+
+  var academicsHtml = (stats?'<div class="pd-stats">'+stats+'</div>':'<div class="pd-stats-note">'+(p.statsNote||tr('stats_undisclosed'))+'</div>')+
+    listSectionHtml('acad_lbl', p.academics);
+  var activitiesHtml = ecListHtml(p.extracurriculars);
+  var admissionsHtml = schoolBlock(tr('schools_a'), p.accepted, 'a')+
+    schoolBlock(tr('schools_w'), p.waitlisted, 'w')+
+    schoolBlock(tr('schools_r'), p.rejected, 'r');
+  var moreHtml = essayHtml(p.essay)+
+    listSectionHtml('bg_lbl', p.background)+
+    '<div class="pd-section-lbl">'+tr('story_lbl')+'</div>'+
+    '<div class="pd-story">'+p.story+'</div>'+
+    '<div class="pd-src-box">'+tr('source_lbl')+' <a href="'+p.sourceUrl+'" target="_blank" rel="noopener">'+p.sourceName+'</a></div>';
+
+  var tabDefs = [
+    {key:'academics', label:tr('tab_academics'), icon:ICO_CAP, html:academicsHtml},
+    {key:'activities', label:tr('tab_activities'), icon:ICO_STAR, html:activitiesHtml},
+    {key:'admissions', label:tr('tab_admissions'), icon:ICO_TROPHY, html:admissionsHtml},
+    {key:'more', label:tr('tab_more'), icon:ICO_DOC, html:moreHtml}
+  ].filter(function(t){ return t.html && t.html.trim().length; });
+
+  window.__pdTabs = {};
+  tabDefs.forEach(function(t){ window.__pdTabs[t.key] = t.html; });
+  var activeKey = tabDefs.length ? tabDefs[0].key : null;
+
   content.innerHTML =
   '<div class="pd-card">'+
     '<div class="pd-hd">'+
       '<div class="pd-avatar '+primaryTag(p.tags)+'">'+p.initials+'</div>'+
       '<div><div class="pd-name">'+p.name+'</div><div class="pd-meta"><span class="pd-meta-tag">'+flagFor(p.country)+' '+p.country+'</span><span class="pd-meta-tag">'+p.year+'</span></div></div>'+
-      '<div class="pd-badges">'+badgeHtml(p.tags)+'</div>'+
+      '<div class="pd-corner">'+
+        '<div class="pd-badges">'+badgeHtml(p.tags)+'</div>'+
+        (cornerLogos?'<div class="pd-corner-logos">'+cornerLogos+'</div>':'')+
+      '</div>'+
     '</div>'+
     '<div class="pd-highlight">'+p.highlight+'</div>'+
-    (stats?'<div class="pd-stats">'+stats+'</div>':'<div class="pd-stats-note">'+(p.statsNote||tr('stats_undisclosed'))+'</div>')+
-    schoolBlock(tr('schools_a'), p.accepted, 'a')+
-    schoolBlock(tr('schools_w'), p.waitlisted, 'w')+
-    schoolBlock(tr('schools_r'), p.rejected, 'r')+
-    listSectionHtml('acad_lbl', p.academics)+
-    listSectionHtml('bg_lbl', p.background)+
-    ecListHtml(p.extracurriculars)+
-    essayHtml(p.essay)+
-    '<div class="pd-section-lbl">'+tr('story_lbl')+'</div>'+
-    '<div class="pd-story">'+p.story+'</div>'+
-    '<div class="pd-src-box">'+tr('source_lbl')+' <a href="'+p.sourceUrl+'" target="_blank" rel="noopener">'+p.sourceName+'</a></div>'+
+    (tabDefs.length?(
+      '<div class="pd-tabs" role="tablist">'+
+        tabDefs.map(function(t,i){
+          return '<button type="button" class="pd-tab'+(i===0?' active':'')+'" role="tab" aria-selected="'+(i===0?'true':'false')+'" onclick="switchPdTab(this,\''+t.key+'\')">'+t.icon+'<span>'+t.label+'</span></button>';
+        }).join('')+
+      '</div>'+
+      '<div class="pd-tab-panel" id="pdTabPanel">'+(activeKey?window.__pdTabs[activeKey]:'')+'</div>'
+    ):'')+
     moreFromCountryHtml(p)+
   '</div>'+
   '<div class="pd-nav">'+
     (prev? '<a class="pd-nav-btn" href="/StudentProfiles/Profile/?id='+prev.id+'">'+tr('prev_btn')+'</a>' : '<span></span>')+
     (next? '<a class="pd-nav-btn" href="/StudentProfiles/Profile/?id='+next.id+'">'+tr('next_btn')+'</a>' : '<span></span>')+
   '</div>';
+}
+function switchPdTab(btn, key){
+  var panel = document.getElementById('pdTabPanel');
+  if(!panel || !window.__pdTabs || !(key in window.__pdTabs)) return;
+  panel.innerHTML = window.__pdTabs[key];
+  var tabs = btn.parentElement.querySelectorAll('.pd-tab');
+  tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
 }
 
 applyI18n();
