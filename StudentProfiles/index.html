@@ -14,13 +14,15 @@
   --black:#09090b;--navy:#0f1729;--blue:#2563eb;--blue2:#3b82f6;--bluepale:#eff6ff;
   --white:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
   --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
-  --green:#16a34a;--gpale:#f0fdf4;--amber:#d97706;--apale:#fffbeb;--red:#dc2626;--rpale:#fef2f2;
+  --green:#1f9d6b;--gpale:#eaf7f1;--amber:#c8860d;--apale:#fdf5e7;--red:#c0453a;--rpale:#fbeeec;
   --purple:#7c3aed;--ppale:#f5f3ff;
   --shadow:0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.04);
   --shadowlg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
+  --ease:cubic-bezier(.22,.8,.3,1);
   --r:10px;--rl:16px;--rxl:22px
 }
 html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--g900);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
 a{color:inherit;text-decoration:none}
@@ -61,13 +63,23 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .search-input{border:1.5px solid var(--g200);border-radius:20px;padding:.45rem 1rem;font-size:.82rem;font-family:inherit;min-width:220px;flex:1 1 220px;color:var(--g900)}
 .search-input:focus{outline:none;border-color:var(--blue2)}
 .stats-strip{display:flex;flex-wrap:wrap;gap:1.1rem;border-top:1px solid var(--g100);padding-top:.8rem;margin-top:.2rem}
-.stats-strip .ss-item{display:flex;align-items:baseline;gap:.35rem;font-size:.78rem;color:var(--g500);padding-left:1.1rem;border-left:1px solid var(--g200)}
+.stats-strip .ss-item{display:flex;align-items:center;gap:.35rem;font-size:.78rem;color:var(--g500);padding-left:1.1rem;border-left:1px solid var(--g200)}
 .stats-strip .ss-item:first-child{padding-left:0;border-left:none}
 .stats-strip b{color:var(--g800);font-weight:700;font-size:.92rem}
+.stats-strip .ss-item svg{width:12px;height:12px;flex-shrink:0}
+.stats-strip .ss-admitted svg{color:var(--green)}
+.stats-strip .ss-waitlisted svg{color:var(--amber)}
+.stats-strip .ss-rejected svg{color:var(--red)}
 .filter-grp{display:flex;gap:.4rem;flex-wrap:wrap}
-.filter-chip{background:#fff;border:1.5px solid var(--g200);color:var(--g700);font-size:.82rem;font-weight:600;padding:.45rem .95rem;border-radius:20px;transition:all .15s}
-.filter-chip:hover{border-color:var(--g300)}
+.filter-chip{background:#fff;border:1.5px solid var(--g200);color:var(--g700);font-size:.82rem;font-weight:600;padding:.45rem .95rem;border-radius:20px;transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),transform .15s var(--ease);display:inline-flex;align-items:center}
+.filter-chip:hover{border-color:var(--g300);transform:translateY(-1px)}
+.filter-chip:active{transform:translateY(0)}
 .filter-chip.active{background:var(--g900);border-color:var(--g900);color:#fff;box-shadow:0 2px 8px rgba(17,24,39,.25)}
+.chip-ico{width:13px;height:13px;margin-right:.35rem;flex-shrink:0}
+.filter-chip[data-f="admitted"] .chip-ico{color:var(--green)}
+.filter-chip[data-f="waitlisted"] .chip-ico{color:var(--amber)}
+.filter-chip[data-f="rejected"] .chip-ico{color:var(--red)}
+.filter-chip.active .chip-ico{color:#fff}
 .filter-sep{width:1px;height:22px;background:var(--g200);margin:0 .2rem}
 .country-select{background:#fff;border:1.5px solid var(--g200);color:var(--g700);font-size:.82rem;font-weight:600;padding:.42rem 2rem .42rem .9rem;border-radius:6px;cursor:pointer;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right .6rem center;background-size:16px}
 .country-select:hover{border-color:var(--g300)}
@@ -109,12 +121,27 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pf-meta-tag{font-size:.7rem;font-weight:600;color:var(--g600);border:1px solid var(--g200);border-radius:4px;padding:.08rem .4rem}
 .pf-num{font-family:'Instrument Serif',serif;font-size:.9rem;color:var(--g300);flex-shrink:0;line-height:1.5}
 .pf-badges{display:flex;gap:.35rem;flex-wrap:wrap}
-.pf-badge{font-size:.66rem;font-weight:700;padding:.22rem .55rem;border-radius:4px;white-space:nowrap;letter-spacing:.1px}
+.pf-badge{font-size:.66rem;font-weight:700;padding:.22rem .55rem;border-radius:4px;white-space:nowrap;letter-spacing:.1px;display:inline-flex;align-items:center}
+.pf-badge svg{width:10px;height:10px;margin-right:.3rem;flex-shrink:0}
 .pf-badge.admitted{background:var(--gpale);color:var(--green)}
 .pf-badge.rejected{background:var(--rpale);color:var(--red)}
 .pf-badge.waitlisted{background:var(--apale);color:var(--amber)}
 .pf-highlight{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.12rem;font-weight:400;color:var(--g900);line-height:1.4;letter-spacing:-.1px;border-left:2px solid var(--g200);padding-left:.7rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pf-stats{display:flex;flex-wrap:wrap;gap:.4rem}
+
+/* university logo stacks */
+.sch-row{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.sch-row-lbl{font-size:.68rem;font-weight:600;white-space:nowrap}
+.sch-row-lbl.a{color:var(--green)}
+.sch-row-lbl.w{color:var(--amber)}
+.sch-row-lbl.r{color:var(--red)}
+.sch-logos{display:flex;align-items:center}
+.sch-logo{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px var(--g200);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-left:-8px;position:relative;flex-shrink:0;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.sch-logos .sch-logo:first-child{margin-left:0}
+.sch-logo:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--g300),0 4px 8px rgba(0,0,0,.12);z-index:5}
+.sch-logo img{width:100%;height:100%;object-fit:contain;padding:4px;background:#fff}
+.sch-logo-fb{display:none;width:100%;height:100%;align-items:center;justify-content:center;background:var(--g100);color:var(--g600);font-size:.6rem;font-weight:700}
+.sch-logo-more{width:26px;height:26px;border-radius:50%;background:var(--g700);color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:-8px;border:2px solid #fff;box-shadow:0 0 0 1px var(--g200);flex-shrink:0}
 .pf-stat-pill{font-size:.7rem;font-weight:600;color:var(--g600);border:1px solid var(--g200);padding:.18rem .5rem;border-radius:4px}
 .pf-story{font-size:.85rem;color:var(--g600);line-height:1.55}
 .pf-src{font-size:.75rem;color:var(--blue);font-weight:600;margin-top:.1rem;display:inline-block}
@@ -123,7 +150,8 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pf-card:hover .pf-cta{color:var(--blue)}
 
 .empty-state{text-align:center;padding:3.2rem 1rem 2.6rem;color:var(--g500)}
-.empty-state .es-ico{font-size:1.6rem;margin-bottom:.8rem;opacity:.5}
+.empty-state .es-ico{margin-bottom:.8rem;opacity:.45}
+.empty-state .es-ico svg{width:26px;height:26px}
 .empty-state .es-t{font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--g900);margin-bottom:.35rem}
 .empty-state .back-link{margin-top:1.1rem;display:inline-flex}
 
@@ -171,10 +199,10 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
     <div class="filter-bar">
       <input type="search" id="searchInput" class="search-input" data-i18n-ph="search_ph" placeholder="Search by name, country, or keyword…" autocomplete="off" aria-label="Search profiles">
       <div class="filter-grp" id="outcomeFilters" role="group" aria-label="Filter by outcome">
-        <button class="filter-chip active" data-f="all" data-i18n="f_all" aria-pressed="true">All</button>
-        <button class="filter-chip" data-f="admitted" data-i18n="f_admitted" aria-pressed="false">✅ Admitted</button>
-        <button class="filter-chip" data-f="waitlisted" data-i18n="f_waitlisted" aria-pressed="false">🕒 Waitlisted</button>
-        <button class="filter-chip" data-f="rejected" data-i18n="f_rejected" aria-pressed="false">❌ Rejected</button>
+        <button class="filter-chip active" data-f="all" aria-pressed="true"><span data-i18n="f_all">All</span></button>
+        <button class="filter-chip" data-f="admitted" aria-pressed="false"><svg class="chip-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="f_admitted">Admitted</span></button>
+        <button class="filter-chip" data-f="waitlisted" aria-pressed="false"><svg class="chip-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></svg><span data-i18n="f_waitlisted">Waitlisted</span></button>
+        <button class="filter-chip" data-f="rejected" aria-pressed="false"><svg class="chip-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span data-i18n="f_rejected">Rejected</span></button>
       </div>
       <div class="filter-sep"></div>
       <div class="filter-grp" id="regionFilters">
@@ -223,7 +251,7 @@ footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;co
 
   <div id="profileGrid" class="profile-grid" aria-live="polite"></div>
   <div id="emptyState" class="empty-state" style="display:none">
-    <div class="es-ico">🔎</div>
+    <div class="es-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
     <div class="es-t" data-i18n="empty_h">No profiles match this filter</div>
     <div data-i18n="empty_s">Try a different outcome or region filter above.</div>
     <button class="back-link" id="clearFiltersBtn" data-i18n="clear_filters">Clear filters</button>
@@ -781,12 +809,13 @@ sp_eyebrow:'Real Admissions Data',
 sp_title:'Student Profiles: Admitted, Waitlisted, Rejected',
 sp_sub:'Real, publicly reported cases of students who applied to Ivy League and other top universities — their stats, essays, and what actually happened. Filter by outcome to see patterns.',
 sp_disc:'Every profile below is sourced from published news coverage or official announcements (linked under each card). These are individual, self-reported or media-reported outcomes — not a guarantee of what will happen with a similar profile.',
-f_all:'All',f_admitted:'✅ Admitted',f_waitlisted:'🕒 Waitlisted',f_rejected:'❌ Rejected',
+f_all:'All',f_admitted:'Admitted',f_waitlisted:'Waitlisted',f_rejected:'Rejected',
 c_all:'🌍 All countries',
 stats_title:'What admitted classes actually look like',
 stats_sub:'Common Data Set figures for recent admitted/enrolled classes — for context alongside the individual stories below.',
 st_accrate:'Avg. acceptance rate',st_sat5050:'Middle-50% SAT',st_harvard:'Harvard, recent cycle',st_avggpa:'Avg. enrolled GPA',st_classrank:'Top 10% of class (of those ranked)',
 schools_a:'Admitted',schools_w:'Waitlisted',schools_r:'Rejected',
+schools_a_by:'Accepted by',schools_w_by:'Waitlisted by',schools_r_by:'Rejected by',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',stat_year:'Cycle',
 source_lbl:'Source:',
 empty_h:'No profiles match this filter',empty_s:'Try a different outcome or region filter above.',clear_filters:'Clear filters',
@@ -802,12 +831,13 @@ sp_eyebrow:'Haqiqiy qabul ma\'lumotlari',
 sp_title:'Talaba profillari: qabul qilinganlar, kutish ro\'yxatidagilar, rad etilganlar',
 sp_sub:'Ivy League va boshqa yetakchi universitetlarga hujjat topshirgan talabalarning haqiqiy, ommaviy axborot vositalarida yoritilgan holatlari — ularning ko\'rsatkichlari, insholari va nima sodir bo\'lgani. Naqshlarni ko\'rish uchun natijaga qarab filtrlang.',
 sp_disc:'Quyidagi har bir profil chop etilgan yangiliklar yoki rasmiy e\'lonlardan olingan (har bir karta ostida havola berilgan). Bular individual, o\'zi bergan yoki OAV orqali yoritilgan natijalar — o\'xshash profil bilan nima sodir bo\'lishining kafolati emas.',
-f_all:'Barchasi',f_admitted:'✅ Qabul qilingan',f_waitlisted:'🕒 Kutish ro\'yxatida',f_rejected:'❌ Rad etilgan',
+f_all:'Barchasi',f_admitted:'Qabul qilingan',f_waitlisted:'Kutish ro\'yxatida',f_rejected:'Rad etilgan',
 c_all:'🌍 Barcha davlatlar',
 stats_title:'Qabul qilingan sinflar aslida qanday ko\'rinadi',
 stats_sub:'So\'nggi qabul qilingan/o\'qishga kirgan sinflar bo\'yicha umumiy ma\'lumotlar to\'plami — quyidagi individual hikoyalar uchun kontekst sifatida.',
 st_accrate:'O\'rtacha qabul darajasi',st_sat5050:'O\'rta 50% SAT',st_harvard:'Garvard, so\'nggi tsikl',st_avggpa:'O\'rtacha GPA',st_classrank:'Sinfning eng yaxshi 10% (reytingi borlar orasida)',
 schools_a:'Qabul qilingan',schools_w:'Kutish ro\'yxatida',schools_r:'Rad etilgan',
+schools_a_by:'Qabul qilgan universitetlar',schools_w_by:'Kutish ro\'yxatidagi universitetlar',schools_r_by:'Rad etgan universitetlar',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',stat_year:'Yil',
 source_lbl:'Manba:',
 empty_h:'Ushbu filtrga mos profil topilmadi',empty_s:'Yuqorida boshqa natija yoki mintaqa filtrini sinab ko\'ring.',clear_filters:'Filtrlarni tozalash',
@@ -823,12 +853,13 @@ sp_eyebrow:'Реальные данные о поступлении',
 sp_title:'Профили студентов: приняты, в списке ожидания, отказано',
 sp_sub:'Реальные, опубликованные в СМИ случаи студентов, подававших документы в Лигу плюща и другие топовые университеты — их показатели, эссе и то, что произошло на самом деле. Отфильтруйте по результату, чтобы увидеть закономерности.',
 sp_disc:'Каждый профиль ниже взят из опубликованных новостей или официальных объявлений (ссылка под каждой карточкой). Это индивидуальные, самостоятельно сообщённые или освещённые СМИ результаты — а не гарантия того, что произойдёт с похожим профилем.',
-f_all:'Все',f_admitted:'✅ Принят(а)',f_waitlisted:'🕒 Список ожидания',f_rejected:'❌ Отказ',
+f_all:'Все',f_admitted:'Принят(а)',f_waitlisted:'Список ожидания',f_rejected:'Отказ',
 c_all:'🌍 Все страны',
 stats_title:'Как на самом деле выглядят принятые классы',
 stats_sub:'Данные Common Data Set по недавним принятым/зачисленным классам — для контекста наряду с историями ниже.',
 st_accrate:'Средний процент поступления',st_sat5050:'Средние 50% SAT',st_harvard:'Гарвард, последний цикл',st_avggpa:'Средний GPA зачисленных',st_classrank:'Топ-10% класса (среди указавших ранг)',
 schools_a:'Приняты',schools_w:'Список ожидания',schools_r:'Отказ',
+schools_a_by:'Приняли',schools_w_by:'В списке ожидания у',schools_r_by:'Отказали',
 stat_gpa:'GPA',stat_sat:'SAT',stat_act:'ACT',stat_ielts:'IELTS',stat_year:'Год',
 source_lbl:'Источник:',
 empty_h:'Нет профилей по этому фильтру',empty_s:'Попробуйте другой фильтр результата или региона выше.',clear_filters:'Сбросить фильтры',
@@ -884,6 +915,118 @@ function parseYear(y){
   return m ? parseInt(m[0],10) : 0;
 }
 
+// ---------------- outcome icons (replace emoji with crisp inline SVG) ----------------
+var ICO_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+var ICO_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></svg>';
+var ICO_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+var ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+function outcomeIcon(t){ return t==='admitted'?ICO_CHECK:(t==='waitlisted'?ICO_CLOCK:ICO_X); }
+
+// ---------------- university logo stacks ----------------
+var SCHOOL_DOMAINS = [
+  [/NYU Abu Dhabi|New York University Abu Dhabi/i, 'NYU Abu Dhabi', 'nyuad.nyu.edu'],
+  [/Barnard/i, 'Barnard College', 'barnard.edu'],
+  [/Harvey Mudd/i, 'Harvey Mudd', 'hmc.edu'],
+  [/Harvard/i, 'Harvard', 'harvard.edu'],
+  [/Yale/i, 'Yale', 'yale.edu'],
+  [/Princeton/i, 'Princeton', 'princeton.edu'],
+  [/Columbia/i, 'Columbia', 'columbia.edu'],
+  [/Cornell/i, 'Cornell', 'cornell.edu'],
+  [/Dartmouth/i, 'Dartmouth', 'dartmouth.edu'],
+  [/Brown/i, 'Brown', 'brown.edu'],
+  [/University of Pennsylvania|UPenn/i, 'UPenn', 'upenn.edu'],
+  [/Stanford/i, 'Stanford', 'stanford.edu'],
+  [/Massachusetts Institute|\bMIT\b/i, 'MIT', 'mit.edu'],
+  [/Caltech|California Institute of Technology/i, 'Caltech', 'caltech.edu'],
+  [/Duke/i, 'Duke', 'duke.edu'],
+  [/Northwestern/i, 'Northwestern', 'northwestern.edu'],
+  [/Johns Hopkins/i, 'Johns Hopkins', 'jhu.edu'],
+  [/Georgetown/i, 'Georgetown', 'georgetown.edu'],
+  [/Carnegie Mellon/i, 'Carnegie Mellon', 'cmu.edu'],
+  [/Georgia Institute of Technology|Georgia Tech/i, 'Georgia Tech', 'gatech.edu'],
+  [/University of Michigan/i, 'Michigan', 'umich.edu'],
+  [/University of Washington/i, 'U. Washington', 'washington.edu'],
+  [/University of Texas at Austin|UT Austin/i, 'UT Austin', 'utexas.edu'],
+  [/Emory/i, 'Emory', 'emory.edu'],
+  [/Wesleyan/i, 'Wesleyan', 'wesleyan.edu'],
+  [/Notre Dame/i, 'Notre Dame', 'nd.edu'],
+  [/Grinnell/i, 'Grinnell', 'grinnell.edu'],
+  [/Bentley/i, 'Bentley', 'bentley.edu'],
+  [/Howard/i, 'Howard', 'howard.edu'],
+  [/\bFisk\b/i, 'Fisk', 'fisk.edu'],
+  [/Stetson/i, 'Stetson', 'stetson.edu'],
+  [/University of Miami/i, 'U. Miami', 'miami.edu'],
+  [/University of Toronto/i, 'U. Toronto', 'utoronto.ca'],
+  [/Vanderbilt/i, 'Vanderbilt', 'vanderbilt.edu'],
+  [/Indiana University/i, 'Indiana U.', 'indiana.edu'],
+  [/Boston University/i, 'Boston U.', 'bu.edu'],
+  [/New York University|\bNYU\b/i, 'NYU', 'nyu.edu'],
+  [/USC|University of Southern California/i, 'USC', 'usc.edu'],
+  [/UC Berkeley|\bBerkeley\b/i, 'UC Berkeley', 'berkeley.edu'],
+  [/UCLA/i, 'UCLA', 'ucla.edu'],
+  [/UC San Diego|UCSD/i, 'UC San Diego', 'ucsd.edu'],
+  [/UC Davis/i, 'UC Davis', 'ucdavis.edu'],
+  [/UC Riverside/i, 'UC Riverside', 'ucr.edu'],
+  [/UC Santa Barbara|UCSB/i, 'UCSB', 'ucsb.edu'],
+  [/UC Santa Cruz|UCSC/i, 'UC Santa Cruz', 'ucsc.edu'],
+  [/Cal Poly San Luis Obispo|Cal Poly/i, 'Cal Poly', 'calpoly.edu'],
+  [/Cal State Long Beach/i, 'CSU Long Beach', 'csulb.edu'],
+  [/San Diego State/i, 'San Diego State', 'sdsu.edu'],
+  [/Arizona State/i, 'Arizona State', 'asu.edu']
+];
+function normalizeSchool(raw){
+  var s = raw.replace(/\([^)]*\)/g,'').trim();
+  s = s.split('/')[0].trim();
+  return s.replace(/\s{2,}/g,' ');
+}
+function isVagueAggregate(s){
+  return /^(and\b|\d+\s*(other|more)\b|nearly every|more\s*\()/i.test(s) || s.length<2;
+}
+function lookupSchool(norm){
+  for(var i=0;i<SCHOOL_DOMAINS.length;i++){
+    if(SCHOOL_DOMAINS[i][0].test(norm)) return {name:SCHOOL_DOMAINS[i][1], domain:SCHOOL_DOMAINS[i][2]};
+  }
+  return null;
+}
+function schoolLogoHtml(label, domain){
+  var init = label.replace(/[^A-Za-z ]/g,'').trim().split(/\s+/).map(function(w){return w[0];}).slice(0,2).join('').toUpperCase() || '?';
+  var safeLabel = label.replace(/"/g,'');
+  if(domain){
+    var fallbackSrc = 'https://www.google.com/s2/favicons?domain='+domain+'&sz=128';
+    return '<span class="sch-logo" title="'+safeLabel+'">'+
+      '<img src="https://logos.hunter.io/'+domain+'" alt="" loading="lazy" data-fb="'+fallbackSrc+'" '+
+      'onerror="var fb=this.getAttribute(\'data-fb\');if(fb){this.removeAttribute(\'data-fb\');this.src=fb;}else{this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';}">'+
+      '<span class="sch-logo-fb">'+init+'</span>'+
+    '</span>';
+  }
+  return '<span class="sch-logo" title="'+safeLabel+'"><span class="sch-logo-fb" style="display:flex">'+init+'</span></span>';
+}
+function schoolLogoStack(list, max){
+  max = max || 4;
+  var named = [];
+  var extra = 0;
+  (list||[]).forEach(function(raw){
+    var norm = normalizeSchool(raw);
+    if(isVagueAggregate(norm)){ extra++; return; }
+    named.push(norm);
+  });
+  var shown = named.slice(0, max);
+  extra += named.length - shown.length;
+  var html = shown.map(function(norm){
+    var m = lookupSchool(norm);
+    return schoolLogoHtml(m?m.name:norm, m?m.domain:null);
+  }).join('');
+  if(extra>0) html += '<span class="sch-logo-more">+'+extra+'</span>';
+  return html;
+}
+function schoolRowsHtml(p){
+  var rows = '';
+  if((p.accepted||[]).length) rows += '<div class="sch-row"><span class="sch-row-lbl a">'+tr('schools_a_by')+'</span><span class="sch-logos">'+schoolLogoStack(p.accepted)+'</span></div>';
+  if((p.waitlisted||[]).length) rows += '<div class="sch-row"><span class="sch-row-lbl w">'+tr('schools_w_by')+'</span><span class="sch-logos">'+schoolLogoStack(p.waitlisted)+'</span></div>';
+  if((p.rejected||[]).length) rows += '<div class="sch-row"><span class="sch-row-lbl r">'+tr('schools_r_by')+'</span><span class="sch-logos">'+schoolLogoStack(p.rejected)+'</span></div>';
+  return rows;
+}
+
 function statPillsHtml(stats){
   var out=[];
   if(stats.gpa) out.push('<span class="pf-stat-pill">'+tr('stat_gpa')+': '+stats.gpa+'</span>');
@@ -897,7 +1040,7 @@ function badgeHtml(tags){
   var order=['admitted','waitlisted','rejected'];
   return order.filter(function(t){return tags.indexOf(t)>-1;}).map(function(t){
     var label = t==='admitted'?tr('f_admitted'):(t==='waitlisted'?tr('f_waitlisted'):tr('f_rejected'));
-    return '<span class="pf-badge '+t+'">'+label+'</span>';
+    return '<span class="pf-badge '+t+'">'+outcomeIcon(t)+label+'</span>';
   }).join('');
 }
 
@@ -937,6 +1080,7 @@ function cardHtml(p, num){
     '<div class="pf-badges">'+badgeHtml(p.tags)+'</div>' +
     '<div class="pf-highlight">'+p.highlight+'</div>' +
     (stats ? '<div class="pf-stats">'+stats+'</div>' : '') +
+    schoolRowsHtml(p) +
     '<div class="pf-cta" data-i18n="view_profile">View full profile</div>' +
   '</div>';
 }
@@ -956,9 +1100,9 @@ function updateStatsStrip(list){
   document.getElementById('statsStrip').innerHTML =
     '<span class="ss-item"><b>'+list.length+'</b> '+tr('strip_profiles')+'</span>'+
     '<span class="ss-item"><b>'+countries+'</b> '+tr('strip_countries')+'</span>'+
-    '<span class="ss-item"><b>'+admitted+'</b> '+tr('f_admitted')+'</span>'+
-    '<span class="ss-item"><b>'+waitlisted+'</b> '+tr('f_waitlisted')+'</span>'+
-    '<span class="ss-item"><b>'+rejected+'</b> '+tr('f_rejected')+'</span>';
+    '<span class="ss-item ss-admitted">'+ICO_CHECK+'<b>'+admitted+'</b> '+tr('f_admitted')+'</span>'+
+    '<span class="ss-item ss-waitlisted">'+ICO_CLOCK+'<b>'+waitlisted+'</b> '+tr('f_waitlisted')+'</span>'+
+    '<span class="ss-item ss-rejected">'+ICO_X+'<b>'+rejected+'</b> '+tr('f_rejected')+'</span>';
 }
 
 function syncUrl(){

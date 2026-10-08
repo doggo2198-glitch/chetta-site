@@ -14,12 +14,14 @@
   --black:#09090b;--navy:#0f1729;--blue:#2563eb;--blue2:#3b82f6;--bluepale:#eff6ff;
   --white:#fff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;
   --g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g900:#111827;
-  --green:#16a34a;--gpale:#f0fdf4;--amber:#d97706;--apale:#fffbeb;--red:#dc2626;--rpale:#fef2f2;
+  --green:#1f9d6b;--gpale:#eaf7f1;--amber:#c8860d;--apale:#fdf5e7;--red:#c0453a;--rpale:#fbeeec;
   --shadow:0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.04);
   --shadowlg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
+  --ease:cubic-bezier(.22,.8,.3,1);
   --r:10px;--rl:16px;--rxl:22px
 }
 html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--g900);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--g300);border-radius:3px}
 a{color:inherit;text-decoration:none}
@@ -65,7 +67,8 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pd-meta{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem}
 .pd-meta-tag{font-size:.74rem;font-weight:600;color:var(--g600);border:1px solid var(--g200);border-radius:4px;padding:.1rem .45rem}
 .pd-badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-left:auto;flex-shrink:0}
-.pd-badge{font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:4px;white-space:nowrap}
+.pd-badge{font-size:.7rem;font-weight:700;padding:.25rem .6rem;border-radius:4px;white-space:nowrap;display:inline-flex;align-items:center}
+.pd-badge svg{width:11px;height:11px;margin-right:.3rem;flex-shrink:0}
 .pd-badge.admitted{background:var(--gpale);color:var(--green)}
 .pd-badge.rejected{background:var(--rpale);color:var(--red)}
 .pd-badge.waitlisted{background:var(--apale);color:var(--amber)}
@@ -78,10 +81,13 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 
 .pd-section-lbl{font-size:.8rem;font-weight:600;color:var(--g500);border-left:2px solid var(--blue2);padding-left:.6rem;margin-bottom:.6rem;margin-top:1.5rem}
 .pd-sch-list{display:flex;flex-wrap:wrap;gap:.45rem}
-.pd-sch-tag{font-size:.82rem;font-weight:600;padding:.3rem .7rem;border-radius:4px}
+.pd-sch-tag{font-size:.82rem;font-weight:600;padding:.3rem .7rem .3rem .3rem;border-radius:4px;display:inline-flex;align-items:center;gap:.4rem}
 .pd-sch-tag.a{background:var(--gpale);color:var(--green)}
 .pd-sch-tag.r{background:var(--rpale);color:var(--red)}
 .pd-sch-tag.w{background:var(--apale);color:var(--amber)}
+.pd-sch-logo{width:18px;height:18px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 1px var(--g200)}
+.pd-sch-logo img{width:100%;height:100%;object-fit:contain;padding:1.5px;background:#fff}
+.pd-sch-logo-fb{display:none;width:100%;height:100%;align-items:center;justify-content:center;background:var(--g100);color:var(--g600);font-size:.5rem;font-weight:700}
 
 .pd-story{font-size:.96rem;color:var(--g700);line-height:1.75}
 .pd-ec-list{margin:0;padding-left:1.2rem;font-size:.9rem;color:var(--g700);line-height:1.65}
@@ -96,7 +102,8 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pd-nav-btn:hover{border-color:var(--g300);background:var(--g50)}
 
 .not-found{text-align:center;padding:4rem 1rem}
-.not-found .nf-ico{font-size:2.4rem;margin-bottom:.7rem}
+.not-found .nf-ico{margin-bottom:.9rem;color:var(--g400)}
+.not-found .nf-ico svg{width:30px;height:30px}
 
 footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;color:var(--g400);font-size:.78rem;margin-top:2rem}
 
@@ -728,6 +735,86 @@ var COUNTRY_FLAGS = {
   'Brazil':'🇧🇷','Philippines':'🇵🇭','South Africa':'🇿🇦','Zimbabwe':'🇿🇼','Kyrgyzstan':'🇰🇬','Kuwait':'🇰🇼','Poland':'🇵🇱'
 };
 function flagFor(country){ return COUNTRY_FLAGS[country] || '🌍'; }
+var ICO_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+var ICO_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></svg>';
+var ICO_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+var ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+
+// ---------------- university logo lookup ----------------
+var SCHOOL_DOMAINS = [
+  [/NYU Abu Dhabi|New York University Abu Dhabi/i, 'NYU Abu Dhabi', 'nyuad.nyu.edu'],
+  [/Barnard/i, 'Barnard College', 'barnard.edu'],
+  [/Harvey Mudd/i, 'Harvey Mudd', 'hmc.edu'],
+  [/Harvard/i, 'Harvard', 'harvard.edu'],
+  [/Yale/i, 'Yale', 'yale.edu'],
+  [/Princeton/i, 'Princeton', 'princeton.edu'],
+  [/Columbia/i, 'Columbia', 'columbia.edu'],
+  [/Cornell/i, 'Cornell', 'cornell.edu'],
+  [/Dartmouth/i, 'Dartmouth', 'dartmouth.edu'],
+  [/Brown/i, 'Brown', 'brown.edu'],
+  [/University of Pennsylvania|UPenn/i, 'UPenn', 'upenn.edu'],
+  [/Stanford/i, 'Stanford', 'stanford.edu'],
+  [/Massachusetts Institute|\bMIT\b/i, 'MIT', 'mit.edu'],
+  [/Caltech|California Institute of Technology/i, 'Caltech', 'caltech.edu'],
+  [/Duke/i, 'Duke', 'duke.edu'],
+  [/Northwestern/i, 'Northwestern', 'northwestern.edu'],
+  [/Johns Hopkins/i, 'Johns Hopkins', 'jhu.edu'],
+  [/Georgetown/i, 'Georgetown', 'georgetown.edu'],
+  [/Carnegie Mellon/i, 'Carnegie Mellon', 'cmu.edu'],
+  [/Georgia Institute of Technology|Georgia Tech/i, 'Georgia Tech', 'gatech.edu'],
+  [/University of Michigan/i, 'Michigan', 'umich.edu'],
+  [/University of Washington/i, 'U. Washington', 'washington.edu'],
+  [/University of Texas at Austin|UT Austin/i, 'UT Austin', 'utexas.edu'],
+  [/Emory/i, 'Emory', 'emory.edu'],
+  [/Wesleyan/i, 'Wesleyan', 'wesleyan.edu'],
+  [/Notre Dame/i, 'Notre Dame', 'nd.edu'],
+  [/Grinnell/i, 'Grinnell', 'grinnell.edu'],
+  [/Bentley/i, 'Bentley', 'bentley.edu'],
+  [/Howard/i, 'Howard', 'howard.edu'],
+  [/\bFisk\b/i, 'Fisk', 'fisk.edu'],
+  [/Stetson/i, 'Stetson', 'stetson.edu'],
+  [/University of Miami/i, 'U. Miami', 'miami.edu'],
+  [/University of Toronto/i, 'U. Toronto', 'utoronto.ca'],
+  [/Vanderbilt/i, 'Vanderbilt', 'vanderbilt.edu'],
+  [/Indiana University/i, 'Indiana U.', 'indiana.edu'],
+  [/Boston University/i, 'Boston U.', 'bu.edu'],
+  [/New York University|\bNYU\b/i, 'NYU', 'nyu.edu'],
+  [/USC|University of Southern California/i, 'USC', 'usc.edu'],
+  [/UC Berkeley|\bBerkeley\b/i, 'UC Berkeley', 'berkeley.edu'],
+  [/UCLA/i, 'UCLA', 'ucla.edu'],
+  [/UC San Diego|UCSD/i, 'UC San Diego', 'ucsd.edu'],
+  [/UC Davis/i, 'UC Davis', 'ucdavis.edu'],
+  [/UC Riverside/i, 'UC Riverside', 'ucr.edu'],
+  [/UC Santa Barbara|UCSB/i, 'UCSB', 'ucsb.edu'],
+  [/UC Santa Cruz|UCSC/i, 'UC Santa Cruz', 'ucsc.edu'],
+  [/Cal Poly San Luis Obispo|Cal Poly/i, 'Cal Poly', 'calpoly.edu'],
+  [/Cal State Long Beach/i, 'CSU Long Beach', 'csulb.edu'],
+  [/San Diego State/i, 'San Diego State', 'sdsu.edu'],
+  [/Arizona State/i, 'Arizona State', 'asu.edu']
+];
+function normalizeSchool(raw){
+  var s = raw.replace(/\([^)]*\)/g,'').trim();
+  s = s.split('/')[0].trim();
+  return s.replace(/\s{2,}/g,' ');
+}
+function lookupSchool(norm){
+  for(var i=0;i<SCHOOL_DOMAINS.length;i++){
+    if(SCHOOL_DOMAINS[i][0].test(norm)) return {name:SCHOOL_DOMAINS[i][1], domain:SCHOOL_DOMAINS[i][2]};
+  }
+  return null;
+}
+function schoolLogoIconHtml(label, domain){
+  var init = label.replace(/[^A-Za-z ]/g,'').trim().split(/\s+/).map(function(w){return w[0];}).slice(0,2).join('').toUpperCase() || '?';
+  if(domain){
+    var fallbackSrc = 'https://www.google.com/s2/favicons?domain='+domain+'&sz=64';
+    return '<span class="pd-sch-logo">'+
+      '<img src="https://logos.hunter.io/'+domain+'" alt="" loading="lazy" data-fb="'+fallbackSrc+'" '+
+      'onerror="var fb=this.getAttribute(\'data-fb\');if(fb){this.removeAttribute(\'data-fb\');this.src=fb;}else{this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';}">'+
+      '<span class="pd-sch-logo-fb">'+init+'</span>'+
+    '</span>';
+  }
+  return '<span class="pd-sch-logo"><span class="pd-sch-logo-fb" style="display:flex">'+init+'</span></span>';
+}
 
 function statPillsHtml(stats){
   var out=[];
@@ -739,11 +826,12 @@ function statPillsHtml(stats){
 }
 function badgeHtml(tags){
   var order=['admitted','waitlisted','rejected'];
-  var lbl={admitted:{en:'✅ Admitted',uz:'✅ Qabul qilingan',ru:'✅ Принят(а)'},
-           waitlisted:{en:'🕒 Waitlisted',uz:'🕒 Kutish ro\'yxatida',ru:'🕒 Список ожидания'},
-           rejected:{en:'❌ Rejected',uz:'❌ Rad etilgan',ru:'❌ Отказ'}};
+  var lbl={admitted:{en:'Admitted',uz:'Qabul qilingan',ru:'Принят(а)'},
+           waitlisted:{en:'Waitlisted',uz:'Kutish ro\'yxatida',ru:'Список ожидания'},
+           rejected:{en:'Rejected',uz:'Rad etilgan',ru:'Отказ'}};
+  var ico={admitted:ICO_CHECK,waitlisted:ICO_CLOCK,rejected:ICO_X};
   return order.filter(function(t){return tags.indexOf(t)>-1;}).map(function(t){
-    return '<span class="pd-badge '+t+'">'+lbl[t][currentLang]+'</span>';
+    return '<span class="pd-badge '+t+'">'+ico[t]+lbl[t][currentLang]+'</span>';
   }).join('');
 }
 function primaryTag(tags){
@@ -754,7 +842,12 @@ function primaryTag(tags){
 function schoolBlock(label, list, cls){
   if(!list.length) return '';
   return '<div class="pd-section-lbl">'+label+'</div><div class="pd-sch-list">'+
-    list.map(function(s){return '<span class="pd-sch-tag '+cls+'">'+s+'</span>';}).join('')+
+    list.map(function(s){
+      var norm = normalizeSchool(s);
+      var m = lookupSchool(norm);
+      var icon = m ? schoolLogoIconHtml(m.name, m.domain) : '';
+      return '<span class="pd-sch-tag '+cls+'">'+icon+s+'</span>';
+    }).join('')+
   '</div>';
 }
 function ecListHtml(list){
@@ -812,7 +905,7 @@ function renderProfile(){
     crumbName.textContent='';
     content.innerHTML =
       '<div class="not-found">'+
-        '<div class="nf-ico">🔎</div>'+
+        '<div class="nf-ico">'+ICO_SEARCH+'</div>'+
         '<div style="font-weight:700;font-size:1.1rem;margin-bottom:.4rem" data-i18n="nf_h">'+tr('nf_h')+'</div>'+
         '<div style="color:var(--g500);margin-bottom:1.2rem" data-i18n="nf_s">'+tr('nf_s')+'</div>'+
         '<a class="back-link" href="/StudentProfiles/" data-i18n="nf_btn">'+tr('nf_btn')+'</a>'+
