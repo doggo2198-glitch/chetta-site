@@ -73,7 +73,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .pd-badge.admitted{background:var(--gpale);color:var(--green)}
 .pd-badge.rejected{background:var(--rpale);color:var(--red)}
 .pd-badge.waitlisted{background:var(--apale);color:var(--amber)}
-.pd-corner-logos{display:flex;align-items:center}
+.pd-corner-logos{display:flex;align-items:center;flex-wrap:wrap;row-gap:.4rem;justify-content:flex-end;max-width:260px}
 .pd-corner-logo{width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px var(--g200);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-left:-9px;position:relative;flex-shrink:0;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
 .pd-corner-logos .pd-corner-logo:first-child{margin-left:0}
 .pd-corner-logo:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--g300),0 3px 7px rgba(0,0,0,.12);z-index:5}
@@ -851,7 +851,7 @@ function cornerLogoHtml(label, domain){
   return '<span class="pd-corner-logo" title="'+safeLabel+'"><span class="pd-corner-logo-fb" style="display:flex">'+init+'</span></span>';
 }
 function cornerLogosHtml(list, max){
-  max = max || 5;
+  max = max || 999;
   var named = [];
   var extra = 0;
   (list||[]).forEach(function(raw){

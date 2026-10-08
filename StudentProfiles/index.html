@@ -135,7 +135,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .sch-row-lbl.a{color:var(--green)}
 .sch-row-lbl.w{color:var(--amber)}
 .sch-row-lbl.r{color:var(--red)}
-.sch-logos{display:flex;align-items:center}
+.sch-logos{display:flex;align-items:center;flex-wrap:wrap;row-gap:.4rem}
 .sch-logo{width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px var(--g200);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-left:-10px;position:relative;flex-shrink:0;transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
 .sch-logos .sch-logo:first-child{margin-left:0}
 .sch-logo:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--g300),0 4px 8px rgba(0,0,0,.12);z-index:5}
@@ -1003,7 +1003,7 @@ function schoolLogoHtml(label, domain){
   return '<span class="sch-logo" title="'+safeLabel+'"><span class="sch-logo-fb" style="display:flex">'+init+'</span></span>';
 }
 function schoolLogoStack(list, max){
-  max = max || 4;
+  max = max || 999;
   var named = [];
   var extra = 0;
   (list||[]).forEach(function(raw){
