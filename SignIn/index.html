@@ -396,6 +396,7 @@ function switchTab(tab){
     document.getElementById('tab-'+tab)?.classList.add('active');
   }
 }
+(function(){try{var m=new URLSearchParams(window.location.search).get('mode');if(m==='register')switchTab('register');}catch(e){}})();
 function toggleLangMenu(e){e.stopPropagation();document.getElementById('langSw').classList.toggle('open');}
 document.addEventListener('click',()=>document.getElementById('langSw').classList.remove('open'));
 
