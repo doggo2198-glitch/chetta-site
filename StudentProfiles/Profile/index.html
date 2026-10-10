@@ -123,6 +123,16 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 
 footer{border-top:1px solid var(--g200);padding:1.6rem 2rem;text-align:center;color:var(--g400);font-size:.78rem;margin-top:2rem}
 
+
+/* mobile nav fit: keep language, Sign in and Get started on screen */
+@media(max-width:560px){
+  nav .nav-right{gap:.3rem;min-width:0}
+  #authBtns{gap:.3rem!important}
+  nav .lang-btn{padding:.35rem .5rem}
+  nav #clbl{display:none}
+  nav .btn-ghost,nav .btn-blue{white-space:nowrap;font-size:.78rem;padding:.4rem .65rem}
+}
+@media(max-width:380px){nav #authBtns .btn-ghost{display:none!important}}
 </style>
 </head>
 <body>

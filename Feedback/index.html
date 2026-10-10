@@ -228,6 +228,21 @@ html[data-theme="dark"] .fb-success p{color:var(--d-text-mute)}
 html[data-theme="dark"] .fb-success .btn-ghost{border-color:var(--d-border)}
 html[data-theme="dark"] .form-lbl,html[data-theme="dark"] .field-lbl{color:var(--d-text-dim)}
 html[data-theme="dark"] .form-in,html[data-theme="dark"] .form-ta{background:var(--d-surface2);border-color:var(--d-border);color:var(--d-text)}
+
+/* mobile nav fit: keep language, Sign in and Get started on screen */
+@media(max-width:560px){
+  nav{gap:.3rem}
+  nav .nav-logo{font-size:1.15rem;gap:.3rem}
+  nav .nav-logo img{height:28px;width:28px}
+  nav .nav-right{gap:.3rem;min-width:0}
+  #authBtns{gap:.3rem!important}
+  nav .lang-btn{padding:.35rem .5rem}
+  nav #clbl{display:none}
+  nav .btn-ghost,nav .btn-blue{white-space:nowrap;font-size:.78rem;padding:.4rem .65rem}
+  nav .nav-hamburger{margin-right:0;padding:.4rem}
+}
+@media(max-width:380px){nav #authBtns .btn-ghost{display:none!important}}
+@media(max-width:340px){nav .nav-logo em{display:none}nav .nav-logo{font-size:1.05rem}}
 </style>
 </head>
 

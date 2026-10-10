@@ -185,7 +185,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 /* CARDS */
 .cards-sec{padding:2.25rem 2rem 4rem;background:#fff}
 .cards-inner{max-width:1080px;margin:0 auto}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.15rem}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(295px,100%),1fr));gap:1.15rem}
 .u-card,.s-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:all .2s}
 .u-card:hover,.s-card:hover{border-color:rgba(37,99,235,.45);box-shadow:var(--shadowlg);transform:translateY(-2px)}
 .card-top{height:70px;display:flex;align-items:center;padding:0 1.2rem;background:var(--g900);gap:.9rem}
@@ -255,7 +255,7 @@ nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.94);backdrop-
 .amt-pill{display:inline-block;background:var(--gpale);color:var(--green);border:1px solid rgba(22,163,74,.2);padding:.22rem .8rem;border-radius:100px;font-size:.78rem;font-weight:700;margin-top:.55rem}
 
 /* VIDEOS */
-.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.15rem}
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(295px,100%),1fr));gap:1.15rem}
 .vid-card{background:#fff;border:1.5px solid var(--g200);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:all .2s}
 .vid-card:hover{border-color:rgba(37,99,235,.45);box-shadow:var(--shadowlg);transform:translateY(-2px)}
 .vid-thumb{height:150px;background:var(--g900);display:flex;align-items:center;justify-content:center;position:relative}
@@ -469,6 +469,16 @@ footer{background:var(--g900);border-top:1px solid rgba(255,255,255,.06);padding
   .desmos-panel{width:calc(100vw - 2rem);right:1rem;bottom:5rem}
 }
 
+
+/* mobile nav fit: keep language, Sign in and Get started on screen */
+@media(max-width:560px){
+  nav .nav-right{gap:.3rem;min-width:0}
+  #authBtns{gap:.3rem!important}
+  nav .lang-btn{padding:.35rem .5rem}
+  nav #clbl{display:none}
+  nav .btn-ghost,nav .btn-blue{white-space:nowrap;font-size:.78rem;padding:.4rem .65rem}
+}
+@media(max-width:380px){nav #authBtns .btn-ghost{display:none!important}}
 </style>
 </head>
 <body>
